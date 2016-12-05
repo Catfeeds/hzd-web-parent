@@ -3,9 +3,9 @@ package com.hzcf.platform.core.user.data;
 import java.math.BigDecimal;
 import java.util.Date;
 
-import com.hzcf.platform.common.model.DataEntity;
+import com.hzcf.platform.common.model.AbstractEntity;
 
-public class User  extends DataEntity{
+public class User  extends AbstractEntity{
     private String name;
 
     public String getName() {

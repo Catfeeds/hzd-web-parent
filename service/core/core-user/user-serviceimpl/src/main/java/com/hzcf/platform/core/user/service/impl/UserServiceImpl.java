@@ -4,6 +4,7 @@ package com.hzcf.platform.core.user.service.impl;
 import com.hzcf.platform.core.user.dao.UserDao;
 import com.hzcf.platform.core.user.data.User;
 import com.hzcf.platform.core.user.service.UserService;
+import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,10 +15,10 @@ import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.core.user.model.UserVO;
-import com.hzcf.platform.framework.core.service.impl.CommonBaseServiceImpl;
-import com.hzcf.platform.framework.core.storage.StorageProvider;
+import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 @Service
-public class UserServiceImpl extends CommonBaseServiceImpl<UserVO,User> implements UserService {
+public class UserServiceImpl extends AbstractBaseServiceImpl<UserVO,User> implements UserService {
 
 	private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	@Autowired
@@ -34,7 +35,7 @@ public class UserServiceImpl extends CommonBaseServiceImpl<UserVO,User> implemen
 	}
 
 	@Override
-	protected StorageProvider<User> getGenericDAO() {
+	protected IBaseDao<User> getGenericDAO() {
 		return purchaseOrderDao;
 	}
 

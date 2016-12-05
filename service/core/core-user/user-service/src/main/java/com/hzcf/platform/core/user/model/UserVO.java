@@ -1,8 +1,8 @@
 package com.hzcf.platform.core.user.model;
 
-import com.hzcf.platform.common.model.Entity;
+import com.hzcf.platform.common.model.BaseVO;
 
-public class UserVO extends Entity{
+public class UserVO extends BaseVO{
 	
 	/**
 	 * 
