@@ -1,0 +1,32 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.hzcf.core</groupId>
+	    <artifactId>service-core-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>com.hzcf.core.user</groupId>
+	<artifactId>core-user-parent</artifactId>
+	<name>core user parent</name>
+	<packaging>pom</packaging>
+
+	<modules>
+		<module>user-service</module>
+		<module>user-serviceimpl</module>
+	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.hzcf.framework</groupId>
+			<artifactId>framework-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.hzcf.framework</groupId>
+			<artifactId>framework-webmvc</artifactId>
+		</dependency>
+
+
+	</dependencies>
+</project>
+

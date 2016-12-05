@@ -1,0 +1,37 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.hzcf.core.user</groupId>
+	    <artifactId>core-user-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<artifactId>core-user-service-impl</artifactId>
+	<packaging>jar</packaging>
+	<name>core user service impl</name>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.hzcf.framework</groupId>
+			<artifactId>framework-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.hzcf.core.user</groupId>
+			<artifactId>core-user-service</artifactId>
+		</dependency>
+		
+	</dependencies>
+
+	<build>
+		<finalName>core-user-service-impl</finalName>
+	    <plugins>
+	      	<!-- Maven Jetty Plugin -->
+	      	<plugin>
+		        <groupId>org.mortbay.jetty</groupId>
+		        <artifactId>maven-jetty-plugin</artifactId>
+		        <version>6.1.10</version>
+      		</plugin>
+	    </plugins>
+	</build>
+
+</project>
