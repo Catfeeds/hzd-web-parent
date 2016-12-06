@@ -49,7 +49,11 @@
             </list>
         </property>
     </bean>
-  	
+  		<mvc:annotation-driven>
+	<mvc:argument-resolvers>
+		<bean class="com.hzcf.platform.annotation.RequestAttributeAnnotation" lazy-init="false" />
+	</mvc:argument-resolvers>
+	</mvc:annotation-driven>
   	
 	<!-- 系统异常转换 -->  
     <bean class="com.hzcf.platform.framework.webmvc.interceptor.SystemHanlderExceptionResolver" />
