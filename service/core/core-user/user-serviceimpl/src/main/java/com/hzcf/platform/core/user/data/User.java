@@ -6,9 +6,19 @@ import java.util.Date;
 import com.hzcf.platform.common.model.AbstractEntity;
 
 public class User  extends AbstractEntity{
+	
+	private String password;
     private String name;
 
-    public String getName() {
+    public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getName() {
         return name;
     }
 

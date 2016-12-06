@@ -11,10 +11,14 @@
 
 
 	<context:component-scan base-package="com.hzcf.platform.api.user.controller" />
-     
+     <!-- 自定义jackson bean -->
+    <bean id="objectMapper" class="com.hzcf.platform.common.cache.bean.JacksonBean"/>
     <mvc:annotation-driven>
     	<mvc:argument-resolvers>
 			<bean class="com.hzcf.platform.annotation.RequestAttributeAnnotation" lazy-init="false" />
+			 <bean class="com.hzcf.platform.annotation.RequestBodyFormResolver">
+                <property name="mapper" ref="objectMapper"/>
+            </bean>
 		</mvc:argument-resolvers>
     </mvc:annotation-driven>
      
