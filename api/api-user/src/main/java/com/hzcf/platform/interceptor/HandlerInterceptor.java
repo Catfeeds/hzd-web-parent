@@ -13,7 +13,6 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.hzcf.platform.api.user.common.BackResult;
 import com.hzcf.platform.common.cache.utils.JsonUtil;
 import com.hzcf.platform.core.Constants;
 import com.hzcf.platform.core.user.model.RequestAgent;
@@ -32,11 +31,11 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter {
         if (handler instanceof HandlerMethod) {
         	
 			StringBuffer url = request.getRequestURL();
-			// 获取域名
+			// 获取域名 
 			String host = url.delete(url.length() - request.getRequestURI().length(), url.length())
 					.append(request.getServletContext().getContextPath()).append("/").toString();
 			String agent = request.getHeader("user-agent");
-
+			
 			String[] split = agent.split("#");
 			RequestAgent ra = new RequestAgent();
 			// 安卓 /IOS 规范 

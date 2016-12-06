@@ -1,8 +1,7 @@
-package com.hzcf.platform.api.user.controller;
+/*package com.hzcf.platform.api.user.controller;
 
 import com.hzcf.platform.api.user.common.FormBeanHelper;
 import com.hzcf.platform.api.user.common.UserResponseBuilder;
-import com.hzcf.platform.api.user.form.UserForm;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,11 +26,11 @@ public class UserController {
 			@RequestParam(defaultValue="1") Integer pageNo
 			){
 		//SupplierBasicVO supplierUser = (SupplierBasicVO)WebRuntimeContextHolder.getRuntimeContext().getUser();
-/*		if(null == supplierUser){
+		if(null == supplierUser){
 			Result<String> result = new Result<String>(StatusCodes.UNAUTHORIZED,null);
 			result.setMsg("supplierBasicVO is null,do you login?");
 			return ResponseBuilder.instance().body(result).build();
-		}*/
+		}
 		//获得cookie中的supplier信息
 		//String supplierId = supplierUser.getSupplierId();
 
@@ -49,5 +48,6 @@ public class UserController {
 	}
 	
 
-	
+	}
 }
+*/

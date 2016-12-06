@@ -57,11 +57,11 @@
 			<groupId>com.hzcf.framework</groupId>
 			<artifactId>framework-webmvc</artifactId>
 		</dependency>
-		  <dependency>
+<!-- 		  <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-web</artifactId>
             <version>${spring.version}</version>
-        </dependency>
+        </dependency> -->
 		<dependency>
 			<groupId>com.hzcf.core.user</groupId>
 			<artifactId>core-user-service</artifactId>

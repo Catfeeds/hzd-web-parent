@@ -12,7 +12,9 @@ public class UserVO extends BaseVO{
 	private String name;
 	private String password;
 	
-	
+	public UserVO(){
+		
+	}
 	public UserVO(String name,String password){
 		this.name=name;
 		this.password=password;
