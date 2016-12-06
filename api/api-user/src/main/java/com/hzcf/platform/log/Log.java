@@ -1,4 +1,4 @@
-package com.hzcf.platform.api.user.log;
+package com.hzcf.platform.log;
 
 
 import org.slf4j.Logger;
