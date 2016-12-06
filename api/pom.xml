@@ -8,17 +8,18 @@
 	</parent>
 	<groupId>com.hzcf.api</groupId>
 	<artifactId>api-parent</artifactId>
-	<name>api parent</name>	
+	<name>api parent</name>
 	<packaging>pom</packaging>
-	
+
 	<modules>
 		<module>api-user</module>
 	</modules>
-<dependencies>
-	<dependency>
-		<groupId>com.hzcf.core.user</groupId>
-		<artifactId>core-user-service</artifactId>
-	</dependency>
-</dependencies>
+	<dependencies>
+		<dependency>
+			<groupId>com.hzcf.core.user</groupId>
+			<artifactId>core-user-service</artifactId>
+		</dependency>
+		
+	</dependencies>
 </project>
 
