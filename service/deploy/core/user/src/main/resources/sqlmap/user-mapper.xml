@@ -6,13 +6,14 @@
 <mapper namespace="com.hzcf.platform.core.user.data.User">
 	
 	<resultMap id="BaseResultMap" type="USER">
-		<id column="id" property="id"/>
+		<result column="id" property="id" jdbcType="VARCHAR"/>
 		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
 		<result column="createTime" property="createTime" jdbcType="DATE" />
 	</resultMap>
 	<sql id="Base_Column_List">
 		id,
+		mobile,
 		password,
 		createTime
 	</sql>
@@ -34,7 +35,7 @@
 	<sql id="ORDER_COLUMN">id</sql>
 
 	<sql id="INSERT_VALUE">
-	  #{id},
+	  #{id,jdbcType=VARCHAR}
       #{mobile,jdbcType=VARCHAR}
       #{password,jdbcType=VARCHAR}
       #{createTime,jdbcType=DATE}
@@ -62,6 +63,9 @@
 			id=#{id}
 		</where>  
 	</select>
+		<select id="selectByMobile" parameterType="String" resultType="USER">
+		SELECT id,mobile,password,createTime FROM user WHERE mobile=#{mobile}
+	</select>
 
 	<delete id="deleteById" parameterType="long">
 		DELETE FROM <include refid="TABLE_NAME" />
@@ -80,17 +84,19 @@
 		</where>   
 	</update>
 	    
-	<insert id="insert"  useGeneratedKeys="true" keyProperty="id"  parameterType="USER">
-	    INSERT INTO <include refid="TABLE_NAME" />( 
+	<insert id="insert"   parameterType="USER">
+	 <!--    INSERT INTO <include refid="TABLE_NAME" />( 
 		<include refid="Base_Column_List"></include>
 		) 
 		VALUES(
 		<include refid="INSERT_VALUE"></include>
-		)   
+		)   --> 
+		insert into user(id,mobile,password,createTime)  
+             values(#{id},#{mobile},#{password},#{createTime})  
 	</insert>
 	
 	<!-- 批量插入 -->
-	<insert id="batchInsert"  useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
+	<insert id="batchInsert"    useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
 		insert into <include refid="TABLE_NAME" /> (
 		name)
 		values
