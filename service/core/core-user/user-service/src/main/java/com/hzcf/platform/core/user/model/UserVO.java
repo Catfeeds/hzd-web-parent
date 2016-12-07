@@ -9,14 +9,14 @@ public class UserVO extends BaseVO{
 	 */
 	private static final long serialVersionUID = 9188703063339311809L;
 
-	private String name;
+	private String mobile;
 	private String password;
 	
 	public UserVO(){
 		
 	}
-	public UserVO(String name,String password){
-		this.name=name;
+	public UserVO(String mobile,String password){
+		this.mobile=mobile;
 		this.password=password;
 	}
 	public String getPassword() {
@@ -27,12 +27,12 @@ public class UserVO extends BaseVO{
 		this.password = password;
 	}
 
-	public String getName() {
-		return name;
+	public String getMobile() {
+		return mobile;
 	}
 
-	public void setName(String name) {
-		this.name = name;
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
 	}
 }
 

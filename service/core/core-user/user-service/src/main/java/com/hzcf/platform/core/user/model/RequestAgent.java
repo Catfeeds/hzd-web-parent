@@ -1,6 +1,6 @@
 package com.hzcf.platform.core.user.model;
 
-import com.hzcf.platform.common.cache.utils.JsonUtil;
+import com.hzcf.platform.common.util.json.parser.JsonUtil;
 
 /**
  * Created by Jacobow on 2016/6/25. 请求信息

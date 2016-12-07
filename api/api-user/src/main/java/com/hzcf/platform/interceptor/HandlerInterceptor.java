@@ -13,11 +13,11 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.hzcf.platform.common.cache.utils.JsonUtil;
+import com.hzcf.platform.common.util.json.parser.JsonUtil;
+import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.core.Constants;
 import com.hzcf.platform.core.user.model.RequestAgent;
 import com.hzcf.platform.core.user.model.UserVO;
-import com.hzcf.platform.log.Log;
 
 public class HandlerInterceptor extends HandlerInterceptorAdapter {
 	

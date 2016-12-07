@@ -1,6 +1,6 @@
 package com.hzcf.platform.api.user.common;
 
-import com.hzcf.platform.common.cache.utils.JsonUtil;
+import com.hzcf.platform.common.util.json.parser.JsonUtil;
 
 public class BackResult {
 	  private static final long serialVersionUID = 2177938600160116668L;
