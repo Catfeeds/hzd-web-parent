@@ -23,7 +23,8 @@ public class UserServiceImpl extends AbstractBaseServiceImpl<UserVO,User> implem
 	private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
 	@Autowired
 	private UserDao purchaseOrderDao;
-
+	
+	
 	@Override
 	protected UserVO getModel() {
 		return new UserVO();

@@ -18,5 +18,5 @@ import com.hzcf.platform.core.user.model.UserVO;
  */
 public interface IUserService {
 	
-	public BackResult Register(UserVO user);
+	public BackResult register(UserVO user);
 }

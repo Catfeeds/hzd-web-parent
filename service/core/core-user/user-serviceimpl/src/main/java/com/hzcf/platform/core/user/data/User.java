@@ -1,14 +1,12 @@
 package com.hzcf.platform.core.user.data;
 
-import java.math.BigDecimal;
-import java.util.Date;
 
 import com.hzcf.platform.common.model.AbstractEntity;
 
 public class User  extends AbstractEntity{
 	
+	private String mobile;
 	private String password;
-    private String mobile;
 
     public String getPassword() {
 		return password;
@@ -22,7 +20,7 @@ public class User  extends AbstractEntity{
         return mobile;
     }
 
-    public void setName(String mobile) {
+    public void setMobile(String mobile) {
         this.mobile = mobile;
     }
 }

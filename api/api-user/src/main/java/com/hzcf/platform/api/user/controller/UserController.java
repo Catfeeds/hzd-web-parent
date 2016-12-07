@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hzcf.platform.annotation.RequestBodyForm;
 import com.hzcf.platform.api.user.common.BackResult;
 import com.hzcf.platform.api.user.service.IUserService;
-import com.hzcf.platform.common.cache.ICache;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.core.user.model.UserVO;
 
@@ -28,15 +27,14 @@ import com.hzcf.platform.core.user.model.UserVO;
 @RestController
 public class UserController {
 	private static final Log logger = Log.getLogger(UserController.class);
-    @Autowired
-    private ICache cache;
+    
 	@Autowired
 	IUserService registerUserService;
 	
 	@RequestMapping(value="/api/user/register/{type}",method=RequestMethod.POST)
 	public BackResult register(@RequestBodyForm UserVO user){
 		logger.i("进入用户注册功能 ====入参====UserVO:"+user.toString());
-		return registerUserService.Register(user);
+		return registerUserService.register(user);
 	}
 	
 	
