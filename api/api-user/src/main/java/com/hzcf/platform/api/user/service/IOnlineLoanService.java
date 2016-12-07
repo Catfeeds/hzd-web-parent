@@ -1,11 +1,12 @@
 package com.hzcf.platform.api.user.service;
 
+import com.hzcf.platform.api.model.OnlineLoanInfo;
 import com.hzcf.platform.api.user.common.BackResult;
 import com.hzcf.platform.core.user.model.UserVO;
 
 /**
  * 
- * @description:在线进件申请和查询
+ * @description:
  * @author 雷佳明
  * @version 1.0
  * 
@@ -16,9 +17,9 @@ import com.hzcf.platform.core.user.model.UserVO;
  * 2016年12月7日                       雷佳明                           1.0       1.0 Version 
  * </pre>
  */
-public interface IUserService {
+public interface IOnlineLoanService {
 	
-	public BackResult register(UserVO user);
+	public BackResult OnlineLoanApply(UserVO user,OnlineLoanInfo onlineLoanInfo);
 	
-	public BackResult logonUser(UserVO user);
+	public BackResult OnlineLoanQuery(UserVO user);
 }

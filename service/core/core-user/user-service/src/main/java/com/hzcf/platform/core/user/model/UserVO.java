@@ -9,17 +9,28 @@ public class UserVO extends BaseVO{
 	 * 
 	 */
 	private static final long serialVersionUID = 9188703063339311809L;
-
+	private String token;
 	private String mobile;
 	private String password;
 	
 	public UserVO(){
 		
 	}
+	
 	public UserVO(String mobile,String password){
 		this.mobile=mobile;
 		this.password=password;
 	}
+	
+	
+	public String getToken() {
+		return token;
+	}
+
+	public void setToken(String token) {
+		this.token = token;
+	}
+
 	public String getPassword() {
 		return password;
 	}

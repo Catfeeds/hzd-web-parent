@@ -36,4 +36,6 @@ public class BaseConfig {
 	 * REDIS
 	 */
 	public static final String REDIS_PREFIXED = "MYF_REDIS";
+	
+	public static final String USER_TYPE="user";
 }

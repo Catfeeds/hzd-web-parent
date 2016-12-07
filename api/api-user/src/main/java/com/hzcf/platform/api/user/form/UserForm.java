@@ -7,25 +7,28 @@ import java.util.Date;
 public class UserForm implements Serializable{
 
 	private static final long serialVersionUID = 1999518194615108530L;
-	private Long id;
-	private String name;
+	private transient String token;    // 用户登录token
 
-	public Long getId() {
-		return id;
-	}
+    private String userId;   // 用户唯一标识
 
-	public void setId(Long id) {
-		this.id = id;
-	}
+    private String username; // 用户登录名
 
-	public String getName() {
-		return name;
-	}
+    private String password; // 用户密码
 
-	public void setName(String name) {
-		this.name = name;
-	}
-	
+	private String nickName; // 用户昵称
+
+    private boolean enabled; // 是否可用
+
+	private String status;	 // 用户状态
+
+	private String confirmPassword;
+	private String oldPassword;
+
+	private boolean accountExpired;     // 账号过期
+	private boolean accountLocked;      // 账号锁定
+	private boolean credentialsExpired; // 证书过期
+
+	private String tempPageUrl;
 	
 
 }

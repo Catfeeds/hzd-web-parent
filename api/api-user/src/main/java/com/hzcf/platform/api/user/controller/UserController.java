@@ -31,11 +31,16 @@ public class UserController {
 	@Autowired
 	IUserService registerUserService;
 	
-	@RequestMapping(value="/api/user/register/{type}",method=RequestMethod.POST)
+	@RequestMapping(value="/api/user/register",method=RequestMethod.POST)
 	public BackResult register(@RequestBodyForm UserVO user){
 		logger.i("进入用户注册功能 ====入参====UserVO:"+user.toString());
 		return registerUserService.register(user);
 	}
 	
+	@RequestMapping(value="/api/user/logon",method=RequestMethod.POST)
+	public BackResult logonUser(@RequestBodyForm UserVO user){
+		logger.i("进入用户登录功能 ====入参====UserVO:"+user.toString());
+		return registerUserService.logonUser(user);
+	}
 	
 }

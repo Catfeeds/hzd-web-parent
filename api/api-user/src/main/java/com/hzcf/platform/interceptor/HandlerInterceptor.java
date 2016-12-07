@@ -9,20 +9,24 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.hzcf.platform.common.cache.ICache;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
-import com.hzcf.platform.core.Constants;
+import com.hzcf.platform.core.ConstantsToken;
 import com.hzcf.platform.core.user.model.RequestAgent;
 import com.hzcf.platform.core.user.model.UserVO;
 
 public class HandlerInterceptor extends HandlerInterceptorAdapter {
 	
 	private static Log logger = Log.getLogger(HandlerInterceptor.class);
-	
+	@Autowired
+    private ICache cache;
 	/* @Autowired
     private TokenManager manager;*/
     public boolean preHandle(HttpServletRequest request,
@@ -35,7 +39,7 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter {
 			String host = url.delete(url.length() - request.getRequestURI().length(), url.length())
 					.append(request.getServletContext().getContextPath()).append("/").toString();
 			String agent = request.getHeader("user-agent");
-			
+			/*	
 			String[] split = agent.split("#");
 			RequestAgent ra = new RequestAgent();
 			// 安卓 /IOS 规范 
@@ -46,23 +50,32 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter {
 				//微信规范
 				ra.setTerminal(agent);
 				ra.setVersion("-1");
-			}
-			UserVO uesr = new UserVO("123","456");
-			request.setAttribute("user", uesr);// 访问用户
-            return true;
+			}*/
+			
         }
         HandlerMethod handlerMethod = (HandlerMethod) handler;
         Method method = handlerMethod.getMethod();
         //从header中得到token
-        String authorization = request.getHeader(Constants.AUTHORIZATION);
-      
-        //验证token
+        String token = request.getHeader(ConstantsToken.AUTHORIZATION);
+        if(StringUtils.isBlank(token)){
+        	  response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+        	return false;
+        }
+        UserVO uesr = (UserVO)cache.load(ConstantsToken.USER_CACHE_KEY+token);
+        if(uesr!=null){
+        	request.setAttribute("user", uesr);// 访问用户
+        	return true;
+        }
+        response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        return false;
+        
+    /*    //验证token
         //TokenModel model = manager.getToken(authorization);
-     /*   if (authorization) {
+        if (authorization) {
             //如果token验证成功，将token对应的用户id存在request中，便于之后注入
             request.setAttribute(Constants.CURRENT_USER_ID, model.getUserId());
             return true;
-        }*/
+        }
         //如果验证token失败，并且方法注明了Authorization，返回401错误
         Map<String, Object> map = new HashMap<String, Object>();
         response.setCharacterEncoding("UTF-8");  
@@ -86,19 +99,17 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter {
         }
         
         System.out.println("进入true");
-        return true;
+        return true;*/
     }
     
     @Override    
    public void afterCompletion(HttpServletRequest request,    
                 HttpServletResponse response, Object handler, Exception ex)    
                throws Exception {    
-           System.out.println("aaaa");
        }    
     
     public void postHandle(HttpServletRequest request,  
     		            HttpServletResponse response, Object o, ModelAndView mav)  
     		           throws Exception {  
-    		        System.out.println("postHandle");  
     		    }  
 }
