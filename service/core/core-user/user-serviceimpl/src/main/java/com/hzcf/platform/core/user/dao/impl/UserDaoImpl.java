@@ -9,5 +9,5 @@ import org.springframework.stereotype.Repository;
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 @Repository
 public class UserDaoImpl  extends AbstractMysqlBaseDaoImpl<User> implements UserDao {
-
+	
 }

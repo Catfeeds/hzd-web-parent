@@ -8,7 +8,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hzcf.platform.annotation.RequestBodyForm;
 import com.hzcf.platform.api.user.common.BackResult;
-import com.hzcf.platform.api.user.service.RegisterUserService;
+import com.hzcf.platform.api.user.service.IUserService;
 import com.hzcf.platform.common.cache.ICache;
 import com.hzcf.platform.common.cache.redis.IKVCacheService;
 import com.hzcf.platform.core.user.model.UserVO;
@@ -32,7 +32,7 @@ public class RegisterUserController {
     @Autowired
     private ICache cache;
 	@Autowired
-	RegisterUserService registerUserService;
+	IUserService registerUserService;
 	@RequestMapping(value="/register",method=RequestMethod.POST)
 	public BackResult register(@RequestBodyForm UserVO user){
 		cache.save("useraaa", user);

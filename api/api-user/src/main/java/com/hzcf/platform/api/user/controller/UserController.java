@@ -1,53 +1,43 @@
-/*package com.hzcf.platform.api.user.controller;
+package com.hzcf.platform.api.user.controller;
 
-import com.hzcf.platform.api.user.common.FormBeanHelper;
-import com.hzcf.platform.api.user.common.UserResponseBuilder;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
-import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.annotation.RequestBodyForm;
+import com.hzcf.platform.api.user.common.BackResult;
+import com.hzcf.platform.api.user.service.IUserService;
+import com.hzcf.platform.common.cache.ICache;
+import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.core.user.model.UserVO;
-import com.hzcf.platform.core.user.service.UserService;
 
+/**
+ * 
+ * @description:用户注册
+ * @author lei
+ * @version 1.0
+ * 
+ * <pre>
+ * Modification History: 
+ * Date              Author      Version     Description 
+ * ------------------------------------------------------------------ 
+ * 2016年12月6日                  lei      1.0       1.0 Version 
+ * </pre>
+ */
 @RestController
 public class UserController {
-	private Logger logger = LoggerFactory.getLogger(UserController.class);
-	
+	private static final Log logger = Log.getLogger(UserController.class);
+    @Autowired
+    private ICache cache;
 	@Autowired
-	private UserService userService;
-
-	@RequestMapping(value="/users",method=RequestMethod.GET)
-	public ResponseEntity<Object> getPageList(
-			@RequestParam(defaultValue="10") Integer pageSize,
-			@RequestParam(defaultValue="1") Integer pageNo
-			){
-		//SupplierBasicVO supplierUser = (SupplierBasicVO)WebRuntimeContextHolder.getRuntimeContext().getUser();
-		if(null == supplierUser){
-			Result<String> result = new Result<String>(StatusCodes.UNAUTHORIZED,null);
-			result.setMsg("supplierBasicVO is null,do you login?");
-			return ResponseBuilder.instance().body(result).build();
-		}
-		//获得cookie中的supplier信息
-		//String supplierId = supplierUser.getSupplierId();
-
-		PaginatedResult<UserVO> result = userService.findList(pageSize,pageNo);
-		return UserResponseBuilder.instance().body(
-				FormBeanHelper.convertVOPagingResult2FormResult(UserForm.class, result)).build();
+	IUserService registerUserService;
+	
+	@RequestMapping(value="/api/user/register/{type}",method=RequestMethod.POST)
+	public BackResult register(@RequestBodyForm UserVO user){
+		logger.i("进入用户注册功能 ====入参====UserVO:"+user.toString());
+		return registerUserService.Register(user);
 	}
 	
-	@RequestMapping(value="/users/{id}",method=RequestMethod.GET)
-	public ResponseEntity<Object>  getPurchaseOrder(@PathVariable Long id){
-		Result<UserVO> result = userService.getByPK(id);
-		Result<UserForm> formResult =
-				FormBeanHelper.convertVOResult2FormResult(UserForm.class, result);
-		return UserResponseBuilder.instance().body(formResult).build();
-	}
 	
-
-	}
 }
-*/

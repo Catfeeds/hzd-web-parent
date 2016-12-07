@@ -8,7 +8,7 @@ import com.hzcf.platform.common.model.AbstractEntity;
 public class User  extends AbstractEntity{
 	
 	private String password;
-    private String name;
+    private String mobile;
 
     public String getPassword() {
 		return password;
@@ -18,11 +18,11 @@ public class User  extends AbstractEntity{
 		this.password = password;
 	}
 
-	public String getName() {
-        return name;
+	public String getMobile() {
+        return mobile;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setName(String mobile) {
+        this.mobile = mobile;
     }
 }

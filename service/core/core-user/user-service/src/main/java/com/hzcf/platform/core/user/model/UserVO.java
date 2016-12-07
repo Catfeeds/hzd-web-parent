@@ -1,6 +1,7 @@
 package com.hzcf.platform.core.user.model;
 
 import com.hzcf.platform.common.model.BaseVO;
+import com.hzcf.platform.common.util.json.parser.JsonUtil;
 
 public class UserVO extends BaseVO{
 	
@@ -34,6 +35,11 @@ public class UserVO extends BaseVO{
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
+	@Override
+	public String toString() {
+		return JsonUtil.json2String(this);
+	}
+	
 }
 
 

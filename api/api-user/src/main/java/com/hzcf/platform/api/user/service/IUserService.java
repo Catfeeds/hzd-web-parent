@@ -5,18 +5,18 @@ import com.hzcf.platform.core.user.model.UserVO;
 
 /**
  * 
- * @description:用户注册
- * @author lei
+ * @description:
+ * @author 雷佳明
  * @version 1.0
  * 
  * <pre>
  * Modification History: 
  * Date              Author      Version     Description 
  * ------------------------------------------------------------------ 
- * 2016年12月6日                         lei         1.0       1.0 Version 
+ * 2016年12月7日                       雷佳明                           1.0       1.0 Version 
  * </pre>
  */
-public interface RegisterUserService {
+public interface IUserService {
 	
 	public BackResult Register(UserVO user);
 }
