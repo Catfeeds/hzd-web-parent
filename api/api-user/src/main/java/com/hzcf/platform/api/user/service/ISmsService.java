@@ -9,17 +9,17 @@ import com.hzcf.platform.core.user.model.UserVO;
 public interface ISmsService {
 	/**
 	 * 用户注册验证码
-	 * @param user
+	 * @param mobile
 	 * @return
 	 */
-	public BackResult registerSms(UserVO user);
+	public BackResult registerSms(String mobile);
 	
 	/**
 	 * 用户找回密码验证码
-	 * @param user
+	 * @param mobile
 	 * @return
 	 */
-	public BackResult findPwdSms(UserVO user);
+	public BackResult findPwdSms(String mobile);
 	
 	/**
 	 * 用户修改密码验证码
