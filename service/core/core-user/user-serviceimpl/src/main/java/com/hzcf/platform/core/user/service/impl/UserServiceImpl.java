@@ -9,6 +9,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
@@ -40,6 +42,21 @@ public class UserServiceImpl extends AbstractBaseServiceImpl<UserVO,User> implem
 		return purchaseOrderDao;
 	}
 
+	@Override
+	@Transactional(propagation = Propagation.NESTED)
+	public Result<Boolean> updateMobile(UserVO user) {
+		try {
+			User t = toDO(user);
+			purchaseOrderDao.updateMobile(t);
+			return new Result<Boolean>(StatusCodes.OK, true);
+		} catch (Exception e) {
+			logger.error("an error occur in update service : {}", e);
+			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
+		}
+	}
+
+	
+	
 
 	
 
