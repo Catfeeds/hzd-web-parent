@@ -6,7 +6,7 @@ import com.hzcf.platform.core.user.model.UserVO;
 
 /**
  * 
- * @description:
+ * @description:进件申请或查询功能
  * @author 雷佳明
  * @version 1.0
  * 

@@ -1,7 +1,19 @@
 package com.hzcf.platform.api.user.common;
 
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
-
+/**
+ * 
+ * @description:响应码
+ * @author 雷佳明
+ * @version 1.0
+ * 
+ * <pre>
+ * Modification History: 
+ * Date              Author      Version     Description 
+ * ------------------------------------------------------------------ 
+ * 2016年12月8日                       雷佳明                           1.0       1.0 Version 
+ * </pre>
+ */
 public class BackResult {
 	  private static final long serialVersionUID = 2177938600160116668L;
 

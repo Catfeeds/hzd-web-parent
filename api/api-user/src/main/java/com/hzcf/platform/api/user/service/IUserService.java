@@ -5,7 +5,7 @@ import com.hzcf.platform.core.user.model.UserVO;
 
 /**
  * 
- * @description:在线进件申请和查询
+ * @description:登录和注册
  * @author 雷佳明
  * @version 1.0
  * 

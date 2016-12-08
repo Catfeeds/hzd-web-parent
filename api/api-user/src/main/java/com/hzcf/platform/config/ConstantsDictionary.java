@@ -5,7 +5,19 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Properties;
-
+/**
+ * 
+ * @description:读取配置信息
+ * @author 雷佳明
+ * @version 1.0
+ * 
+ * <pre>
+ * Modification History: 
+ * Date              Author      Version     Description 
+ * ------------------------------------------------------------------ 
+ * 2016年12月8日                       雷佳明                           1.0       1.0 Version 
+ * </pre>
+ */
 public class ConstantsDictionary {
 	
 	static {

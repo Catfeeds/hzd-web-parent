@@ -15,15 +15,15 @@ import org.springframework.web.method.support.ModelAndViewContainer;
 
 /**
  * 
- * @description:增加方法注入，将含有RequestAttribute注解的方法参数注入当前登录用户
- * @author lei
+ * @description:
+ * @author 雷佳明
  * @version 1.0
  * 
  * <pre>
  * Modification History: 
  * Date              Author      Version     Description 
  * ------------------------------------------------------------------ 
- * 2016年12月6日                         lei      1.0       1.0 Version 
+ * 2016年12月8日                       雷佳明                           1.0       1.0 Version 
  * </pre>
  */
 @Component

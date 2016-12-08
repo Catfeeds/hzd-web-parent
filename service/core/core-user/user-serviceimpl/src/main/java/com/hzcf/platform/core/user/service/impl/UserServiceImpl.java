@@ -41,7 +41,7 @@ public class UserServiceImpl extends AbstractBaseServiceImpl<UserVO,User> implem
 	protected IBaseDao<User> getGenericDAO() {
 		return purchaseOrderDao;
 	}
-
+	
 	@Override
 	@Transactional(propagation = Propagation.NESTED)
 	public Result<Boolean> updateMobile(UserVO user) {

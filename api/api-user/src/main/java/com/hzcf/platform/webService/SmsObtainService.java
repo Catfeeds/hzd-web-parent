@@ -27,14 +27,14 @@ import net.sf.json.JSONObject;
 /**
  * 
  * @description: 获取短信Service
- * @author leijiaming
+ * @author 雷佳明
  * @version 1.0
  * 
  * <pre>
  * Modification History: 
  * Date              Author      Version     Description 
  * ------------------------------------------------------------------ 
- * 2016年11月18日            leijiaming      1.0       1.0 Version 
+ * 2016年11月18日                     雷佳明                          1.0       1.0 Version 
  * </pre>
  */
 public class SmsObtainService {

@@ -5,15 +5,15 @@ import java.lang.annotation.*;
 
 /**
  * 
- * @description:同时支持json及from提交
- * @author lei
+ * @description:
+ * @author 雷佳明
  * @version 1.0
  * 
  * <pre>
  * Modification History: 
  * Date              Author      Version     Description 
  * ------------------------------------------------------------------ 
- * 2016年12月6日                        lei          1.0       1.0 Version 
+ * 2016年12月8日                       雷佳明                           1.0       1.0 Version 
  * </pre>
  */
 @Target(ElementType.PARAMETER)

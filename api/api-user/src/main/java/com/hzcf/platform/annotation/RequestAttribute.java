@@ -9,10 +9,17 @@ import java.lang.annotation.Target;
 import org.springframework.stereotype.Component;
 
 /**
- * 在Controller的方法参数中使用此注解，该方法在映射时会注入当前登录的User对象
- * @see com.RequestAttributeAnnotation.authorization.resolvers.CurrentUserMethodArgumentResolver
- * @author ScienJus
- * @date 2015/7/31.
+ * 
+ * @description:
+ * @author 雷佳明
+ * @version 1.0
+ * 
+ * <pre>
+ * Modification History: 
+ * Date              Author      Version     Description 
+ * ------------------------------------------------------------------ 
+ * 2016年12月8日                       雷佳明                           1.0       1.0 Version 
+ * </pre>
  */
 @Target(ElementType.PARAMETER)
 @Retention(RetentionPolicy.RUNTIME)

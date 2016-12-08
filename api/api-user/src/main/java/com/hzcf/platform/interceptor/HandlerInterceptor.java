@@ -21,7 +21,19 @@ import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.core.ConstantsToken;
 import com.hzcf.platform.core.user.model.RequestAgent;
 import com.hzcf.platform.core.user.model.UserVO;
-
+/**
+ * 
+ * @description:自定义拦截器
+ * @author 雷佳明
+ * @version 1.0
+ * 
+ * <pre>
+ * Modification History: 
+ * Date              Author      Version     Description 
+ * ------------------------------------------------------------------ 
+ * 2016年12月8日                       雷佳明                           1.0       1.0 Version 
+ * </pre>
+ */
 public class HandlerInterceptor extends HandlerInterceptorAdapter {
 	
 	private static Log logger = Log.getLogger(HandlerInterceptor.class);

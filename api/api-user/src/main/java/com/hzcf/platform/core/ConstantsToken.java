@@ -1,9 +1,17 @@
 package com.hzcf.platform.core;
 
 /**
- * 常量
- * @author lei
- * @date 2016/12/06
+ * 
+ * @description:token 长亮
+ * @author 雷佳明
+ * @version 1.0
+ * 
+ * <pre>
+ * Modification History: 
+ * Date              Author      Version     Description 
+ * ------------------------------------------------------------------ 
+ * 2016年12月8日                       雷佳明                           1.0       1.0 Version 
+ * </pre>
  */
 public class ConstantsToken {
 

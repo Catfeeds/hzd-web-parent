@@ -2,7 +2,19 @@ package com.hzcf.platform.api.model;
 
 
 import java.io.Serializable;
-
+/**
+ * 
+ * @description:返回响应信息
+ * @author 雷佳明
+ * @version 1.0
+ * 
+ * <pre>
+ * Modification History: 
+ * Date              Author      Version     Description 
+ * ------------------------------------------------------------------ 
+ * 2016年12月8日                       雷佳明                           1.0       1.0 Version 
+ * </pre>
+ */
 public class BaseState implements Serializable{
 	
 	/**

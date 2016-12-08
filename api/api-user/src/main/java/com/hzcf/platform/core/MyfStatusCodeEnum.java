@@ -3,10 +3,17 @@ package com.hzcf.platform.core;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 
 /**
- * MyfStatusCodeEnum callback code
  * 
- * @author kayson Yang
- * @date 2016/6/19 0017
+ * @description:枚举状态码
+ * @author 雷佳明
+ * @version 1.0
+ * 
+ * <pre>
+ * Modification History: 
+ * Date              Author      Version     Description 
+ * ------------------------------------------------------------------ 
+ * 2016年12月8日                       雷佳明                           1.0       1.0 Version 
+ * </pre>
  */
 public enum MyfStatusCodeEnum {
 
