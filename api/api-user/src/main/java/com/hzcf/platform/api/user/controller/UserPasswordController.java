@@ -12,7 +12,7 @@ import com.hzcf.platform.annotation.RequestBodyForm;
 import com.hzcf.platform.api.user.common.BackResult;
 import com.hzcf.platform.api.user.property.RockProperty;
 import com.hzcf.platform.api.user.service.IOnlineLoanService;
-
+import com.hzcf.platform.api.user.service.IUserpwdForService;
 import com.hzcf.platform.common.cache.ICache;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.config.BaseConfig;
