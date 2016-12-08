@@ -1,5 +1,7 @@
 package com.hzcf.platform.api.user.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -9,8 +11,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hzcf.platform.annotation.RequestAttribute;
 import com.hzcf.platform.api.user.common.BackResult;
 import com.hzcf.platform.api.user.service.ISmsService;
+import com.hzcf.platform.common.cache.ICache;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.config.BaseConfig;
+import com.hzcf.platform.config.ConstantsDictionary;
+import com.hzcf.platform.core.ConstantsToken;
+import com.hzcf.platform.core.MyfStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;
 
 /**
@@ -25,6 +31,9 @@ public class SmsController {
 	
     @Autowired
     ISmsService smsService;
+    
+    @Autowired
+    private ICache cache;
     
     /**
 	 * 用户注册
@@ -58,11 +67,6 @@ public class SmsController {
 		logger.i("进入修改密码SmsController====UserVO:"+user.toString());
 		return smsService.updatePwdSms(user);
 	}
-	
-
-    private void allPass(){
-    	
-    }
 	
 	
 }
