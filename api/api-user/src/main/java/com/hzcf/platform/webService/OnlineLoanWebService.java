@@ -9,6 +9,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.utils.URLEncodedUtils;
 import org.apache.http.message.BasicNameValuePair;
+import org.springframework.stereotype.Component;
 
 import com.hzcf.platform.api.model.OnlineLoanInfo;
 import com.hzcf.platform.api.user.common.BackResult;
@@ -36,6 +37,7 @@ import net.sf.json.JSONObject;
  * 2016年12月7日                       雷佳明                           1.0       1.0 Version
  *          </pre>
  */
+@Component
 public class OnlineLoanWebService {
 	private static final Log logger = Log.getLogger(OnlineLoanWebService.class);
 
