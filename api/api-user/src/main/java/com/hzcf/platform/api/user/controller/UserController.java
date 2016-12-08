@@ -10,6 +10,9 @@ import com.hzcf.platform.annotation.RequestBodyForm;
 import com.hzcf.platform.api.user.common.BackResult;
 import com.hzcf.platform.api.user.service.IUserService;
 import com.hzcf.platform.common.util.log.Log;
+import com.hzcf.platform.config.ConfigSmsUtil;
+import com.hzcf.platform.core.ConstantsToken;
+import com.hzcf.platform.core.MyfStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;
 
 /**
@@ -35,6 +38,9 @@ public class UserController {
 	@RequestMapping(value="api/user/register/{type}",method=RequestMethod.POST)
 	public BackResult register(@RequestBodyForm UserVO user,@PathVariable String type){
 		logger.i("进入用户注册功能 ====入参====UserVO:"+user.toString());
+		if(ConfigSmsUtil.superSmsNum(user.getMobile(), type, ConstantsToken.SMS_CACHE_REG_KEY)){
+			return new BackResult(MyfStatusCodeEnum.MEF_CODE_0000.getCode(),MyfStatusCodeEnum.MEF_CODE_0000.getMsg());
+		}
 		return registerUserService.register(user,type);
 	}
 	
