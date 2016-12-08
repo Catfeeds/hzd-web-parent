@@ -35,7 +35,7 @@ public class UserPasswordController {
      * @param user
      * @return
      */
-	@RequestMapping(value="/api/user/updatepwd/{type}",method=RequestMethod.POST)
+	@RequestMapping(value="api/user/updatepwd/{type}",method=RequestMethod.POST)
 	public BackResult updatepwdForlogin(@RequestBodyForm UserVO user,@PathVariable String type){
 		logger.i("进入修改密码====UserVO:"+user.toString()+"num:"+type);
 		return userpwdForService.updatepwdForlogin(user, type);
@@ -46,7 +46,7 @@ public class UserPasswordController {
      * @param user
      * @return
      */
-	@RequestMapping(value="/api/user/findpwd/{type}",method=RequestMethod.POST)
+	@RequestMapping(value="api/user/findpwd/{type}",method=RequestMethod.POST)
 	public BackResult findpwdForlogin(@RequestBodyForm UserVO user,@PathVariable String type){
 		logger.i("进入修改密码====UserVO:"+user.toString());
 		return userpwdForService.findpwdForlogin(user, type);

@@ -31,7 +31,7 @@ public class SmsController {
 	 * @param type
 	 * @return
 	 */
-	@RequestMapping(value="/api/sms/register/{mobile}",method=RequestMethod.POST)
+	@RequestMapping(value="api/sms/register/{mobile}",method=RequestMethod.POST)
 	public BackResult register(@PathVariable String mobile){
 		logger.i("进入用户注册SmsController====mobile:"+mobile);
 		return smsService.registerSms(mobile);
@@ -42,7 +42,7 @@ public class SmsController {
 	 * @param type
 	 * @return
 	 */
-	@RequestMapping(value="/api/sms/findpwd/{mobile}",method=RequestMethod.POST)
+	@RequestMapping(value="api/sms/findpwd/{mobile}",method=RequestMethod.POST)
 	public BackResult findpwd(@PathVariable String mobile){
 		logger.i("进入找回密码SmsController====mobile:"+mobile);
 		return smsService.findPwdSms(mobile);
@@ -60,9 +60,7 @@ public class SmsController {
 	}
 	
 
-    private void allPass(){
-    	
-    }
+    
 	
 	
 }

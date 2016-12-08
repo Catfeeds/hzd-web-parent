@@ -42,10 +42,10 @@ public class OnlineLoanController {
 		return onlineLoanService.OnlineLoanApply(user, onlineLoanInfo);
 	}
 	
-	@RequestMapping(value="rest/api/jinjian/query/{type}",method=RequestMethod.GET)
-	public BackResult logonUser(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,@PathVariable String type){
+	@RequestMapping(value="rest/api/jinjian/query/{mobile}",method=RequestMethod.GET)
+	public BackResult logonUser(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,@PathVariable String mobile){
 		 logger.i("进入用户查询进件功能 ====入参====UserVO:"+user.toString());
-		 return onlineLoanService.OnlineLoanQuery(type);
+		 return onlineLoanService.OnlineLoanQuery(mobile);
 	}
 	
 }
