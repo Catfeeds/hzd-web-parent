@@ -23,5 +23,13 @@ public class ConstantsToken {
     public static final String AUTHORIZATION = "authorization";
     
     public static final String USER_CACHE_KEY = "USER_CACHE_";
+    
+    //注册 验证码
+    public static final String SMS_CACHE_REG_KEY = "SMS_CACHE_REG_";
+    //修改密码 验证码
+    public static final String SMS_CACHE_UPDATEPWD_KEY = "SMS_CACHE_UPDATEPWD_";
+    //找回密码 验证码
+    public static final String SMS_CACHE_FINDPWD_KEY = "SMS_CACHE_FINDPWD_";
+    
    // public static final String BASE = "base_";
 }
