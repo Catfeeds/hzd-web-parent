@@ -17,7 +17,7 @@ public class ConstantsDictionary {
 			System.out.println("------------------------------------------------------------------");
 			in = new InputStreamReader(ConstantsDictionary.class
 					.getClassLoader()
-					.getResourceAsStream("/configj.properties"), "UTF-8");
+					.getResourceAsStream("/rock.properties"), "UTF-8");
 			props.load(in);
 
 			KEY = props.getProperty("KEY");

@@ -12,6 +12,8 @@ public class UserVO extends BaseVO{
 	private String token;
 	private String mobile;
 	private String password;
+	//缓存验证码 类型
+	private String smsCacheType;
 	
 	public UserVO(){
 		
@@ -46,6 +48,15 @@ public class UserVO extends BaseVO{
 	public void setMobile(String mobile) {
 		this.mobile = mobile;
 	}
+	
+	public String getSmsCacheType() {
+		return smsCacheType;
+	}
+
+	public void setSmsCacheType(String smsCacheType) {
+		this.smsCacheType = smsCacheType;
+	}
+
 	@Override
 	public String toString() {
 		return JsonUtil.json2String(this);

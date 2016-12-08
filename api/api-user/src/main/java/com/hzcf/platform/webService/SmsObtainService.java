@@ -91,7 +91,7 @@ public class SmsObtainService {
    public static void main(String[] args) {  
 		 long startTime=System.currentTimeMillis();
 		 System.out.println("请求时间：------------------"+startTime);
-	   String smsObtain = smsObtain("123456","13911890913"); 
+	   String smsObtain = smsObtain("123456","13810738215"); 
 		 System.out.println("响应耗时-------------------------"+(float)(System.currentTimeMillis()-startTime)/1000);
 
 	   JSONObject  json = JSONObject.fromObject(smsObtain.toString());
