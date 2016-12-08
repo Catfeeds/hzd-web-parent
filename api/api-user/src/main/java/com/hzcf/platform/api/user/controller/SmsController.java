@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.hzcf.platform.annotation.RequestAttribute;
 import com.hzcf.platform.api.user.common.BackResult;
 import com.hzcf.platform.api.user.service.ISmsService;
+import com.hzcf.platform.common.cache.ICache;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.config.BaseConfig;
 import com.hzcf.platform.core.user.model.UserVO;
@@ -26,12 +27,15 @@ public class SmsController {
     @Autowired
     ISmsService smsService;
     
+    @Autowired
+    private ICache cache;
+    
     /**
 	 * 用户注册
 	 * @param type
 	 * @return
 	 */
-	@RequestMapping(value="api/sms/register/{mobile}",method=RequestMethod.POST)
+	@RequestMapping(value="/api/sms/register/{mobile}",method=RequestMethod.POST)
 	public BackResult register(@PathVariable String mobile){
 		logger.i("进入用户注册SmsController====mobile:"+mobile);
 		return smsService.registerSms(mobile);
@@ -42,7 +46,7 @@ public class SmsController {
 	 * @param type
 	 * @return
 	 */
-	@RequestMapping(value="api/sms/findpwd/{mobile}",method=RequestMethod.POST)
+	@RequestMapping(value="/api/sms/findpwd/{mobile}",method=RequestMethod.POST)
 	public BackResult findpwd(@PathVariable String mobile){
 		logger.i("进入找回密码SmsController====mobile:"+mobile);
 		return smsService.findPwdSms(mobile);
@@ -58,9 +62,6 @@ public class SmsController {
 		logger.i("进入修改密码SmsController====UserVO:"+user.toString());
 		return smsService.updatePwdSms(user);
 	}
-	
-
-    
 	
 	
 }
