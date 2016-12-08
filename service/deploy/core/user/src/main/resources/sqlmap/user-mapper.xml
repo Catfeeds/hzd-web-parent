@@ -82,8 +82,12 @@
 	     <where>
 			id=#{id}
 		</where>   
-	</update>
-	    
+	</update>   
+	  
+	 	<update id="updateMobile" parameterType="USER">
+		update user set password=#{password} where mobile=#{mobile}
+	     
+	</update>   
 	<insert id="insert"   parameterType="USER">
 	 <!--    INSERT INTO <include refid="TABLE_NAME" />( 
 		<include refid="Base_Column_List"></include>
