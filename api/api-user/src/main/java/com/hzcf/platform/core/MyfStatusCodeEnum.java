@@ -22,8 +22,8 @@ public enum MyfStatusCodeEnum {
 	MEF_CODE_2200(2200, "提交失败"),
 	MEF_CODE_2211(2211, "提交出现异常"),
 	//=====短信接口
-	MEF_CODE_3010(3010, "111"),
-	MEF_CODE_3021(3021, "111"),
+	MEF_CODE_3010(3010, "手机号码为空"),
+	MEF_CODE_3021(3021, "用户已注册"),
 	
 	
 	MEF_CODE_9999(9999, "系统异常");
