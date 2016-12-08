@@ -1,6 +1,7 @@
 package com.hzcf.platform.api.user.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -41,10 +42,10 @@ public class OnlineLoanController {
 		return onlineLoanService.OnlineLoanApply(user, onlineLoanInfo);
 	}
 	
-	@RequestMapping(value="/api/user/aasssa",method=RequestMethod.POST)
-	public BackResult logonUser(@RequestBodyForm UserVO user){
-		logger.i("进入用户登录功能 ====入参====UserVO:"+user.toString());
-		return null;
+	@RequestMapping(value="rest/api/jinjian/query/{type}",method=RequestMethod.GET)
+	public BackResult logonUser(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,@PathVariable String type){
+		 logger.i("进入用户查询进件功能 ====入参====UserVO:"+user.toString());
+		 return onlineLoanService.OnlineLoanQuery(type);
 	}
 	
 }

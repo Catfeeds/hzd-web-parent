@@ -21,5 +21,5 @@ public interface IOnlineLoanService {
 	
 	public BackResult OnlineLoanApply(UserVO user,OnlineLoanInfo onlineLoanInfo);
 	
-	public BackResult OnlineLoanQuery(UserVO user);
+	public BackResult OnlineLoanQuery(String mobile);
 }

@@ -40,7 +40,8 @@ public class UserServiceImpl implements IUserService {
 		 * @date 2016年12月7日
 		 * @throws
 	 */
-	public BackResult register(UserVO user) {
+	public BackResult register(UserVO user,String type) {
+		cache.load("");
 		
 		Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
 		UserVO items = byMobile.getItems();
