@@ -19,6 +19,7 @@ import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
+import com.hzcf.platform.common.util.utils.DataVerifcation;
 import com.hzcf.platform.common.util.uuid.UUIDGenerator;
 import com.hzcf.platform.core.ConstantsToken;
 import com.hzcf.platform.core.MyfStatusCodeEnum;
@@ -49,6 +50,9 @@ public class OnlineLoanServiceImpl implements IOnlineLoanService {
 	@Override
 	public BackResult OnlineLoanApply(UserVO user, OnlineLoanInfo onlineLoanInfo) {
 		try {
+			DataVerifcation.datavVerification(onlineLoanInfo.getMobile(), onlineLoanInfo.getIdCard().toUpperCase(), onlineLoanInfo.getArea(), onlineLoanInfo.getName(), null, null);
+			
+
 			String sendRsp = onlineLoanWebServic.OnlineLoanApply(onlineLoanInfo);
 			JSONObject json = JSONObject.fromObject(sendRsp);
 			String retCode = json.getString("retCode");
@@ -62,16 +66,18 @@ public class OnlineLoanServiceImpl implements IOnlineLoanService {
 						MyfStatusCodeEnum.MEF_CODE_0000.getMsg(),retInfo);
 			} else if(retCode.equals("4000")) {
 				new BackResult(
-						MyfStatusCodeEnum.MEF_CODE_2011.getCode(), retInfo);
+						MyfStatusCodeEnum.MEF_CODE_2200.getCode(), retInfo);
 			}else{
 				logger.i("进入微信进件提交方法:提交失败:"+retInfo+"手机号:"+onlineLoanInfo.getMobile());
 				new BackResult(
-						MyfStatusCodeEnum.MEF_CODE_2011.getCode(), retInfo);
+						MyfStatusCodeEnum.MEF_CODE_2200.getCode(), retInfo);
 
 			}
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
+			new BackResult(
+					MyfStatusCodeEnum.MEF_CODE_2211.getCode(),
+					e.getMessage());
 		}
 		return null;
 	}
@@ -91,13 +97,15 @@ public class OnlineLoanServiceImpl implements IOnlineLoanService {
 			 	
 		    }else{
 		    	logger.i("查询微信进件信息失败：mobile"+mobile);
-		    	return 	new BackResult(MyfStatusCodeEnum.MEF_CODE_2010.getCode(),MyfStatusCodeEnum.MEF_CODE_2010.getMsg());
+		    	return 	new BackResult(MyfStatusCodeEnum.MEF_CODE_2100.getCode(),MyfStatusCodeEnum.MEF_CODE_2100.getMsg());
 			 	
 		    }
 			
 		} catch (Exception e) {
-			logger.i("查询微信进件-系统异常：mobile"+mobile);
 			e.printStackTrace();
+			new BackResult(
+					MyfStatusCodeEnum.MEF_CODE_2111.getCode(),
+					e.getMessage());
 		}
 		return null;
 	}

@@ -29,90 +29,87 @@ import net.sf.json.JSONObject;
  * @author 雷佳明
  * @version 1.0
  * 
- * <pre>
+ *          <pre>
  * Modification History: 
  * Date              Author      Version     Description 
  * ------------------------------------------------------------------ 
- * 2016年12月7日                       雷佳明                           1.0       1.0 Version 
- * </pre>
+ * 2016年12月7日                       雷佳明                           1.0       1.0 Version
+ *          </pre>
  */
 public class OnlineLoanWebService {
 	private static final Log logger = Log.getLogger(OnlineLoanWebService.class);
 
 	/**
-	 * @throws Exception 
+	 * @throws Exception
 	 * 
-		 * @Description: 申请
-		 * @User: 雷佳明
-		 * @FileName: WipeRecordMgr.java
-		 * @param 参数  
-		 * @return 返回类型 
-		 * @date 2016年12月7日
-		 * @throws
+	 * @Description: 申请 @User: 雷佳明 @FileName: WipeRecordMgr.java @param
+	 * 参数 @return 返回类型 @date 2016年12月7日 @throws
 	 */
-	public String OnlineLoanApply(OnlineLoanInfo onlineLoanInfo) throws Exception{
-		
-		Map<String, Object> jsonMap = new HashMap<String, Object>();
-		// 借款参数拼接
-		String single = Md5Util.getMD5String(
-				StringUtils.join(new String[] { ConstantsDictionary.APP, onlineLoanInfo.getMobile() }, ","),
-				ConstantsDictionary.KEY);
+	public String OnlineLoanApply(OnlineLoanInfo onlineLoanInfo) throws Exception {
 
-		jsonMap.put("phoneNumber", onlineLoanInfo.getMobile());
-		jsonMap.put("name", onlineLoanInfo.getName());
-		jsonMap.put("idcard", onlineLoanInfo.getIdCard());
-		jsonMap.put("area", onlineLoanInfo.getOpenId());
-		jsonMap.put("openid", onlineLoanInfo.getOpenId());
-		jsonMap.put("systemSourceId", ConstantsDictionary.APP);
-		jsonMap.put("signature", single);
-		
-		String ReqJson = JsonUtil.json2String(jsonMap);
-		logger.i("请求的JSON数据：" + ReqJson);
-		String billParms;
-		
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		try {
+			// 借款参数拼接
+			String single = Md5Util.getMD5String(
+					StringUtils.join(new String[] { ConstantsDictionary.APP, onlineLoanInfo.getMobile() }, ","),
+					ConstantsDictionary.KEY);
+
+			jsonMap.put("phoneNumber", onlineLoanInfo.getMobile());
+			jsonMap.put("name", onlineLoanInfo.getName());
+			jsonMap.put("idcard", onlineLoanInfo.getIdCard());
+			jsonMap.put("area", onlineLoanInfo.getOpenId());
+			jsonMap.put("openid", onlineLoanInfo.getOpenId());
+			jsonMap.put("systemSourceId", ConstantsDictionary.APP);
+			jsonMap.put("signature", single);
+
+			String ReqJson = JsonUtil.json2String(jsonMap);
+			logger.i("请求的JSON数据：" + ReqJson);
+			String billParms;
+
 			billParms = AESUtil.enCrypt(ReqJson, ConstantsDictionary.KEY);
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("weiXinSubmitApplicationParms",
-					billParms));
+			params.add(new BasicNameValuePair("weiXinSubmitApplicationParms", billParms));
 			String paramsData = URLEncodedUtils.format(params, "UTF-8");
-			String sendRsp = HttpRequest
-					.sendGet(ConstantsDictionary.WXSUBMIT, paramsData);
-		return sendRsp;
-		
-	}
-	/**
-	 * @return 
-	 * 
-		 * @Description: 查询
-		 * @User: 雷佳明
-		 * @FileName: WipeRecordMgr.java
-		 * @param 参数  
-		 * @return 返回类型 
-		 * @date 2016年12月7日
-		 * @throws
-	 */
-	public String OnlineLoanQuery(String mobile) throws Exception{
-		Map<String, Object>  jsonMap = new HashMap<String, Object>();
-		//借款参数拼接
-	    String single = Md5Util.getMD5String(StringUtils.join(new String[]{ConstantsDictionary.APP,mobile}, ","), ConstantsDictionary.KEY);
-	    
-	    //TODO  目前是openid
-	    jsonMap.put("openid",mobile);
-		jsonMap.put("systemSourceId", ConstantsDictionary.APP);
-		jsonMap.put("signature", single);
-		String ReqJson =JsonUtil.json2String(jsonMap);
-		logger.i("请求的JSON数据："+ReqJson);
-		String billParms;
+			String sendRsp = HttpRequest.sendGet(ConstantsDictionary.WXSUBMIT, paramsData);
+			return sendRsp;
+		} catch (Exception e) {
+			throw new Exception("借款申请接口服务异常");
+		}
 
-		billParms = AESUtil.enCrypt(ReqJson, ConstantsDictionary.KEY);
-		List<NameValuePair> params = new ArrayList<NameValuePair>();
-		params.add(new BasicNameValuePair("weiXinQueryProgressParms", billParms));
-		String paramsData = URLEncodedUtils.format(params, "UTF-8");
-		String sendRsp = HttpRequest.sendGet(ConstantsDictionary.WXQUERY, paramsData);
-		logger.i("返回参数：" + sendRsp);
-		// WxjinjianQueryRsp wxrsp
-		// =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
-		return sendRsp;
-		
+	}
+
+	/**
+	 * @return
+	 * 
+	 * @Description: 查询 @User: 雷佳明 @FileName: WipeRecordMgr.java @param
+	 * 参数 @return 返回类型 @date 2016年12月7日 @throws
+	 */
+	public String OnlineLoanQuery(String mobile) throws Exception {
+		Map<String, Object> jsonMap = new HashMap<String, Object>();
+		try {
+			// 借款参数拼接
+			String single = Md5Util.getMD5String(
+					StringUtils.join(new String[] { ConstantsDictionary.APP, mobile }, ","), ConstantsDictionary.KEY);
+
+			// TODO 目前是openid
+			jsonMap.put("openid", mobile);
+			jsonMap.put("systemSourceId", ConstantsDictionary.APP);
+			jsonMap.put("signature", single);
+			String ReqJson = JsonUtil.json2String(jsonMap);
+			logger.i("请求的JSON数据：" + ReqJson);
+			String billParms;
+
+			billParms = AESUtil.enCrypt(ReqJson, ConstantsDictionary.KEY);
+			List<NameValuePair> params = new ArrayList<NameValuePair>();
+			params.add(new BasicNameValuePair("weiXinQueryProgressParms", billParms));
+			String paramsData = URLEncodedUtils.format(params, "UTF-8");
+			String sendRsp = HttpRequest.sendGet(ConstantsDictionary.WXQUERY, paramsData);
+			logger.i("返回参数：" + sendRsp);
+			// WxjinjianQueryRsp wxrsp
+			// =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
+			return sendRsp;
+		} catch (Exception e) {
+			throw new Exception("借款查询接口服务异常");
+		}
 	}
 }
