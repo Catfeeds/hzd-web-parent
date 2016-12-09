@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hzcf.platform.annotation.RequestBodyForm;
@@ -39,6 +40,7 @@ public class UserPasswordController {
      * @return
      */
 	@RequestMapping(value="api/100/user/updatepwd/{type}",method=RequestMethod.POST)
+	@ResponseBody
 	public BackResult updatepwdForlogin(@RequestBodyForm UserVO user,@PathVariable String type){
 		logger.i("进入修改密码====UserVO:"+user.toString()+"num:"+type);
 		if(ConfigSmsUtil.superSmsNum(user.getMobile(), type, ConstantsToken.SMS_CACHE_UPDATEPWD_KEY)){
@@ -53,6 +55,7 @@ public class UserPasswordController {
      * @return
      */
 	@RequestMapping(value="api/100/user/findpwd/{type}",method=RequestMethod.POST)
+	@ResponseBody
 	public BackResult findpwdForlogin(@RequestBodyForm UserVO user,@PathVariable String type){
 		logger.i("进入修改密码====UserVO:"+user.toString());
 		if(ConfigSmsUtil.superSmsNum(user.getMobile(), type, ConstantsToken.SMS_CACHE_FINDPWD_KEY)){

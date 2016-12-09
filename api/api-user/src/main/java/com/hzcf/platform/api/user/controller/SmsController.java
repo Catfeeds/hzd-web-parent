@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hzcf.platform.annotation.RequestAttribute;
@@ -36,6 +37,7 @@ public class SmsController {
 	 * @return
 	 */
 	@RequestMapping(value="api/100/sms/register/{mobile}",method=RequestMethod.POST)
+	@ResponseBody
 	public BackResult register(@PathVariable String mobile){
 		logger.i("进入用户注册SmsController====mobile:"+mobile);
 		return smsService.registerSms(mobile);
@@ -47,6 +49,7 @@ public class SmsController {
 	 * @return
 	 */
 	@RequestMapping(value="api/100/sms/findpwd/{mobile}",method=RequestMethod.POST)
+	@ResponseBody
 	public BackResult findpwd(@PathVariable String mobile){
 		logger.i("进入找回密码SmsController====mobile:"+mobile);
 		return smsService.findPwdSms(mobile);
@@ -58,6 +61,7 @@ public class SmsController {
      * @return
      */
 	@RequestMapping(value="rest/100/api/sms/updatepwd",method=RequestMethod.POST)
+	@ResponseBody
 	public BackResult updatepwd(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
 		logger.i("进入修改密码SmsController====UserVO:"+user.toString());
 		return smsService.updatePwdSms(user);
