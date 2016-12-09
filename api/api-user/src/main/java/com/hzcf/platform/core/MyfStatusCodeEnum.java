@@ -23,6 +23,7 @@ public enum MyfStatusCodeEnum {
 	MEF_CODE_1010(1010, "用户已经注册"),
 	MEF_CODE_1011(1011, "用户未注册"),
 	MEF_CODE_1022(1022, "账号或密码错误"),
+	MEF_CODE_1111(1111, "token已失效"),
 	//======进件接口
 	MEF_CODE_2100(2100, "查询失败"),
 	MEF_CODE_2111(2111, "查询出现异常"),

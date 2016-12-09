@@ -15,10 +15,12 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
+import com.hzcf.platform.api.user.common.BackResult;
 import com.hzcf.platform.common.cache.ICache;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.core.ConstantsToken;
+import com.hzcf.platform.core.MyfStatusCodeEnum;
 import com.hzcf.platform.core.user.model.RequestAgent;
 import com.hzcf.platform.core.user.model.UserVO;
 /**
@@ -79,7 +81,24 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter {
         	request.setAttribute("user", uesr);// 访问用户
         	return true;
         }
-        response.setStatus(HttpServletResponse.SC_ACCEPTED);
+        
+        response.setCharacterEncoding("UTF-8");  
+        response.setContentType("application/json; charset=utf-8");
+        response.setStatus(HttpServletResponse.SC_OK);
+        System.out.println("进入false");
+        PrintWriter out = null;  
+            try {
+            
+               out = response.getWriter();  
+               out.print(JsonUtil.json2String(new BackResult(MyfStatusCodeEnum.MEF_CODE_1111.getCode(),MyfStatusCodeEnum.MEF_CODE_1111.getMsg())));
+           } catch (IOException e) {  
+               e.printStackTrace();  
+          } finally {  
+             if (out != null) {  
+                    out.close();  
+               }  
+           }  
+
         return false;
         
     /*    //验证token

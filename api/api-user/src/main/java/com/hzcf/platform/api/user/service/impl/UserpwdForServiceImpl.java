@@ -8,6 +8,7 @@ import com.alibaba.dubbo.config.annotation.Service;
 import com.hzcf.platform.api.user.common.BackResult;
 import com.hzcf.platform.api.user.service.IUserpwdForService;
 import com.hzcf.platform.common.cache.ICache;
+import com.hzcf.platform.common.exception.CheckException;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.utils.DataVerifcation;
@@ -43,7 +44,7 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 				if(StringUtils.isBlank( user.getId())){
 					return new BackResult(MyfStatusCodeEnum.MEF_CODE_9000.getCode(),"userId为空");
 				}	
-				DataVerifcation.datavVerification(user.getMobile(), null, null, null, smsnum, null, user.getId());
+				DataVerifcation.datavVerification(user.getMobile(), null, null, null, smsnum, user.getPassword(), user.getId());
 				Result<Boolean> updateMobile = userSerivce.updateMobile(user);
 					if(updateMobile.getItems()){
 						logger.i("修改密码成功-手机号:"+user.getMobile());
@@ -54,6 +55,11 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 						return new BackResult(MyfStatusCodeEnum.MEF_CODE_0001.getCode(),MyfStatusCodeEnum.MEF_CODE_0001.getMsg());
 					}
 				
+			}catch (CheckException e) {
+				e.printStackTrace();
+				logger.i("修改密码系统异常-手机号:"+user.getMobile());
+				return new BackResult(MyfStatusCodeEnum.MEF_CODE_9000.getCode(),e.getMessage());
+
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.i("修改密码系统异常-手机号:"+user.getMobile());
