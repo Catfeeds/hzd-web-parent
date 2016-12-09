@@ -27,7 +27,7 @@ public class ConstantsToken {
     /**
      * 短信验证码有效时间（一分钟）
      */
-    public static final int SMS_EXPIRES_MIN = 60;
+    public static final int SMS_EXPIRES_MIN = 10000;
 
     /**
      * 存放Authorization的header字段
@@ -43,5 +43,5 @@ public class ConstantsToken {
     //找回密码 验证码
     public static final String SMS_CACHE_FINDPWD_KEY = "SMS_CACHE_FINDPWD_";
     
-   // public static final String BASE = "base_";
+    public static final int TOKENLOSESTATUS = 110;
 }

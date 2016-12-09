@@ -79,7 +79,7 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter {
         	request.setAttribute("user", uesr);// 访问用户
         	return true;
         }
-        response.setStatus(HttpServletResponse.SC_ACCEPTED);
+        response.setStatus(ConstantsToken.TOKENLOSESTATUS);
         return false;
         
     /*    //验证token

@@ -16,11 +16,10 @@ public class ConfigSmsUtil {
 	/**
 	 * 超级验证码
 	 */
-    public static boolean superSmsNum(String mobile, String smsNum, String sms_cache_key){
+    public static boolean superSmsNum(String mobile,  String smsNum){
     	if(smsNum.equals(ConstantsDictionary.SMSNUM) && "TRUE".equals(ConstantsDictionary.SMSNUMSWITCH)){
     		logger.i("---------用户使用超级验证码:mobile:"+mobile);
 			//缓存验证码
-			cache.save(sms_cache_key+mobile, ConstantsDictionary.SMSNUM ,ConstantsToken.SMS_EXPIRES_MIN);
 			logger.i("-------------获取短信验证码成功" + ConstantsDictionary.SMSNUM + "mobile:"+ mobile);
 			return true;
 		}

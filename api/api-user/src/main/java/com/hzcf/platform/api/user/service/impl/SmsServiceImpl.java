@@ -134,5 +134,22 @@ public class SmsServiceImpl implements ISmsService {
 		}
 	}
 	
-	
+	public BackResult smsCheck(String key,String mobile,String sms){
+		try {
+			Result<UserVO> byMobile = userSerivce.getByMobile(mobile);
+			UserVO items = byMobile.getItems();
+			String cacheSmsnum = cache.load(key+mobile);
+			if(sms.equals(cacheSmsnum)){
+				logger.i("验证短信成功-手机号:"+mobile+"验证码:"+sms);
+				return new BackResult(MyfStatusCodeEnum.MEF_CODE_0000.getCode(),MyfStatusCodeEnum.MEF_CODE_0000.getMsg(),items);
+			}else{
+				logger.i("用户注册输入验证码有误--手机号:"+mobile+"验证码:"+sms);
+				return new BackResult(MyfStatusCodeEnum.MEF_CODE_3000.getCode(),MyfStatusCodeEnum.MEF_CODE_3000.getMsg());
+			}
+			
+		} catch (Exception e) {
+			return new BackResult(MyfStatusCodeEnum.MEF_CODE_9999.getCode(),MyfStatusCodeEnum.MEF_CODE_9999.getMsg());
+
+		}
+	}
 }

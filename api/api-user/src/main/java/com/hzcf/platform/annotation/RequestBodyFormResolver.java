@@ -80,7 +80,7 @@ public class RequestBodyFormResolver implements HandlerMethodArgumentResolver {
         return argument;
     }
 
-    private Object resolveJsonArgument( NativeWebRequest webRequest, MethodParameter parameter)
+    private Object resolveJsonArgument(NativeWebRequest webRequest, MethodParameter parameter)
             throws IOException, IllegalAccessException, InstantiationException {
 
         JavaType javaType = mapper.getTypeFactory().constructType(parameter.getGenericParameterType());

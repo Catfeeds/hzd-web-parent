@@ -42,7 +42,7 @@ public class UserController {
 	@ResponseBody
 	public BackResult register(@RequestBodyForm UserVO user,@PathVariable String type){
 		logger.i("进入用户注册功能 ====入参====UserVO:"+user.toString());
-		if(ConfigSmsUtil.superSmsNum(user.getMobile(), type, ConstantsToken.SMS_CACHE_REG_KEY)){
+		if(ConfigSmsUtil.superSmsNum(user.getMobile(), type)){
 			return new BackResult(MyfStatusCodeEnum.MEF_CODE_0000.getCode(),MyfStatusCodeEnum.MEF_CODE_0000.getMsg());
 		}
 		return registerUserService.register(user,type);

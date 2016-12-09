@@ -43,24 +43,20 @@ public class UserPasswordController {
 	@ResponseBody
 	public BackResult updatepwdForlogin(@RequestBodyForm UserVO user,@PathVariable String type){
 		logger.i("进入修改密码====UserVO:"+user.toString()+"num:"+type);
-		if(ConfigSmsUtil.superSmsNum(user.getMobile(), type, ConstantsToken.SMS_CACHE_UPDATEPWD_KEY)){
-			return new BackResult(MyfStatusCodeEnum.MEF_CODE_0000.getCode(),MyfStatusCodeEnum.MEF_CODE_0000.getMsg());
-		}
+		
 		return userpwdForService.updatepwdForlogin(user, type);
 	}
-	
+	                                                                                                       
     /**
      * 找回密码
      * @param user
      * @return
-     */
+     */                                                                                                                                                                                                                                                                                            
 	@RequestMapping(value="api/100/user/findpwd/{type}",method=RequestMethod.POST)
 	@ResponseBody
 	public BackResult findpwdForlogin(@RequestBodyForm UserVO user,@PathVariable String type){
 		logger.i("进入修改密码====UserVO:"+user.toString());
-		if(ConfigSmsUtil.superSmsNum(user.getMobile(), type, ConstantsToken.SMS_CACHE_FINDPWD_KEY)){
-			return new BackResult(MyfStatusCodeEnum.MEF_CODE_0000.getCode(),MyfStatusCodeEnum.MEF_CODE_0000.getMsg());
-		}
+		
 		return userpwdForService.findpwdForlogin(user, type);
 	}
 	

@@ -2,8 +2,9 @@ package com.hzcf.platform.webService;
 
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
-
+import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.http.NameValuePair;
@@ -19,6 +20,7 @@ import com.hzcf.platform.common.util.utils.AESUtil;
 import com.hzcf.platform.common.util.utils.Md5Util;
 import com.hzcf.platform.common.util.utils.Serialnumber;
 import com.hzcf.platform.config.ConstantsDictionary;
+import com.hzcf.platform.core.ConstantsToken;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
@@ -41,6 +43,14 @@ public class SmsObtainService {
 	private static Logger log = Logger.getLogger(SmsObtainService.class);
 	public static String smsObtain(String six, String phoneNum){
 		String dataInfo="";
+		if("TRUE".equals(ConstantsDictionary.SMSNUMSWITCH)){
+			Map<String,Object> map =new HashMap<String,Object>();
+			
+			map.put("retCode", "'0000'");
+			return map.toString();
+		}
+		
+		
 		//生成流水号
 		String getnum = Serialnumber.Getnum();
 		//生成短信验证码

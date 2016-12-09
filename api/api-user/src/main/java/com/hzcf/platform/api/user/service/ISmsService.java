@@ -27,4 +27,16 @@ public interface ISmsService {
 	 * @return
 	 */
 	public BackResult updatePwdSms(UserVO user);
+	
+	/**
+	 * 
+		 * @Description: 短信验证 
+		 * @User: 雷佳明
+		 * @FileName: WipeRecordMgr.java
+		 * @param 参数  
+		 * @return 返回类型 
+		 * @date 2016年12月9日
+		 * @throws
+	 */
+	public BackResult smsCheck(String key,String mobile,String sms);
 }

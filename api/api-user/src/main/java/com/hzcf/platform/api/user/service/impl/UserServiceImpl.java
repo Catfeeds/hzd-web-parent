@@ -45,12 +45,8 @@ public class UserServiceImpl implements IUserService {
 	 */
 	public BackResult register(UserVO user,String num) {
 		try {
-			DataVerifcation.datavVerification(user.getMobile(), null,null, null, num, user.getPassword());
-			String cacheSmsnum = cache.load(ConstantsToken.SMS_CACHE_REG_KEY+user.getMobile());
-			if(!num.equals(cacheSmsnum)){
-				logger.i("用户注册输入验证码有误--手机号:"+user.getMobile()+"验证码:"+num);
-				return new BackResult(MyfStatusCodeEnum.MEF_CODE_3000.getCode(),MyfStatusCodeEnum.MEF_CODE_3000.getMsg());
-			}
+			DataVerifcation.datavVerification(user.getMobile(), null,null, null, num, user.getPassword(),null);
+		
 			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
 			UserVO items = byMobile.getItems();
 			
@@ -87,7 +83,7 @@ public class UserServiceImpl implements IUserService {
 	public BackResult logonUser(UserVO user){
 		
 		try {
-			DataVerifcation.datavVerification(user.getMobile(), null,null, null, null, user.getPassword());
+			DataVerifcation.datavVerification(user.getMobile(), null,null, null, null, user.getPassword(),null);
 			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
 			UserVO items = byMobile.getItems();
 			Map<String,Object> map = new HashMap<String,Object>();
