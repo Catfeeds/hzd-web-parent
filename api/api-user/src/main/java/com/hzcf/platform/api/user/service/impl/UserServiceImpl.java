@@ -12,9 +12,12 @@ import com.hzcf.platform.api.user.common.BackResult;
 import com.hzcf.platform.api.user.controller.UserController;
 import com.hzcf.platform.api.user.service.IUserService;
 import com.hzcf.platform.common.cache.ICache;
+import com.hzcf.platform.common.exception.CheckException;
+import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
+import com.hzcf.platform.common.util.utils.DataVerifcation;
 import com.hzcf.platform.common.util.uuid.UUIDGenerator;
 import com.hzcf.platform.core.ConstantsToken;
 import com.hzcf.platform.core.MyfStatusCodeEnum;
@@ -41,12 +44,13 @@ public class UserServiceImpl implements IUserService {
 		 * @throws
 	 */
 	public BackResult register(UserVO user,String num) {
-		String cacheSmsnum = cache.load(ConstantsToken.SMS_CACHE_REG_KEY+user.getMobile());
-		if(!num.equals(cacheSmsnum)){
-			logger.i("用户注册输入验证码有误--手机号:"+user.getMobile()+"验证码:"+num);
-			return new BackResult(MyfStatusCodeEnum.MEF_CODE_3000.getCode(),MyfStatusCodeEnum.MEF_CODE_3000.getMsg());
-		}
 		try {
+			DataVerifcation.datavVerification(user.getMobile(), null,null, null, num, user.getPassword());
+			String cacheSmsnum = cache.load(ConstantsToken.SMS_CACHE_REG_KEY+user.getMobile());
+			if(!num.equals(cacheSmsnum)){
+				logger.i("用户注册输入验证码有误--手机号:"+user.getMobile()+"验证码:"+num);
+				return new BackResult(MyfStatusCodeEnum.MEF_CODE_3000.getCode(),MyfStatusCodeEnum.MEF_CODE_3000.getMsg());
+			}
 			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
 			UserVO items = byMobile.getItems();
 			
@@ -83,6 +87,7 @@ public class UserServiceImpl implements IUserService {
 	public BackResult logonUser(UserVO user){
 		
 		try {
+			DataVerifcation.datavVerification(user.getMobile(), null,null, null, null, user.getPassword());
 			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
 			UserVO items = byMobile.getItems();
 			Map<String,Object> map = new HashMap<String,Object>();
@@ -101,11 +106,15 @@ public class UserServiceImpl implements IUserService {
 				logger.i("用户未注册,请先注册.手机号:)"+user.getMobile());
 				return new BackResult(MyfStatusCodeEnum.MEF_CODE_1011.getCode(),MyfStatusCodeEnum.MEF_CODE_1011.getMsg());
 			}
+		} catch (CheckException e) {
+			e.printStackTrace();
+			logger.i("登录失败参数有误---手机号:"+user.getMobile());
+			return new BackResult(MyfStatusCodeEnum.MEF_CODE_0001.getCode(),e.getMessage());
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.i("登录出现异常---手机号:"+user.getMobile());
+			return new BackResult(MyfStatusCodeEnum.MEF_CODE_9999.getCode(),MyfStatusCodeEnum.MEF_CODE_9999.getMsg());
 		}
-		 return new BackResult(MyfStatusCodeEnum.MEF_CODE_9999.getCode(),MyfStatusCodeEnum.MEF_CODE_9999.getMsg());
 
 	}
 	@Override

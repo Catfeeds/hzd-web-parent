@@ -32,18 +32,18 @@ public class BackResult {
 	        setData(data);
 	    }
 
-	    public BackResult(int state, String showMessage, Object data) {
+	    public BackResult(int state, String message, Object data) {
 	        super();
 	        this.state = state;
-	        this.showMessage = showMessage;
+	        this.message = message;
 	        this.data = data;
 	    }
 
 	    //lvpeng insert
-	    public BackResult(int state, String showMessage) {
+	    public BackResult(int state, String message) {
 	        super();
 	        this.state = state;
-	        this.showMessage = showMessage;
+	        this.message = message;
 	    }
 
 	    public BackResult(int state, String message, String showMessage) {
