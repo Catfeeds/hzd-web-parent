@@ -40,8 +40,11 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 	public BackResult updatepwdForlogin(UserVO user,String smsnum) {
 		if(StringUtils.isNotBlank(user.getMobile())&&StringUtils.isNotBlank(user.getPassword())){
 			try {
+				if(StringUtils.isBlank( user.getId())){
+					return new BackResult(MyfStatusCodeEnum.MEF_CODE_9000.getCode(),"userId为空");
+				}	
 				DataVerifcation.datavVerification(user.getMobile(), null, null, null, smsnum, null, user.getId());
-					Result<Boolean> updateMobile = userSerivce.updateMobile(user);
+				Result<Boolean> updateMobile = userSerivce.updateMobile(user);
 					if(updateMobile.getItems()){
 						logger.i("修改密码成功-手机号:"+user.getMobile());
 						return new BackResult(MyfStatusCodeEnum.MEF_CODE_0000.getCode(),MyfStatusCodeEnum.MEF_CODE_0000.getMsg());
@@ -69,7 +72,10 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 	public BackResult findpwdForlogin(UserVO user,String smsnum) {
 		if(StringUtils.isNotBlank(user.getMobile())&&StringUtils.isNotBlank(user.getPassword())){
 			try {
-				DataVerifcation.datavVerification(user.getMobile(), null, null, null, smsnum, null, user.getId());
+				if(StringUtils.isBlank( user.getId())){
+					return new BackResult(MyfStatusCodeEnum.MEF_CODE_9000.getCode(),"userId为空");
+				}
+				DataVerifcation.datavVerification(user.getMobile(), null, null, null, smsnum, user.getPassword(), user.getId());
 					Result<Boolean> updateMobile = userSerivce.updateMobile(user);
 					if(updateMobile.getItems()){
 						logger.i("找回密码成功-手机号:"+user.getMobile());

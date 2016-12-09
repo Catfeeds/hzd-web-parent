@@ -14,7 +14,7 @@ public class ProtocolController {
 	@RequestMapping(value="api/100/register/protocol")
 	public Object showAutoDebitProtocol(HttpServletRequest request, HttpServletResponse response, Model model
 			) {
-		ModelAndView mv = new ModelAndView("/about.html");
+		ModelAndView mv = new ModelAndView("about.html");
 		return mv;
 	}
 
