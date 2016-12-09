@@ -17,8 +17,8 @@
 		<constructor-arg name="poolConfig" ref="genericObjectPoolConfig" />
 		<constructor-arg name="shards">
 			<list>
-				<bean class="redis.clients.jedis.JedisShardInfo" c:host="127.0.0.1"
-					c:port="6379" c:timeout="500" />
+				<bean class="redis.clients.jedis.JedisShardInfo" c:host="${redis.host}"
+					c:port="${redis.port}" c:timeout="${redis.timeout}" />
 			</list>
 		</constructor-arg>
 	</bean>
