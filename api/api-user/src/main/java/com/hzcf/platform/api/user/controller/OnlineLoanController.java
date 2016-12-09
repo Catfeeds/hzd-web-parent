@@ -35,14 +35,14 @@ public class OnlineLoanController {
     @Autowired
 	IOnlineLoanService onlineLoanService;
 	
-	@RequestMapping(value="rest/api/jinjian/apply",method=RequestMethod.POST)
+	@RequestMapping(value="rest/api/100/jinjian/apply",method=RequestMethod.POST)
 	public BackResult apply(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user ,@RequestBodyForm OnlineLoanInfo onlineLoanInfo ){
 		logger.i("进入用户借贷申请 ====入参====UserVO:"+user.toString());
 		logger.i("进入用户借贷申请====入参====onlineLoanInfo:"+onlineLoanInfo.toString());
 		return onlineLoanService.OnlineLoanApply(user, onlineLoanInfo);
 	}
 	
-	@RequestMapping(value="rest/api/jinjian/query/{mobile}",method=RequestMethod.GET)
+	@RequestMapping(value="rest/api/100/jinjian/query/{mobile}",method=RequestMethod.GET)
 	public BackResult logonUser(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,@PathVariable String mobile){
 		 logger.i("进入用户查询进件功能 ====入参====UserVO:"+user.toString());
 		 return onlineLoanService.OnlineLoanQuery(mobile);

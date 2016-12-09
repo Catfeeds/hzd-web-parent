@@ -35,7 +35,7 @@ public class SmsController {
 	 * @param type
 	 * @return
 	 */
-	@RequestMapping(value="api/sms/register/{mobile}",method=RequestMethod.POST)
+	@RequestMapping(value="api/100/sms/register/{mobile}",method=RequestMethod.POST)
 	public BackResult register(@PathVariable String mobile){
 		logger.i("进入用户注册SmsController====mobile:"+mobile);
 		return smsService.registerSms(mobile);
@@ -46,7 +46,7 @@ public class SmsController {
 	 * @param type
 	 * @return
 	 */
-	@RequestMapping(value="api/sms/findpwd/{mobile}",method=RequestMethod.POST)
+	@RequestMapping(value="api/100/sms/findpwd/{mobile}",method=RequestMethod.POST)
 	public BackResult findpwd(@PathVariable String mobile){
 		logger.i("进入找回密码SmsController====mobile:"+mobile);
 		return smsService.findPwdSms(mobile);
@@ -57,7 +57,7 @@ public class SmsController {
      * @param user
      * @return
      */
-	@RequestMapping(value="rest/api/sms/updatepwd",method=RequestMethod.POST)
+	@RequestMapping(value="rest/100/api/sms/updatepwd",method=RequestMethod.POST)
 	public BackResult updatepwd(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
 		logger.i("进入修改密码SmsController====UserVO:"+user.toString());
 		return smsService.updatePwdSms(user);

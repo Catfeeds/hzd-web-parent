@@ -14,6 +14,7 @@
 	<modules>
 		<module>api-user</module>
 	</modules>
+
 	<dependencies>
 		<dependency>
 			<groupId>com.hzcf.core.user</groupId>

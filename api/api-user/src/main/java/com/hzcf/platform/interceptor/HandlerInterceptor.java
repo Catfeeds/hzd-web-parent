@@ -49,7 +49,7 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter {
 			StringBuffer url = request.getRequestURL();
 			// 获取域名 
 			String host = url.delete(url.length() - request.getRequestURI().length(), url.length())
-					.append(request.getServletContext().getContextPath()).append("/").toString();
+ 					.append(request.getServletContext().getContextPath()).append("/").toString();
 			String agent = request.getHeader("user-agent");
 			/*	
 			String[] split = agent.split("#");
@@ -75,10 +75,11 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter {
         }
         UserVO uesr = (UserVO)cache.load(ConstantsToken.USER_CACHE_KEY+token);
         if(uesr!=null){
+        	uesr.setToken(token);
         	request.setAttribute("user", uesr);// 访问用户
         	return true;
         }
-        response.setStatus(HttpServletResponse.SC_METHOD_NOT_ALLOWED);
+        response.setStatus(HttpServletResponse.SC_ACCEPTED);
         return false;
         
     /*    //验证token
