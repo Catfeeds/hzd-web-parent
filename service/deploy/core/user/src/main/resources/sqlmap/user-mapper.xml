@@ -85,7 +85,7 @@
 	</update>   
 	  
 	 	<update id="updateMobile" parameterType="USER">
-		update user set password=#{password} where mobile=#{mobile}
+		update user set password=#{password} where  id=#{id} and mobile=#{mobile} 
 	     
 	</update>   
 	<insert id="insert"   parameterType="USER">

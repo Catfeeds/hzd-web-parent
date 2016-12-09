@@ -29,8 +29,7 @@ public class SmsController {
     @Autowired
     ISmsService smsService;
     
-    @Autowired
-    private ICache cache;
+
     
     /**
 	 * 用户注册

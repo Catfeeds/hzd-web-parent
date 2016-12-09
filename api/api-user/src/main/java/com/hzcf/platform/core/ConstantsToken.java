@@ -27,7 +27,7 @@ public class ConstantsToken {
     /**
      * 短信验证码有效时间（一分钟）
      */
-    public static final int SMS_EXPIRES_MIN = 10000;
+    public static final int SMS_EXPIRES_MIN = 60;
 
     /**
      * 存放Authorization的header字段
