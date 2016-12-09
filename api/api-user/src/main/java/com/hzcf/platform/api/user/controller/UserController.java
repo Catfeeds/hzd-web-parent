@@ -58,6 +58,6 @@ public class UserController {
 	@ResponseBody
 	public BackResult  exitLogo(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
 		logger.i("进入退出登录功能 ====入参====UserVO:"+user.toString());
-		return registerUserService.logonUser(user);
+		return registerUserService.exitLogo(user);
 	}
 }

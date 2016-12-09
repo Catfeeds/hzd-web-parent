@@ -21,4 +21,6 @@ public interface IUserService {
 	public BackResult register(UserVO user,String type);
 	
 	public BackResult logonUser(UserVO user);
+	
+	public BackResult exitLogo(UserVO user);
 }

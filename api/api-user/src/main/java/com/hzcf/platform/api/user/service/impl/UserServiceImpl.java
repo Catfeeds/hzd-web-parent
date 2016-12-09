@@ -108,4 +108,15 @@ public class UserServiceImpl implements IUserService {
 		 return new BackResult(MyfStatusCodeEnum.MEF_CODE_9999.getCode(),MyfStatusCodeEnum.MEF_CODE_9999.getMsg());
 
 	}
+	@Override
+	public BackResult exitLogo(UserVO user) {
+		try {
+			cache.delete(ConstantsToken.USER_CACHE_KEY+user.getToken());
+			return new BackResult(MyfStatusCodeEnum.MEF_CODE_0000.getCode(),MyfStatusCodeEnum.MEF_CODE_0000.getMsg());
+		} catch (Exception e) {
+			logger.i("退出登录出现异常");
+			return new BackResult(MyfStatusCodeEnum.MEF_CODE_9999.getCode(),MyfStatusCodeEnum.MEF_CODE_9999.getMsg());
+		}
+	}
+
 }
