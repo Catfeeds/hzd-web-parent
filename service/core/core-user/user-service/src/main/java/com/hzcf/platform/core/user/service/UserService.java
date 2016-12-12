@@ -24,4 +24,12 @@ public interface UserService extends IBaseService<UserVO>{
 	 * @return
 	 */
 	public Result<Boolean> updateMobile(UserVO user);
+	
+	/**
+	 * 按手机号取得
+	 * 
+	 * @param mobile
+	 * @return
+	 */
+	public Result<UserVO> getByMobile(String mobile);
 }

@@ -55,7 +55,27 @@ public class UserServiceImpl extends AbstractBaseServiceImpl<UserVO,User> implem
 		}
 	}
 
-
+	
+	/**
+	 * 按手机号取得
+	 * 
+	 * @param mobile
+	 * @return
+	 */
+	@Override
+	public Result<UserVO> getByMobile(String mobile){
+		try {
+			User t = purchaseOrderDao.getByMobile(mobile);
+			if (null == t) {
+				logger.debug("data null.");
+				return new Result<UserVO>(StatusCodes.OK, null);
+			}
+			return new Result<UserVO>(StatusCodes.OK, toVO(t));
+		} catch (Exception e) {
+			logger.error("an error occur in getByPK service : {}", e);
+			return new Result<UserVO>(StatusCodes.INTERNAL_SERVER_ERROR, getModel());
+		}
+	}
 
 	
 

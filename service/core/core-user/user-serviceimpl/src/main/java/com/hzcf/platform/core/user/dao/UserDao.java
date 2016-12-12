@@ -1,5 +1,6 @@
 package com.hzcf.platform.core.user.dao;
 
+import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.user.data.User;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.framework.core.storage.IBaseDao;
@@ -16,4 +17,12 @@ public interface UserDao extends IBaseDao<User> {
 		 * @throws
 	 */
 	boolean updateMobile(User user);
+	
+	/**
+	 * 按手机号取得
+	 * 
+	 * @param mobile
+	 * @return
+	 */
+	User getByMobile(String mobile);
 }
