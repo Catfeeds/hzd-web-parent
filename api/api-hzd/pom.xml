@@ -8,9 +8,9 @@
 	</parent>
 	
 	<groupId>com.hzcf.api</groupId>
-	<artifactId>api-user</artifactId>
+	<artifactId>api-hzd</artifactId>
 	<packaging>war</packaging>
-	<name>api user</name>
+	<name>api hzd</name>
 <properties>
        
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -93,7 +93,7 @@
 	</dependencies>
 	
 	<build>
-		<finalName>api-user</finalName>
+		<finalName>api-hzd</finalName>
 	    <plugins>
 			<plugin>
 				<groupId>org.mortbay.jetty</groupId>
