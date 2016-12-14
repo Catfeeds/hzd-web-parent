@@ -1,6 +1,9 @@
 package com.hzcf.platform.api.user.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import com.hzcf.platform.api.user.common.BackResult;
+import com.hzcf.platform.core.user.model.RequestAgent;
 import com.hzcf.platform.core.user.model.UserVO;
 
 /**
@@ -20,7 +23,8 @@ public interface IUserService {
 	
 	public BackResult register(UserVO user,String type);
 	
-	public BackResult logonUser(UserVO user);
+	public BackResult logonUser(UserVO user,HttpServletRequest request,RequestAgent agent);
 	
-	public BackResult exitLogo(UserVO user);
+	public BackResult exitLogon(UserVO user);
+	public BackResult isLogon(UserVO user);
 }

@@ -15,6 +15,43 @@ public class UserVO extends BaseVO{
 	//缓存验证码 类型
 	private String smsCacheType;
 	
+	private String ip;
+	
+	/**
+	 * 终端类型
+	 */
+	private String terminal;
+
+	/**
+	 * 终端版本
+	 */
+	private String version;
+	
+	
+	public String getIp() {
+		return ip;
+	}
+
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public String getTerminal() {
+		return terminal;
+	}
+
+	public void setTerminal(String terminal) {
+		this.terminal = terminal;
+	}
+
+	public String getVersion() {
+		return version;
+	}
+
+	public void setVersion(String version) {
+		this.version = version;
+	}
+
 	public UserVO(){
 		
 	}

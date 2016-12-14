@@ -38,4 +38,10 @@ public class BaseConfig {
 	public static final String REDIS_PREFIXED = "MYF_REDIS";
 	
 	public static final String USER_TYPE="user";
+	
+	public static final String USER_IOS="IOS";
+	
+	public static final String USER_ANDROID="Android";
+	
+	public static final String IP="ip";
 }

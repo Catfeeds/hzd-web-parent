@@ -17,10 +17,23 @@ public class RequestAgent implements java.io.Serializable {
 	 * 终端版本
 	 */
 	private String version;
+	
+	
+	private String ip;
+	
+	
+	public String getIp() {
+		return ip;
+	}
 
-	public RequestAgent(String terminal, String version) {
+	public void setIp(String ip) {
+		this.ip = ip;
+	}
+
+	public RequestAgent(String terminal, String version,String ip) {
 		setTerminal(terminal);
 		setVersion(version);
+		setIp(ip);
 	}
 
 	public RequestAgent() {

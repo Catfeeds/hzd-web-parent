@@ -5,6 +5,8 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -17,10 +19,11 @@ import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
-import com.hzcf.platform.common.util.utils.DataVerifcation;
 import com.hzcf.platform.common.util.uuid.UUIDGenerator;
 import com.hzcf.platform.core.ConstantsToken;
+import com.hzcf.platform.core.DataVerifcation;
 import com.hzcf.platform.core.MyfStatusCodeEnum;
+import com.hzcf.platform.core.user.model.RequestAgent;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.UserService;
 
@@ -80,10 +83,12 @@ public class UserServiceImpl implements IUserService {
 		 * @date 2016年12月7日
 		 * @throws
 	 */
-	public BackResult logonUser(UserVO user){
+	public BackResult logonUser(UserVO user,HttpServletRequest request,RequestAgent agent){
 		
 		try {
-			DataVerifcation.datavVerification(user.getMobile(), null,null, null, null, user.getPassword(),null);
+			DataVerifcation.datavVerification(user.getMobile(),user.getPassword());
+			
+			
 			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
 			UserVO items = byMobile.getItems();
 			Map<String,Object> map = new HashMap<String,Object>();
@@ -91,9 +96,13 @@ public class UserServiceImpl implements IUserService {
 				if(user.getPassword().equals(items.getPassword())){
 					String token =UUIDGenerator.getUUID();
 					items.setToken(token);
+					items.setIp(agent.getIp());
+					items.setTerminal(agent.getTerminal());
 					cache.save(ConstantsToken.USER_CACHE_KEY+token, items,ConstantsToken.TOKEN_EXPIRES_HOUR);
 					logger.i("用户登录成功.手机号:"+user.getMobile());
-					return new BackResult(MyfStatusCodeEnum.MEF_CODE_0000.getCode(),MyfStatusCodeEnum.MEF_CODE_0000.getMsg(),items);
+					map.put("mobile", user.getMobile());
+					map.put("token", token);
+					return new BackResult(MyfStatusCodeEnum.MEF_CODE_0000.getCode(),MyfStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
 				}
 				logger.i("用户帐号密码错误.手机号:"+user.getMobile());
 				return new BackResult(MyfStatusCodeEnum.MEF_CODE_1022.getCode(),MyfStatusCodeEnum.MEF_CODE_1022.getMsg());
@@ -114,7 +123,7 @@ public class UserServiceImpl implements IUserService {
 
 	}
 	@Override
-	public BackResult exitLogo(UserVO user) {
+	public BackResult exitLogon(UserVO user) {
 		try {
 			cache.delete(ConstantsToken.USER_CACHE_KEY+user.getToken());
 			return new BackResult(MyfStatusCodeEnum.MEF_CODE_0000.getCode(),MyfStatusCodeEnum.MEF_CODE_0000.getMsg());
@@ -123,5 +132,13 @@ public class UserServiceImpl implements IUserService {
 			return new BackResult(MyfStatusCodeEnum.MEF_CODE_9999.getCode(),MyfStatusCodeEnum.MEF_CODE_9999.getMsg());
 		}
 	}
-
+	
+	@Override
+	public BackResult isLogon(UserVO user) {
+			if(user!=null){
+				
+				return new BackResult(MyfStatusCodeEnum.MEF_CODE_0000.getCode(),MyfStatusCodeEnum.MEF_CODE_0000.getMsg());
+			}
+			return new BackResult(MyfStatusCodeEnum.MEF_CODE_1012.getCode(),MyfStatusCodeEnum.MEF_CODE_1012.getMsg()); 
+	}
 }
