@@ -1,8 +1,8 @@
 package com.hzcf.platform.core.sys.model;
 
-import com.hzcf.platform.common.model.Entity;
+import com.hzcf.platform.common.model.BaseVO;
 
-public class SysRolePermissionVO extends Entity {
+public class SysRolePermissionVO extends BaseVO {
 	private static final long serialVersionUID = 1L;
 
 	private Long roleId;

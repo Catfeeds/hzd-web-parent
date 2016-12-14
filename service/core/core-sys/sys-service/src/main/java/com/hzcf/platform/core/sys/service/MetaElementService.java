@@ -6,10 +6,10 @@ import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
 
 import com.hzcf.platform.core.sys.model.MetaElementVO;
-import com.hzcf.platform.framework.core.service.CommonBaseService;
+import com.hzcf.platform.framework.core.service.IBaseService;
 
 
-public interface MetaElementService extends CommonBaseService<MetaElementVO>{
+public interface MetaElementService extends IBaseService<MetaElementVO> {
 
 	/**
 	 * 查询所有元数据
@@ -30,7 +30,7 @@ public interface MetaElementService extends CommonBaseService<MetaElementVO>{
 	/**  
 	 * 添加
 	 */
-	public Result<Long> create(MetaElementVO metaVo);
+	public Result<String> create(MetaElementVO metaVo);
 	  
 	public Result<Boolean> delete(Long id);
 }

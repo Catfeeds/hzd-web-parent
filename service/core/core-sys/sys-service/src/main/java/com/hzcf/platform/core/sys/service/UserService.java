@@ -8,10 +8,10 @@ import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.sys.model.ChangePwdVO;
 import com.hzcf.platform.core.sys.model.UserVO;
-import com.hzcf.platform.framework.core.service.CommonBaseService;
+import com.hzcf.platform.framework.core.service.IBaseService;
 
 
-public interface UserService extends CommonBaseService<UserVO>{
+public interface UserService extends IBaseService<UserVO> {
 
 	public Result<List<UserVO>> getCollecion();
 	
@@ -38,7 +38,7 @@ public interface UserService extends CommonBaseService<UserVO>{
 	/**
 	 * 添加用户
 	 */
-	public Result<Long> create(UserVO userVo);
+	public Result create(UserVO userVo);
 
 	public PaginatedResult<UserVO> flipPage(Map<String, Object> param, int pageSize, int pageNo);
 

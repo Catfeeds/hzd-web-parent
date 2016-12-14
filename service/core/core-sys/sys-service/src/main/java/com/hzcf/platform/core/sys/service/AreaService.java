@@ -7,7 +7,7 @@ import java.util.List;
 
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.sys.model.AreaVO;
-import com.hzcf.platform.framework.core.service.CommonBaseService;
+import com.hzcf.platform.framework.core.service.IBaseService;
 
 /**
  * @author allen.shen
@@ -15,7 +15,7 @@ import com.hzcf.platform.framework.core.service.CommonBaseService;
  * 
  * description: 
  */
-public interface AreaService extends CommonBaseService<AreaVO> {
+public interface AreaService extends IBaseService<AreaVO> {
 	
 	/**
 	 * 根据参数查询省/市/区县列表

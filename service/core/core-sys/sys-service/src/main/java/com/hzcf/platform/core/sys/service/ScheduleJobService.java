@@ -6,9 +6,9 @@ import java.util.Map;
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.sys.model.ScheduleJobVO;
-import com.hzcf.platform.framework.core.service.CommonBaseService;
+import com.hzcf.platform.framework.core.service.IBaseService;
 
-public interface ScheduleJobService extends CommonBaseService<ScheduleJobVO>{
+public interface ScheduleJobService extends IBaseService<ScheduleJobVO> {
 
 	public Result<List<ScheduleJobVO>> getCollecion();
 

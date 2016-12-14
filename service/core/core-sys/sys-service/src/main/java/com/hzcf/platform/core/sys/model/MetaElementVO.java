@@ -1,8 +1,9 @@
 package com.hzcf.platform.core.sys.model;
 
-import com.hzcf.platform.common.model.Entity;
+import com.hzcf.platform.common.model.BaseVO;
 
-public class MetaElementVO extends Entity {
+
+public class MetaElementVO extends BaseVO {
 
 	/**
 	 * 

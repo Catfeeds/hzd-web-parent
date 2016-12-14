@@ -7,10 +7,9 @@ import java.util.Map;
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.sys.model.RoleVO;
+import com.hzcf.platform.framework.core.service.IBaseService;
 
-import com.hzcf.platform.framework.core.service.CommonBaseService;
-
-public interface RoleService extends CommonBaseService<RoleVO> {
+public interface RoleService extends IBaseService<RoleVO> {
 
 	
     public Result<List<RoleVO>> getCollecion();
@@ -22,7 +21,7 @@ public interface RoleService extends CommonBaseService<RoleVO> {
 	/**  
 	 * 添加角色
 	 */
-	public Result<Long> create(RoleVO roleVo);
+	public Result create(RoleVO roleVo);
 	
 
 	public Result<Boolean> deleteById(Integer id);

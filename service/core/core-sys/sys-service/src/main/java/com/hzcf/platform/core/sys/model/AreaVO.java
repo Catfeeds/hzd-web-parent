@@ -3,7 +3,7 @@
  */
 package com.hzcf.platform.core.sys.model;
 
-import com.hzcf.platform.common.model.Entity;
+import com.hzcf.platform.common.model.BaseVO;
 
 /**
  * @author allen.shen
@@ -11,7 +11,7 @@ import com.hzcf.platform.common.model.Entity;
  * 
  * description: 
  */
-public class AreaVO extends Entity {
+public class AreaVO extends BaseVO {
 
 	/**
 	 * 

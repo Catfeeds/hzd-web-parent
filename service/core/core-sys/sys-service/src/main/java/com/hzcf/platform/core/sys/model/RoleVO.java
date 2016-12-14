@@ -1,8 +1,9 @@
 package com.hzcf.platform.core.sys.model;
 
-import com.hzcf.platform.common.model.Entity;
+import com.hzcf.platform.common.model.BaseVO;
 
-public class RoleVO extends Entity{
+
+public class RoleVO extends BaseVO {
 	/**
 	 * 
 	 */

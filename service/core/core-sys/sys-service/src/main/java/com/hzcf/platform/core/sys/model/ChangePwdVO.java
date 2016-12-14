@@ -1,12 +1,12 @@
 package com.hzcf.platform.core.sys.model;
 
-import com.hzcf.platform.common.model.Entity;
+import com.hzcf.platform.common.model.BaseVO;
 /**
  * 用户修改密码
  * @author xiaojun
  *
  */
-public class ChangePwdVO extends Entity{
+public class ChangePwdVO extends BaseVO {
 
 	/**
 	 * 

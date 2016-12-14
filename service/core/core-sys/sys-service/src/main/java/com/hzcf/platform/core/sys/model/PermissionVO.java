@@ -2,10 +2,10 @@ package com.hzcf.platform.core.sys.model;
 
 import java.util.List;
 
-import com.hzcf.platform.common.model.Entity;
+import com.hzcf.platform.common.model.BaseVO;
 import com.google.common.collect.Lists;
 
-public class PermissionVO extends Entity {
+public class PermissionVO extends BaseVO {
 
 	private static final long serialVersionUID = 1L;
 	

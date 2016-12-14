@@ -1,8 +1,8 @@
 package com.hzcf.platform.core.sys.model;
 
-import com.hzcf.platform.common.model.Entity;
+import com.hzcf.platform.common.model.BaseVO;
 
-public class SysLogVO extends Entity{
+public class SysLogVO extends BaseVO {
 
 	/**
 	 * 

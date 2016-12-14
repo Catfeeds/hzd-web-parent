@@ -1,8 +1,8 @@
 package com.hzcf.platform.core.sys.model;
 
-import com.hzcf.platform.common.model.Entity;
+import com.hzcf.platform.common.model.BaseVO;
 
-public class ScheduleJobVO extends Entity {
+public class ScheduleJobVO extends BaseVO {
 
 	/** 任务id */
 	private String jobId;

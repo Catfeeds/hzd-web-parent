@@ -6,9 +6,9 @@ import java.util.Map;
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.sys.model.PermissionVO;
-import com.hzcf.platform.framework.core.service.CommonBaseService;
+import com.hzcf.platform.framework.core.service.IBaseService;
 
-public interface PermissionService extends CommonBaseService<PermissionVO>{
+public interface PermissionService extends IBaseService<PermissionVO> {
 	
     public Result<List<PermissionVO>> getCollecion();
     /***
@@ -18,7 +18,7 @@ public interface PermissionService extends CommonBaseService<PermissionVO>{
      */
     /**
 	 * 根角色取得权限
-	 * @param user_id
+	 * @param role_id
 	 * @return
 	 */
 	public Result<List<PermissionVO>> getCollecionByRoleId(Integer role_id);	
@@ -47,7 +47,7 @@ public interface PermissionService extends CommonBaseService<PermissionVO>{
 
 	/**
 	 * 查询所有元数据
-	 * @param name
+	 * @param param
 	 * @param pageSize  
 	 * @param pageNo
 	 * @return

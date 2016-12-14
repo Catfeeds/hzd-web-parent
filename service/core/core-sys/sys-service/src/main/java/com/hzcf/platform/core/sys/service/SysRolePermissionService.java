@@ -7,9 +7,9 @@ import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
 
 import com.hzcf.platform.core.sys.model.SysRolePermissionVO;
-import com.hzcf.platform.framework.core.service.CommonBaseService;
+import com.hzcf.platform.framework.core.service.IBaseService;
 
-public interface SysRolePermissionService extends CommonBaseService<SysRolePermissionVO> {
+public interface SysRolePermissionService extends IBaseService<SysRolePermissionVO> {
 
 	/**
 	 * 根据角色名获取权限列表

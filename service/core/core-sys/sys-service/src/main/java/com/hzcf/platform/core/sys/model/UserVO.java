@@ -1,8 +1,9 @@
 package com.hzcf.platform.core.sys.model;
 
-import com.hzcf.platform.common.model.Entity;
+import com.hzcf.platform.common.model.BaseVO;
 
-public class UserVO extends Entity {
+
+public class UserVO extends BaseVO {
 	/**
 	 * 
 	 */
@@ -194,9 +195,9 @@ public class UserVO extends Entity {
 		this.userType = userType;
 	}
 
-	public boolean isAdmin() {
+/*	public boolean isAdmin() {
 		return isAdmin(this.getId());
-	}
+	}*/
 
 	public static boolean isAdmin(Long id) {
 		return id != null && id.equals(1L);

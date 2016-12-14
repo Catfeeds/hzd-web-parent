@@ -2,7 +2,7 @@ package com.hzcf.platform.core.sys.model;
 
 import java.util.List;
 
-import com.hzcf.platform.common.model.Entity;
+import com.hzcf.platform.common.model.BaseVO;
 
 /**
  * 用户序列化对象
@@ -10,7 +10,7 @@ import com.hzcf.platform.common.model.Entity;
  * @author lx828
  *
  */
-public class BaseUser extends Entity {
+public class BaseUser extends BaseVO {
 
 	/**
 	 * 
@@ -57,9 +57,9 @@ public class BaseUser extends Entity {
 		this.userName = userName;
 	}
 
-	public boolean isAdmin() {
+	/*public boolean isAdmin() {
 		return isAdmin(this.getId());
-	}
+	}*/
 
 	public static boolean isAdmin(Long id) {
 		return id != null && id.equals(1L);
