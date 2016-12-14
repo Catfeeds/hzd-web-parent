@@ -50,7 +50,7 @@ public class OnlineLoanServiceImpl implements IOnlineLoanService {
 	@Override
 	public BackResult OnlineLoanApply(UserVO user, OnlineLoanInfo onlineLoanInfo) {
 		try {
-			DataVerifcation.datavVerification(onlineLoanInfo.getMobile(), onlineLoanInfo.getIdCard().toUpperCase(), onlineLoanInfo.getArea(), onlineLoanInfo.getName(), null, user.getPassword(),null);
+			DataVerifcation.datavVerification(onlineLoanInfo.getMobile(), onlineLoanInfo.getIdCard().toUpperCase(), onlineLoanInfo.getArea(), onlineLoanInfo.getName());
 			
 
 			String sendRsp = onlineLoanWebServic.OnlineLoanApply(onlineLoanInfo);

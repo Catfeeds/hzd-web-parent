@@ -48,8 +48,7 @@ public class UserServiceImpl implements IUserService {
 	 */
 	public BackResult register(UserVO user,String num) {
 		try {
-			DataVerifcation.datavVerification(user.getMobile(), null,null, null, num, user.getPassword(),null);
-		
+			DataVerifcation.datavVerification(user.getMobile(),num);
 			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
 			UserVO items = byMobile.getItems();
 			
@@ -86,8 +85,6 @@ public class UserServiceImpl implements IUserService {
 	public BackResult logonUser(UserVO user,HttpServletRequest request,RequestAgent agent){
 		
 		try {
-			DataVerifcation.datavVerification(user.getMobile(),user.getPassword());
-			
 			
 			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
 			UserVO items = byMobile.getItems();
@@ -111,11 +108,7 @@ public class UserServiceImpl implements IUserService {
 				logger.i("用户未注册,请先注册.手机号:)"+user.getMobile());
 				return new BackResult(MyfStatusCodeEnum.MEF_CODE_1011.getCode(),MyfStatusCodeEnum.MEF_CODE_1011.getMsg());
 			}
-		} catch (CheckException e) {
-			e.printStackTrace();
-			logger.i("登录失败参数有误---手机号:"+user.getMobile());
-			return new BackResult(MyfStatusCodeEnum.MEF_CODE_0001.getCode(),e.getMessage());
-		} catch (Exception e) {
+		}  catch (Exception e) {
 			e.printStackTrace();
 			logger.i("登录出现异常---手机号:"+user.getMobile());
 			return new BackResult(MyfStatusCodeEnum.MEF_CODE_9999.getCode(),MyfStatusCodeEnum.MEF_CODE_9999.getMsg());

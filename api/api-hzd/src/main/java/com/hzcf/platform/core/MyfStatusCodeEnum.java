@@ -33,8 +33,6 @@ public enum MyfStatusCodeEnum {
 	
 	//=====短信接口 
 	MEF_CODE_3010(3010, "手机号码为空"),
-	MEF_CODE_3021(3021, "用户已注册"),
-	MEF_CODE_3022(3022, "用户未注册"),
 	MEF_CODE_3000(3000, "验证码有误"),
 	
 	MEF_CODE_9000(9000, "传入参数有误"),
