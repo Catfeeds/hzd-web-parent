@@ -23,7 +23,7 @@ public class CORSFilter implements Filter{
 			throws IOException, ServletException {
 		// TODO Auto-generated method stub
 		HttpServletResponse res=(HttpServletResponse)response;
-		res.setHeader("Access-Control-Allow-Origin", "http://admin.exiao.com");
+		res.setHeader("Access-Control-Allow-Origin", "http://admin.hzcf.com");
 		res.setHeader("Access-Control-Allow-Methods", "POST, GET, PUT, DELETE, OPTIONS");
 		res.setHeader("Access-Control-Max-Age", "3000");
 		res.setHeader("Access-Control-Allow-Headers", "Origin, No-Cache, X-Requested-With, If-Modified-Since, Pragma, Last-Modified, Cache-Control, Expires, Content-Type, X-E4M-With");

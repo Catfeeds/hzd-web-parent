@@ -9,7 +9,7 @@ define(['service/config'], function(config) {
 					text: 'goexw'
 				}, {
 					value: 2,
-					text: 'exiao'
+					text: 'hzcf'
 				}],
 				paginate: {
 					currentPage: 1,

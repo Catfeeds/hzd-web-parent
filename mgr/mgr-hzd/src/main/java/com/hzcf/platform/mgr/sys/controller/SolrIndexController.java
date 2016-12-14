@@ -26,9 +26,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.exiao.platform.common.util.response.ResponseBuilder;
-import com.exiao.platform.common.util.rpc.result.Result;
-import com.exiao.platform.common.util.status.StatusCodes;
+import com.hzcf.platform.common.util.response.ResponseBuilder;
+import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.mgr.sys.util.SolrConfigConstants;
 import com.google.common.base.Charsets;
 import com.google.common.base.Stopwatch;

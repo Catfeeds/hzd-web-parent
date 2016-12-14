@@ -91,7 +91,7 @@ define(['common/session', 'service/config', 'common/path-helper'], function(sess
                     createTime: '2015-11-23 22:23:25'
                 }, {
                     id: 4,
-                    name: 'EXIAO',
+                    name: 'hzcf',
                     status: '运营',
                     creator: 'USEA',
                     version: '1.0',

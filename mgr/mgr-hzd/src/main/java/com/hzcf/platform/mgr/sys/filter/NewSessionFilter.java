@@ -24,7 +24,7 @@ public class NewSessionFilter  implements Filter {
 
 	private String url;  
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
-    public static final String NEW_SESSION_INDICATOR = "com.exiao.platform.mgr.sys.filter.NewSessionFilter";  
+    public static final String NEW_SESSION_INDICATOR = "com.hzcf.platform.mgr.sys.filter.NewSessionFilter";
   
     public static void newSession(){  
         HttpSession session = (HttpSession) SecurityUtils.getSubject().getSession(true);  

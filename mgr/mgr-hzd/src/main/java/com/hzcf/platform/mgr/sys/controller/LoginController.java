@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.exiao.platform.common.util.json.parser.JsonParserFactory;
-import com.exiao.platform.common.util.response.ResponseBuilder;
-import com.exiao.platform.common.util.rpc.result.Result;
-import com.exiao.platform.common.util.status.StatusCodes;
-import com.exiao.platform.core.sys.model.BaseUser;
-import com.exiao.platform.core.sys.service.UserService;
+import com.hzcf.platform.common.util.json.parser.JsonParserFactory;
+import com.hzcf.platform.common.util.response.ResponseBuilder;
+import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.common.util.status.StatusCodes;
+import com.hzcf.platform.core.sys.model.BaseUser;
+import com.hzcf.platform.core.sys.service.UserService;
 
-import com.exiao.platform.framework.webmvc.session.SessionCache;
+import com.hzcf.platform.framework.webmvc.session.SessionCache;
 
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.fasterxml.jackson.databind.ObjectMapper;

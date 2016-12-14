@@ -118,7 +118,7 @@
 		<!-- 记住我cookie生效时间30天 -->
 		<property name="maxAge" value="2592000" />
 	</bean>
-	<bean id="sessionCache" class="com.exiao.platform.framework.webmvc.session.SessionCacheImpl">
+	<bean id="sessionCache" class="com.hzcf.platform.framework.webmvc.session.SessionCacheImpl">
 		 <property name="cache" ref="cache" />
 	</bean>
 	   <!--redis配置-->

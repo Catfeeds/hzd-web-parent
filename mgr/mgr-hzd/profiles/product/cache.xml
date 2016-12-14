@@ -5,7 +5,7 @@
          	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
          	http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
 
-	<bean id="serialization" class="com.exiao.platform.common.cache.serial.JDKSerialization" />
+	<bean id="serialization" class="com.hzcf.platform.common.cache.serial.JDKSerialization" />
 
 	<bean id="genericObjectPoolConfig" class="org.apache.commons.pool2.impl.GenericObjectPoolConfig" p:minIdle="20" p:maxTotal="200" />
 
@@ -18,6 +18,6 @@
 		</constructor-arg>
 	</bean>
 
-	<bean id="cache" class="com.exiao.platform.common.cache.redis.ShardedCache" c:pool-ref="shardedJedisPool" c:serialization-ref="serialization" />
+	<bean id="cache" class="com.hzcf.platform.common.cache.redis.ShardedCache" c:pool-ref="shardedJedisPool" c:serialization-ref="serialization" />
 
 </beans>

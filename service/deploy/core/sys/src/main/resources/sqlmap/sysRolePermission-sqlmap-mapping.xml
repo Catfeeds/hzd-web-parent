@@ -3,11 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.exiao.platform.core.sys.data.SysRolePermission">
+<mapper namespace="com.hzcf.platform.core.sys.data.SysRolePermission">
     <!--  
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
 	-->
-	<resultMap id="BaseResultMap" type="com.exiao.platform.core.sys.data.SysRolePermission">
+	<resultMap id="BaseResultMap" type="com.hzcf.platform.core.sys.data.SysRolePermission">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="permission_id" property="permissionId" jdbcType="INTEGER" />
 		<result column="role_id" property="roleId" jdbcType="INTEGER" />
@@ -102,7 +102,7 @@
 	</delete>
 
 	<!-- 添加 -->	
-	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.exiao.platform.core.sys.data.SysRolePermission">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.hzcf.platform.core.sys.data.SysRolePermission">
 		insert into sys_role_permission(
 		   id ,
 		   permission_id ,                                                                                                                                  

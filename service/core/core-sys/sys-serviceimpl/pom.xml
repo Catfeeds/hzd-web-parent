@@ -3,7 +3,7 @@
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
 		<groupId>com.hzcf.core.sys</groupId>
-	    <artifactId>sys-parent</artifactId>
+	    <artifactId>core-sys-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<artifactId>core-sys-service-impl</artifactId>
@@ -11,7 +11,7 @@
 	<name>core sys service impl</name>
 
 	<dependencies>
-	    <!-- exiao jar -->
+	    <!-- hzcf jar -->
 		<dependency>
 			<groupId>com.hzcf.framework</groupId>
 			<artifactId>framework-shiro</artifactId>

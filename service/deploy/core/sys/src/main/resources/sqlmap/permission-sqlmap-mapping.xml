@@ -3,11 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.exiao.platform.core.sys.data.Permission">
+<mapper namespace="com.hzcf.platform.core.sys.data.Permission">
     <!--  
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
 	-->
-	<resultMap id="BaseResultMap" type="com.exiao.platform.core.sys.data.Permission">
+	<resultMap id="BaseResultMap" type="com.hzcf.platform.core.sys.data.Permission">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
 		<result column="parent_ids" property="parentIds" jdbcType="VARCHAR" />
@@ -241,7 +241,7 @@
 	</delete>
 
 	<!-- 添加 -->	
-	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.exiao.platform.core.sys.data.Permission">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.hzcf.platform.core.sys.data.Permission">
 		insert into sys_permission(
 		  id, 
 		  parent_id ,
@@ -281,7 +281,7 @@
 	</insert>
 	
 	<!-- 通过ID更新 -->
-	<update id="updateByIdSelective" parameterType="com.exiao.platform.core.sys.data.Permission">
+	<update id="updateByIdSelective" parameterType="com.hzcf.platform.core.sys.data.Permission">
 		update sys_permission
 		<set>
 			<if test="name != null">name = #{name},</if>
@@ -299,7 +299,7 @@
 		where id = #{id}
 	</update>
 	
-	<update id="updateById" parameterType="com.exiao.platform.core.sys.data.Permission">
+	<update id="updateById" parameterType="com.hzcf.platform.core.sys.data.Permission">
 		update sys_permission
 		<set>
 			<if test="name != null">name = #{name},</if>

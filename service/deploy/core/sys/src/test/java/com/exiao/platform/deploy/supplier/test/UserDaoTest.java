@@ -1,4 +1,4 @@
-package com.exiao.platform.deploy.supplier.test;
+package com.hzcf.platform.deploy.supplier.test;
 
 import java.util.Date;
 
@@ -8,7 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.exiao.platform.core.sys.dao.UserDao;
+import com.hzcf.platform.core.sys.dao.UserDao;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:spring-config.xml")

@@ -28,7 +28,7 @@
 		<property name="proxyTargetClass" value="true" />
 	</bean>-->
 	<!-- 开启shiro注解支持 -->
-	<!-- <bean id="systemAuthorizingRealm" class="com.exiao.platform.mgr.sys.security.SystemAuthorizingRealm">-->
+	<!-- <bean id="systemAuthorizingRealm" class="com.hzcf.platform.mgr.sys.security.SystemAuthorizingRealm">-->
     <!-- realm -->
 
 	<!-- 将凭证匹配器设置到realm中，realm按照凭证匹配器的要求进行散列 -->

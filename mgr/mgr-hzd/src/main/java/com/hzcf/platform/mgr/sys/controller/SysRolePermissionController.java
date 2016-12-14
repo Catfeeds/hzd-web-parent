@@ -22,17 +22,17 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.exiao.platform.common.util.response.ResponseBuilder;
-import com.exiao.platform.common.util.rpc.result.PaginatedResult;
-import com.exiao.platform.common.util.rpc.result.Result;
-import com.exiao.platform.core.sys.model.BaseUser;
-import com.exiao.platform.core.sys.model.Element;
-import com.exiao.platform.core.sys.model.MetaElementVO;
-import com.exiao.platform.core.sys.model.PermissionVO;
-import com.exiao.platform.core.sys.model.SysRolePermissionVO;
-import com.exiao.platform.core.sys.model.UserVO;
-import com.exiao.platform.core.sys.service.PermissionService;
-import com.exiao.platform.core.sys.service.SysRolePermissionService;
+import com.hzcf.platform.common.util.response.ResponseBuilder;
+import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
+import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.core.sys.model.BaseUser;
+import com.hzcf.platform.core.sys.model.Element;
+import com.hzcf.platform.core.sys.model.MetaElementVO;
+import com.hzcf.platform.core.sys.model.PermissionVO;
+import com.hzcf.platform.core.sys.model.SysRolePermissionVO;
+import com.hzcf.platform.core.sys.model.UserVO;
+import com.hzcf.platform.core.sys.service.PermissionService;
+import com.hzcf.platform.core.sys.service.SysRolePermissionService;
 
 @RestController
 public class SysRolePermissionController {

@@ -2,8 +2,8 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	<parent>
-		<groupId>com.hzcf.deploy</groupId>
-		<artifactId>deploy-parent</artifactId>
+		<groupId>com.hzcf.deploy.core</groupId>
+		<artifactId>deploy-core-parent</artifactId>
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>com.hzcf.deploy.core</groupId>
@@ -83,7 +83,7 @@
 						<manifest>
 							<addClasspath>true</addClasspath>
 							<classpathPrefix>lib/</classpathPrefix>
-							<mainClass>com.exiao.platform.deploy.sys.DeployCoreSys</mainClass>
+							<mainClass>com.hzcf.platform.deploy.sys.DeployCoreSys</mainClass>
 						</manifest>
 						<manifestEntries>
 							<Class-Path>configs/</Class-Path>

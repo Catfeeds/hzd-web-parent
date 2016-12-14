@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ehcache updateCheck="false" name="ehcache">
 
-	<diskStore path="java.io.tmpdir/exiao/ehcache" />
+	<diskStore path="java.io.tmpdir/hzcf/ehcache" />
 
 	<!-- DefaultCache setting. -->
 	<defaultCache maxEntriesLocalHeap="1000" eternal="false" timeToIdleSeconds="300" timeToLiveSeconds="600"

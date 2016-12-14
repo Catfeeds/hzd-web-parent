@@ -14,7 +14,7 @@ import org.apache.shiro.util.CollectionUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import com.exiao.platform.common.cache.ICache;
+import com.hzcf.platform.common.cache.ICache;
 
 
 @SuppressWarnings("rawtypes")

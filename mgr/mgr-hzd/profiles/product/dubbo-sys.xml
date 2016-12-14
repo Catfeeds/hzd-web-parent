@@ -14,14 +14,14 @@
  
  	<!-- 使用zookeeper注册中心暴露服务地址 -->
 	<!--<dubbo:registry address="zookeeper://127.0.0.1:2181" check="false"  />-->
-    <dubbo:registry protocol= "zookeeper" address="zk1.exiao.com:2181,zk2.exiao.com:2181,zk3.exiao.com:2181"/>
+    <dubbo:registry protocol= "zookeeper" address="zk1.hzcf.com:2181,zk2.hzcf.com:2181,zk3.hzcf.com:2181"/>
      
     <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
-    <dubbo:reference id="userService" interface="com.exiao.platform.core.sys.service.UserService"/> 
-    <dubbo:reference id="roleService" interface="com.exiao.platform.core.sys.service.RoleService"/> 
-    <dubbo:reference id="sysLogService" interface="com.exiao.platform.core.sys.service.SysLogService"/> 
-    <dubbo:reference id="metaElementService" interface="com.exiao.platform.core.sys.service.MetaElementService"/>
-    <dubbo:reference id="permissionService" interface="com.exiao.platform.core.sys.service.PermissionService"/> 
-    <dubbo:reference id="departmentService" interface="com.exiao.platform.core.sys.service.DepartmentService"/> 
+    <dubbo:reference id="userService" interface="com.hzcf.platform.core.sys.service.UserService"/>
+    <dubbo:reference id="roleService" interface="com.hzcf.platform.core.sys.service.RoleService"/>
+    <dubbo:reference id="sysLogService" interface="com.hzcf.platform.core.sys.service.SysLogService"/>
+    <dubbo:reference id="metaElementService" interface="com.hzcf.platform.core.sys.service.MetaElementService"/>
+    <dubbo:reference id="permissionService" interface="com.hzcf.platform.core.sys.service.PermissionService"/>
+    <dubbo:reference id="departmentService" interface="com.hzcf.platform.core.sys.service.DepartmentService"/>
       
 </beans>

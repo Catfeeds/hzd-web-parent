@@ -3,12 +3,12 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.exiao.platform.core.sys.data.MetaElement">
+<mapper namespace="com.hzcf.platform.core.sys.data.MetaElement">
 
 	<!--  
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
 	-->
-	<resultMap id="BaseResultMap" type="com.exiao.platform.core.sys.data.MetaElement">
+	<resultMap id="BaseResultMap" type="com.hzcf.platform.core.sys.data.MetaElement">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="data_name" property="dataName" jdbcType="VARCHAR" />
 		<result column="data_code" property="dataCode" jdbcType="VARCHAR" />
@@ -82,7 +82,7 @@
 		FROM sys_metadata
 		WHERE id = #{id}
 	</select>
-	<resultMap id="elementResultMap" type="com.exiao.platform.core.sys.data.MetaElement">
+	<resultMap id="elementResultMap" type="com.hzcf.platform.core.sys.data.MetaElement">
 		<result column="position" property="position" jdbcType="INTEGER" />
 		<result column="data_content_cn" property="ContentCn" jdbcType="VARCHAR" />
 		<result column="data_content_en" property="ContentEn" jdbcType="VARCHAR" />
@@ -135,7 +135,7 @@
 		update  sys_metadata set logic_del=1 where id = #{id} 
 	</update> 
 	<!-- 添加 -->	
-	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.exiao.platform.core.sys.data.MetaElement">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.hzcf.platform.core.sys.data.MetaElement">
 		insert into sys_metadata(
 		   id ,
 		   data_name ,
@@ -159,7 +159,7 @@
 	</insert>
 	
 	<!-- 通过ID更新 -->
-	<update id="updateByIdSelective" parameterType="com.exiao.platform.core.sys.data.MetaElement">
+	<update id="updateByIdSelective" parameterType="com.hzcf.platform.core.sys.data.MetaElement">
 		update sys_metadata
 		<set>
 			<if test="dataName != null">data_name = #{dataName},</if>
@@ -175,7 +175,7 @@
 		where id = #{id}
 	</update>
 	
-	<update id="updateById" parameterType="com.exiao.platform.core.sys.data.MetaElement">
+	<update id="updateById" parameterType="com.hzcf.platform.core.sys.data.MetaElement">
 		update sys_metadata
 		set data_name = #{dataName},
 		data_code = #{dataCode},

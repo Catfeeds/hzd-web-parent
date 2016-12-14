@@ -3,11 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.exiao.platform.core.sys.data.Role">
+<mapper namespace="com.hzcf.platform.core.sys.data.Role">
     <!--  
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
 	-->
-	<resultMap id="BaseResultMap" type="com.exiao.platform.core.sys.data.Role">
+	<resultMap id="BaseResultMap" type="com.hzcf.platform.core.sys.data.Role">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="role_name" property="roleName" jdbcType="VARCHAR" />
 		<result column="en_name" property="enName" jdbcType="VARCHAR" />
@@ -174,7 +174,7 @@
 	</delete>
 
 	<!-- 添加 -->	
-	<insert id="insert" useGeneratedKeys="true" keyProperty="id"   parameterType="com.exiao.platform.core.sys.data.Role">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"   parameterType="com.hzcf.platform.core.sys.data.Role">
 		insert into sys_role(
 			id,
 		    role_name,
@@ -210,7 +210,7 @@
 	</insert>
 	
 	<!-- 通过ID更新 -->
-	<update id="updateByIdSelective" parameterType="com.exiao.platform.core.sys.data.Role">
+	<update id="updateByIdSelective" parameterType="com.hzcf.platform.core.sys.data.Role">
 		update sys_role
 		<set>
 			<if test="roleName != null">role_name = #{roleName},</if>
@@ -226,7 +226,7 @@
 		where id = #{id}
 	</update>
 	
-	<update id="updateById" parameterType="com.exiao.platform.core.sys.data.Role">
+	<update id="updateById" parameterType="com.hzcf.platform.core.sys.data.Role">
 		update sys_role
 		set role_name = #{roleName},
 		en_name = #{enName},

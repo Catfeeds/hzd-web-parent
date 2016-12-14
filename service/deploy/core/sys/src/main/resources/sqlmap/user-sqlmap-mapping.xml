@@ -3,11 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.exiao.platform.core.sys.data.User">
+<mapper namespace="com.hzcf.platform.core.sys.data.User">
     <!--  
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
 	-->
-	<resultMap id="BaseResultMap" type="com.exiao.platform.core.sys.data.User">
+	<resultMap id="BaseResultMap" type="com.hzcf.platform.core.sys.data.User">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="login_name" property="loginName" jdbcType="VARCHAR" />
 		<result column="password" property="password" jdbcType="VARCHAR" />
@@ -201,7 +201,7 @@
 	</delete>
 
 	<!-- 添加 -->	
-	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.exiao.platform.core.sys.data.User">
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.hzcf.platform.core.sys.data.User">
 		insert into sys_user(
 			id, 
 		    login_name ,
@@ -247,7 +247,7 @@
 	</insert>
 	
 	<!-- 通过ID更新 -->
-	<update id="updateByIdSelective" parameterType="com.exiao.platform.core.sys.data.User">
+	<update id="updateByIdSelective" parameterType="com.hzcf.platform.core.sys.data.User">
 		update sys_user
 		<set>
 			<if test="password != null">password = #{password},</if>
@@ -270,7 +270,7 @@
 		where id = #{id}
 	</update>
 	
-	<update id="updateById" parameterType="com.exiao.platform.core.sys.data.User">
+	<update id="updateById" parameterType="com.hzcf.platform.core.sys.data.User">
 		update sys_user
 		set password = #{password},
 		confirm_password = #{confirmPassword},

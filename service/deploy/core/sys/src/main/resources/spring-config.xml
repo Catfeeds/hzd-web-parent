@@ -21,9 +21,9 @@
 	<!-- 采用注释的方式配置bean -->  
     <context:annotation-config />  
     <!-- 配置要扫描的包 -->  
-    <context:component-scan base-package="com.exiao.platform.core.sys" />
+    <context:component-scan base-package="com.hzcf.platform.core.sys" />
      <!-- 加载msg载入类 -->
-    <context:component-scan base-package="com.exiao.platform.common.util.msg" />
+    <context:component-scan base-package="com.hzcf.platform.common.util.msg" />
  
 
 	<!-- 加载 jdbc.properties 配置文件 -->
@@ -58,7 +58,7 @@
     	</tx:attributes>
   	</tx:advice>
   	<aop:config >
-    	<aop:pointcut expression="execution(* com.exiao.platform.core.sys.service.*.*(..))" id="service"/>
+    	<aop:pointcut expression="execution(* com.hzcf.platform.core.sys.service.*.*(..))" id="service"/>
     	<aop:advisor advice-ref="txAdvice" pointcut-ref="service"/>
   	</aop:config>
  

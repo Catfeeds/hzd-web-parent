@@ -8,7 +8,7 @@ public class CookieConstants {
 
 	public final static String LOGIN_USER_ID = "rememberMe"; // 用户登录cookieID
 
-	public final static String LOGIN_USER_DOMAIN = "admin.exiao.com"; // 域名
+	public final static String LOGIN_USER_DOMAIN = "admin.hzcf.com"; // 域名
 	
     public static final String CURRENT_USER = "user";
 

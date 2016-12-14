@@ -7,7 +7,7 @@
 		<version>0.0.1-SNAPSHOT</version>
 	</parent>
 	<groupId>com.hzcf.core.sys</groupId>
-	<artifactId>sys-parent</artifactId>
+	<artifactId>core-sys-parent</artifactId>
 	<name>core sys parent</name>	
 	<packaging>pom</packaging>
 

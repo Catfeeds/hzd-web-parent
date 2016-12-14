@@ -3,11 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="com.exiao.platform.core.sys.data.Department">
+<mapper namespace="com.hzcf.platform.core.sys.data.Department">
     <!--  
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
 	-->
-	<resultMap id="BaseResultMap" type="com.exiao.platform.core.sys.data.Department">
+	<resultMap id="BaseResultMap" type="com.hzcf.platform.core.sys.data.Department">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="parent_id" property="parentId" jdbcType="VARCHAR" />
 		<result column="parent_ids" property="parentIds" jdbcType="VARCHAR" />

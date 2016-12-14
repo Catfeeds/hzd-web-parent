@@ -16,8 +16,8 @@
 	<aop:config proxy-target-class="true"></aop:config>
 	
 	
-	<context:component-scan base-package="com.exiao.platform.mgr.sys.controller"></context:component-scan>
-	<context:component-scan base-package="com.exiao.platform.mgr.sys.interceptor"></context:component-scan>
+	<context:component-scan base-package="com.hzcf.platform.mgr.sys.controller"></context:component-scan>
+	<context:component-scan base-package="com.hzcf.platform.mgr.sys.interceptor"></context:component-scan>
      <!-- 开启shiro注解支持 
     <bean class="org.apache.shiro.spring.security.interceptor.AuthorizationAttributeSourceAdvisor">
 		<property name="securityManager" ref="securityManager" />
@@ -26,7 +26,7 @@
     <mvc:annotation-driven></mvc:annotation-driven>
     <!-- 拦截器配置
 	<mvc:interceptors>
-		<bean class="com.exiao.mgr.sys.interceptor.SysLogInterceptor" />
+		<bean class="com.hzcf.mgr.sys.interceptor.SysLogInterceptor" />
 	</mvc:interceptors>
 	 
 	
@@ -34,18 +34,18 @@
    <mvc:interceptor> 
    <mvc:mapping path="/**"/> 
       <mvc:exclude-mapping path="/sysLog/**"/> 
-       <bean class="com.exiao.platform.mgr.sys.interceptor.SysLogInterceptor" /> 
+       <bean class="com.hzcf.platform.mgr.sys.interceptor.SysLogInterceptor" />
       </mvc:interceptor> 
    </mvc:interceptors> --> 
 <!-- 拦截器
 	<mvc:interceptors>  
         <mvc:interceptor>
         	<mvc:mapping path="/login"/>
-        	<bean class="com.exiao.platform.framework.webmvc.interceptor.UserLoginInterceptor"/> 
+        	<bean class="com.hzcf.platform.framework.webmvc.interceptor.UserLoginInterceptor"/>
         </mvc:interceptor>
         <mvc:interceptor>
         	<mvc:mapping path="/logout"/>
-        	<bean class="com.exiao.platform.framework.webmvc.interceptor.UserLogoutInterceptor"/> 
+        	<bean class="com.hzcf.platform.framework.webmvc.interceptor.UserLogoutInterceptor"/>
         </mvc:interceptor>
          
     </mvc:interceptors>  --> 

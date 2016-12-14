@@ -15,7 +15,7 @@
  	<dubbo:consumer timeout="30000" />
  	<!-- 使用zookeeper注册中心暴露服务地址 -->
 	<!-- <dubbo:registry address="zookeeper://127.0.0.1:2181" check="false" /> -->
-	<!--<dubbo:registry protocol= "zookeeper" address="dubbo-zk1.exiao.me:2181,dubbo-zk2.exiao.me:2181,dubbo-zk3.exiao.me:2181"/>-->
+	<!--<dubbo:registry protocol= "zookeeper" address="dubbo-zk1.hzcf.me:2181,dubbo-zk2.hzcf.me:2181,dubbo-zk3.hzcf.me:2181"/>-->
  
     <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
 	<dubbo:reference id="userService" interface="com.hzcf.platform.core.user.service.UserService" check="false" />

@@ -13,10 +13,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.exiao.platform.common.util.response.ResponseBuilder;
-import com.exiao.platform.common.util.rpc.result.Result;
-import com.exiao.platform.core.sys.model.DepartmentVO;
-import com.exiao.platform.core.sys.service.DepartmentService;
+import com.hzcf.platform.common.util.response.ResponseBuilder;
+import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.core.sys.model.DepartmentVO;
+import com.hzcf.platform.core.sys.service.DepartmentService;
 
 @RestController
 public class DepartmentController {

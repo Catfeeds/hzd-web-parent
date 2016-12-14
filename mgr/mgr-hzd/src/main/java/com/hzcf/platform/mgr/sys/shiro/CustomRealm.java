@@ -23,12 +23,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.exiao.platform.common.util.time.DateUtil;
-import com.exiao.platform.core.sys.model.BaseUser;
-import com.exiao.platform.core.sys.model.PermissionVO;
-import com.exiao.platform.core.sys.model.UserVO;
-import com.exiao.platform.core.sys.service.PermissionService;
-import com.exiao.platform.core.sys.service.UserService;
+import com.hzcf.platform.common.util.time.DateUtil;
+import com.hzcf.platform.core.sys.model.BaseUser;
+import com.hzcf.platform.core.sys.model.PermissionVO;
+import com.hzcf.platform.core.sys.model.UserVO;
+import com.hzcf.platform.core.sys.service.PermissionService;
+import com.hzcf.platform.core.sys.service.UserService;
 
 /**
  * 
