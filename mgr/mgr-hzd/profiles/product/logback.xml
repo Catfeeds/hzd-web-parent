@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration >
+	<jmxConfigurator />
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<layout class="ch.qos.logback.classic.PatternLayout">
+			<pattern>%date{yyyy/MM/dd HH:mm:ss} [%thread] %-5level %logger{80} -line %L - %msg%n</pattern>
+		</layout>
+	</appender>
+ 	<appender name="file" class="ch.qos.logback.core.rolling.RollingFileAppender">
+ 		<File>/opt/exiao/logs/exiao.log</File>
+ 		<param name="Append" value="true"/>
+ 		 <param   name="DatePattern"   value="'.'yyyy-MM-dd"/>
+ 		 <!-- 按照时间来分页，格式：【yyyy-MM-dd_HH_mm_ss】  -->
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">  
+            <fileNamePattern>/opt/exiao/logs/exiao.%d{yyyy-MM-dd}.log</fileNamePattern>
+            <maxHistory>366</maxHistory>
+        </rollingPolicy>
+	 	<encoder charset="UTF-8">
+	 		<pattern>%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{80} -line %L - %msg%n</pattern>
+	 	</encoder>
+ 	</appender>	
+	
+	
+
+</configuration>

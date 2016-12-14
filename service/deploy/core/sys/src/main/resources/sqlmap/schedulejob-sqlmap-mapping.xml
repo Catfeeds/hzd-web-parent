@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.exiao.platform.core.sys.data.ScheduleJob">
+
+	 <!--  
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
+	-->
+	<resultMap id="BaseResultMap" type="scheduleJob">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="job_id" property="jobId" jdbcType="VARCHAR" />
+		<result column="job_name" property="jobName" jdbcType="VARCHAR" />
+		<result column="job_group" property="jobGroup" jdbcType="VARCHAR" />
+		<result column="job_status" property="jobStatus" jdbcType="INTEGER" />
+		<result column="cron_expression" property="cronExpression" jdbcType="VARCHAR" />
+		<result column="remark" property="remark" jdbcType="VARCHAR" />
+	    <result column="create_by" property="createBy" jdbcType="INTEGER" />
+		<result column="update_by" property="updateBy" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    	<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    	<result column="logic_del" property="logicalDel" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="Table_Name">
+    	sys_schedulejob
+  	</sql>
+	
+	<sql id="Base_Column_List">
+		*
+	</sql>
+	
+	<select id="getAll" resultMap="BaseResultMap">
+		SELECT
+        id,
+		job_id ,
+		job_group , 
+		job_name ,
+		job_status ,
+		cron_expression ,
+		remark ,
+		update_by,
+		create_by,
+		create_time ,
+		update_time ,
+		FROM sys_schedulejob
+	</select>
+	
+	<!-- 添加 -->	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"   parameterType="com.exiao.platform.core.sys.data.ScheduleJob">
+	insert into sys_schedulejob(
+	id,
+	job_id ,
+	job_name ,
+	job_group ,
+	job_status ,
+	cron_expression ,
+	remark ,
+	update_by,
+	create_by
+	)
+	values (
+	#{id},
+	#{jobId},
+	#{jobName},
+	#{jobGroup},
+	#{jobStatus},
+	#{cronExpression},
+	#{remark},
+	#{createBy},
+	#{updateBy}
+	
+	)
+	</insert>
+	
+	<!-- 通过ID更新 -->
+	<update id="updateByIdSelective" parameterType="com.exiao.platform.core.sys.data.ScheduleJob">
+		update sys_schedulejob
+		<set>
+			<if test="jobId != null">job_id = #{jobId},</if>
+			<if test="jobName != null">job_name = #{jobName},</if>
+			<if test="jobGroup != null">job_group = #{jobGroup},</if>
+			<if test="jobStatus != null">job_status = #{jobStatus},</if>
+			<if test="cronExpression != null">cron_expression = #{cronExpression},</if>
+			<if test="remark != null">remark = #{remark},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from <include refid="Table_Name" />
+		where id = #{id}
+	</select>
+	
+	<select id="FINDLIST" resultMap="BaseResultMap">
+        select * from <include refid="Table_Name" /> 
+        order by id desc  
+        limit #{pageNo},#{pageSize}
+    </select>
+    
+    <select id="FINDLIST_COUNT" resultType="int">
+        select count(1) from <include refid="Table_Name" />
+    </select>
+
+
+</mapper>
+

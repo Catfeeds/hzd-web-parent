@@ -45,6 +45,7 @@
 	
 	<modules>
 		<module>api</module>
+		<module>mgr</module>
 		<module>service</module>		
 	</modules>
 	

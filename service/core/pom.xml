@@ -9,6 +9,7 @@
 
 	<modules>
 		<module>core-user</module>
+		<module>core-sys</module>
 	</modules>
 
 

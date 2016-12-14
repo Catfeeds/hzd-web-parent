@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.exiao.platform.core.sys.data.Role">
+    <!--  
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
+	-->
+	<resultMap id="BaseResultMap" type="com.exiao.platform.core.sys.data.Role">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="role_name" property="roleName" jdbcType="VARCHAR" />
+		<result column="en_name" property="enName" jdbcType="VARCHAR" />
+		<result column="deparment_id" property="departmentId" jdbcType="INTEGER" />
+		<result column="user_type" property="userType" jdbcType="INTEGER" />
+		<result column="role_type" property="roleType" jdbcType="INTEGER" />
+		<result column="data_scope" property="dataScope" jdbcType="INTEGER" />
+		<result column="create_by" property="createBy" jdbcType="INTEGER" />
+		<result column="update_by" property="updateBy" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+        <result column="logical_del" property="logicalDel" jdbcType="INTEGER" />
+        <result column="person_num" property="personNum" jdbcType="INTEGER" />
+        <result column="remark" property="remark" jdbcType="VARCHAR" />
+        
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id as id,
+		role_name as roleName,
+		en_name as enName, 
+		deparment_id as departmentId, 
+		user_type as userType,
+		role_type as roleType,
+		data_scope as dataScope,
+		create_by as createBy,
+		update_by as updateBy,
+		create_time as createTime, 
+        update_time as updateTime, 
+        logical_del as logicalDel,
+        person_num as personNum,
+        remark  as remark
+	</sql>
+	
+	
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id = #{id}</if>
+				<if test="roleName != null">and role_name = #{roleName}</if>
+				<if test="enName != null">and en_name = #{enName}</if>
+				<if test="departmentId != null">and deparment_id = #{departmentId}</if>
+				<if test="userType != null">and user_type = #{userType}</if>
+				<if test="roleType != null">and role_type = #{roleType}</if>
+				<if test="dataScope != null">and data_scope = #{dataScope}</if>
+			    <if test="logicalDel != null">and logical_del = #{logicalDel}</if>
+				
+				<!-- 模糊查询 -->
+				<if test="roleNameLike != null">and role_name like CONCAT("%",#{roleNameLike},"%")</if>
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		
+	</sql>
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id)
+		from sys_role
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	<select id="selectByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_role
+		
+		where role_name = #{roleName}
+		
+	</select>
+	
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sys_role
+		<include refid="Base_Where_Clause" />
+		<if test="pageNo != null and pageSize != null">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	
+	<select id="queryById" resultMap="BaseResultMap" parameterType="int">
+		SELECT
+		id,
+		role_name,
+		en_name,
+		deparment_id,
+		user_type,
+		role_type,
+		data_scope,
+		create_by,
+		update_by,
+		create_time,
+		update_time,
+		logical_del,
+		person_num,
+		remark
+		FROM sys_role
+		WHERE id = #{id}
+	</select>
+	
+	<select id="getAll" resultMap="BaseResultMap">
+		SELECT
+		id,
+		role_name,
+		en_name,
+		deparment_id,
+		user_type,
+		role_type,
+		data_scope,
+		create_by,
+		update_by,
+		create_time,
+		update_time,
+		logical_del,
+		person_num,
+	    remark
+		FROM sys_role   where logical_del=0
+	</select>
+	<select id="getListByUserId" resultMap="BaseResultMap" parameterType="long">
+		SELECT
+		id,
+		role_name,
+		en_name,
+		deparment_id,
+		user_type,
+		role_type,
+		data_scope,
+		create_by,
+		update_by,
+		create_time,
+		update_time,
+		logical_del,
+		person_num,
+	    remark
+		FROM sys_role
+		where id in ( SELECT 
+	        role_id 
+	     FROM
+	      sys_user_role 
+	    WHERE user_id = #{userId})
+	</select>
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_role
+		where id = #{id}
+	</select>
+	
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.util.List">
+		delete from sys_role where id = #{id} 
+		<!-- <foreach collection="list" item="idList"  open="(" separator="," close=")">  
+        	#{idList}  
+     	</foreach>   -->
+	</delete>
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sys_role
+		<include refid="Base_Where_Clause" />
+	</delete>
+
+	<!-- 添加 -->	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"   parameterType="com.exiao.platform.core.sys.data.Role">
+		insert into sys_role(
+			id,
+		    role_name,
+		    en_name,
+		    deparment_id,
+		    user_type,
+		    role_type,
+		    data_scope,
+		    create_by,
+		    update_by,
+		    create_time,
+		    update_time,
+		    logical_del,
+		    person_num,
+		    remark
+		)
+		values (
+			#{id}, 
+			#{roleName},
+			#{enName},
+			#{departmentId}, 
+			#{userType}, 
+			#{roleType}, 
+			#{dataScope},
+			#{createBy}, 
+			#{updateBy},
+			#{createTime},
+			#{updateTime},
+			#{logicalDel},
+		    #{personNum},
+		    #{remark}
+		)
+	</insert>
+	
+	<!-- 通过ID更新 -->
+	<update id="updateByIdSelective" parameterType="com.exiao.platform.core.sys.data.Role">
+		update sys_role
+		<set>
+			<if test="roleName != null">role_name = #{roleName},</if>
+			<if test="enName != null">en_name = #{enName},</if>
+			<if test="departmentId != null">deparment_id = #{departmentId},</if>
+			<if test="userType != null">user_type = #{userType},</if>
+			<if test="roleType != null">role_type = #{roleType},</if>
+			<if test="dataScope != null">data_scope = #{dataScope},</if>
+			<if test="updateTime != null">update_time = #{updateTime},</if>
+			<if test="logicalDel != null">logical_del = #{logicalDel},</if>
+			<if test="personNum != null">person_num = #{personNum},</if>
+		</set>
+		where id = #{id}
+	</update>
+	
+	<update id="updateById" parameterType="com.exiao.platform.core.sys.data.Role">
+		update sys_role
+		set role_name = #{roleName},
+		en_name = #{enName},
+		deparment_id = #{departmentId},
+		user_type = #{userType},
+		role_type = #{roleType},
+		role_type = #{roleType},
+		update_time = #{updateTime},
+		logical_del = #{logicalDel},
+	    person_num = #{personNum},
+	    remark = #{remark}
+		where id = #{id}
+	</update>
+	
+	<select id="FINDLIST" resultMap="BaseResultMap">
+    <![CDATA[
+        select * from sys_role order by id desc  
+          limit #{pageNo},#{pageSize}
+    ]]>
+    </select>
+    
+    <select id="FINDLIST_COUNT" resultType="int">
+    <![CDATA[
+        select count(id) from sys_role
+    ]]>
+    </select>
+	
+
+	
+</mapper>
+
