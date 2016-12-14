@@ -38,7 +38,7 @@ public class SmsServiceImpl implements ISmsService {
 				UserVO items = byMobile.getItems();
 				if (items != null) {
 					logger.i("获取短信码失败，用户已注册"+mobile);
-					return new BackResult(MyfStatusCodeEnum.MEF_CODE_3021.getCode(),MyfStatusCodeEnum.MEF_CODE_3021.getMsg());
+					return new BackResult(MyfStatusCodeEnum.MEF_CODE_1010.getCode(),MyfStatusCodeEnum.MEF_CODE_1010.getMsg());
 				} else {
 					String six = Serialnumber.getSix();
 					String dataInfo = SmsObtainService.smsObtain(six, mobile);
@@ -91,7 +91,7 @@ public class SmsServiceImpl implements ISmsService {
 					}
 				} else {
 					logger.i("获取短信码失败，用户未注册"+mobile);
-					return new BackResult(MyfStatusCodeEnum.MEF_CODE_3022.getCode(),MyfStatusCodeEnum.MEF_CODE_3022.getMsg());
+					return new BackResult(MyfStatusCodeEnum.MEF_CODE_1012.getCode(),MyfStatusCodeEnum.MEF_CODE_1012.getMsg());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
