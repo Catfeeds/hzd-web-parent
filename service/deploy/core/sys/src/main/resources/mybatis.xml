@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+	<typeAliases>
+		<typeAlias alias="user" type="com.exiao.platform.core.sys.data.User"/>
+		<typeAlias alias="role" type="com.exiao.platform.core.sys.data.Role"/>
+		<typeAlias alias="department" type="com.exiao.platform.core.sys.data.Department"/>
+		<typeAlias alias="permission" type="com.exiao.platform.core.sys.data.Permission"/>
+		<typeAlias alias="syslog" type="com.exiao.platform.core.sys.data.SysLog"/>
+		<typeAlias alias="metaElement" type="com.exiao.platform.core.sys.data.MetaElement"/>
+		<typeAlias alias="sysRolePermission" type="com.exiao.platform.core.sys.data.SysRolePermission"/>
+		<typeAlias alias="sysUserRole" type="com.exiao.platform.core.sys.data.SysUserRole"/>
+		<typeAlias alias="area" type="com.exiao.platform.core.sys.data.Area"/>
+		<typeAlias alias="scheduleJob" type="com.exiao.platform.core.sys.data.ScheduleJob"/>
+	</typeAliases>  
+	<!-- 指定映射文件 -->
+	<mappers>
+		<mapper resource="sqlmap/user-sqlmap-mapping.xml" />
+		<mapper resource="sqlmap/role-sqlmap-mapping.xml" />
+		<mapper resource="sqlmap/department-sqlmap-mapping.xml" />
+		<mapper resource="sqlmap/permission-sqlmap-mapping.xml" />
+		<mapper resource="sqlmap/syslog-sqlmap-mapping.xml" />
+		<mapper resource="sqlmap/metadata-sqlmap-mapping.xml" />
+		<mapper resource="sqlmap/sysRolePermission-sqlmap-mapping.xml" />
+		<mapper resource="sqlmap/sysUserRole-sqlmap-mapping.xml" />
+		<mapper resource="sqlmap/area-sqlmap-mapping.xml" />
+		<!-- 
+		<mapper resource="sqlmap/schedulejob-sqlmap-mapping.xml" />
+		-->
+	</mappers>
+</configuration>
+

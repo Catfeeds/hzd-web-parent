@@ -1,0 +1,172 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<parent>
+		<groupId>com.hzcf.mgr</groupId>
+		<artifactId>mgr-parent</artifactId>
+		<version>0.0.1-SNAPSHOT</version>
+	</parent>
+	<groupId>com.hzcf.mgr</groupId>
+	<artifactId>mgr-hzd</artifactId>
+	<packaging>war</packaging>
+	<name>mgr hzd</name>
+	<!--  
+	<properties>
+	<shiro.version>1.2.2</shiro.version>
+	<commons-lang3.version>3.1</commons-lang3.version>
+	<commons-io.version>2.4</commons-io.version>
+	</properties>
+	-->
+	<dependencies>
+		<dependency>
+			<groupId>com.hzcf.framework</groupId>
+			<artifactId>framework-webmvc</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.hzcf.core.sys</groupId>
+			<artifactId>core-sys-service</artifactId>
+		</dependency>
+		
+		<dependency>
+	        <groupId>com.hzcf.framework.common</groupId>
+			<artifactId>common-cache</artifactId>
+		</dependency>
+		<dependency>
+				<groupId>com.hzcf.framework.common</groupId>
+				<artifactId>common-security</artifactId>  
+		</dependency>
+			<!-- Database -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>net.sf.ehcache</groupId>
+			<artifactId>ehcache-core</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-ehcache</artifactId>
+		</dependency>
+        <!-- logback -->
+		<dependency>
+			<groupId>ch.qos.logback</groupId>
+			<artifactId>logback-classic</artifactId>
+		</dependency>
+		
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+	
+        <dependency>
+            <groupId>com.blogspot</groupId>
+            <artifactId>radialmind</artifactId>
+            <version>0.1</version>
+       </dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<scope>test</scope>
+		</dependency>
+		
+		<dependency>
+            <groupId>commons-lang</groupId>
+            <artifactId>commons-lang</artifactId>
+            <version>2.6</version>
+        </dependency>
+		<dependency>
+			<groupId>commons-io</groupId>
+			<artifactId>commons-io</artifactId>
+			<version>${commons-io.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.9</version>
+		</dependency>
+		<!-- SECURITY begin -->
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-core</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-spring</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-web</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-ehcache</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.shiro</groupId>
+			<artifactId>shiro-cas</artifactId>
+			<version>${shiro.version}</version>
+		</dependency>
+		<dependency>
+            <groupId>org.apache.shiro</groupId>
+            <artifactId>shiro-quartz</artifactId>
+            <version>1.2.2</version>
+        </dependency>
+		<!-- SECURITY end -->
+        <dependency>
+            <groupId>com.blogspot</groupId>
+            <artifactId>radialmind</artifactId>
+            <version>0.1</version>
+       </dependency>
+       	<dependency>
+	        <groupId>org.antlr</groupId>
+	        <artifactId>antlr-runtime</artifactId>
+	        <version>3.0.1</version>
+        </dependency>
+        	<!-- Apache Solr Solrj  -->
+		<dependency>
+	      <groupId>org.apache.solr</groupId>
+	      <artifactId>solr-solrj</artifactId>
+	       <version>4.3.1</version>
+       </dependency>
+       
+	</dependencies>
+	
+	<build>
+		<finalName>mgr-hzd</finalName>
+	    <plugins>
+	      	<!-- Maven Jetty Plugin -->
+            <plugin>
+                <groupId>org.eclipse.jetty</groupId>
+                <artifactId>jetty-maven-plugin</artifactId>
+                <version>${jetty-version}</version>
+                <configuration>
+                <!-- 设置端口 
+                <connectors>
+                        <connector implementation="org.eclipse.jetty.server.nio.SelectChannelConnector">
+                            <port>80</port>
+                        </connector>
+                </connectors>    
+                -->
+                  <!-- 每2秒的间隔扫描一次,实现热部署 -->
+                    <scanIntervalSeconds>2</scanIntervalSeconds>
+                    <webApp>
+                        <contextPath>/mgr-hzd</contextPath>
+                    </webApp>
+                </configuration>
+            </plugin>
+	    </plugins>
+	</build>
+</project>

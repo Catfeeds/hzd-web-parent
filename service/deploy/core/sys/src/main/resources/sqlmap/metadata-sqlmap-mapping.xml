@@ -1,0 +1,207 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.exiao.platform.core.sys.data.MetaElement">
+
+	<!--  
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
+	-->
+	<resultMap id="BaseResultMap" type="com.exiao.platform.core.sys.data.MetaElement">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="data_name" property="dataName" jdbcType="VARCHAR" />
+		<result column="data_code" property="dataCode" jdbcType="VARCHAR" />
+		<result column="unit" property="unit" jdbcType="VARCHAR" />
+		<result column="data_content_cn" property="ContentCn" jdbcType="VARCHAR" />
+		<result column="position" property="position" jdbcType="INTEGER" />
+		<result column="data_content_en" property="ContentEn" jdbcType="VARCHAR" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="logicalDel" property="logic_del" jdbcType="INTEGER" />
+		<result column="enable" property="enable" jdbcType="INTEGER" />
+		
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id as id,
+		data_name as dataName,
+		data_code as dataCode, 
+		unit as unit,
+		data_content_cn as ContentCn,
+		data_content_en as ContentEn,
+		position as position,
+		remarks as remarks,
+		logic_del as logicalDel,
+		enable as enable
+	</sql>
+	
+	
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id = #{id}</if>
+				<if test="dataName != null"> and data_name = #{dataName}</if>
+			    <if test="dataCode != null"> and data_code = #{dataCode}</if>
+				<if test="ContentCn != null">and data_content_cn = #{ContentCn}</if>
+				<if test="ContentEn != null">and date_content = #{ContentEn}</if>
+				<if test="logicalDel != null">and logic_del = #{logicalDel}</if>
+				<if test="enable != null">and enable = #{enable}</if>
+				
+				<!-- 模糊查询 -->
+			</trim>
+		</where>
+	</sql>
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id)
+		from sys_metadata
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sys_metadata
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	<select id="queryById" resultMap="BaseResultMap" parameterType="int">
+		SELECT
+		id ,
+		data_name ,
+		data_code , 
+		unit ,
+		data_content_cn ,
+		data_content_en ,
+		position as position,
+		remarks,
+		logic_del,
+		enable
+		FROM sys_metadata
+		WHERE id = #{id}
+	</select>
+	<resultMap id="elementResultMap" type="com.exiao.platform.core.sys.data.MetaElement">
+		<result column="position" property="position" jdbcType="INTEGER" />
+		<result column="data_content_cn" property="ContentCn" jdbcType="VARCHAR" />
+		<result column="data_content_en" property="ContentEn" jdbcType="VARCHAR" />
+	</resultMap>
+	<select id="selectList" resultMap="elementResultMap" parameterType="java.util.Map">
+		SELECT  position,data_content_cn ,data_content_en FROM sys_metadata <include refid="Base_Where_Clause" />  order by position asc
+	</select>
+	
+	<select id="getAll" resultMap="BaseResultMap">
+		SELECT
+        id ,
+		data_name ,
+		data_code , 
+		unit ,
+		data_content_cn ,
+		data_content_en ,
+		position as position,
+		remarks,
+		logic_del,
+		enable
+		FROM sys_metadata
+	</select>
+	
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_metadata
+		where id = #{id}
+	</select>
+	
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.util.List">
+		delete from sys_metadata
+		where id = #{id} 
+		<!-- <foreach collection="list" item="idList"  open="(" separator="," close=")">  
+        	#{idList}  
+     	</foreach>   -->
+	</delete> 
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sys_metadata
+		<include refid="Base_Where_Clause" />
+	</delete>
+
+
+   <!-- 根据ID逻辑删除 -->
+	<update id="logicdeleteById" parameterType="java.util.List">
+		update  sys_metadata set logic_del=1 where id = #{id} 
+	</update> 
+	<!-- 添加 -->	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.exiao.platform.core.sys.data.MetaElement">
+		insert into sys_metadata(
+		   id ,
+		   data_name ,
+		   data_code , 
+		   unit ,
+		   data_content_cn ,
+		   data_content_en ,
+		   position,
+		   remarks
+		)
+		values (
+			#{id}, 
+			#{dataName},
+			#{dataCode},
+			#{unit},
+			#{ContentCn},
+			#{ContentEn},
+			#{position}, 
+			#{remarks}	
+		)
+	</insert>
+	
+	<!-- 通过ID更新 -->
+	<update id="updateByIdSelective" parameterType="com.exiao.platform.core.sys.data.MetaElement">
+		update sys_metadata
+		<set>
+			<if test="dataName != null">data_name = #{dataName},</if>
+			<if test="dataCode != null">data_code = #{dataCode},</if>
+			<if test="unit != null">unit = #{unit},</if>
+			<if test="ContentCn!= null">data_content_cn= #{ContentCn},</if>
+			<if test="ContentEn!= null">data_content_en= #{ContentEn},</if>
+			<if test="position!= null">position= #{position},</if>
+			<if test="remarks != null">remarks = #{remarks},</if>
+			<if test="logicalDel != null">and logic_del = #{logicalDel}</if>
+			<if test="enable != null">and enable = #{enable}</if>
+			</set>
+		where id = #{id}
+	</update>
+	
+	<update id="updateById" parameterType="com.exiao.platform.core.sys.data.MetaElement">
+		update sys_metadata
+		set data_name = #{dataName},
+		data_code = #{dataCode},
+		unit = #{unit},
+		data_content_cn = #{ContentCn},
+		data_content_en = #{ContentEn},
+		position = #{position},
+		remarks = #{remarks},
+		logic_del= #{logicalDel},
+		enable= #{enable}
+		where id = #{id}
+	</update>
+	
+	<select id="FINDLIST" resultMap="BaseResultMap">
+        select * from sys_metadata
+        <include refid="Base_Where_Clause" />
+		order by id desc
+		limit #{pageNo}, #{pageSize}
+    </select>
+    
+    <select id="FINDLIST_COUNT" resultType="int"  parameterType="java.util.Map">
+    
+        select count(id) from sys_metadata
+       <include refid="Base_Where_Clause" />
+    </select>
+	
+
+</mapper>
+

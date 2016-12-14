@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.exiao.platform.core.sys.data.Area">
+
+	 <!--  
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
+	-->
+	<resultMap id="BaseResultMap" type="area">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="area_code" property="areaCode" jdbcType="VARCHAR" />
+		<result column="parent_id" property="parentId" jdbcType="INTEGER" />
+		<result column="province_name" property="provinceName" jdbcType="VARCHAR" />
+		<result column="city_name" property="cityName" jdbcType="VARCHAR" />
+		<result column="county_name" property="countyName" jdbcType="VARCHAR" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="tuiguang" property="tuiguang" jdbcType="INTEGER" />
+		<result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    	<result column="update_time" property="updateTime" jdbcType="TIMESTAMP" />
+    	<result column="logic_del" property="logicalDel" jdbcType="INTEGER" />
+	</resultMap>
+	
+	<sql id="Table_Name">
+    	sys_area
+  	</sql>
+	
+	<sql id="Base_Column_List">
+		*
+	</sql>
+	
+	<select id="getAreaInfoByProvince" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM <include refid="Table_Name" />
+		<where>
+			logic_del = 0
+			AND type = 1
+		</where>
+		order by id
+	</select>
+	
+	<select id="getAreaInfoByCity" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM <include refid="Table_Name" />
+		<where>
+		<![CDATA[
+			logic_del = 0
+			AND type = 2
+		]]>
+		</where>
+		order by id
+	</select>
+	
+	<select id="getCityListByAreaCode" resultMap="BaseResultMap">
+		SELECT
+		<include refid="Base_Column_List" />
+		FROM <include refid="Table_Name" />
+		<where>
+		<![CDATA[
+			logic_del = 0
+			AND parent_id = #{parentId}
+		]]>
+		</where>
+		order by id
+	</select>
+	
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from <include refid="Table_Name" />
+		where id = #{id}
+	</select>
+	
+	<select id="FINDLIST" resultMap="BaseResultMap">
+        select * from <include refid="Table_Name" /> 
+        order by id desc  
+        limit #{pageNo},#{pageSize}
+    </select>
+    
+    <select id="FINDLIST_COUNT" resultType="int">
+        select count(1) from <include refid="Table_Name" />
+    </select>
+
+
+</mapper>
+

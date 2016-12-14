@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="com.exiao.platform.core.sys.data.SysLog">
+    <!--  
+	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
+	-->
+	<resultMap id="BaseResultMap" type="com.exiao.platform.core.sys.data.SysLog">
+		<id column="id" property="id" jdbcType="INTEGER" />
+		<result column="type" property="type" jdbcType="INTEGER" />
+		<result column="request_uri" property="request_uri" jdbcType="VARCHAR" />
+		<result column="method" property="method" jdbcType="VARCHAR" />
+		<result column="params" property="params" jdbcType="VARCHAR" />
+		<result column="remarks" property="remarks" jdbcType="VARCHAR" />
+		<result column="operate_type" property="operate_type" jdbcType="INTEGER" />
+		<result column="role_id" property="role_id" jdbcType="INTEGER" />
+		<result column="department_id" property="department_id" jdbcType="INTEGER" />
+		<result column="exception" property="exception" jdbcType="VARCHAR" />
+		<result column="user_id" property="user_id" jdbcType="INTEGER" />
+		<result column="operator" property="operator" jdbcType="VARCHAR" />
+		<result column="user_agent" property="user_agent" jdbcType="VARCHAR" />
+		<result column="remote_addr" property="remote_addr" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="creator" property="creator" jdbcType="INTEGER" />
+   
+	</resultMap>
+	
+	<sql id="Base_Column_List">
+		id as id,
+		type as type,
+		request_uri as request_uri, 
+		method as method,
+		params as params,
+		remarks as remarks,
+		operate_type as operate_type,
+		role_id as role_id,
+		department_id as department_id,
+		exception as exception,
+		user_id as user_id,
+		operator as operator,
+		user_agent as user_agent,
+		remote_addr as remote_addr,
+		create_time as createTime,
+		creator as creator
+	</sql>
+	
+	
+	<sql id="Base_Where_Clause">
+		<where>
+			<trim prefixOverrides="and">
+				<if test="id != null"> and id = #{id}</if>
+				<if test="request_uri != null">and request_uri = #{request_uri}</if>
+				<if test="exception != null">and exception = #{exception}</if>
+						<!-- 模糊查询 -->
+				<if test="exceptionLike != null">and exception like CONCAT("%",#{exceptionLike},"%")</if>
+				<if test="operator != null">and operator = #{operator}</if>
+				
+			</trim>
+		</where>
+		<if test="sorting != null">order by ${sorting}</if>
+		
+	</sql>
+	
+	<!-- 查询总数 -->
+	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
+		select count(id)
+		from sys_log
+		<include refid="Base_Where_Clause" />
+	</select>
+	
+	<!-- 查询 -->
+	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
+		select
+		<include refid="Base_Column_List" />
+		from sys_log
+		<include refid="Base_Where_Clause" />
+		<if test="pageNo != null and pageSize != null">
+			limit #{pageNo},#{pageSize}
+		</if>
+	</select>
+	
+	<select id="queryById" resultMap="BaseResultMap" parameterType="int">
+		SELECT
+		id,
+		type ,
+		request_uri , 
+		method ,
+		params ,
+		remarks ,
+		operate_type ,
+		role_id ,
+		department_id ,
+		exception ,
+		user_id ,
+		operator,
+		user_agent ,
+		remote_addr ,
+		create_time ,
+		creator 
+		FROM sys_log
+		WHERE id = #{id}
+	</select>
+	
+	<select id="getAll" resultMap="BaseResultMap">
+		SELECT
+        id,
+		type ,
+		request_uri , 
+		method ,
+		params ,
+		remarks ,
+		operate_type ,
+		role_id ,
+		department_id ,
+		exception ,
+		user_id ,
+		operator,
+		user_agent ,
+		remote_addr ,
+		create_time ,
+		creator 
+		FROM sys_log
+	</select>
+	
+	<!-- 根据ID查询 -->
+	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
+		select
+		<include refid="Base_Column_List" />
+		from sys_log
+		where id = #{id}
+	</select>
+	
+	<!-- 根据ID删除 -->
+	<delete id="deleteById" parameterType="java.util.List">
+		delete from sys_log
+		where id = #{id} 
+		<!-- <foreach collection="list" item="idList"  open="(" separator="," close=")">  
+        	#{idList}  
+     	</foreach>   -->
+	</delete> 
+	
+	<!-- 删除 -->
+	<delete id="delete" parameterType="java.util.Map">
+		delete from sys_log
+		<include refid="Base_Where_Clause" />
+	</delete>
+
+	<!-- 添加 -->	
+	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.exiao.platform.core.sys.data.SysLog">
+		insert into sys_log(
+		   id,
+		   type ,
+		   request_uri , 
+		   method ,
+		   params ,
+		   remarks ,
+		   operate_type ,
+		   role_id ,
+		   department_id ,
+		   exception ,
+		   user_id ,
+		   operator,
+		   user_agent ,
+		   remote_addr ,
+		   create_time ,
+		   creator  
+		)
+		values (
+			#{id}, 
+			#{type},
+			#{request_uri},
+			#{method},
+			#{params}, 
+			#{remarks},
+			#{operate_type},
+			#{role_id}, 
+			#{department_id}, 
+			#{exception}, 
+			#{user_id}, 
+			#{operator}, 
+			#{user_agent},
+			#{remote_addr},
+			#{createTime},
+			#{creator}
+		)
+	</insert>
+	
+	<select id="FINDLIST" resultMap="BaseResultMap">
+    <![CDATA[
+        select * from sys_log order by id desc  
+            limit #{pageNo},#{pageSize}
+    ]]>
+    </select>
+    
+    <select id="FINDLIST_COUNT" resultType="int">
+    <![CDATA[
+        select count(id) from sys_log
+    ]]>
+    </select>
+	
+
+</mapper>
+

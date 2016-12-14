@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- For assistance related to logback-translator or configuration -->
+<!-- files in general, please contact the logback user mailing list -->
+<!-- at http://www.qos.ch/mailman/listinfo/logback-user -->
+<!-- -->
+<!-- For professional support please see -->
+<!-- http://www.qos.ch/shop/products/professionalSupport -->
+<!-- -->
+<configuration>
+	<property name="logBase" value="/data0/log/mgr-sys" />
+
+	<appender name="stdout" class="ch.qos.logback.core.ConsoleAppender">
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{26}[%L] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="DEFAULT-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logBase}/default-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}[%L] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="DEFAULT-APPENDER-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+		<includeCallerData>true</includeCallerData>
+		<appender-ref ref="DEFAULT-APPENDER" />
+	</appender>
+
+	<appender name="ERROR-APPENDER" class="ch.qos.logback.core.rolling.RollingFileAppender">
+		<filter class="ch.qos.logback.classic.filter.LevelFilter">   
+	        <level>ERROR</level>   
+	        <onMatch>ACCEPT</onMatch>   
+	        <onMismatch>DENY</onMismatch>   
+	    </filter>
+		<rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+			<fileNamePattern>${logBase}/error-%d{yyyy-MM-dd}.log</fileNamePattern>
+			<maxHistory>7</maxHistory>
+		</rollingPolicy>
+		<encoder>
+			<pattern>%d{HH:mm:ss.SSS} [%thread] %-5level %logger{36}[%L] - %msg%n
+			</pattern>
+		</encoder>
+	</appender>
+
+	<appender name="ERROR-APPENDER-ASYNC" class="ch.qos.logback.classic.AsyncAppender">
+		<includeCallerData>true</includeCallerData>
+		<appender-ref ref="ERROR-APPENDER" />
+	</appender>
+
+	<root level="DEBUG">
+		<appender-ref ref="stdout" />
+		<appender-ref ref="DEFAULT-APPENDER-ASYNC" />
+		<appender-ref ref="ERROR-APPENDER-ASYNC" />
+	</root>
+</configuration>
