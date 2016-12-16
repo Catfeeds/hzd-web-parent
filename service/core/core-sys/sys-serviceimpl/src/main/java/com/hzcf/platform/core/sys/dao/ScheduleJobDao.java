@@ -6,9 +6,9 @@ import java.util.Map;
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.core.sys.data.ScheduleJob;
 
-import com.hzcf.platform.framework.core.storage.StorageProvider;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 
-public interface ScheduleJobDao extends StorageProvider<ScheduleJob>{
+public interface ScheduleJobDao extends IBaseDao<ScheduleJob> {
 
 
 	public List<ScheduleJob> getCollecion();

@@ -6,7 +6,7 @@ package com.hzcf.platform.core.sys.dao;
 import java.util.List;
 
 import com.hzcf.platform.core.sys.data.Area;
-import com.hzcf.platform.framework.core.storage.StorageProvider;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 
 /**
  * @author allen.shen
@@ -14,7 +14,7 @@ import com.hzcf.platform.framework.core.storage.StorageProvider;
  * 
  * description: 
  */
-public interface AreaDao extends StorageProvider<Area> {
+public interface AreaDao extends IBaseDao<Area> {
 	
 	public List<Area> getAreaInfoByProvince();
 	

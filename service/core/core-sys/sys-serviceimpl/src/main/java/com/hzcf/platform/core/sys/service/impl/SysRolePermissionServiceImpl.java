@@ -7,6 +7,8 @@ import java.util.Map;
 
 import com.hzcf.platform.core.sys.dao.SysRolePermissionDao;
 import com.hzcf.platform.core.sys.data.SysRolePermission;
+import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,11 +24,10 @@ import com.hzcf.platform.core.sys.model.SysRolePermissionVO;
 import com.hzcf.platform.core.sys.service.PermissionService;
 import com.hzcf.platform.core.sys.service.RoleService;
 import com.hzcf.platform.core.sys.service.SysRolePermissionService;
-import com.hzcf.platform.framework.core.service.impl.CommonBaseServiceImpl;
-import com.hzcf.platform.framework.core.storage.StorageProvider;
+
 
 @Service
-public class SysRolePermissionServiceImpl extends CommonBaseServiceImpl<SysRolePermissionVO, SysRolePermission>
+public class SysRolePermissionServiceImpl extends AbstractBaseServiceImpl<SysRolePermissionVO, SysRolePermission>
 		implements SysRolePermissionService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -53,7 +54,7 @@ public class SysRolePermissionServiceImpl extends CommonBaseServiceImpl<SysRoleP
 	}
 
 	@Override
-	protected StorageProvider<SysRolePermission> getGenericDAO() {
+	protected IBaseDao<SysRolePermission> getGenericDAO() {
 		// TODO Auto-generated method stub
 		return sysRolePermissionDao;
 	}

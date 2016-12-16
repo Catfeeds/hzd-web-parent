@@ -1,8 +1,8 @@
 package com.hzcf.platform.core.sys.data;
 
-import com.hzcf.platform.common.model.DataEntity;
+import com.hzcf.platform.common.model.AbstractEntity;
 
-public class User extends DataEntity {
+public class User extends AbstractEntity {
 	/**
 	 * 
 	 */

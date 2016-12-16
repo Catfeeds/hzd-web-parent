@@ -2,10 +2,10 @@ package com.hzcf.platform.core.sys.data;
 
 import java.util.List;
 
-import com.hzcf.platform.common.model.DataEntity;
+import com.hzcf.platform.common.model.AbstractEntity;
 import com.google.common.collect.Lists;
 
-public class Permission extends DataEntity {
+public class Permission extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
 	private Permission parent; // 父级菜单

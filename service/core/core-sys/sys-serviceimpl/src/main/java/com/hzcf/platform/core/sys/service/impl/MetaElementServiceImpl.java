@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +19,10 @@ import com.hzcf.platform.core.sys.dao.MetaElementDao;
 import com.hzcf.platform.core.sys.data.MetaElement;
 import com.hzcf.platform.core.sys.model.MetaElementVO;
 import com.hzcf.platform.core.sys.service.MetaElementService;
-import com.hzcf.platform.framework.core.service.impl.CommonBaseServiceImpl;
-import com.hzcf.platform.framework.core.storage.StorageProvider;
+
 
 @Service
-public class MetaElementServiceImpl extends CommonBaseServiceImpl<MetaElementVO, MetaElement>
+public class MetaElementServiceImpl extends AbstractBaseServiceImpl<MetaElementVO, MetaElement>
 		implements MetaElementService {
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -41,7 +42,7 @@ public class MetaElementServiceImpl extends CommonBaseServiceImpl<MetaElementVO,
 	}
 
 	@Override
-	protected StorageProvider<MetaElement> getGenericDAO() {
+	protected IBaseDao<MetaElement> getGenericDAO() {
 		// TODO Auto-generated method stub
 		return metaElementDao;
 	}

@@ -51,7 +51,10 @@
 		<hzcf.framework.shiro>0.0.1-SNAPSHOT</hzcf.framework.shiro>
 		<hzcf.core.user.service>0.0.1-SNAPSHOT</hzcf.core.user.service>
 		<hzcf.core.user.service.impl>0.0.1-SNAPSHOT</hzcf.core.user.service.impl>
+		<hzcf.core.sys.service>0.0.1-SNAPSHOT</hzcf.core.sys.service>
+		<hzcf.core.sys.service.impl>0.0.1-SNAPSHOT</hzcf.core.sys.service.impl>
 		<com.hzcf.deploy.core.user>0.0.1-SNAPSHOT</com.hzcf.deploy.core.user>
+		<com.hzcf.deploy.core.sys>0.0.1-SNAPSHOT</com.hzcf.deploy.core.sys>
 	</properties>
 
 	<dependencyManagement>
@@ -117,11 +120,28 @@
 				<version>${hzcf.core.user.service.impl}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>com.hzcf.core.sys</groupId>
+				<artifactId>core-sys-service</artifactId>
+				<version>${hzcf.core.sys.service}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.hzcf.core.sys</groupId>
+				<artifactId>core-sys-service-impl</artifactId>
+				<version>${hzcf.core.sys.service.impl}</version>
+			</dependency>
+
 			<!-- deploy -->
 			<dependency>
 				<groupId>com.hzcf.deploy.core</groupId>
 				<artifactId>deploy-core-user</artifactId>
 				<version>${com.hzcf.deploy.core.user}</version>
+			</dependency>
+
+			<dependency>
+				<groupId>com.hzcf.deploy.core</groupId>
+				<artifactId>deploy-core-sys</artifactId>
+				<version>${com.hzcf.deploy.core.sys}</version>
 			</dependency>
 
 			<!-- dubbo -->

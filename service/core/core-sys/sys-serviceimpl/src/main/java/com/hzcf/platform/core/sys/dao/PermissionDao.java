@@ -5,9 +5,9 @@ import java.util.Map;
 
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.core.sys.data.Permission;
-import com.hzcf.platform.framework.core.storage.StorageProvider;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 
-public interface PermissionDao extends StorageProvider<Permission> {
+public interface PermissionDao extends IBaseDao<Permission> {
 	
 	public List<Permission> getCollecion();
 	

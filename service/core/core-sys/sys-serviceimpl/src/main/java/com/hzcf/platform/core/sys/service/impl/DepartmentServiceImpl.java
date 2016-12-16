@@ -4,6 +4,8 @@ package com.hzcf.platform.core.sys.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,11 +17,10 @@ import com.hzcf.platform.core.sys.dao.DepartmentDao;
 import com.hzcf.platform.core.sys.data.Department;
 import com.hzcf.platform.core.sys.model.DepartmentVO;
 import com.hzcf.platform.core.sys.service.DepartmentService;
-import com.hzcf.platform.framework.core.service.impl.CommonBaseServiceImpl;
-import com.hzcf.platform.framework.core.storage.StorageProvider;
+
 
 @Service
-public class DepartmentServiceImpl extends CommonBaseServiceImpl<DepartmentVO, Department>implements DepartmentService {
+public class DepartmentServiceImpl extends AbstractBaseServiceImpl<DepartmentVO, Department> implements DepartmentService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -60,7 +61,7 @@ public class DepartmentServiceImpl extends CommonBaseServiceImpl<DepartmentVO, D
 	}
 
 	@Override
-	protected StorageProvider<Department> getGenericDAO() {
+	protected IBaseDao<Department> getGenericDAO() {
 		// TODO Auto-generated method stub
 		return departmentDao;
 	}

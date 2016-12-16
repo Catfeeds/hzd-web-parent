@@ -6,12 +6,12 @@ package com.hzcf.platform.core.sys.dao.impl;
 import java.util.List;
 
 import com.hzcf.platform.core.sys.dao.AreaDao;
+import com.hzcf.platform.framework.core.storage.mysql.AbstractMysqlBaseDaoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.hzcf.platform.core.sys.data.Area;
-import com.hzcf.platform.framework.core.storage.mysql.MysqlGenericDAO;
 
 /**
  * @author allen.shen
@@ -20,7 +20,7 @@ import com.hzcf.platform.framework.core.storage.mysql.MysqlGenericDAO;
  * description: 
  */
 @Repository
-public class AreaDaoImpl extends MysqlGenericDAO<Area> implements AreaDao {
+public class AreaDaoImpl extends AbstractMysqlBaseDaoImpl<Area> implements AreaDao {
 	
 	private Logger logger = LoggerFactory.getLogger(AreaDaoImpl.class);
 	

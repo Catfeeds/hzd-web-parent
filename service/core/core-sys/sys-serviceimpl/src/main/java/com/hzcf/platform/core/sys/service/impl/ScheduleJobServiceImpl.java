@@ -6,6 +6,8 @@ import java.util.Map;
 
 import com.hzcf.platform.core.sys.dao.ScheduleJobDao;
 import com.hzcf.platform.core.sys.data.ScheduleJob;
+import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,11 +18,10 @@ import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.core.sys.model.ScheduleJobVO;
 import com.hzcf.platform.core.sys.service.ScheduleJobService;
-import com.hzcf.platform.framework.core.service.impl.CommonBaseServiceImpl;
-import com.hzcf.platform.framework.core.storage.StorageProvider;
+
 
 @Service
-public class ScheduleJobServiceImpl extends CommonBaseServiceImpl<ScheduleJobVO, ScheduleJob>
+public class ScheduleJobServiceImpl extends AbstractBaseServiceImpl<ScheduleJobVO, ScheduleJob>
 		implements ScheduleJobService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -41,7 +42,7 @@ public class ScheduleJobServiceImpl extends CommonBaseServiceImpl<ScheduleJobVO,
 	}
 
 	@Override
-	protected StorageProvider<ScheduleJob> getGenericDAO() {
+	protected IBaseDao<ScheduleJob> getGenericDAO() {
 		// TODO Auto-generated method stub
 		return scheduleJobDao;
 	}

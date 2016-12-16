@@ -8,9 +8,9 @@ import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.sys.data.User;
 import com.hzcf.platform.core.sys.model.UserVO;
-import com.hzcf.platform.framework.core.storage.StorageProvider;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 
-public interface UserDao extends StorageProvider<User> {
+public interface UserDao extends IBaseDao<User> {
 
     public List<User> getCollecion();
     

@@ -41,6 +41,9 @@
 		<hzcf.core.user.service>0.0.1-SNAPSHOT</hzcf.core.user.service>
 		<hzcf.core.user.service.impl>0.0.1-SNAPSHOT</hzcf.core.user.service.impl>
 		<com.hzcf.deploy.core.user>0.0.1-SNAPSHOT</com.hzcf.deploy.core.user>
+		<hzcf.core.sys.service>0.0.1-SNAPSHOT</hzcf.core.sys.service>
+		<hzcf.core.sys.service.impl>0.0.1-SNAPSHOT</hzcf.core.sys.service.impl>
+		<com.hzcf.deploy.core.sys>0.0.1-SNAPSHOT</com.hzcf.deploy.core.sys>
 	</properties>
 	
 	<modules>
@@ -73,11 +76,11 @@
 				<artifactId>common-message</artifactId>  
 				<version>${hzcf.common.message}</version>  
 			</dependency>
-<!--			<dependency>
+			<dependency>
 				<groupId>com.hzcf.framework.common</groupId>
 				<artifactId>common-security</artifactId>  
 				<version>${hzcf.common.security}</version>  
-			</dependency>-->
+			</dependency>
 			<!-- framework -->
 			<dependency>  
 				<groupId>com.hzcf.framework</groupId>  
@@ -112,12 +115,29 @@
 				<version>${hzcf.core.user.service.impl}</version>
 			</dependency>
 
+			<dependency>
+				<groupId>com.hzcf.core.sys</groupId>
+				<artifactId>core-sys-service</artifactId>
+				<version>${hzcf.core.sys.service}</version>
+			</dependency>
+			<dependency>
+				<groupId>com.hzcf.core.sys</groupId>
+				<artifactId>core-sys-service-impl</artifactId>
+				<version>${hzcf.core.sys.service.impl}</version>
+			</dependency>
+
 			<!-- deploy -->
 			<dependency>  
 				<groupId>com.hzcf.deploy.core</groupId>
 	            <artifactId>deploy-core-user</artifactId>
 				<version>${com.hzcf.deploy.core.user}</version>
 		    </dependency>
+
+			<dependency>
+				<groupId>com.hzcf.deploy.core</groupId>
+				<artifactId>deploy-core-sys</artifactId>
+				<version>${com.hzcf.deploy.core.sys}</version>
+			</dependency>
 
             <!-- dubbo -->
 			<dependency>

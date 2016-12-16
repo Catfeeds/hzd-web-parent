@@ -3,7 +3,7 @@
  */
 package com.hzcf.platform.core.sys.data;
 
-import com.hzcf.platform.common.model.DataEntity;
+import com.hzcf.platform.common.model.AbstractEntity;
 
 /**
  * @author allen.shen
@@ -11,7 +11,7 @@ import com.hzcf.platform.common.model.DataEntity;
  * 
  * description: 
  */
-public class Area extends DataEntity {
+public class Area extends AbstractEntity {
 
 	/**
 	 * 

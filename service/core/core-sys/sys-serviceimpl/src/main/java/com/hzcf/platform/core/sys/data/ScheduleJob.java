@@ -1,8 +1,8 @@
 package com.hzcf.platform.core.sys.data;
 
-import com.hzcf.platform.common.model.DataEntity;
+import com.hzcf.platform.common.model.AbstractEntity;
 
-public class ScheduleJob extends DataEntity {
+public class ScheduleJob extends AbstractEntity {
 	/** 任务id */
 	private String jobId;
 	/** 任务名称 */

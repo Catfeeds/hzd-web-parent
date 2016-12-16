@@ -3,15 +3,15 @@ package com.hzcf.platform.core.sys.dao.impl;
 import java.util.List;
 
 import com.hzcf.platform.core.sys.data.Department;
+import com.hzcf.platform.framework.core.storage.mysql.AbstractMysqlBaseDaoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.hzcf.platform.core.sys.dao.DepartmentDao;
-import com.hzcf.platform.framework.core.storage.mysql.MysqlGenericDAO;
 
 @Repository
-public class DepartmentDaoImpl extends MysqlGenericDAO<Department> implements DepartmentDao{
+public class DepartmentDaoImpl extends AbstractMysqlBaseDaoImpl<Department> implements DepartmentDao{
 
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());

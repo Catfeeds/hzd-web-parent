@@ -6,9 +6,9 @@ import java.util.Map;
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.core.sys.data.SysRolePermission;
 
-import com.hzcf.platform.framework.core.storage.StorageProvider;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 
-public interface SysRolePermissionDao extends StorageProvider<SysRolePermission> {
+public interface SysRolePermissionDao extends IBaseDao<SysRolePermission> {
 
 	public List<SysRolePermission> getSysRolePermissionByRoleId(Long roleId);
 	

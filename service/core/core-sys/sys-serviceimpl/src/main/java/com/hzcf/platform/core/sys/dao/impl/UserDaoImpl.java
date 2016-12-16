@@ -5,16 +5,16 @@ import java.util.Map;
 
 import com.hzcf.platform.core.sys.dao.UserDao;
 import com.hzcf.platform.core.sys.data.User;
+import com.hzcf.platform.framework.core.storage.mysql.AbstractMysqlBaseDaoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.hzcf.platform.common.util.rpc.result.Paginate;
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
-import com.hzcf.platform.framework.core.storage.mysql.MysqlGenericDAO;
 
 @Repository
-public class UserDaoImpl extends MysqlGenericDAO<User> implements UserDao {
+public class UserDaoImpl extends AbstractMysqlBaseDaoImpl<User> implements UserDao {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	
@@ -94,7 +94,7 @@ public class UserDaoImpl extends MysqlGenericDAO<User> implements UserDao {
 	@Override
 	public boolean updateUserPsw(User user) {
 		// TODO Auto-generated method stub
-		if (user != null && user.getId() > 0) {
+		if (user != null ) {	//&& user.getId() > 0
 			sqlSessionTemplate.update(mapperStr + ".updateByIdSelective", user);
 		}
 		return true;

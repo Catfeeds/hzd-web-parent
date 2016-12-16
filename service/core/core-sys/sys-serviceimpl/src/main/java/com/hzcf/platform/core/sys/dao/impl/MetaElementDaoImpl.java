@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.hzcf.platform.framework.core.storage.mysql.AbstractMysqlBaseDaoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
@@ -12,10 +13,9 @@ import org.springframework.stereotype.Repository;
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.core.sys.dao.MetaElementDao;
 import com.hzcf.platform.core.sys.data.MetaElement;
-import com.hzcf.platform.framework.core.storage.mysql.MysqlGenericDAO;
 
 @Repository
-public class MetaElementDaoImpl extends MysqlGenericDAO<MetaElement> implements MetaElementDao{
+public class MetaElementDaoImpl extends AbstractMysqlBaseDaoImpl<MetaElement> implements MetaElementDao{
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 

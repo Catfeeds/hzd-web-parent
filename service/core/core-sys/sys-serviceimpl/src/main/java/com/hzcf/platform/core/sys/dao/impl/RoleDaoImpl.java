@@ -5,17 +5,17 @@ import java.util.Map;
 
 import com.hzcf.platform.core.sys.dao.RoleDao;
 import com.hzcf.platform.core.sys.data.Role;
+import com.hzcf.platform.framework.core.storage.mysql.AbstractMysqlBaseDaoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.hzcf.platform.common.util.rpc.result.Paginate;
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
-import com.hzcf.platform.framework.core.storage.mysql.MysqlGenericDAO;
 
 
 @Repository
-public class RoleDaoImpl extends MysqlGenericDAO<Role> implements RoleDao {
+public class RoleDaoImpl extends AbstractMysqlBaseDaoImpl<Role> implements RoleDao {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	

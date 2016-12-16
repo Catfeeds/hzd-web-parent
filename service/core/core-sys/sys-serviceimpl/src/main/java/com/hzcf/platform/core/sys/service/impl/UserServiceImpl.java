@@ -9,6 +9,8 @@ import com.hzcf.platform.core.sys.dao.UserDao;
 import com.hzcf.platform.core.sys.data.SysUserRole;
 import com.hzcf.platform.core.sys.data.User;
 import com.hzcf.platform.core.sys.util.Md5HashUtil;
+import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,12 +27,11 @@ import com.hzcf.platform.core.sys.model.UserVO;
 import com.hzcf.platform.core.sys.service.DepartmentService;
 import com.hzcf.platform.core.sys.service.RoleService;
 import com.hzcf.platform.core.sys.service.UserService;
-import com.hzcf.platform.framework.core.service.impl.CommonBaseServiceImpl;
-import com.hzcf.platform.framework.core.storage.StorageProvider;
+
 
 
 @Service
-public class UserServiceImpl extends CommonBaseServiceImpl<UserVO, User> implements UserService{
+public class UserServiceImpl extends AbstractBaseServiceImpl<UserVO, User> implements UserService{
 
 	
 	private Logger logger = LoggerFactory.getLogger(UserServiceImpl.class);
@@ -63,17 +64,17 @@ public class UserServiceImpl extends CommonBaseServiceImpl<UserVO, User> impleme
 	}
 
 	@Override
-	protected StorageProvider<User> getGenericDAO() {
+	protected IBaseDao<User> getGenericDAO() {
 		// TODO Auto-generated method stub
 		return userDao;
 	}
 
 	@Override
-	public Result<Long> create(UserVO m) {
+	public Result create(UserVO m) {
 		// TODO Auto-generated method stub
 		m.setLocked(0);
-		Result<Long> result=new Result<Long>();
-        if(userDao.getUserByLoginName(m.getLoginName())!=null){
+		Result result=new Result<Long>();
+        /*if(userDao.getUserByLoginName(m.getLoginName())!=null){
         	logger.error("an error occured in sys create service user LoginName is exist ");
 			result.setItems(0L);
 			result.setStatus(StatusCodes.SYS_EXIST_USER_CODE);
@@ -104,14 +105,14 @@ public class UserServiceImpl extends CommonBaseServiceImpl<UserVO, User> impleme
 				roleService.update(role);
 			}
 			
-		}
+		}*/
 		return result;
 	}
 
 	@Override
 	public Result<Boolean> update(UserVO m) {
 		// TODO Auto-generated method stub
-		if(m.getRoleID()!=null){
+		/*if(m.getRoleID()!=null){
 			SysUserRole entity = sysUserRoleDao.getByUserId(m.getId().longValue());
 			entity.setRoleId(m.getRoleID().longValue());
 			sysUserRoleDao.update(entity);
@@ -132,7 +133,7 @@ public class UserServiceImpl extends CommonBaseServiceImpl<UserVO, User> impleme
 				roleService.update(newrole);
 			}
 			
-		}
+		}*/
 		return super.update(m);
 	}
 

@@ -7,6 +7,8 @@ import java.util.Map;
 import com.hzcf.platform.core.sys.dao.RoleDao;
 import com.hzcf.platform.core.sys.dao.UserDao;
 import com.hzcf.platform.core.sys.data.Role;
+import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,10 +20,9 @@ import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.core.sys.data.User;
 import com.hzcf.platform.core.sys.model.RoleVO;
 import com.hzcf.platform.core.sys.service.RoleService;
-import com.hzcf.platform.framework.core.service.impl.CommonBaseServiceImpl;
-import com.hzcf.platform.framework.core.storage.StorageProvider;
+
 @Service
-public class RoleServiceImpl extends CommonBaseServiceImpl<RoleVO, Role>implements RoleService {
+public class RoleServiceImpl extends AbstractBaseServiceImpl<RoleVO, Role> implements RoleService {
 
 	private Logger logger = LoggerFactory.getLogger(RoleServiceImpl.class);
 
@@ -33,13 +34,13 @@ public class RoleServiceImpl extends CommonBaseServiceImpl<RoleVO, Role>implemen
 	
 	
 	@Override
-	protected StorageProvider<Role> getGenericDAO() {
+	protected IBaseDao<Role> getGenericDAO() {
 		// TODO Auto-generated method stub
 		return roleDao;
 	}
 
 	@Override
-	public Result<Long> create(RoleVO m) {
+	public Result create(RoleVO m) {
 		// TODO Auto-generated method stub
 		if(m==null){
 			return null;

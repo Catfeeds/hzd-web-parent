@@ -6,6 +6,8 @@ import java.util.Map;
 
 import com.hzcf.platform.core.sys.dao.PermissionDao;
 import com.hzcf.platform.core.sys.data.Permission;
+import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 import org.apache.commons.lang.StringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,10 +20,9 @@ import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.core.sys.model.PermissionVO;
 import com.hzcf.platform.core.sys.model.RoleVO;
 import com.hzcf.platform.core.sys.service.PermissionService;
-import com.hzcf.platform.framework.core.service.impl.CommonBaseServiceImpl;
-import com.hzcf.platform.framework.core.storage.StorageProvider;
+
 @Service
-public class PermissionServiceImpl extends CommonBaseServiceImpl<PermissionVO, Permission>implements PermissionService {
+public class PermissionServiceImpl extends AbstractBaseServiceImpl<PermissionVO, Permission> implements PermissionService {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 
@@ -29,7 +30,7 @@ public class PermissionServiceImpl extends CommonBaseServiceImpl<PermissionVO, P
 	private PermissionDao permissionDao;
 	
 	@Override
-	public Result<Long> create(PermissionVO m) {
+	public Result create(PermissionVO m) {
 		// TODO Auto-generated method stub
 		
 		Permission parent =permissionDao.getPermissionByID(m.getParentId().toString());
@@ -70,7 +71,7 @@ public class PermissionServiceImpl extends CommonBaseServiceImpl<PermissionVO, P
 	}
 
 	@Override
-	protected StorageProvider<Permission> getGenericDAO() {
+	protected IBaseDao<Permission> getGenericDAO() {
 		// TODO Auto-generated method stub
 		return permissionDao;
 	}

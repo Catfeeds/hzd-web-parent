@@ -3,10 +3,9 @@ package com.hzcf.platform.core.sys.dao;
 import java.util.List;
 
 import com.hzcf.platform.core.sys.data.Department;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 
-import com.hzcf.platform.framework.core.storage.StorageProvider;
-
-public interface DepartmentDao extends StorageProvider<Department>{
+public interface DepartmentDao extends IBaseDao<Department> {
 
 	  public List<Department> getCollecion();
 		

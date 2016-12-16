@@ -6,6 +6,8 @@ package com.hzcf.platform.core.sys.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +19,6 @@ import com.hzcf.platform.core.sys.dao.AreaDao;
 import com.hzcf.platform.core.sys.data.Area;
 import com.hzcf.platform.core.sys.model.AreaVO;
 import com.hzcf.platform.core.sys.service.AreaService;
-import com.hzcf.platform.framework.core.service.impl.CommonBaseServiceImpl;
-import com.hzcf.platform.framework.core.storage.StorageProvider;
 import com.google.common.base.Strings;
 
 /**
@@ -28,7 +28,7 @@ import com.google.common.base.Strings;
  * description: 
  */
 @Service
-public class AreaServiceImpl extends CommonBaseServiceImpl<AreaVO, Area> implements AreaService {
+public class AreaServiceImpl extends AbstractBaseServiceImpl<AreaVO, Area> implements AreaService {
 	
 	private Logger logger = LoggerFactory.getLogger(AreaServiceImpl.class);
 	
@@ -91,7 +91,7 @@ public class AreaServiceImpl extends CommonBaseServiceImpl<AreaVO, Area> impleme
 	}
 
 	@Override
-	protected StorageProvider<Area> getGenericDAO() {
+	protected IBaseDao<Area> getGenericDAO() {
 		return areaDao;
 	}
 

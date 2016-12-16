@@ -4,6 +4,8 @@ package com.hzcf.platform.core.sys.service.impl;
 import java.util.Map;
 
 import com.hzcf.platform.core.sys.data.SysLog;
+import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,10 +18,9 @@ import com.hzcf.platform.core.sys.dao.SysLogDao;
 import com.hzcf.platform.core.sys.dao.UserDao;
 import com.hzcf.platform.core.sys.model.SysLogVO;
 import com.hzcf.platform.core.sys.service.SysLogService;
-import com.hzcf.platform.framework.core.service.impl.CommonBaseServiceImpl;
-import com.hzcf.platform.framework.core.storage.StorageProvider;
+
 @Service
-public class SysLogServiceImpl extends CommonBaseServiceImpl<SysLogVO, SysLog> implements SysLogService{
+public class SysLogServiceImpl extends AbstractBaseServiceImpl<SysLogVO, SysLog> implements SysLogService{
 
 	
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
@@ -44,7 +45,7 @@ public class SysLogServiceImpl extends CommonBaseServiceImpl<SysLogVO, SysLog> i
 	}
 
 	@Override
-	protected StorageProvider<SysLog> getGenericDAO() {
+	protected IBaseDao<SysLog> getGenericDAO() {
 		// TODO Auto-generated method stub
 		return sysLogDao;
 	}

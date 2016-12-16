@@ -5,9 +5,9 @@ import java.util.Map;
 
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.core.sys.data.MetaElement;
-import com.hzcf.platform.framework.core.storage.StorageProvider;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 
-public interface MetaElementDao extends StorageProvider<MetaElement>{
+public interface MetaElementDao extends IBaseDao<MetaElement> {
 
 	
 	public MetaElement getMetaElementByID(String id);

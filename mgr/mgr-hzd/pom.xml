@@ -124,12 +124,12 @@
             <artifactId>shiro-quartz</artifactId>
             <version>1.2.2</version>
         </dependency>
-		<!-- SECURITY end -->
+		<!-- SECURITY end
         <dependency>
             <groupId>com.blogspot</groupId>
             <artifactId>radialmind</artifactId>
             <version>0.1</version>
-       </dependency>
+       </dependency>-->
        	<dependency>
 	        <groupId>org.antlr</groupId>
 	        <artifactId>antlr-runtime</artifactId>

@@ -14,5 +14,12 @@
 	<modules>
 		<module>mgr-hzd</module>
 	</modules>
-	
+
+	<dependencies>
+		<dependency>
+			<groupId>com.hzcf.core.sys</groupId>
+			<artifactId>core-sys-service</artifactId>
+		</dependency>
+
+	</dependencies>
 </project>

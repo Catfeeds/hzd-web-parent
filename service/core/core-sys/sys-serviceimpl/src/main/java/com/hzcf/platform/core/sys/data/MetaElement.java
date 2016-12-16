@@ -1,8 +1,8 @@
 package com.hzcf.platform.core.sys.data;
 
-import com.hzcf.platform.common.model.DataEntity;
+import com.hzcf.platform.common.model.AbstractEntity;
 
-public class MetaElement extends DataEntity {
+public class MetaElement extends AbstractEntity {
 
 	private static final long serialVersionUID = 1L;
 	

@@ -6,8 +6,9 @@ import java.util.Map;
 
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.core.sys.data.Role;
-import com.hzcf.platform.framework.core.storage.StorageProvider;
-public interface RoleDao extends StorageProvider<Role>{
+import com.hzcf.platform.framework.core.storage.IBaseDao;
+
+public interface RoleDao extends IBaseDao<Role> {
 	
     public List<Role> getCollecion();
 	

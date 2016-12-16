@@ -5,16 +5,16 @@ import java.util.Map;
 
 import com.hzcf.platform.core.sys.dao.SysRolePermissionDao;
 import com.hzcf.platform.core.sys.data.SysRolePermission;
+import com.hzcf.platform.framework.core.storage.mysql.AbstractMysqlBaseDaoImpl;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 
 import com.hzcf.platform.common.util.rpc.result.Paginate;
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
-import com.hzcf.platform.framework.core.storage.mysql.MysqlGenericDAO;
 
 @Repository
-public class SysRolePermissionDaoImpl extends MysqlGenericDAO<SysRolePermission>implements SysRolePermissionDao {
+public class SysRolePermissionDaoImpl extends AbstractMysqlBaseDaoImpl<SysRolePermission> implements SysRolePermissionDao {
 
 	private Logger logger = LoggerFactory.getLogger(this.getClass());
 	String mapperStr = "SysRolePermission.";
