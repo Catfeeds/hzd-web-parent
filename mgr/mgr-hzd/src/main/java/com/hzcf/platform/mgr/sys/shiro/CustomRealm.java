@@ -113,7 +113,7 @@ public class CustomRealm extends AuthorizingRealm {
         List<String> permissions=null;
 		try {
 			// 根据身份信息获取权限信息
-			permissions=this.permissionService.getPermissionListByUserId(user.getId().intValue());
+	//		permissions=this.permissionService.getPermissionListByUserId(user.getId().intValue());
 		} catch (Exception e1) {
 			// TODO Auto-generated catch block
 			logger.info("----#### 查询用户权限 异常 ####:"+e1.getMessage());
