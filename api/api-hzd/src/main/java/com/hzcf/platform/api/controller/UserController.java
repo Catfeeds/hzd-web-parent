@@ -17,7 +17,6 @@ import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.api.config.ConfigSmsUtil;
 import com.hzcf.platform.core.MyfStatusCodeEnum;
-import com.hzcf.platform.core.user.model.RequestAgent;
 import com.hzcf.platform.core.user.model.UserVO;
 
 /**

@@ -1,4 +1,4 @@
-package com.hzcf.platform.core.user.model;
+package com.hzcf.platform.api.config;
 
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 

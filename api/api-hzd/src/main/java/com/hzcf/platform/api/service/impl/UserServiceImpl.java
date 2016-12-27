@@ -20,7 +20,6 @@ import com.hzcf.platform.common.util.uuid.UUIDGenerator;
 import com.hzcf.platform.core.ConstantsToken;
 import com.hzcf.platform.core.DataVerifcation;
 import com.hzcf.platform.core.MyfStatusCodeEnum;
-import com.hzcf.platform.core.user.model.RequestAgent;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.UserService;
 

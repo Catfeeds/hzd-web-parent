@@ -3,7 +3,6 @@ package com.hzcf.platform.api.service;
 import javax.servlet.http.HttpServletRequest;
 
 import com.hzcf.platform.api.common.BackResult;
-import com.hzcf.platform.core.user.model.RequestAgent;
 import com.hzcf.platform.core.user.model.UserVO;
 
 /**

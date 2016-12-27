@@ -6,11 +6,10 @@ import javax.servlet.http.HttpServletResponse;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
-
+import com.hzcf.platform.api.config.RequestAgent;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.core.CusAccessObjectUtil;
-import com.hzcf.platform.core.user.model.RequestAgent;
 
 public class LogonInterceptor extends HandlerInterceptorAdapter {
 	private static Log logger = Log.getLogger(LogonInterceptor.class);
