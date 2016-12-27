@@ -16,14 +16,7 @@
 	<dubbo:registry address="zookeeper://127.0.0.1:2181" check="false"  />
     <!--<dubbo:registry protocol= "zookeeper" address="dubbo-zk1.hzcf.me:2181,dubbo-zk2.hzcf.me:2181,dubbo-zk3.hzcf.me:2181"/>-->
     <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
-    <dubbo:reference id="userService" interface="com.hzcf.platform.core.sys.service.UserService"  retries="0" check="false" timeout="18000"/> 
-    <dubbo:reference id="roleService" interface="com.hzcf.platform.core.sys.service.RoleService" retries="0" check="false" timeout="18000"/> 
-    <dubbo:reference id="sysLogService" interface="com.hzcf.platform.core.sys.service.SysLogService" retries="0" check="false" timeout="18000"/> 
-    <dubbo:reference id="metaElementService" interface="com.hzcf.platform.core.sys.service.MetaElementService" retries="0" check="false" timeout="18000"/>
-    <dubbo:reference id="permissionService" interface="com.hzcf.platform.core.sys.service.PermissionService" retries="0" check="false" timeout="18000"/> 
-    <dubbo:reference id="departmentService" interface="com.hzcf.platform.core.sys.service.DepartmentService" retries="0" check="false" timeout="18000"/>
-    <dubbo:reference id="areaService" interface="com.hzcf.platform.core.sys.service.AreaService"  retries="0" check="false" timeout="18000" /> 
-    <dubbo:reference id="sysRolePermissionService" interface="com.hzcf.platform.core.sys.service.SysRolePermissionService"  retries="0" check="false" timeout="18000" /> 
-    <dubbo:reference id="scheduleJobService" interface="com.hzcf.platform.core.sys.service.ScheduleJobService"  retries="0" check="false" timeout="18000" />
+    <!-- <dubbo:reference id="userService" interface="com.hzcf.platform.core.sys.service.UserService"  retries="0" check="false" timeout="18000"/>  -->
+   
   
 </beans>

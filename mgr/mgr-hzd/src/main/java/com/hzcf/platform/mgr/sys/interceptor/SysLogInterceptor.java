@@ -1,4 +1,4 @@
-package com.hzcf.platform.mgr.sys.interceptor;
+/*package com.hzcf.platform.mgr.sys.interceptor;
 
 import java.util.Date;
 
@@ -97,3 +97,4 @@ public class SysLogInterceptor  implements HandlerInterceptor{
 	}
 
 }
+*/

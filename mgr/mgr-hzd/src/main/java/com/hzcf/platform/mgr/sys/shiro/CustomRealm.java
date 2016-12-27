@@ -1,4 +1,4 @@
-package com.hzcf.platform.mgr.sys.shiro;
+/*package com.hzcf.platform.mgr.sys.shiro;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -30,7 +30,7 @@ import com.hzcf.platform.core.sys.model.UserVO;
 import com.hzcf.platform.core.sys.service.PermissionService;
 import com.hzcf.platform.core.sys.service.UserService;
 
-/**
+*//**
  * 
  * <p>
  * Title: CustomRealm
@@ -45,7 +45,7 @@ import com.hzcf.platform.core.sys.service.UserService;
  * @author
  * @date
  * @version 1.0
- */
+ *//*
 public class CustomRealm extends AuthorizingRealm {
 
 	//private static final String Session = null;
@@ -72,14 +72,14 @@ public class CustomRealm extends AuthorizingRealm {
 			userVO = (UserVO) userService.getUserByLoginName(userCode).getItems();
 			
 			if(userVO.getLocked()!=null&&userVO.getLocked().equals("1")){
-				/***
+				*//***
 				 * DisabledAccountException（禁用的帐号）
 				 * LockedAccountException（锁定的帐号）、
 				 * UnknownAccountException（错误的帐号）、
 				 * ExcessiveAttemptsException（登录失败次数过多）、
 				 * IncorrectCredentialsException （错误的凭证）、
 				 * ExpiredCredentialsException（过期的凭证）
-				 */
+				 *//*
 				throw new LockedAccountException(); //账号锁定 
 			}
 			if (userVO != null) {
@@ -101,15 +101,15 @@ public class CustomRealm extends AuthorizingRealm {
 				this.getName());
 	}
 
-	/**
+	*//**
 	 * 授权查询回调函数, 进行鉴权但缓存中无用户的授权信息时调用.
-	 */
+	 *//*
 	@Override
 	protected AuthorizationInfo doGetAuthorizationInfo(PrincipalCollection principals) {
 		
 		logger.info("----####进入 shiro 授权 开始，加载权限 ####");
 
-		BaseUser user = (BaseUser) principals.getPrimaryPrincipal();
+	//	BaseUser user = (BaseUser) principals.getPrimaryPrincipal();
         List<String> permissions=null;
 		try {
 			// 根据身份信息获取权限信息
@@ -185,3 +185,4 @@ public class CustomRealm extends AuthorizingRealm {
 	}
 
 }
+*/

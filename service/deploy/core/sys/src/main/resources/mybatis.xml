@@ -2,31 +2,17 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias alias="user" type="com.hzcf.platform.core.sys.data.User"/>
-		<typeAlias alias="role" type="com.hzcf.platform.core.sys.data.Role"/>
-		<typeAlias alias="department" type="com.hzcf.platform.core.sys.data.Department"/>
-		<typeAlias alias="permission" type="com.hzcf.platform.core.sys.data.Permission"/>
-		<typeAlias alias="syslog" type="com.hzcf.platform.core.sys.data.SysLog"/>
-		<typeAlias alias="metaElement" type="com.hzcf.platform.core.sys.data.MetaElement"/>
-		<typeAlias alias="sysRolePermission" type="com.hzcf.platform.core.sys.data.SysRolePermission"/>
-		<typeAlias alias="sysUserRole" type="com.hzcf.platform.core.sys.data.SysUserRole"/>
-		<typeAlias alias="area" type="com.hzcf.platform.core.sys.data.Area"/>
-		<typeAlias alias="scheduleJob" type="com.hzcf.platform.core.sys.data.ScheduleJob"/>
-	</typeAliases>  
+		<typeAlias type="com.hzcf.redpack.entity.Policy" alias="Policy"/>
+		<typeAlias type="com.hzcf.redpack.entity.Member" alias="Member"/>
+		<typeAlias type="com.hzcf.redpack.entity.Order" alias="Order"/>
+		<typeAlias type="com.hzcf.redpack.entity.Product" alias="Product"/>
+		<typeAlias type="com.hzcf.redpack.entity.PolicyManageInfo" alias="PolicyManageInfo"/>
+	</typeAliases>
+
+
 	<!-- 指定映射文件 -->
-	<mappers>
-		<mapper resource="sqlmap/user-sqlmap-mapping.xml" />
-		<mapper resource="sqlmap/role-sqlmap-mapping.xml" />
-		<mapper resource="sqlmap/department-sqlmap-mapping.xml" />
-		<mapper resource="sqlmap/permission-sqlmap-mapping.xml" />
-		<mapper resource="sqlmap/syslog-sqlmap-mapping.xml" />
-		<mapper resource="sqlmap/metadata-sqlmap-mapping.xml" />
-		<mapper resource="sqlmap/sysRolePermission-sqlmap-mapping.xml" />
-		<mapper resource="sqlmap/sysUserRole-sqlmap-mapping.xml" />
-		<mapper resource="sqlmap/area-sqlmap-mapping.xml" />
-		<!-- 
-		<mapper resource="sqlmap/schedulejob-sqlmap-mapping.xml" />
-		-->
-	</mappers>
+<!--	<mappers>
+		
+	</mappers>-->
 </configuration>
 
