@@ -2,6 +2,7 @@ package com.hzcf.platform.api.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.hzcf.platform.api.config.RequestAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
