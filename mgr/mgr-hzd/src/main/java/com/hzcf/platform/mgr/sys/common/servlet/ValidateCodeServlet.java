@@ -27,7 +27,7 @@ import org.apache.commons.lang.StringUtils;
  */
 @SuppressWarnings("serial")
 public class ValidateCodeServlet extends HttpServlet {
-	
+
 	public static final String VALIDATE_CODE = "validateCode";
 	
 	private int w = 70;

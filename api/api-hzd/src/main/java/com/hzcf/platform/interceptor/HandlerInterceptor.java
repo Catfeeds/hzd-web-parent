@@ -16,11 +16,11 @@ import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
-import com.hzcf.platform.api.user.common.BackResult;
+import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.common.cache.ICache;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
-import com.hzcf.platform.config.BaseConfig;
+import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.core.ConstantsToken;
 import com.hzcf.platform.core.CusAccessObjectUtil;
 import com.hzcf.platform.core.MyfStatusCodeEnum;

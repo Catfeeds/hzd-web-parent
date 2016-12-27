@@ -12,17 +12,12 @@ import org.apache.http.message.BasicNameValuePair;
 import org.springframework.stereotype.Component;
 
 import com.hzcf.platform.api.model.OnlineLoanInfo;
-import com.hzcf.platform.api.user.common.BackResult;
-import com.hzcf.platform.api.user.service.impl.OnlineLoanServiceImpl;
 import com.hzcf.platform.common.util.http.HttpRequest;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.utils.AESUtil;
 import com.hzcf.platform.common.util.utils.Md5Util;
-import com.hzcf.platform.config.ConstantsDictionary;
-import com.hzcf.platform.core.user.model.UserVO;
-
-import net.sf.json.JSONObject;
+import com.hzcf.platform.api.config.ConstantsDictionary;
 
 /**
  * 

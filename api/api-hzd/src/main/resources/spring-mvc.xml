@@ -15,8 +15,8 @@
     <bean id="objectMapper" class="com.hzcf.platform.common.cache.bean.JacksonBean"/>
     <mvc:annotation-driven>
     	<mvc:argument-resolvers>
-			<bean class="com.hzcf.platform.annotation.RequestAttributeAnnotation" lazy-init="false" />
-			 <bean class="com.hzcf.platform.annotation.RequestBodyFormResolver">
+			<bean class="com.hzcf.platform.api.annotation.RequestAttributeAnnotation" lazy-init="false" />
+			 <bean class="com.hzcf.platform.api.annotation.RequestBodyFormResolver">
                 <property name="mapper" ref="objectMapper"/>
             </bean>
 		</mvc:argument-resolvers>

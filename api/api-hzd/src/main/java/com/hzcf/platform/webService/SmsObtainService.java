@@ -19,8 +19,7 @@ import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.utils.AESUtil;
 import com.hzcf.platform.common.util.utils.Md5Util;
 import com.hzcf.platform.common.util.utils.Serialnumber;
-import com.hzcf.platform.config.ConstantsDictionary;
-import com.hzcf.platform.core.ConstantsToken;
+import com.hzcf.platform.api.config.ConstantsDictionary;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
