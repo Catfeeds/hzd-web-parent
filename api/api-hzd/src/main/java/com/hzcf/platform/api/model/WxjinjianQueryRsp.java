@@ -4,7 +4,7 @@ package com.hzcf.platform.api.model;
 import java.io.Serializable;
 import java.util.List;
 /**
- * 
+ *
  * @description:进件请求参数
  * @author 雷佳明
  * @version 1.0
@@ -54,7 +54,7 @@ public class WxjinjianQueryRsp extends BaseState implements Serializable{
 		public void setCreateTime(String createTime) {
 			this.createTime = createTime;
 		}
-		
+
 	}
 	
 	

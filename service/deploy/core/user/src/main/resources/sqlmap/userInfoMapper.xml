@@ -1,0 +1,355 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzcf.platform.mapper.userInfoMapper" >
+  <resultMap id="BaseResultMap" type="com.hzcf.platform.pojo.userInfo" >
+    <id column="user_info_id" property="userInfoId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="apply_id" property="applyId" jdbcType="VARCHAR" />
+    <result column="idcard_validity" property="idcardValidity" jdbcType="VARCHAR" />
+    <result column="education" property="education" jdbcType="VARCHAR" />
+    <result column="domicile_province" property="domicileProvince" jdbcType="VARCHAR" />
+    <result column="domicile_city" property="domicileCity" jdbcType="VARCHAR" />
+    <result column="domicile_address" property="domicileAddress" jdbcType="VARCHAR" />
+    <result column="marriage_status" property="marriageStatus" jdbcType="VARCHAR" />
+    <result column="children_status" property="childrenStatus" jdbcType="VARCHAR" />
+    <result column="house_status" property="houseStatus" jdbcType="VARCHAR" />
+    <result column="resident_province" property="residentProvince" jdbcType="VARCHAR" />
+    <result column="resident_city" property="residentCity" jdbcType="VARCHAR" />
+    <result column="resident_address" property="residentAddress" jdbcType="VARCHAR" />
+    <result column="resident_tel_code" property="residentTelCode" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="annual_income" property="annualIncome" jdbcType="DECIMAL" />
+    <result column="credit_card_limit" property="creditCardLimit" jdbcType="DECIMAL" />
+    <result column="live_together" property="liveTogether" jdbcType="VARCHAR" />
+    <result column="staff_no" property="staffNo" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    <result column="org_name" property="orgName" jdbcType="VARCHAR" />
+    <result column="org_type" property="orgType" jdbcType="VARCHAR" />
+    <result column="org_province" property="orgProvince" jdbcType="VARCHAR" />
+    <result column="org_city" property="orgCity" jdbcType="VARCHAR" />
+    <result column="org_address" property="orgAddress" jdbcType="VARCHAR" />
+    <result column="org_tel_code" property="orgTelCode" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    user_info_id, user_id, apply_id, idcard_validity, education, domicile_province, domicile_city, 
+    domicile_address, marriage_status, children_status, house_status, resident_province, 
+    resident_city, resident_address, resident_tel_code, email, annual_income, credit_card_limit, 
+    live_together, staff_no, create_time, org_name, org_type, org_province, org_city, 
+    org_address, org_tel_code
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_info
+    where user_info_id = #{userInfoId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_info
+    where user_info_id = #{userInfoId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hzcf.platform.pojo.userInfo" >
+    insert into user_info (user_info_id, user_id, apply_id, 
+      idcard_validity, education, domicile_province, 
+      domicile_city, domicile_address, marriage_status, 
+      children_status, house_status, resident_province, 
+      resident_city, resident_address, resident_tel_code, 
+      email, annual_income, credit_card_limit, 
+      live_together, staff_no, create_time, 
+      org_name, org_type, org_province, 
+      org_city, org_address, org_tel_code
+      )
+    values (#{userInfoId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{applyId,jdbcType=VARCHAR}, 
+      #{idcardValidity,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{domicileProvince,jdbcType=VARCHAR}, 
+      #{domicileCity,jdbcType=VARCHAR}, #{domicileAddress,jdbcType=VARCHAR}, #{marriageStatus,jdbcType=VARCHAR}, 
+      #{childrenStatus,jdbcType=VARCHAR}, #{houseStatus,jdbcType=VARCHAR}, #{residentProvince,jdbcType=VARCHAR}, 
+      #{residentCity,jdbcType=VARCHAR}, #{residentAddress,jdbcType=VARCHAR}, #{residentTelCode,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{annualIncome,jdbcType=DECIMAL}, #{creditCardLimit,jdbcType=DECIMAL}, 
+      #{liveTogether,jdbcType=VARCHAR}, #{staffNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+      #{orgName,jdbcType=VARCHAR}, #{orgType,jdbcType=VARCHAR}, #{orgProvince,jdbcType=VARCHAR}, 
+      #{orgCity,jdbcType=VARCHAR}, #{orgAddress,jdbcType=VARCHAR}, #{orgTelCode,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hzcf.platform.pojo.userInfo" >
+    insert into user_info
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="userInfoId != null" >
+        user_info_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="applyId != null" >
+        apply_id,
+      </if>
+      <if test="idcardValidity != null" >
+        idcard_validity,
+      </if>
+      <if test="education != null" >
+        education,
+      </if>
+      <if test="domicileProvince != null" >
+        domicile_province,
+      </if>
+      <if test="domicileCity != null" >
+        domicile_city,
+      </if>
+      <if test="domicileAddress != null" >
+        domicile_address,
+      </if>
+      <if test="marriageStatus != null" >
+        marriage_status,
+      </if>
+      <if test="childrenStatus != null" >
+        children_status,
+      </if>
+      <if test="houseStatus != null" >
+        house_status,
+      </if>
+      <if test="residentProvince != null" >
+        resident_province,
+      </if>
+      <if test="residentCity != null" >
+        resident_city,
+      </if>
+      <if test="residentAddress != null" >
+        resident_address,
+      </if>
+      <if test="residentTelCode != null" >
+        resident_tel_code,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="annualIncome != null" >
+        annual_income,
+      </if>
+      <if test="creditCardLimit != null" >
+        credit_card_limit,
+      </if>
+      <if test="liveTogether != null" >
+        live_together,
+      </if>
+      <if test="staffNo != null" >
+        staff_no,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+      <if test="orgName != null" >
+        org_name,
+      </if>
+      <if test="orgType != null" >
+        org_type,
+      </if>
+      <if test="orgProvince != null" >
+        org_province,
+      </if>
+      <if test="orgCity != null" >
+        org_city,
+      </if>
+      <if test="orgAddress != null" >
+        org_address,
+      </if>
+      <if test="orgTelCode != null" >
+        org_tel_code,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="userInfoId != null" >
+        #{userInfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyId != null" >
+        #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardValidity != null" >
+        #{idcardValidity,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="domicileProvince != null" >
+        #{domicileProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="domicileCity != null" >
+        #{domicileCity,jdbcType=VARCHAR},
+      </if>
+      <if test="domicileAddress != null" >
+        #{domicileAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="marriageStatus != null" >
+        #{marriageStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="childrenStatus != null" >
+        #{childrenStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="houseStatus != null" >
+        #{houseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="residentProvince != null" >
+        #{residentProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="residentCity != null" >
+        #{residentCity,jdbcType=VARCHAR},
+      </if>
+      <if test="residentAddress != null" >
+        #{residentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="residentTelCode != null" >
+        #{residentTelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="annualIncome != null" >
+        #{annualIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="creditCardLimit != null" >
+        #{creditCardLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="liveTogether != null" >
+        #{liveTogether,jdbcType=VARCHAR},
+      </if>
+      <if test="staffNo != null" >
+        #{staffNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orgName != null" >
+        #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgType != null" >
+        #{orgType,jdbcType=VARCHAR},
+      </if>
+      <if test="orgProvince != null" >
+        #{orgProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCity != null" >
+        #{orgCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAddress != null" >
+        #{orgAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orgTelCode != null" >
+        #{orgTelCode,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzcf.platform.pojo.userInfo" >
+    update user_info
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyId != null" >
+        apply_id = #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="idcardValidity != null" >
+        idcard_validity = #{idcardValidity,jdbcType=VARCHAR},
+      </if>
+      <if test="education != null" >
+        education = #{education,jdbcType=VARCHAR},
+      </if>
+      <if test="domicileProvince != null" >
+        domicile_province = #{domicileProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="domicileCity != null" >
+        domicile_city = #{domicileCity,jdbcType=VARCHAR},
+      </if>
+      <if test="domicileAddress != null" >
+        domicile_address = #{domicileAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="marriageStatus != null" >
+        marriage_status = #{marriageStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="childrenStatus != null" >
+        children_status = #{childrenStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="houseStatus != null" >
+        house_status = #{houseStatus,jdbcType=VARCHAR},
+      </if>
+      <if test="residentProvince != null" >
+        resident_province = #{residentProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="residentCity != null" >
+        resident_city = #{residentCity,jdbcType=VARCHAR},
+      </if>
+      <if test="residentAddress != null" >
+        resident_address = #{residentAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="residentTelCode != null" >
+        resident_tel_code = #{residentTelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="annualIncome != null" >
+        annual_income = #{annualIncome,jdbcType=DECIMAL},
+      </if>
+      <if test="creditCardLimit != null" >
+        credit_card_limit = #{creditCardLimit,jdbcType=DECIMAL},
+      </if>
+      <if test="liveTogether != null" >
+        live_together = #{liveTogether,jdbcType=VARCHAR},
+      </if>
+      <if test="staffNo != null" >
+        staff_no = #{staffNo,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="orgName != null" >
+        org_name = #{orgName,jdbcType=VARCHAR},
+      </if>
+      <if test="orgType != null" >
+        org_type = #{orgType,jdbcType=VARCHAR},
+      </if>
+      <if test="orgProvince != null" >
+        org_province = #{orgProvince,jdbcType=VARCHAR},
+      </if>
+      <if test="orgCity != null" >
+        org_city = #{orgCity,jdbcType=VARCHAR},
+      </if>
+      <if test="orgAddress != null" >
+        org_address = #{orgAddress,jdbcType=VARCHAR},
+      </if>
+      <if test="orgTelCode != null" >
+        org_tel_code = #{orgTelCode,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where user_info_id = #{userInfoId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hzcf.platform.pojo.userInfo" >
+    update user_info
+    set user_id = #{userId,jdbcType=VARCHAR},
+      apply_id = #{applyId,jdbcType=VARCHAR},
+      idcard_validity = #{idcardValidity,jdbcType=VARCHAR},
+      education = #{education,jdbcType=VARCHAR},
+      domicile_province = #{domicileProvince,jdbcType=VARCHAR},
+      domicile_city = #{domicileCity,jdbcType=VARCHAR},
+      domicile_address = #{domicileAddress,jdbcType=VARCHAR},
+      marriage_status = #{marriageStatus,jdbcType=VARCHAR},
+      children_status = #{childrenStatus,jdbcType=VARCHAR},
+      house_status = #{houseStatus,jdbcType=VARCHAR},
+      resident_province = #{residentProvince,jdbcType=VARCHAR},
+      resident_city = #{residentCity,jdbcType=VARCHAR},
+      resident_address = #{residentAddress,jdbcType=VARCHAR},
+      resident_tel_code = #{residentTelCode,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      annual_income = #{annualIncome,jdbcType=DECIMAL},
+      credit_card_limit = #{creditCardLimit,jdbcType=DECIMAL},
+      live_together = #{liveTogether,jdbcType=VARCHAR},
+      staff_no = #{staffNo,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP},
+      org_name = #{orgName,jdbcType=VARCHAR},
+      org_type = #{orgType,jdbcType=VARCHAR},
+      org_province = #{orgProvince,jdbcType=VARCHAR},
+      org_city = #{orgCity,jdbcType=VARCHAR},
+      org_address = #{orgAddress,jdbcType=VARCHAR},
+      org_tel_code = #{orgTelCode,jdbcType=VARCHAR}
+    where user_info_id = #{userInfoId,jdbcType=VARCHAR}
+  </update>
+</mapper>

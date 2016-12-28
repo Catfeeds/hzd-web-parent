@@ -1,0 +1,142 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzcf.platform.mapper.userRelationMapper" >
+  <resultMap id="BaseResultMap" type="com.hzcf.platform.pojo.userRelation" >
+    <id column="relation_id" property="relationId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="apply_id" property="applyId" jdbcType="VARCHAR" />
+    <result column="user_info_id" property="userInfoId" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="relation_type" property="relationType" jdbcType="VARCHAR" />
+    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    relation_id, user_id, apply_id, user_info_id, name, relation_type, mobile, type, 
+    create_time
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_relation
+    where relation_id = #{relationId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_relation
+    where relation_id = #{relationId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.hzcf.platform.pojo.userRelation" >
+    insert into user_relation (relation_id, user_id, apply_id, 
+      user_info_id, name, relation_type, 
+      mobile, type, create_time
+      )
+    values (#{relationId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{applyId,jdbcType=VARCHAR}, 
+      #{userInfoId,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{relationType,jdbcType=VARCHAR}, 
+      #{mobile,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.hzcf.platform.pojo.userRelation" >
+    insert into user_relation
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="relationId != null" >
+        relation_id,
+      </if>
+      <if test="userId != null" >
+        user_id,
+      </if>
+      <if test="applyId != null" >
+        apply_id,
+      </if>
+      <if test="userInfoId != null" >
+        user_info_id,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="relationType != null" >
+        relation_type,
+      </if>
+      <if test="mobile != null" >
+        mobile,
+      </if>
+      <if test="type != null" >
+        type,
+      </if>
+      <if test="createTime != null" >
+        create_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="relationId != null" >
+        #{relationId,jdbcType=VARCHAR},
+      </if>
+      <if test="userId != null" >
+        #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyId != null" >
+        #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="userInfoId != null" >
+        #{userInfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="relationType != null" >
+        #{relationType,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzcf.platform.pojo.userRelation" >
+    update user_relation
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyId != null" >
+        apply_id = #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="userInfoId != null" >
+        user_info_id = #{userInfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="relationType != null" >
+        relation_type = #{relationType,jdbcType=VARCHAR},
+      </if>
+      <if test="mobile != null" >
+        mobile = #{mobile,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where relation_id = #{relationId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.hzcf.platform.pojo.userRelation" >
+    update user_relation
+    set user_id = #{userId,jdbcType=VARCHAR},
+      apply_id = #{applyId,jdbcType=VARCHAR},
+      user_info_id = #{userInfoId,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      relation_type = #{relationType,jdbcType=VARCHAR},
+      mobile = #{mobile,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      create_time = #{createTime,jdbcType=TIMESTAMP}
+    where relation_id = #{relationId,jdbcType=VARCHAR}
+  </update>
+</mapper>
