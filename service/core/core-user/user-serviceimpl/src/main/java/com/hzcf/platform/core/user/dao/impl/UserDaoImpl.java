@@ -11,7 +11,7 @@ public class UserDaoImpl  extends AbstractMysqlBaseDaoImpl<User> implements User
 	@Override
 	public boolean updateMobile(User user) {
 		if (user != null && user.getMobile().length()>0 ) {
-			sqlSessionTemplate.update(getSqlName("updateMobile"), user);
+						sqlSessionTemplate.update(getSqlName("updateMobile"), user);
 		}
 		return true;
 	}

@@ -78,7 +78,7 @@
 	<!-- Map all *.spring requests to the DispatcherServlet for handling -->
 	<servlet-mapping>
 		<servlet-name>springMVC</servlet-name>
-		<url-pattern>/*</url-pattern>
+		<url-pattern>/</url-pattern>
 	</servlet-mapping>
 
 

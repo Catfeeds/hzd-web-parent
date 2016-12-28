@@ -25,13 +25,6 @@ public class BackResult {
 
 	    private Object data;// 数据
 
-	    public BackResult(int state, String message, String showMessage, Object data) {
-	        setState(state);
-	        setMessage(message);
-	        setShowMessage(showMessage);
-	        setData(data);
-	    }
-
 	    public BackResult(int state, String message, Object data) {
 	        super();
 	        this.state = state;

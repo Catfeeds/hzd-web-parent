@@ -15,7 +15,7 @@ import java.io.Serializable;
  * 2016年12月8日                       雷佳明                           1.0       1.0 Version 
  * </pre>
  */
-public class BaseState implements Serializable{
+public class ServiceStatus implements Serializable{
 	
 	/**
 	 * 

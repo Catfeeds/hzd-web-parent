@@ -5,7 +5,7 @@ import com.hzcf.platform.common.model.AbstractEntity;
 import java.util.Date;
 
 public class User extends AbstractEntity {
-    private String id;
+
 
     private String mobile;
 
@@ -23,15 +23,8 @@ public class User extends AbstractEntity {
 
     private String nopassCause;
 
-    private Date createTime;
 
-    public String getId() {
-        return id;
-    }
 
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
-    }
 
     public String getMobile() {
         return mobile;
@@ -97,11 +90,5 @@ public class User extends AbstractEntity {
         this.nopassCause = nopassCause == null ? null : nopassCause.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 }

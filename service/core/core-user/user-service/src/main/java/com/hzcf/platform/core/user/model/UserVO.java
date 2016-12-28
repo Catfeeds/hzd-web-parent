@@ -13,7 +13,7 @@ public class UserVO extends BaseVO{
 	private static final long serialVersionUID = 9188703063339311809L;
 
 
-	private String id;
+
 
 	private String mobile;
 
@@ -31,7 +31,7 @@ public class UserVO extends BaseVO{
 
 	private String nopassCause;
 
-	private Date createTime;
+
 	private String token;
 
 	//缓存验证码 类型
@@ -82,15 +82,7 @@ public class UserVO extends BaseVO{
 		return serialVersionUID;
 	}
 
-	@Override
-	public String getId() {
-		return id;
-	}
 
-	@Override
-	public void setId(String id) {
-		this.id = id;
-	}
 
 	public String getMobile() {
 		return mobile;
@@ -156,15 +148,7 @@ public class UserVO extends BaseVO{
 		this.nopassCause = nopassCause;
 	}
 
-	@Override
-	public Date getCreateTime() {
-		return createTime;
-	}
 
-	@Override
-	public void setCreateTime(Date createTime) {
-		this.createTime = createTime;
-	}
 
 	public String getToken() {
 		return token;

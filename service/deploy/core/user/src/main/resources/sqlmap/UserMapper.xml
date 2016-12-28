@@ -34,7 +34,7 @@
     </select>
 
     <update id="updateMobile" parameterType="User">
-        update user set password=#{password} where  id=#{id} and mobile=#{mobile}
+        update users set password=#{password}  where  id=#{id} and mobile=#{mobile}
 
     </update>
 

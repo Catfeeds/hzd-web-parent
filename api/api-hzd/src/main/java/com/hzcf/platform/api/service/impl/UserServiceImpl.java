@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.api.config.RequestAgent;
 import com.hzcf.platform.api.service.IUserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +56,7 @@ public class UserServiceImpl implements IUserService {
 			}
 			
 			user.setId(UUIDGenerator.getUUID());
+			user.setStatus(BaseConfig.status_0);
 			user.setCreateTime(new Date());
 			Result<String> create = userSerivce.insertSelective(user);
 			if(StatusCodes.OK==create.getStatus()){

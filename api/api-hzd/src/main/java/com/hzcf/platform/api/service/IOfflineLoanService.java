@@ -17,9 +17,9 @@ import com.hzcf.platform.core.user.model.UserVO;
  * 2016年12月7日                       雷佳明                           1.0       1.0 Version 
  * </pre>
  */
-public interface IOnlineLoanService {
+public interface IOfflineLoanService {
 	
-	public BackResult OnlineLoanApply(UserVO user,OnlineLoanInfo onlineLoanInfo);
+	public BackResult offlineLoanApply(UserVO user,OnlineLoanInfo onlineLoanInfo);
 	
-	public BackResult OnlineLoanQuery(String mobile);
+	public BackResult offlineLoanQuery(String mobile);
 }

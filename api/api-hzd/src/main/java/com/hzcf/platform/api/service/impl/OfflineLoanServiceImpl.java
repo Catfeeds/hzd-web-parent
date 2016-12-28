@@ -1,7 +1,7 @@
 package com.hzcf.platform.api.service.impl;
 
 
-import com.hzcf.platform.api.service.IOnlineLoanService;
+import com.hzcf.platform.api.service.IOfflineLoanService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,13 +30,13 @@ import net.sf.json.JSONObject;
  * </pre>
  */
 @Service
-public class OnlineLoanServiceImpl implements IOnlineLoanService {
-	private static final Log logger = Log.getLogger(OnlineLoanServiceImpl.class);
+public class OfflineLoanServiceImpl implements IOfflineLoanService {
+	private static final Log logger = Log.getLogger(OfflineLoanServiceImpl.class);
 	@Autowired
 	OnlineLoanWebService onlineLoanWebServic;
 	
 	@Override
-	public BackResult OnlineLoanApply(UserVO user, OnlineLoanInfo onlineLoanInfo) {
+	public BackResult offlineLoanApply(UserVO user, OnlineLoanInfo onlineLoanInfo) {
 		try {
 			DataVerifcation.datavVerification(onlineLoanInfo.getMobile(), onlineLoanInfo.getIdCard().toUpperCase(), onlineLoanInfo.getArea(), onlineLoanInfo.getName());
 			
@@ -71,7 +71,7 @@ public class OnlineLoanServiceImpl implements IOnlineLoanService {
 	}
 
 	@Override
-	public BackResult OnlineLoanQuery(String mobile) {
+	public BackResult offlineLoanQuery(String mobile) {
 		try {
 			String sendRsp = onlineLoanWebServic.OnlineLoanQuery(mobile);
 			JSONObject  json = JSONObject.fromObject(sendRsp);

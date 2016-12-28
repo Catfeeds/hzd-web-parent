@@ -16,7 +16,7 @@ import java.util.List;
  * 2016年12月8日                       雷佳明                           1.0       1.0 Version 
  * </pre>
  */
-public class WxjinjianQueryRsp extends BaseState implements Serializable{
+public class WxjinjianQueryRsp extends ServiceStatus implements Serializable{
 	private static final long serialVersionUID = 2978365969221886180L;
 	
 	private List<WeiXinApplyList> weiXinApplyList;

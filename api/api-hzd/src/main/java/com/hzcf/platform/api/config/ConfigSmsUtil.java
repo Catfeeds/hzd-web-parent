@@ -2,12 +2,12 @@ package com.hzcf.platform.api.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
 
-import com.hzcf.platform.api.controller.OnlineLoanController;
+import com.hzcf.platform.api.controller.OfflineApplyLoanController;
 import com.hzcf.platform.common.cache.ICache;
 import com.hzcf.platform.common.util.log.Log;
 
 public class ConfigSmsUtil {
-	private static final Log logger = Log.getLogger(OnlineLoanController.class);
+	private static final Log logger = Log.getLogger(OfflineApplyLoanController.class);
 	@Autowired
     private static ICache cache;
 	/**

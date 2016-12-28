@@ -44,4 +44,7 @@ public class BaseConfig {
 	public static final String USER_ANDROID="Android";
 	
 	public static final String IP="ip";
+
+	public static final String status_1="1"; //用户有效状态 1无效 0有效
+	public static final String status_0="0";
 }

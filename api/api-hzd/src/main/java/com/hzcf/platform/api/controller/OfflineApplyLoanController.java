@@ -11,7 +11,7 @@ import com.hzcf.platform.api.annotation.RequestAttribute;
 import com.hzcf.platform.api.annotation.RequestBodyForm;
 import com.hzcf.platform.api.model.OnlineLoanInfo;
 import com.hzcf.platform.api.common.BackResult;
-import com.hzcf.platform.api.service.IOnlineLoanService;
+import com.hzcf.platform.api.service.IOfflineLoanService;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.core.user.model.UserVO;
@@ -30,24 +30,24 @@ import com.hzcf.platform.core.user.model.UserVO;
  * </pre>
  */
 @RestController
-public class OnlineLoanController {
-	private static final Log logger = Log.getLogger(OnlineLoanController.class);
+public class OfflineApplyLoanController {
+	private static final Log logger = Log.getLogger(OfflineApplyLoanController.class);
     @Autowired
-	IOnlineLoanService onlineLoanService;
+	IOfflineLoanService onlineLoanService;
 	
-	@RequestMapping(value="rest/api/100/jinjian/apply",method=RequestMethod.POST)
+	@RequestMapping(value="rest/api/100/offlineLoan/apply",method=RequestMethod.POST)
 	@ResponseBody
-	public BackResult apply(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user ,@RequestBodyForm OnlineLoanInfo onlineLoanInfo ){
+	public BackResult onlineLoanApply(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user ,@RequestBodyForm OnlineLoanInfo onlineLoanInfo ){
 		logger.i("进入用户借贷申请 ====入参====UserVO:"+user.toString());
 		logger.i("进入用户借贷申请====入参====onlineLoanInfo:"+onlineLoanInfo.toString());
-		return onlineLoanService.OnlineLoanApply(user, onlineLoanInfo);
+		return onlineLoanService.offlineLoanApply(user, onlineLoanInfo);
 	}
 	
-	@RequestMapping(value="rest/api/100/jinjian/query/{mobile}",method=RequestMethod.GET)
+	@RequestMapping(value="rest/api/100/offlineLoan/query/{mobile}",method=RequestMethod.GET)
 	@ResponseBody
-	public BackResult logonUser(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,@PathVariable String mobile){
+	public BackResult onlineLoanQuery(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,@PathVariable String mobile){
 		 logger.i("进入用户查询进件功能 ====入参====UserVO:"+user.toString());
-		 return onlineLoanService.OnlineLoanQuery(mobile);
+		 return onlineLoanService.offlineLoanQuery(mobile);
 	}
 	
 }
