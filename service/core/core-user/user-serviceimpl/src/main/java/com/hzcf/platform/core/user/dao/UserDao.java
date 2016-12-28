@@ -1,10 +1,9 @@
 package com.hzcf.platform.core.user.dao;
 
-import com.hzcf.platform.common.util.rpc.result.Result;
-import com.hzcf.platform.core.user.data.User;
-import com.hzcf.platform.core.user.model.UserVO;
-import com.hzcf.platform.framework.core.storage.IBaseDao;
 
+import com.hzcf.platform.core.user.data.User;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
+import com.sun.org.apache.xpath.internal.operations.String;
 public interface UserDao extends IBaseDao<User> {
 	/**
 	 * 
@@ -25,4 +24,9 @@ public interface UserDao extends IBaseDao<User> {
 	 * @return
 	 */
 	User getByMobile(String mobile);
+
+
+	String insertSelective(User user);
+
+	boolean updateByPrimaryKeySelective(User user);
 }

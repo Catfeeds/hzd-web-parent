@@ -41,7 +41,7 @@
     delete from users
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hzcf.platform.pojo.User" >
+  <insert id="insert" parameterType="User" >
     insert into users (id, mobile, name, 
       user_name, password, id_card, 
       status, check_status, nopass_cause, 
@@ -51,7 +51,7 @@
       #{status,jdbcType=VARCHAR}, #{checkStatus,jdbcType=VARCHAR}, #{nopassCause,jdbcType=VARCHAR}, 
       #{createTime,jdbcType=TIMESTAMP})
   </insert>
-  <insert id="insertSelective" parameterType="com.hzcf.platform.pojo.User" >
+  <insert id="insertSelective" parameterType="User" >
     insert into users
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -118,12 +118,10 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hzcf.platform.pojo.User" >
+  <update id="updateByPrimaryKeySelective" parameterType="User" >
     update users
     <set >
-      <if test="mobile != null" >
-        mobile = #{mobile,jdbcType=VARCHAR},
-      </if>
+
       <if test="name != null" >
         name = #{name,jdbcType=VARCHAR},
       </if>

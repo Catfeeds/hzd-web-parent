@@ -3,6 +3,8 @@ package com.hzcf.platform.core.user.service;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.framework.core.service.IBaseService;
+import com.sun.org.apache.xpath.internal.operations.String;
+
 /**
  * 
  * @description:user功能操作
@@ -32,4 +34,8 @@ public interface UserService extends IBaseService<UserVO>{
 	 * @return
 	 */
 	public Result<UserVO> getByMobile(String mobile);
+
+	public Result<String> insertSelective(UserVO user);
+
+	public Result<Boolean> updateByPrimaryKeySelective(UserVO user);
 }

@@ -16,9 +16,26 @@ public class UserDaoImpl  extends AbstractMysqlBaseDaoImpl<User> implements User
 		return true;
 	}
 	
-	@Override
+
 	public User getByMobile(String mobile) {
 		return sqlSessionTemplate.selectOne(getSqlName("selectByMobile"), mobile);
 	}
-	
+	@Override
+	public String insertSelective(User user) {
+
+		this.sqlSessionTemplate.insert(this.getSqlName("insertSelective"), user);
+
+		return user.getId();
+	}
+
+
+	@Override
+	public boolean updateByPrimaryKeySelective(User user) {
+
+		if (user != null && user.getMobile().length()>0 ) {
+			sqlSessionTemplate.update(getSqlName("updateByPrimaryKeySelective"), user);
+		}
+		return true;
+	}
+
 }

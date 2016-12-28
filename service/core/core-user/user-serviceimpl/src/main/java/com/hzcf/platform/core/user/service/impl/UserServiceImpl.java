@@ -5,6 +5,7 @@ import com.hzcf.platform.core.user.dao.UserDao;
 import com.hzcf.platform.core.user.data.User;
 import com.hzcf.platform.core.user.service.UserService;
 import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
+import com.sun.org.apache.xpath.internal.operations.String;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,6 +78,31 @@ public class UserServiceImpl extends AbstractBaseServiceImpl<UserVO,User> implem
 		}
 	}
 
-	
+	@Override
+	public Result<String> insertSelective(UserVO userVo){
+		try {
+			User user = this.toDO(userVo);
+			String id =purchaseOrderDao.insertSelective(user);
+
+			return new Result<String>(StatusCodes.OK, id);
+		} catch (Exception e) {
+			logger.error("an error occur in getByPK service : {}", e);
+			return new Result<String>(StatusCodes.INTERNAL_SERVER_ERROR, null);
+		}
+	}
+
+    @Override
+    public Result<Boolean> updateByPrimaryKeySelective(UserVO userVo){
+        try {
+            User user = this.toDO(userVo);
+            purchaseOrderDao.updateByPrimaryKeySelective(user);
+
+            return new Result<Boolean>(StatusCodes.OK, true);
+        } catch (Exception e) {
+            logger.error("an error occur in getByPK service : {}", e);
+            return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
+        }
+    }
+
 
 }
