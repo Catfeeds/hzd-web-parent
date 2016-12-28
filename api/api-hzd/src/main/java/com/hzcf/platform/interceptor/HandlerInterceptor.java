@@ -7,7 +7,7 @@ import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.core.ConstantsToken;
 import com.hzcf.platform.core.CusAccessObjectUtil;
-import com.hzcf.platform.core.MyfStatusCodeEnum;
+import com.hzcf.platform.core.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -91,8 +91,8 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter {
 			try {
 
 				out = response.getWriter();
-				out.print(JsonUtil.json2String(new BackResult(MyfStatusCodeEnum.MEF_CODE_1111.getCode(),
-						MyfStatusCodeEnum.MEF_CODE_1111.getMsg())));
+				out.print(JsonUtil.json2String(new BackResult(HzdStatusCodeEnum.MEF_CODE_1111.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_1111.getMsg())));
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {

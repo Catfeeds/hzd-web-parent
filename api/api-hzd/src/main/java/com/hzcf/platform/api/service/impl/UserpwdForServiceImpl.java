@@ -11,7 +11,7 @@ import com.hzcf.platform.common.exception.CheckException;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.DataVerifcation;
-import com.hzcf.platform.core.MyfStatusCodeEnum;
+import com.hzcf.platform.core.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.UserService;
 /**
@@ -40,23 +40,23 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 		if(StringUtils.isNotBlank(user.getMobile())&&StringUtils.isNotBlank(user.getPassword())){
 			try {
 				if(StringUtils.isBlank( user.getId())){
-					return new BackResult(MyfStatusCodeEnum.MEF_CODE_9000.getCode(),"userId为空");
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(),"userId为空");
 				}	
 				DataVerifcation.datavVerification(user.getMobile(), null, null, null, smsnum, user.getPassword(), user.getId());
 				Result<Boolean> updateMobile = userSerivce.updateMobile(user);
 					if(updateMobile.getItems()){
 						logger.i("修改密码成功-手机号:"+user.getMobile());
-						return new BackResult(MyfStatusCodeEnum.MEF_CODE_0000.getCode(),MyfStatusCodeEnum.MEF_CODE_0000.getMsg());
+						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
 
 					}else{
 						logger.i("修改密码失败-手机号:"+user.getMobile());
-						return new BackResult(MyfStatusCodeEnum.MEF_CODE_0001.getCode(),MyfStatusCodeEnum.MEF_CODE_0001.getMsg());
+						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
 					}
 				
 			}catch (CheckException e) {
 				e.printStackTrace();
 				logger.i("修改密码系统异常-手机号:"+user.getMobile());
-				return new BackResult(MyfStatusCodeEnum.MEF_CODE_9000.getCode(),e.getMessage());
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(),e.getMessage());
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -66,10 +66,10 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 			
 		}else{
 			logger.i("修改密码传入参数有误-手机号:"+user.getMobile());
-			return new BackResult(MyfStatusCodeEnum.MEF_CODE_9000.getCode(),MyfStatusCodeEnum.MEF_CODE_9000.getMsg());
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(), HzdStatusCodeEnum.MEF_CODE_9000.getMsg());
 
 		}
-		return new BackResult(MyfStatusCodeEnum.MEF_CODE_9999.getCode(),MyfStatusCodeEnum.MEF_CODE_9999.getMsg());
+		return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
 	}
 
 	@Override
@@ -77,13 +77,13 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 		if(StringUtils.isNotBlank(user.getMobile())&&StringUtils.isNotBlank(user.getPassword())){
 			try {
 				if(StringUtils.isBlank( user.getId())){
-					return new BackResult(MyfStatusCodeEnum.MEF_CODE_9000.getCode(),"userId为空");
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(),"userId为空");
 				}
 				DataVerifcation.datavVerification(user.getMobile(), null, null, null, smsnum, user.getPassword(), user.getId());
 					Result<Boolean> updateMobile = userSerivce.updateMobile(user);
 					if(updateMobile.getItems()){
 						logger.i("找回密码成功-手机号:"+user.getMobile());
-						return new BackResult(MyfStatusCodeEnum.MEF_CODE_0000.getCode(),MyfStatusCodeEnum.MEF_CODE_0000.getMsg());
+						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
 
 					}
 				
@@ -95,10 +95,10 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 			
 		}else{
 			logger.i("找回密码传入参数有误-手机号:"+user.getMobile());
-			return new BackResult(MyfStatusCodeEnum.MEF_CODE_9000.getCode(),MyfStatusCodeEnum.MEF_CODE_9000.getMsg());
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(), HzdStatusCodeEnum.MEF_CODE_9000.getMsg());
 
 		}
-		return new BackResult(MyfStatusCodeEnum.MEF_CODE_9999.getCode(),MyfStatusCodeEnum.MEF_CODE_9999.getMsg());
+		return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
 	}
 	
 }

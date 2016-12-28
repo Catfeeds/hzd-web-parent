@@ -11,7 +11,7 @@ import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.core.DataVerifcation;
-import com.hzcf.platform.core.MyfStatusCodeEnum;
+import com.hzcf.platform.core.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.webService.OnlineLoanWebService;
 
@@ -50,21 +50,21 @@ public class OfflineLoanServiceImpl implements IOfflineLoanService {
 			if (retCode.equals("0000")) {
 				logger.i("进入微信进件提交方法:提交成功"+retInfo+"手机号:"+onlineLoanInfo.getMobile());
 				new BackResult(
-						MyfStatusCodeEnum.MEF_CODE_0000.getCode(),
-						MyfStatusCodeEnum.MEF_CODE_0000.getMsg(),retInfo);
+						HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),retInfo);
 			} else if(retCode.equals("4000")) {
 				new BackResult(
-						MyfStatusCodeEnum.MEF_CODE_2200.getCode(), retInfo);
+						HzdStatusCodeEnum.MEF_CODE_2200.getCode(), retInfo);
 			}else{
 				logger.i("进入微信进件提交方法:提交失败:"+retInfo+"手机号:"+onlineLoanInfo.getMobile());
 				new BackResult(
-						MyfStatusCodeEnum.MEF_CODE_2200.getCode(), retInfo);
+						HzdStatusCodeEnum.MEF_CODE_2200.getCode(), retInfo);
 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			new BackResult(
-					MyfStatusCodeEnum.MEF_CODE_2211.getCode(),
+					HzdStatusCodeEnum.MEF_CODE_2211.getCode(),
 					e.getMessage());
 		}
 		return null;
@@ -81,18 +81,18 @@ public class OfflineLoanServiceImpl implements IOfflineLoanService {
 		    if(retCode.equals("0000")){
 		    	WxjinjianQueryRsp wr=JsonUtil.jsonNote2Object(sendRsp, WxjinjianQueryRsp.class);
 		    	logger.i("查询微信进件信息成功：mobile"+mobile);
-		    	return new BackResult(MyfStatusCodeEnum.MEF_CODE_0000.getCode(),retInfo,wr!=null?wr.getWeiXinApplyList():null);
+		    	return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),retInfo,wr!=null?wr.getWeiXinApplyList():null);
 			 	
 		    }else{
 		    	logger.i("查询微信进件信息失败：mobile"+mobile);
-		    	return 	new BackResult(MyfStatusCodeEnum.MEF_CODE_2100.getCode(),MyfStatusCodeEnum.MEF_CODE_2100.getMsg());
+		    	return 	new BackResult(HzdStatusCodeEnum.MEF_CODE_2100.getCode(), HzdStatusCodeEnum.MEF_CODE_2100.getMsg());
 			 	
 		    }
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			new BackResult(
-					MyfStatusCodeEnum.MEF_CODE_2111.getCode(),
+					HzdStatusCodeEnum.MEF_CODE_2111.getCode(),
 					e.getMessage());
 		}
 		return null;
