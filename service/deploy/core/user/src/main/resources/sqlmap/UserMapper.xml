@@ -1,167 +1,170 @@
-<?xml version="1.0" encoding="UTF-8" ?>
-<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hzcf.platform.core.user.data.User" >
   <resultMap id="BaseResultMap" type="User" >
-    <result column="id" property="id" jdbcType="VARCHAR" />
-    <result column="mobile" property="mobile" jdbcType="VARCHAR" />
-    <result column="name" property="name" jdbcType="VARCHAR" />
-    <result column="user_name" property="userName" jdbcType="VARCHAR" />
-    <result column="password" property="password" jdbcType="VARCHAR" />
-    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
-    <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="check_status" property="checkStatus" jdbcType="VARCHAR" />
-    <result column="nopass_cause" property="nopassCause" jdbcType="VARCHAR" />
-    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
-  </resultMap>
-  <sql id="Base_Column_List" >
-    id, mobile, name, user_name, password, id_card, status, check_status, nopass_cause, 
-    create_time
-  </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from users
-    where id = #{id,jdbcType=VARCHAR}
-  </select>
+        <result column="id" property="id" jdbcType="VARCHAR" />
+        <result column="mobile" property="mobile" jdbcType="VARCHAR" />
+        <result column="name" property="name" jdbcType="VARCHAR" />
+        <result column="user_name" property="userName" jdbcType="VARCHAR" />
+        <result column="password" property="password" jdbcType="VARCHAR" />
+        <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+        <result column="status" property="status" jdbcType="VARCHAR" />
+        <result column="check_status" property="checkStatus" jdbcType="VARCHAR" />
+        <result column="nopass_cause" property="nopassCause" jdbcType="VARCHAR" />
+        <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+    </resultMap>
+    <sql id="Base_Column_List" >
+        id, mobile, name, user_name, password, id_card, status, check_status, nopass_cause,
+        create_time
+    </sql>
+    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from users
+        where id = #{id,jdbcType=VARCHAR}
+    </select>
 
-<select id="selectByMobile" parameterType="String" resultType="BaseResultMap">
-  select
-  <include refid="Base_Column_List" />
-  from users
-  where mobile=#{mobile,jdbcType=VARCHAR}
-</select>
+    <select id="selectByMobile" parameterType="String" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from users
+        where mobile=#{mobile,jdbcType=VARCHAR}
+    </select>
 
-  <update id="updateMobile" parameterType="User">
-    update user set password=#{password} where  id=#{id} and mobile=#{mobile}
+    <update id="updateMobile" parameterType="User">
+        update user set password=#{password} where  id=#{id} and mobile=#{mobile}
 
-  </update>
+    </update>
 
 
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
-    delete from users
-    where id = #{id,jdbcType=VARCHAR}
-  </delete>
-  <insert id="insert" parameterType="User" >
-    insert into users (id, mobile, name, 
-      user_name, password, id_card, 
-      status, check_status, nopass_cause, 
-      create_time)
-    values (#{id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR}, 
-      #{status,jdbcType=VARCHAR}, #{checkStatus,jdbcType=VARCHAR}, #{nopassCause,jdbcType=VARCHAR}, 
-      #{createTime,jdbcType=TIMESTAMP})
-  </insert>
-  <insert id="insertSelective" parameterType="User" >
-    insert into users
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        id,
-      </if>
-      <if test="mobile != null" >
-        mobile,
-      </if>
-      <if test="name != null" >
-        name,
-      </if>
-      <if test="userName != null" >
-        user_name,
-      </if>
-      <if test="password != null" >
-        password,
-      </if>
-      <if test="idCard != null" >
-        id_card,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="checkStatus != null" >
-        check_status,
-      </if>
-      <if test="nopassCause != null" >
-        nopass_cause,
-      </if>
-      <if test="createTime != null" >
-        create_time,
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="id != null" >
-        #{id,jdbcType=VARCHAR},
-      </if>
-      <if test="mobile != null" >
-        #{mobile,jdbcType=VARCHAR},
-      </if>
-      <if test="name != null" >
-        #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="userName != null" >
-        #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
-        #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="idCard != null" >
-        #{idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="checkStatus != null" >
-        #{checkStatus,jdbcType=VARCHAR},
-      </if>
-      <if test="nopassCause != null" >
-        #{nopassCause,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="User" >
-    update users
-    <set >
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+        delete from users
+        where id = #{id,jdbcType=VARCHAR}
+    </delete>
+    <insert id="insert" parameterType="User" >
+        insert into users (id, mobile, name,
+        user_name, password, id_card,
+        status, check_status, nopass_cause,
+        create_time)
+        values (#{id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
+        #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR},
+        #{status,jdbcType=VARCHAR}, #{checkStatus,jdbcType=VARCHAR}, #{nopassCause,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP})
+    </insert>
+    <insert id="insertSelective" parameterType="User" >
+        insert into users
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="mobile != null" >
+                mobile,
+            </if>
+            <if test="name != null" >
+                name,
+            </if>
+            <if test="userName != null" >
+                user_name,
+            </if>
+            <if test="password != null" >
+                password,
+            </if>
+            <if test="idCard != null" >
+                id_card,
+            </if>
+            <if test="status != null" >
+                status,
+            </if>
+            <if test="checkStatus != null" >
+                check_status,
+            </if>
+            <if test="nopassCause != null" >
+                nopass_cause,
+            </if>
+            <if test="createTime != null" >
+                create_time,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                #{id,jdbcType=VARCHAR},
+            </if>
+            <if test="mobile != null" >
+                #{mobile,jdbcType=VARCHAR},
+            </if>
+            <if test="name != null" >
+                #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null" >
+                #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null" >
+                #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="idCard != null" >
+                #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="checkStatus != null" >
+                #{checkStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="nopassCause != null" >
+                #{nopassCause,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </trim>
+    </insert>
+    <update id="updateByPrimaryKeySelective" parameterType="User" >
+        update users
+        <set >
 
-      <if test="name != null" >
+            <if test="name != null" >
+                name = #{name,jdbcType=VARCHAR},
+            </if>
+            <if test="userName != null" >
+                user_name = #{userName,jdbcType=VARCHAR},
+            </if>
+            <if test="password != null" >
+                password = #{password,jdbcType=VARCHAR},
+            </if>
+            <if test="idCard != null" >
+                id_card = #{idCard,jdbcType=VARCHAR},
+            </if>
+            <if test="status != null" >
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="checkStatus != null" >
+                check_status = #{checkStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="nopassCause != null" >
+                nopass_cause = #{nopassCause,jdbcType=VARCHAR},
+            </if>
+            <if test="createTime != null" >
+                create_time = #{createTime,jdbcType=TIMESTAMP},
+            </if>
+        </set>
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="User" >
+        update users
+        set mobile = #{mobile,jdbcType=VARCHAR},
         name = #{name,jdbcType=VARCHAR},
-      </if>
-      <if test="userName != null" >
         user_name = #{userName,jdbcType=VARCHAR},
-      </if>
-      <if test="password != null" >
         password = #{password,jdbcType=VARCHAR},
-      </if>
-      <if test="idCard != null" >
         id_card = #{idCard,jdbcType=VARCHAR},
-      </if>
-      <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="checkStatus != null" >
         check_status = #{checkStatus,jdbcType=VARCHAR},
-      </if>
-      <if test="nopassCause != null" >
         nopass_cause = #{nopassCause,jdbcType=VARCHAR},
-      </if>
-      <if test="createTime != null" >
-        create_time = #{createTime,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="User" >
-    update users
-    set mobile = #{mobile,jdbcType=VARCHAR},
-      name = #{name,jdbcType=VARCHAR},
-      user_name = #{userName,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      id_card = #{idCard,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR},
-      check_status = #{checkStatus,jdbcType=VARCHAR},
-      nopass_cause = #{nopassCause,jdbcType=VARCHAR},
-      create_time = #{createTime,jdbcType=TIMESTAMP}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
+        create_time = #{createTime,jdbcType=TIMESTAMP}
+        where id = #{id,jdbcType=VARCHAR}
+    </update>
+
 
 
 </mapper>

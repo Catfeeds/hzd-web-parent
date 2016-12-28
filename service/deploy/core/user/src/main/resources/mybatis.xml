@@ -9,7 +9,7 @@
 	
 	<!-- 指定映射文件 -->
 	<mappers>
-		<mapper resource="sqlmap/UserMapper.xml" />
+		<mapper resource="sqlmap/Usermapper.xml" />
 	</mappers>
 
 </configuration>

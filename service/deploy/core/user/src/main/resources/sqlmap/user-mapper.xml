@@ -3,9 +3,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+
 <mapper namespace="com.hzcf.platform.core.user.data.User">
-	
+
 	<resultMap id="BaseResultMap" type="USER">
 		<result column="id" property="id" jdbcType="VARCHAR"/>
 		<result column="mobile" property="mobile" jdbcType="VARCHAR" />
@@ -23,7 +23,7 @@
 		<if test="name != null"> and mobile=#{mobile} </if>
 		<if test="name != null"> and password=#{password} </if>
 		<if test="name != null"> and createTime=#{createTime} </if>
-		
+
 	</sql>
 	<sql id="Base_UPDATE_COLUMN">
 		<if test="id != null and id > 0"> id=#{id}, </if>
@@ -31,7 +31,7 @@
 		<if test="name != null">  password=#{password}, </if>
 		<if test="name != null">  createTime=#{createTime}, </if>
 	</sql>
-	
+
 	<sql id="TABLE_NAME">user</sql>
 	<sql id="ORDER_COLUMN">id</sql>
 
@@ -41,28 +41,28 @@
       #{password,jdbcType=VARCHAR}
       #{createTime,jdbcType=DATE}
 	</sql>
-	
+
 	<select id="FINDLIST" resultMap="BaseResultMap" parameterType="map">
 	       SELECT <include refid="Base_Column_List" /> FROM <include refid="TABLE_NAME" />
 	       <where>
 	       <include refid="Base_Where_Clause"/>
 	       </where>
-	       ORDER BY <include refid="ORDER_COLUMN" /> DESC  
+	       ORDER BY <include refid="ORDER_COLUMN" /> DESC
 	       LIMIT #{pageNo},#{pageSize}
 	</select>
-	
+
 	<select id="FINDLIST_COUNT" resultType="int"  parameterType="map">
-	    SELECT count(1) FROM <include refid="TABLE_NAME" /> 	       
+	    SELECT count(1) FROM <include refid="TABLE_NAME" />
 	    <where>
 	       <include refid="Base_Where_Clause"/>
 	    </where>
 	</select>
-	
+
 	<select id="selectById" parameterType="long" resultMap="BaseResultMap">
 		SELECT <include refid="Base_Column_List" /> FROM <include refid="TABLE_NAME" />
 		<where>
 			id=#{id}
-		</where>  
+		</where>
 	</select>
 		<select id="selectByMobile" parameterType="String" resultType="USER">
 		SELECT id,mobile,password,createTime FROM user WHERE mobile=#{mobile}
@@ -72,34 +72,34 @@
 		DELETE FROM <include refid="TABLE_NAME" />
 	    <where>
 			id=#{id}
-		</where> 
+		</where>
 	</delete>
-	    
+
 	<update id="updateById" parameterType="USER">
-		UPDATE <include refid="TABLE_NAME" /> 
+		UPDATE <include refid="TABLE_NAME" />
 		<set>
 		<if test="name != null and name !='' ">name=#{name},</if>
 		</set>
 	     <where>
 			id=#{id}
-		</where>   
-	</update>   
-	  
+		</where>
+	</update>
+
 	 	<update id="updateMobile" parameterType="USER">
-		update user set password=#{password} where  id=#{id} and mobile=#{mobile} 
-	     
-	</update>   
+		update user set password=#{password} where  id=#{id} and mobile=#{mobile}
+
+	</update>
 	<insert id="insert"   parameterType="USER">
 	 &lt;!&ndash;    INSERT INTO <include refid="TABLE_NAME" />(
 		<include refid="Base_Column_List"></include>
-		) 
+		)
 		VALUES(
 		<include refid="INSERT_VALUE"></include>
 		)   &ndash;&gt;
-		insert into user(id,mobile,password,createTime)  
-             values(#{id},#{mobile},#{password},#{createTime})  
+		insert into user(id,mobile,password,createTime)
+             values(#{id},#{mobile},#{password},#{createTime})
 	</insert>
-	
+
 	&lt;!&ndash; 批量插入 &ndash;&gt;
 	<insert id="batchInsert"    useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
 		insert into <include refid="TABLE_NAME" /> (
@@ -111,5 +111,5 @@
 		)
 		</foreach>
 	</insert>
-    
+
 </mapper>-->
