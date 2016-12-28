@@ -1,8 +1,10 @@
 package com.hzcf.platform.core.user.data;
 
+import com.hzcf.platform.common.model.AbstractEntity;
+
 import java.util.Date;
 
-public class User {
+public class User extends AbstractEntity {
     private String id;
 
     private String mobile;

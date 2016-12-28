@@ -2,14 +2,14 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.hzcf.platform.core.user.data.User" alias="USER"/>
+		<typeAlias type="com.hzcf.platform.core.user.data.User" alias="User"/>
 	</typeAliases>
 	
 	
 	
 	<!-- 指定映射文件 -->
 	<mappers>
-		<mapper resource="sqlmap/user-mapper.xml" />
+		<mapper resource="sqlmap/UserMapper.xml" />
 	</mappers>
 
 </configuration>

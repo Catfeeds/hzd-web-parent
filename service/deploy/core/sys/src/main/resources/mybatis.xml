@@ -2,11 +2,7 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-		<typeAlias type="com.hzcf.redpack.entity.Policy" alias="Policy"/>
-		<typeAlias type="com.hzcf.redpack.entity.Member" alias="Member"/>
-		<typeAlias type="com.hzcf.redpack.entity.Order" alias="Order"/>
-		<typeAlias type="com.hzcf.redpack.entity.Product" alias="Product"/>
-		<typeAlias type="com.hzcf.redpack.entity.PolicyManageInfo" alias="PolicyManageInfo"/>
+
 	</typeAliases>
 
 

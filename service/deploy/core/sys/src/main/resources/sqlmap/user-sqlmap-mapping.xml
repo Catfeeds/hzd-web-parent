@@ -1,12 +1,13 @@
+<!--
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="com.hzcf.platform.core.sys.data.User">
-    <!--  
+    &lt;!&ndash;
 	<cache type="org.mybatis.caches.ehcache.LoggingEhcache" readOnly="true" />
-	-->
+	&ndash;&gt;
 	<resultMap id="BaseResultMap" type="com.hzcf.platform.core.sys.data.User">
 		<id column="id" property="id" jdbcType="INTEGER" />
 		<result column="login_name" property="loginName" jdbcType="VARCHAR" />
@@ -67,7 +68,7 @@
 				<if test="logicalDel != null">and logical_del = #{logicalDel}</if>	
 				<if test="locked != null">and locked = #{locked}</if>		
 					
-				<!-- 模糊查询 -->
+				&lt;!&ndash; 模糊查询 &ndash;&gt;
 				<if test="loginNameLike != null">and login_name like CONCAT("%",#{loginNameLike},"%")</if>
 				<if test="userNameLike != null">and user_name like CONCAT("%",#{userNameLike},"%")</if>
 			</trim>
@@ -76,14 +77,14 @@
 		
 	</sql>
 	
-	<!-- 查询总数 -->
+	&lt;!&ndash; 查询总数 &ndash;&gt;
 	<select id="selectCount" resultType="java.lang.Long" parameterType="java.util.Map">
 		select count(id)
 		from sys_user
 		<include refid="Base_Where_Clause" />
 	</select>
 	
-	<!-- 查询 -->
+	&lt;!&ndash; 查询 &ndash;&gt;
 	<select id="select" resultMap="BaseResultMap" parameterType="java.util.Map">
 		select
 		<include refid="Base_Column_List" />
@@ -169,7 +170,7 @@
          </foreach>
 	</select>
 	
-	<!-- 根据ID查询 -->
+	&lt;!&ndash; 根据ID查询 &ndash;&gt;
 	<select id="selectById" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
@@ -177,7 +178,7 @@
 		where id = #{id}
 	</select>
 	
-	<!-- 根据ID查询 -->
+	&lt;!&ndash; 根据ID查询 &ndash;&gt;
 	<select id="getUserByloginName" resultMap="BaseResultMap" parameterType="java.lang.String">
 		select
 		<include refid="Base_Column_List" />
@@ -185,22 +186,22 @@
 		where login_name = #{loginName}  and  logical_del=0 and locked=0 
 	</select>
 	
-	<!-- 根据ID删除 -->
+	&lt;!&ndash; 根据ID删除 &ndash;&gt;
 	<delete id="deleteById" parameterType="java.util.List">
 		delete from sys_user
 		where id = #{id} 
-		<!-- <foreach collection="list" item="idList"  open="(" separator="," close=")">  
+		&lt;!&ndash; <foreach collection="list" item="idList"  open="(" separator="," close=")">
         	#{idList}  
-     	</foreach>   -->
+     	</foreach>   &ndash;&gt;
 	</delete> 
 	
-	<!-- 删除 -->
+	&lt;!&ndash; 删除 &ndash;&gt;
 	<delete id="delete" parameterType="java.util.Map">
 		delete from sys_user
 		<include refid="Base_Where_Clause" />
 	</delete>
 
-	<!-- 添加 -->	
+	&lt;!&ndash; 添加 &ndash;&gt;
 	<insert id="insert" useGeneratedKeys="true" keyProperty="id"  parameterType="com.hzcf.platform.core.sys.data.User">
 		insert into sys_user(
 			id, 
@@ -246,7 +247,7 @@
 		)
 	</insert>
 	
-	<!-- 通过ID更新 -->
+	&lt;!&ndash; 通过ID更新 &ndash;&gt;
 	<update id="updateByIdSelective" parameterType="com.hzcf.platform.core.sys.data.User">
 		update sys_user
 		<set>
@@ -307,3 +308,4 @@
 	
 </mapper>
 
+-->
