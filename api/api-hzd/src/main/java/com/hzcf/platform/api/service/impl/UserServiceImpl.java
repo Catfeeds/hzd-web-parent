@@ -56,7 +56,7 @@ public class UserServiceImpl implements IUserService {
 			
 			user.setId(UUIDGenerator.getUUID());
 			user.setCreateTime(new Date());
-			Result<String> create = userSerivce.create(user);
+			Result<String> create = userSerivce.insertSelective(user);
 			if(StatusCodes.OK==create.getStatus()){
 				logger.i("注册成功 ---手机号:"+user.getMobile());
 				return new BackResult(MyfStatusCodeEnum.MEF_CODE_0000.getCode(),MyfStatusCodeEnum.MEF_CODE_0000.getMsg());

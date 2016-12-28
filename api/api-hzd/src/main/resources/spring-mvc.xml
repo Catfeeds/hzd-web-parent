@@ -10,7 +10,7 @@
     http://www.springframework.org/schema/mvc/spring-mvc-4.0.xsd">
 
 
-	<context:component-scan base-package="com.hzcf.platform.api.user.controller" />
+	<context:component-scan base-package="com.hzcf.platform.api.controller" />
      <!-- 自定义jackson bean -->
     <bean id="objectMapper" class="com.hzcf.platform.common.cache.bean.JacksonBean"/>
     <mvc:annotation-driven>
@@ -32,7 +32,7 @@
     <!-- 设置不过滤内容，比如:css,jquery,img 等资源文件 -->  
     <mvc:resources location="/static/protocol/" mapping="/static/protocol/**" />  
     <mvc:resources location="/static/protocol/css/" mapping="/static/protocol/css/**" />  
-    <mvc:resources location="/static/protocol/js/" mapping="/static/protocol/js/**" />  
+
     <mvc:resources location="/static/protocol/images/" mapping="/static/protocol/images/**" />  
  	 <mvc:resources location="/static/versions/" mapping="/static/versions/**" />  
  	

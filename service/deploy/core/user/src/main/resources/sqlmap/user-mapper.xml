@@ -1,3 +1,4 @@
+<!--
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -89,17 +90,17 @@
 	     
 	</update>   
 	<insert id="insert"   parameterType="USER">
-	 <!--    INSERT INTO <include refid="TABLE_NAME" />(
+	 &lt;!&ndash;    INSERT INTO <include refid="TABLE_NAME" />(
 		<include refid="Base_Column_List"></include>
 		) 
 		VALUES(
 		<include refid="INSERT_VALUE"></include>
-		)   -->
+		)   &ndash;&gt;
 		insert into user(id,mobile,password,createTime)  
              values(#{id},#{mobile},#{password},#{createTime})  
 	</insert>
 	
-	<!-- 批量插入 -->
+	&lt;!&ndash; 批量插入 &ndash;&gt;
 	<insert id="batchInsert"    useGeneratedKeys="true" keyProperty="id" parameterType="java.util.List">
 		insert into <include refid="TABLE_NAME" /> (
 		name)
@@ -111,4 +112,4 @@
 		</foreach>
 	</insert>
     
-</mapper>
+</mapper>-->
