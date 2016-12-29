@@ -21,7 +21,7 @@ import com.hzcf.platform.core.user.model.UserVO;
  */
 public interface IUserService {
 	
-	public BackResult register(UserVO user,String type);
+	public BackResult register(UserVO user);
 	
 	public BackResult logonUser(UserVO user,HttpServletRequest request,RequestAgent agent);
 	

@@ -40,7 +40,12 @@ public class DataVerifcation {
 	            throw new CheckException("验证码输入有误");
 	        }
 	    }
-	    
+
+	public static void datavVerification( String phone_num) throws CheckException {
+		if (StringUtils.isBlank(phone_num) || !JudgeNumberLegal.isMobileNum(phone_num)) {
+			throw new CheckException("手机号码输入不合法");
+		}
+	}
 	    
 	    public static void datavVerification( String phone_num, String idCard, String area, String name) throws CheckException {
 	        if (StringUtils.isBlank(phone_num) || !JudgeNumberLegal.isMobileNum(phone_num)) {

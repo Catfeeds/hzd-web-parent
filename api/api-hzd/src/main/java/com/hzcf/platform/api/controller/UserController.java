@@ -40,14 +40,12 @@ public class UserController {
 	@Autowired
 	IUserService registerUserService;
 	
-	@RequestMapping(value="api/100/user/register/{type}",method=RequestMethod.POST)
+	@RequestMapping(value="api/100/user/register",method=RequestMethod.POST)
 	@ResponseBody
-	public BackResult register(@RequestBodyForm UserVO user,@PathVariable String type){
+	public BackResult register(@RequestBodyForm UserVO user){
 		logger.i("进入用户注册功能 ====入参====UserVO:"+user.toString());
-		if(ConfigSmsUtil.superSmsNum(user.getMobile(), type)){
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
-		}
-		return registerUserService.register(user,type);
+
+		return registerUserService.register(user);
 	}
 	
 	@RequestMapping(value="api/100/user/logon",method=RequestMethod.POST)
@@ -67,7 +65,7 @@ public class UserController {
 	@RequestMapping(value="rest/api/100/user/isLogon",method=RequestMethod.POST)
 	@ResponseBody
 	public BackResult  isLogo(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
-		logger.i("进入退出登录功能 ====入参====UserVO:"+user.toString());
+		logger.i("登录状态判断 ====入参====UserVO:"+user.toString());
 		return registerUserService.isLogon(user);
 	}
 }

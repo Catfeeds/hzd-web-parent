@@ -2,8 +2,8 @@ package com.hzcf.platform.core.user.data;
 
 import java.util.Date;
 
-public class userRelation {
-    private String relationId;
+public class UserImage {
+    private String imageId;
 
     private String userId;
 
@@ -11,22 +11,22 @@ public class userRelation {
 
     private String userInfoId;
 
-    private String name;
+    private String artWork;
 
-    private String relationType;
+    private String small;
 
-    private String mobile;
+    private String imageType;
 
     private String type;
 
     private Date createTime;
 
-    public String getRelationId() {
-        return relationId;
+    public String getImageId() {
+        return imageId;
     }
 
-    public void setRelationId(String relationId) {
-        this.relationId = relationId == null ? null : relationId.trim();
+    public void setImageId(String imageId) {
+        this.imageId = imageId == null ? null : imageId.trim();
     }
 
     public String getUserId() {
@@ -53,28 +53,28 @@ public class userRelation {
         this.userInfoId = userInfoId == null ? null : userInfoId.trim();
     }
 
-    public String getName() {
-        return name;
+    public String getArtWork() {
+        return artWork;
     }
 
-    public void setName(String name) {
-        this.name = name == null ? null : name.trim();
+    public void setArtWork(String artWork) {
+        this.artWork = artWork == null ? null : artWork.trim();
     }
 
-    public String getRelationType() {
-        return relationType;
+    public String getSmall() {
+        return small;
     }
 
-    public void setRelationType(String relationType) {
-        this.relationType = relationType == null ? null : relationType.trim();
+    public void setSmall(String small) {
+        this.small = small == null ? null : small.trim();
     }
 
-    public String getMobile() {
-        return mobile;
+    public String getImageType() {
+        return imageType;
     }
 
-    public void setMobile(String mobile) {
-        this.mobile = mobile == null ? null : mobile.trim();
+    public void setImageType(String imageType) {
+        this.imageType = imageType == null ? null : imageType.trim();
     }
 
     public String getType() {

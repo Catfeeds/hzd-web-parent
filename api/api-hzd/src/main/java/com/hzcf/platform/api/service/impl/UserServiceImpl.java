@@ -31,32 +31,33 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	public UserService userSerivce;
 	@Autowired
-    private ICache cache;
+	private ICache cache;
 	@Override
-	
+
 	/**
-	 * 
-		 * @Description: 注册
-		 * @User: 雷佳明
-		 * @FileName: WipeRecordMgr.java
-		 * @param 参数  
-		 * @return 返回类型 
-		 * @date 2016年12月7日
-		 * @throws
+	 *
+	 * @Description: 注册
+	 * @User: 雷佳明
+	 * @FileName: WipeRecordMgr.java
+	 * @param 参数
+	 * @return 返回类型
+	 * @date 2016年12月7日
+	 * @throws
 	 */
-	public BackResult register(UserVO user,String num) {
+	public BackResult register(UserVO user) {
 		try {
-			DataVerifcation.datavVerification(user.getMobile(),num);
+			DataVerifcation.datavVerification(user.getMobile());
 			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
 			UserVO items = byMobile.getItems();
-			
+
 			if(items!=null){
 				logger.i("此用户已经注册 ---手机号:"+user.getMobile());
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_1010.getCode(), HzdStatusCodeEnum.MEF_CODE_1010.getMsg());
 			}
-			
+
 			user.setId(UUIDGenerator.getUUID());
 			user.setStatus(BaseConfig.status_0);
+			user.setCheckStatus(BaseConfig.card_status_1);
 			user.setCreateTime(new Date());
 			Result<String> create = userSerivce.insertSelective(user);
 			if(StatusCodes.OK==create.getStatus()){
@@ -67,29 +68,33 @@ public class UserServiceImpl implements IUserService {
 			e.printStackTrace();
 			logger.i("注册出现异常---手机号:"+user.getMobile());
 		}
-	
-		 return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+
+		return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
 	}
-	
+
 	/**
-	 * 
-		 * @Description: 登录
-		 * @User: 雷佳明
-		 * @FileName: WipeRecordMgr.java
-		 * @param 参数  
-		 * @return 返回类型 
-		 * @date 2016年12月7日
-		 * @throws
+	 *
+	 * @Description: 登录
+	 * @User: 雷佳明
+	 * @FileName: WipeRecordMgr.java
+	 * @param
+	 * @return 返回类型
+	 * @date 2016年12月7日
+	 * @throws
 	 */
 	public BackResult logonUser(UserVO user,HttpServletRequest request,RequestAgent agent){
-		
+
 		try {
-			
+
 			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
 			UserVO items = byMobile.getItems();
 			Map<String,Object> map = new HashMap<String,Object>();
 			if(items!=null){
 				if(user.getPassword().equals(items.getPassword())){
+					if(BaseConfig.status_1.equals(items.getStatus())){
+						return new BackResult(HzdStatusCodeEnum.MEF_CODE_1099.getCode(), HzdStatusCodeEnum.MEF_CODE_1099.getMsg(),null);
+
+					}
 					String token =UUIDGenerator.getUUID();
 					items.setToken(token);
 					items.setIp(agent.getIp());
@@ -124,13 +129,13 @@ public class UserServiceImpl implements IUserService {
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
 		}
 	}
-	
+
 	@Override
 	public BackResult isLogon(UserVO user) {
-			if(user!=null){
-				
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
-			}
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_1012.getCode(), HzdStatusCodeEnum.MEF_CODE_1012.getMsg());
+		if(user!=null){
+
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
+		}
+		return new BackResult(HzdStatusCodeEnum.MEF_CODE_1012.getCode(), HzdStatusCodeEnum.MEF_CODE_1012.getMsg());
 	}
 }

@@ -44,7 +44,13 @@ public class BaseConfig {
 	public static final String USER_ANDROID="Android";
 	
 	public static final String IP="ip";
-
-	public static final String status_1="1"; //用户有效状态 1无效 0有效
+	//用户有效状态 1无效 0有效
+	public static final String status_1="1";
 	public static final String status_0="0";
+	//实名认证有效状态 1无效 0有
+	public static final String card_status_1="1";
+	public static final String card_status_0="0";
+	//进件申请状态 0-未进件 1-已进件
+	public static final String apply_loan_1="1";
+	public static final String apply_loan_0="0";
 }

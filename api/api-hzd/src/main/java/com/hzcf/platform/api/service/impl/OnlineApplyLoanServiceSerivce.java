@@ -2,12 +2,25 @@ package com.hzcf.platform.api.service.impl;
 
 
 import com.hzcf.platform.api.common.BackResult;
+import com.hzcf.platform.api.config.BaseConfig;
+import com.hzcf.platform.api.model.CheckApplyLoanStatus;
 import com.hzcf.platform.api.service.IOnlineApplyLoanService;
+import com.hzcf.platform.common.exception.CheckException;
+import com.hzcf.platform.common.util.log.Log;
+import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.core.DataVerifcation;
 import com.hzcf.platform.core.HzdStatusCodeEnum;
+import com.hzcf.platform.core.user.model.UserApplyInfoVO;
+import com.hzcf.platform.core.user.model.UserInfoVO;
+import com.hzcf.platform.core.user.model.UserRelationVO;
 import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.core.user.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -15,16 +28,74 @@ import java.util.Map;
  */
 @Service
 public class OnlineApplyLoanServiceSerivce implements IOnlineApplyLoanService {
-
+    private static final Log logger = Log.getLogger(OnlineApplyLoanServiceSerivce.class);
+    @Autowired
+    public UserService userSerivce;
 
     @Override
     public BackResult isApplyLoanQuery(UserVO user) {
+        logger.i("----------------进入校验是否可以进件");
         Map<String,Object> map = new HashMap<String,Object>();
-        //TODO
-        map.put("id","1234566789");
-        map.put("name","雷佳明");
-        map.put("num","13102519890913131");
-        map.put("model","321312");
-        return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
+        CheckApplyLoanStatus checkApplyLoanStatus = new CheckApplyLoanStatus();
+        try {
+            DataVerifcation.datavVerification(user.getMobile());
+            Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
+            UserVO items = byMobile.getItems();
+            if (BaseConfig.card_status_1.equals(items.getCheckStatus())){
+                logger.i("------------用户未通过实名认证");
+                checkApplyLoanStatus.setCardStatus(BaseConfig.card_status_1);
+                checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_0);
+                return new  BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),checkApplyLoanStatus);
+            }
+
+            //TODO 进件申请,查询进件信息未实现
+            String  ApplyLoanInfoStatus = "0";
+
+
+            if(BaseConfig.apply_loan_1.equals(ApplyLoanInfoStatus)){
+                logger.i("------------------不能重复提交进件信息");
+                checkApplyLoanStatus.setCardStatus(BaseConfig.card_status_0);
+                checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_1);
+                return new  BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),checkApplyLoanStatus);
+
+            }
+            map.put("userId",items.getId());
+            map.put("card",items.getIdCard());
+            map.put("name",items.getName());
+            return new  BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
+
+        }catch (CheckException e){
+            logger.i("------------------缺少必传参数---"+e.getMessage());
+            return new  BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(),e.getMessage(),null);
+
+        }catch (Exception e){
+            logger.i("-----------系统异常,请检查数据源-------");
+            e.printStackTrace();
+            return new  BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(),HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),null);
+        }
+
+
+
     }
+
+    @Override
+    public BackResult onlineLoanapplyOne(UserVO user, UserApplyInfoVO userApplyInfoVO) {
+        return null;
+    }
+
+    @Override
+    public BackResult onlineLoanapplyInfoTwo(UserVO user, UserInfoVO userInfoVO) {
+        return null;
+    }
+
+    @Override
+    public BackResult onlineLoanapplyInfoThree(UserVO user, UserInfoVO userInfoVO) {
+        return null;
+    }
+
+    @Override
+    public BackResult onlineLoanapplyInfoPerfect(UserVO user,  List<UserRelationVO> userRelationVO) {
+        return null;
+    }
+
 }

@@ -3,7 +3,7 @@ package com.hzcf.platform.core.user.data;
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class userInfo {
+public class UserInfo {
     private String userInfoId;
 
     private String userId;
