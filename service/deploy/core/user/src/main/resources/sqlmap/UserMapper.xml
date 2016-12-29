@@ -165,15 +165,21 @@
         where id = #{id,jdbcType=VARCHAR}
     </update>
 
-<!-- 	  <sql id="Base_Where_Clause">
-	    <if test="member.id != null and member.id != ''"> and id=#{member.id} </if>
-	  </sql> -->
-	  
+	  <sql id="Base_Where_Clause">
+	    <if test="user.idCard != null and user.idCard != ''"> and id_card=#{user.idCard} </if>
+	    <if test="user.name != null and user.name !=''"> and name like CONCAT('%',#{user.name},'%')     </if>
+	    <if test="user.mobile != null and user.mobile != ''"> and mobile=#{user.mobile} </if>
+	    <if test="user.startDate != null and user.startDate !='' and user.endDate != null and user.endDate != ''">
+	        and date_format(create_time, '%Y-%m-%d') BETWEEN #{user.startDate} AND #{user.endDate} 
+	    </if>
+	  </sql>
   	<!-- 分页查询 -->
 	<select id="FINDLIST" resultMap="BaseResultMap" parameterType="java.util.Map">
 		SELECT <include refid="Base_Column_List" /> FROM
         users 
-	    
+	    <where>
+	      <include refid="Base_Where_Clause"/>
+	    </where>
 		ORDER BY create_time DESC
 	    <if test="page.page > 0">
 	    LIMIT #{page.start},#{page.end}
@@ -182,6 +188,8 @@
 	
 	<select id="FINDLIST_COUNT" resultType="long" parameterType="java.util.Map">
 		SELECT COUNT(1) FROM users
-	   
+	    <where>
+	      <include refid="Base_Where_Clause"/>
+	    </where>
 	</select>	
 </mapper>

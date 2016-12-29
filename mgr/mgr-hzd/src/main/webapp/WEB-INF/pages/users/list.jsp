@@ -37,6 +37,17 @@ $(function(){
 	});
 });
 
+
+function doSearch(){
+	$('#grid').datagrid('load',{
+		mobile: $('#mobile').val(),
+		name: $('#name').val(),
+		idCard: $('#idCard').val(),
+		//buyRedpackCount: $('#buyRedpackCount').combobox('getValue'),
+		startDate: $('#startDate').datebox('getValue'),
+		endDate: $('#endDate').datebox('getValue')
+	});
+}
 </script>
 
 </head>
@@ -56,12 +67,12 @@ $(function(){
 	<span>注册日期:</span>
 	<input id="startDate" name="startDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc">至
 	<input id="endDate" name="endDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc">
-	<span>借款状态:</span>
-	<select id="buyRedpackCount" name="buyRedpackCount" class="easyui-combobox" style="width:120px;">
+<!-- 	<span>借款状态:</span>
+	<select  class="easyui-combobox" style="width:120px;">
 		<option value="">请选择</option>
 		<option value="1">是</option>
 		<option value="0">否</option>  
-	</select> 	
+	</select> 	 -->
 	
 	<div class="btnDiv">
 		<span align="center"><a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search"  onclick="doSearch()">查询</a></span>

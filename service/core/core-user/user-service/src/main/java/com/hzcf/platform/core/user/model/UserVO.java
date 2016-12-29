@@ -39,6 +39,10 @@ public class UserVO extends BaseVO{
 	
 	private String ip;
 	
+    //ext
+    private String regTime;
+    private String startDate;
+    private String endDate;
 	/**
 	 * 终端类型
 	 */
@@ -171,6 +175,30 @@ public class UserVO extends BaseVO{
 	@Override
 	public String toString() {
 		return JsonUtil.json2String(this);
+	}
+
+	public String getRegTime() {
+		return regTime;
+	}
+
+	public void setRegTime(String regTime) {
+		this.regTime = regTime;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
 	}
 	
 }
