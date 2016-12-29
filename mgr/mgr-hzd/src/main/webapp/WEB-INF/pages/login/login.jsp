@@ -6,13 +6,14 @@
 			+ path + "/";
 %>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">  
+<%@include file="../common/include.jsp"%> 
 <html>
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<title>汇中财富管理系统</title>
 		<link href="<%=basePath%>images/favicon.ico" rel="shortcut icon"	type="image/x-icon" />
-		<link href="<%=basePath%>css/login.css" type=text/css rel=stylesheet>
+		<link href="${path}/css/login.css" type=text/css rel=stylesheet>
 		<script type="text/javascript"	src="<%=basePath%>/script/easyui/js/jquery.min.js"></script>
 		<script type="text/javascript">
 			var root = "<%=basePath%>";

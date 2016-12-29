@@ -20,6 +20,9 @@
 			<groupId>com.hzcf.core.sys</groupId>
 			<artifactId>core-sys-service</artifactId>
 		</dependency>
-
+		<dependency>
+			<groupId>com.hzcf.core.user</groupId>
+			<artifactId>core-user-service</artifactId>
+		</dependency>
 	</dependencies>
 </project>

@@ -165,6 +165,20 @@
         where id = #{id,jdbcType=VARCHAR}
     </update>
 
-
-
+<!-- 	  <sql id="Base_Where_Clause">
+	    <if test="member.id != null and member.id != ''"> and id=#{member.id} </if>
+	  </sql> -->
+	  
+  	<!-- 分页查询 -->
+	<select id="getMemberList" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT <include refid="Base_Column_List" /> FROM
+        users 
+	    
+		ORDER BY create_time DESC
+	    <if test="page.page > 0">
+	    LIMIT #{page.start},#{page.end}
+	    </if>
+	</select>
+	
+	
 </mapper>

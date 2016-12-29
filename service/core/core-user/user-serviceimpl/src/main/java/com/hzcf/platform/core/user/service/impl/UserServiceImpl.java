@@ -13,6 +13,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.Map;
+
 import org.apache.commons.beanutils.BeanUtils;
 
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
@@ -105,5 +108,26 @@ public class UserServiceImpl extends AbstractBaseServiceImpl<UserVO,User> implem
         }
     }
 
+	@Override
+	public PaginatedResult<UserVO> getUserPage(Map<String, Object> parmMap){
+		try {
+			PaginatedResult<User> result = purchaseOrderDao.getUserPage(parmMap);
+			if (null == result || result.getItems() == null) {
+				logger.debug("data null.");
+				PaginatedResult<UserVO> resultVO = new PaginatedResult<UserVO>();
+				resultVO.setStatus(StatusCodes.OK);
+				return resultVO;
+			}
+			PaginatedResult<UserVO> resultVO = new PaginatedResult<UserVO>();
+			resultVO.setItems(toVO(result.getItems()));
+			resultVO.setStatus(StatusCodes.OK);
+			return resultVO;
+		} catch (Exception e) {
+			logger.error("an error occur in getByPK service : {}", e);
+			PaginatedResult<UserVO> resultVO = new PaginatedResult<UserVO>();
+			resultVO.setStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+			return resultVO;
+		}
+	}
 
 }

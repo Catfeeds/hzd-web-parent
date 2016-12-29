@@ -5,13 +5,11 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.annotation.Resource;
-
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
 
 import com.hzcf.platform.common.util.log.Log;
+import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.UserService;
 import com.hzcf.platform.mgr.sys.common.pageModel.DataGrid;
@@ -26,7 +24,7 @@ public class SysUserServiceImpl implements ISysUserService {
 	public UserService userSerivce;
 	
 	
-/*	@Override
+	@Override
 	public DataGrid getUserPage(PageHelper pageHelper, UserVO user){
 		
 		pageHelper.setStart((pageHelper.getPage()-1)*pageHelper.getRows());
@@ -42,11 +40,7 @@ public class SysUserServiceImpl implements ISysUserService {
 		List list = result.getItems();
 		dataGrid.setRows(list);
 		return dataGrid;
-	}*/
-
-	@Override
-	public DataGrid getUserPage(PageHelper pageHelper, UserVO user) {
-		// TODO Auto-generated method stub
-		return null;
 	}
+
+
 }

@@ -1,6 +1,9 @@
 package com.hzcf.platform.core.user.dao;
 
 
+import java.util.Map;
+
+import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.core.user.data.User;
 import com.hzcf.platform.framework.core.storage.IBaseDao;
 
@@ -29,4 +32,6 @@ public interface UserDao extends IBaseDao<User> {
 	String insertSelective(User user);
 
 	boolean updateByPrimaryKeySelective(User user);
+	
+	public PaginatedResult<User> getUserPage(Map<String, Object> parmMap);
 }

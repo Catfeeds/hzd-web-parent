@@ -1,5 +1,8 @@
 package com.hzcf.platform.core.user.service;
 
+import java.util.Map;
+
+import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.framework.core.service.IBaseService;
@@ -38,4 +41,6 @@ public interface UserService extends IBaseService<UserVO>{
 	public Result<String> insertSelective(UserVO user);
 
 	public Result<Boolean> updateByPrimaryKeySelective(UserVO user);
+	
+	public PaginatedResult<UserVO> getUserPage(Map<String, Object> parmMap);
 }

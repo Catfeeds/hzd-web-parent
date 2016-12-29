@@ -1,9 +1,14 @@
 package com.hzcf.platform.core.user.dao.impl;
 
 
+import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.core.user.dao.UserDao;
 import com.hzcf.platform.core.user.data.User;
+import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.framework.core.storage.mysql.AbstractMysqlBaseDaoImpl;
+
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 @Repository
@@ -38,4 +43,9 @@ public class UserDaoImpl  extends AbstractMysqlBaseDaoImpl<User> implements User
 		return true;
 	}
 
+	@Override
+	public PaginatedResult<User> getUserPage(Map<String, Object> parmMap){
+		return this.flipPage(parmMap, 1, 10, "FINDLIST");
+		
+	}
 }
