@@ -10,7 +10,7 @@ import org.springframework.stereotype.Repository;
  * Created by leijiaming on 2016/12/29 0029.
  */
 @Repository
-public class userInfoDaoImpl   extends AbstractMysqlBaseDaoImpl<UserInfo> implements UserInfoDao{
+public class UserInfoDaoImpl extends AbstractMysqlBaseDaoImpl<UserInfo> implements UserInfoDao{
 
 
     @Override
