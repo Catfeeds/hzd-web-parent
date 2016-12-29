@@ -1,9 +1,8 @@
-<!--
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hzcf.platform.mapper.userImageMapper" >
-  <resultMap id="BaseResultMap" type="com.hzcf.platform.pojo.userImage" >
-    <id column="image_id" property="imageId" jdbcType="VARCHAR" />
+<mapper namespace="com.hzcf.platform.core.user.data.UserImage" >
+  <resultMap id="BaseResultMap" type="UserImage" >
+    <result column="image_id" property="imageId" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="apply_id" property="applyId" jdbcType="VARCHAR" />
     <result column="user_info_id" property="userInfoId" jdbcType="VARCHAR" />
@@ -26,7 +25,7 @@
     delete from user_image
     where image_id = #{imageId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hzcf.platform.pojo.userImage" >
+  <insert id="insert" parameterType="UserImage" >
     insert into user_image (image_id, user_id, apply_id, 
       user_info_id, art_work, small, 
       image_type, type, create_time
@@ -36,7 +35,7 @@
       #{imageType,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.hzcf.platform.pojo.userImage" >
+  <insert id="insertSelective" parameterType="UserImage" >
     insert into user_image
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="imageId != null" >
@@ -97,7 +96,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hzcf.platform.pojo.userImage" >
+  <update id="updateByPrimaryKeySelective" parameterType="UserImage" >
     update user_image
     <set >
       <if test="userId != null" >
@@ -127,7 +126,7 @@
     </set>
     where image_id = #{imageId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hzcf.platform.pojo.userImage" >
+  <update id="updateByPrimaryKey" parameterType="UserImage" >
     update user_image
     set user_id = #{userId,jdbcType=VARCHAR},
       apply_id = #{applyId,jdbcType=VARCHAR},
@@ -139,4 +138,4 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where image_id = #{imageId,jdbcType=VARCHAR}
   </update>
-</mapper>-->
+        </mapper>

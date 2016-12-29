@@ -13,12 +13,14 @@ import com.hzcf.platform.framework.core.storage.IBaseDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 /**
  * Created by leijiaming on 2016/12/29 0029.
  */
+@Service
 public class UserRelationServiceImpl  extends AbstractBaseServiceImpl<UserRelationVO,UserRelation> implements UserRelationService {
 
     private Logger logger = LoggerFactory.getLogger(UserRelationServiceImpl.class);

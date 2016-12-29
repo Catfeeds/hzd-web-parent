@@ -2,8 +2,9 @@ package com.hzcf.platform.core.user.dao;
 
 
 import com.hzcf.platform.core.user.data.UserImage;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 
-public interface UserImageDao {
+public interface UserImageDao extends IBaseDao<UserImage> {
     int deleteByPrimaryKey(String imageId);
 
     int insert(UserImage record);

@@ -13,12 +13,14 @@ import com.hzcf.platform.framework.core.storage.IBaseDao;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by leijiaming on 2016/12/29 0029.
  */
+@Service
 public class UserInfoServiceImpl extends AbstractBaseServiceImpl<UserInfoVO,UserInfo> implements UserInfoService {
 
     private Logger logger = LoggerFactory.getLogger(UserInfoServiceImpl.class);
