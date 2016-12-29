@@ -1,15 +1,14 @@
 package com.hzcf.platform.core.user.dao.impl;
 
 
-import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
-import com.hzcf.platform.core.user.dao.UserDao;
-import com.hzcf.platform.core.user.data.User;
-import com.hzcf.platform.core.user.model.UserVO;
-import com.hzcf.platform.framework.core.storage.mysql.AbstractMysqlBaseDaoImpl;
-
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.stereotype.Repository;
+
+import com.hzcf.platform.core.user.dao.UserDao;
+import com.hzcf.platform.core.user.data.User;
+import com.hzcf.platform.framework.core.storage.mysql.AbstractMysqlBaseDaoImpl;
 
 @Repository
 public class UserDaoImpl  extends AbstractMysqlBaseDaoImpl<User> implements UserDao {
@@ -44,8 +43,16 @@ public class UserDaoImpl  extends AbstractMysqlBaseDaoImpl<User> implements User
 	}
 
 	@Override
-	public PaginatedResult<User> getUserPage(Map<String, Object> parmMap){
-		return this.flipPage(parmMap, 1, 10, "FINDLIST");
+	public List<User> getUserList(Map<String, Object> parmMap){
+		//return this.flipPage(parmMap, 1, 10, "FINDLIST");
+//		return this.flipPage(parmMap, Integer.parseInt(parmMap.get("pageNo").toString()), 
+//				Integer.parseInt(parmMap.get("pageSize").toString()), "FINDLIST");
 		
+		return sqlSessionTemplate.selectList(getSqlName("FINDLIST"), parmMap);
+	}
+	
+	@Override
+	public Long getUserTotal(Map<String, Object> parmMap){
+		return sqlSessionTemplate.selectOne(getSqlName("FINDLIST_COUNT"), parmMap);
 	}
 }

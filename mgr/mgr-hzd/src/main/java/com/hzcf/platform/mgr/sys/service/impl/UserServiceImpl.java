@@ -14,31 +14,28 @@ import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.UserService;
 import com.hzcf.platform.mgr.sys.common.pageModel.DataGrid;
 import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
-import com.hzcf.platform.mgr.sys.service.ISysUserService;
+import com.hzcf.platform.mgr.sys.service.IUserService;
 
 @Service
-public class SysUserServiceImpl implements ISysUserService {
-	private static final Log logger = Log.getLogger(SysUserServiceImpl.class);
+public class UserServiceImpl implements IUserService {
+	private static final Log logger = Log.getLogger(UserServiceImpl.class);
 	
 	@Autowired
 	public UserService userSerivce;
 	
 	
 	@Override
-	public DataGrid getUserPage(PageHelper pageHelper, UserVO user){
-		
+	public DataGrid getUserPage(PageHelper pageHelper, UserVO userVO){
 		pageHelper.setStart((pageHelper.getPage()-1)*pageHelper.getRows());
 		pageHelper.setEnd(pageHelper.getRows());
 		Map<String, Object> parmMap = new HashMap();
-		parmMap.put("user", user);
+		parmMap.put("user", userVO);
 		parmMap.put("page", pageHelper);
 		
-		PaginatedResult<UserVO> result = userSerivce.getUserPage(parmMap);
-		
 		DataGrid dataGrid = new DataGrid();
-		dataGrid.setTotal(new Long(result.getPaginate().getTotalItemsCount()));
-		List list = result.getItems();
-		dataGrid.setRows(list);
+		dataGrid.setTotal(userSerivce.getUserTotal(parmMap));
+		PaginatedResult result = userSerivce.getUserList(parmMap);
+		dataGrid.setRows(result.getItems());
 		return dataGrid;
 	}
 

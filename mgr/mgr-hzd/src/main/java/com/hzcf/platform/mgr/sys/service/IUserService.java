@@ -9,7 +9,7 @@ import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
  * @author zhangmx
  * 
  */
-public interface ISysUserService {
+public interface IUserService {
 	
 	public DataGrid getUserPage(PageHelper pageHelper, UserVO user);
 	

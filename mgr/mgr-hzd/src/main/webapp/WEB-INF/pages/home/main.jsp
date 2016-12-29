@@ -46,7 +46,7 @@
         <li>  
             <span>线上进件</span>  
             <ul>  
-                <li><span><a href="javascript:void(0)" onclick="addTab('进件列表', '${path}/pages/policy/hbPolicyManage.jsp')">进件列表</a></span></li>  
+                <li><span><a href="javascript:void(0)" onclick="addTab('进件列表', '#')">进件列表</a></span></li>  
             </ul>  
         </li>  
         
@@ -60,7 +60,7 @@
         <li>  
             <span>实名认证管理</span>  
             <ul>  
-                <li><span><a href="javascript:void(0)" onclick="addTab('实名认证列表', '${path}/product/index')">实名认证列表</a></span></li>  
+                <li><span><a href="javascript:void(0)" onclick="addTab('实名认证列表', '#">实名认证列表</a></span></li>  
             </ul>  
         </li>   
     </ul>    

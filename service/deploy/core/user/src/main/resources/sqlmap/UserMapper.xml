@@ -170,7 +170,7 @@
 	  </sql> -->
 	  
   	<!-- 分页查询 -->
-	<select id="getMemberList" resultMap="BaseResultMap" parameterType="java.util.Map">
+	<select id="FINDLIST" resultMap="BaseResultMap" parameterType="java.util.Map">
 		SELECT <include refid="Base_Column_List" /> FROM
         users 
 	    
@@ -180,5 +180,8 @@
 	    </if>
 	</select>
 	
-	
+	<select id="FINDLIST_COUNT" resultType="long" parameterType="java.util.Map">
+		SELECT COUNT(1) FROM users
+	   
+	</select>	
 </mapper>

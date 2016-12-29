@@ -10,25 +10,28 @@ import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.mgr.sys.common.pageModel.DataGrid;
 import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
-import com.hzcf.platform.mgr.sys.service.ISysUserService;
+import com.hzcf.platform.mgr.sys.service.IUserService;
 /**
  * 
  * @author zhangmx
  * 
  */
 @Controller
-public class SysUserController {
+public class UserController {
 
-	private static final Log logger = Log.getLogger(SysUserController.class);
+	private static final Log logger = Log.getLogger(UserController.class);
     
 	@Autowired
-	ISysUserService sysUserService;
+	IUserService sysUserService;
 	
-	@RequestMapping(value="/user/list",method=RequestMethod.POST)
+	@RequestMapping(value = "/users/list",method = RequestMethod.GET)
+	public String memberList() {
+	    return "users/list";
+	}
+	
+	@RequestMapping(value="/users/page",method=RequestMethod.POST)
     @ResponseBody
-    public DataGrid orderPage(PageHelper page, UserVO user){
+    public DataGrid userPage(PageHelper page, UserVO user){
 		return sysUserService.getUserPage(page, user);
     }
-
-	   
 }
