@@ -1,0 +1,43 @@
+body {
+	background-position: 50% bottom;
+	font-size: 12px;
+	background-image: url(../images/bg_login.png);
+	margin: 0px;
+	background-repeat: repeat-x;
+	background-color: #a2d5f0
+}
+
+td {
+	font-size: 12px
+}
+
+div {
+	font-size: 12px
+}
+
+#login {
+	background-position: 50% bottom;
+	background-image: url(../images/bg_login.png);
+	color: white;
+	background-repeat: repeat-x;
+	background-color: #a2d5f0
+}
+
+#login #main {
+	background-image: url(../images/login_main_1.png);
+	background-repeat: no-repeat;
+	background-position:bottom
+}
+
+#login  td {
+	color: white
+}
+
+#login a {
+	color: white;
+	text-decoration: none
+}
+
+#login .textbox {
+	width: 120px
+}

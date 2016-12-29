@@ -26,7 +26,10 @@
 			<groupId>com.hzcf.core.sys</groupId>
 			<artifactId>core-sys-service</artifactId>
 		</dependency>
-		
+		<dependency>
+			<groupId>com.hzcf.core.user</groupId>
+			<artifactId>core-user-service</artifactId>
+		</dependency>
 		<dependency>
 	        <groupId>com.hzcf.framework.common</groupId>
 			<artifactId>common-cache</artifactId>
@@ -141,6 +144,42 @@
 	      <artifactId>solr-solrj</artifactId>
 	       <version>4.3.1</version>
        </dependency>
+       
+    <dependency>  
+               <groupId>javax.servlet.jsp.jstl</groupId>  
+               <artifactId>jstl-api</artifactId>  
+               <version>1.2</version>  
+               <exclusions>  
+                   <exclusion>  
+                       <groupId>javax.servlet</groupId>  
+                       <artifactId>servlet-api</artifactId>  
+                   </exclusion>  
+                   <exclusion>  
+                       <groupId>javax.servlet.jsp</groupId>  
+                       <artifactId>jsp-api</artifactId>  
+                   </exclusion>  
+               </exclusions>  
+           </dependency>  
+      
+           <dependency>  
+               <groupId>org.glassfish.web</groupId>  
+               <artifactId>jstl-impl</artifactId>  
+               <version>1.2</version>  
+               <exclusions>  
+                   <exclusion>  
+                       <groupId>javax.servlet</groupId>  
+                       <artifactId>servlet-api</artifactId>  
+                   </exclusion>  
+                   <exclusion>  
+                       <groupId>javax.servlet.jsp</groupId>  
+                       <artifactId>jsp-api</artifactId>  
+                   </exclusion>  
+                   <exclusion>  
+                       <groupId>javax.servlet.jsp.jstl</groupId>  
+                       <artifactId>jstl-api</artifactId>  
+                   </exclusion>  
+               </exclusions>  
+           </dependency>      
        
 	</dependencies>
 	
