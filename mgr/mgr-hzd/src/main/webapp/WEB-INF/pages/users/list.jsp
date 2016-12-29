@@ -33,15 +33,7 @@ $(function(){
 		pagination:true,
 		pageSize:20,
 		collapsible:true,
-		toolbar: [{
-			iconCls: 'icon-add',
-			text:'增加',
-			handler: function(){
-				
-				$("#addForm .easyui-validatebox").val("")
-				$('#addWindow').window('open');//打开窗口
-			}
-		}]
+		toolbar: '#toolbar'
 	});
 });
 
@@ -52,6 +44,30 @@ $(function(){
 
 <table id="grid" style="width: 520px;height: 550px"></table>
 
-
+<div id="toolbar">
+	<!-- 查询条件 -->
+	<form id="searchForm" >
+	<span>用户手机号:</span>
+	<input id="mobile" name="mobile" class="easyui-textbox"  style="width:120px;">
+	<span>用户姓名:</span>
+	<input id="name" name="name" class="easyui-textbox"  style="width:120px;">
+	<span>身份证号:</span>
+	<input id="idCard" name="idCard" class="easyui-textbox"  style="width:120px;">
+	<span>注册日期:</span>
+	<input id="startDate" name="startDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc">至
+	<input id="endDate" name="endDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc">
+	<span>借款状态:</span>
+	<select id="buyRedpackCount" name="buyRedpackCount" class="easyui-combobox" style="width:120px;">
+		<option value="">请选择</option>
+		<option value="1">是</option>
+		<option value="0">否</option>  
+	</select> 	
+	
+	<div class="btnDiv">
+		<span align="center"><a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search"  onclick="doSearch()">查询</a></span>
+		<!-- <span align="center"><a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-save"  onclick="doExport()">导出Excel</a></span> -->
+	</div>
+	</form>
+</div>
 </body>
 </html>
