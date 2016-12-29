@@ -3,6 +3,7 @@
 <configuration>
 	<typeAliases>
 		<typeAlias type="com.hzcf.platform.core.user.data.User" alias="User"/>
+		<typeAlias type="com.hzcf.platform.core.user.data.UserApplyInfo" alias="UserApplyInfo"/>
 	</typeAliases>
 	
 	
@@ -10,6 +11,7 @@
 	<!-- 指定映射文件 -->
 	<mappers>
 		<mapper resource="sqlmap/Usermapper.xml" />
+		<mapper resource="sqlmap/UserApplyInfoMapper.xml" />
 	</mappers>
 
 </configuration>

@@ -1,9 +1,8 @@
-<!--
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hzcf.platform.mapper.UserApplyInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.hzcf.platform.pojo.UserApplyInfo" >
-    <id column="apply_id" property="applyId" jdbcType="VARCHAR" />
+<mapper namespace="com.hzcf.platform.core.user.data.UserApplyInfo" >
+  <resultMap id="BaseResultMap" type="UserApplyInfo" >
+    <result column="apply_id" property="applyId" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="loan_purpose_one" property="loanPurposeOne" jdbcType="VARCHAR" />
     <result column="loan_purpose_two" property="loanPurposeTwo" jdbcType="VARCHAR" />
@@ -17,17 +16,17 @@
     apply_id, user_id, loan_purpose_one, loan_purpose_two, min_apply_amount, max_apply_amount, 
     max_monthly_payment, status, apply_submit_time
   </sql>
-  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from user_apply_info
-    where apply_id = #{applyId,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user_apply_info
     where apply_id = #{applyId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hzcf.platform.pojo.UserApplyInfo" >
+  <insert id="insert" parameterType="UserApplyInfo" >
     insert into user_apply_info (apply_id, user_id, loan_purpose_one, 
       loan_purpose_two, min_apply_amount, max_apply_amount, 
       max_monthly_payment, status, apply_submit_time
@@ -37,7 +36,7 @@
       #{maxMonthlyPayment,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}, #{applySubmitTime,jdbcType=TIMESTAMP}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.hzcf.platform.pojo.UserApplyInfo" >
+  <insert id="insertSelective" parameterType="UserApplyInfo" >
     insert into user_apply_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="applyId != null" >
@@ -98,7 +97,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hzcf.platform.pojo.UserApplyInfo" >
+  <update id="updateByPrimaryKeySelective" parameterType="UserApplyInfo" >
     update user_apply_info
     <set >
       <if test="userId != null" >
@@ -128,7 +127,7 @@
     </set>
     where apply_id = #{applyId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hzcf.platform.pojo.UserApplyInfo" >
+  <update id="updateByPrimaryKey" parameterType="UserApplyInfo" >
     update user_apply_info
     set user_id = #{userId,jdbcType=VARCHAR},
       loan_purpose_one = #{loanPurposeOne,jdbcType=VARCHAR},
@@ -140,4 +139,4 @@
       apply_submit_time = #{applySubmitTime,jdbcType=TIMESTAMP}
     where apply_id = #{applyId,jdbcType=VARCHAR}
   </update>
-</mapper>-->
+</mapper>

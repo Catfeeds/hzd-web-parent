@@ -22,9 +22,11 @@
     <!-- 和本地bean一样实现服务 -->
     <bean id="userService" class="com.hzcf.platform.core.user.service.impl.UserServiceImpl" />
 
+    <bean id="userApplyInfoSerivce" class="com.hzcf.platform.core.user.service.impl.UserApplyInfoSerivceImpl" />
     <!-- 声明需要暴露的服务接口 -->
     <dubbo:service interface="com.hzcf.platform.core.user.service.UserService" ref="userService"/>
 
-    
-    
+    <dubbo:service interface="com.hzcf.platform.core.user.service.UserApplyInfoSerivce" ref="userApplyInfoSerivce"/>
+
+
 </beans>

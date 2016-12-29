@@ -1,24 +1,24 @@
-package com.hzcf.platform.core.user.data;
+package com.hzcf.platform.core.user.model;
 
-import com.hzcf.platform.common.model.AbstractEntity;
+import com.hzcf.platform.common.model.BaseVO;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class UserApplyInfo extends AbstractEntity {
+public class UserApplyInfoVO extends BaseVO {
     private String applyId;
 
     private String userId;
 
-    private String loanPurposeOne;
+    private String loanPurposeOne; //借款用途大类
 
-    private String loanPurposeTwo;
+    private String loanPurposeTwo;//借款用途小类
 
-    private BigDecimal minApplyAmount;
+    private BigDecimal minApplyAmount; //申请最低额度
 
-    private BigDecimal maxApplyAmount;
+    private BigDecimal maxApplyAmount;//申请最高额度
 
-    private BigDecimal maxMonthlyPayment;
+    private BigDecimal maxMonthlyPayment; //可接受最高月还款额
 
     private String status;
 

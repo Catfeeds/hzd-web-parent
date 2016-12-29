@@ -19,7 +19,8 @@
  
     <!-- 生成远程服务代理，可以和本地bean一样使用demoService -->
 	<dubbo:reference id="userService" interface="com.hzcf.platform.core.user.service.UserService" check="false" />
+    <dubbo:reference id="userApplyInfoSerivce" interface="com.hzcf.platform.core.user.service.UserApplyInfoSerivce" check="false" />
 
-    
-    
+
+
 </beans>
