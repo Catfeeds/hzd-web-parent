@@ -1,9 +1,8 @@
-<!--
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hzcf.platform.mapper.userInfoMapper" >
-  <resultMap id="BaseResultMap" type="com.hzcf.platform.pojo.userInfo" >
-    <id column="user_info_id" property="userInfoId" jdbcType="VARCHAR" />
+<mapper namespace="com.hzcf.platform.core.user.data.UserInfo" >
+  <resultMap id="BaseResultMap" type="UserInfo" >
+    <result column="user_info_id" property="userInfoId" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="apply_id" property="applyId" jdbcType="VARCHAR" />
     <result column="idcard_validity" property="idcardValidity" jdbcType="VARCHAR" />
@@ -38,26 +37,38 @@
     live_together, staff_no, create_time, org_name, org_type, org_province, org_city, 
     org_address, org_tel_code
   </sql>
+
+
+
+
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
     <include refid="Base_Column_List" />
     from user_info
     where user_info_id = #{userInfoId,jdbcType=VARCHAR}
   </select>
+
+
+    <select id="selectByApplyId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+        select
+        <include refid="Base_Column_List" />
+        from user_info
+        where user_info_id = #{ApplyId,jdbcType=VARCHAR}
+    </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user_info
     where user_info_id = #{userInfoId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hzcf.platform.pojo.userInfo" >
+  <insert id="insert" parameterType="UserInfo" >
     insert into user_info (user_info_id, user_id, apply_id, 
       idcard_validity, education, domicile_province, 
       domicile_city, domicile_address, marriage_status, 
       children_status, house_status, resident_province, 
       resident_city, resident_address, resident_tel_code, 
       email, annual_income, credit_card_limit, 
-      live_together, staff_no, create_time, 
-      org_name, org_type, org_province, 
-      org_city, org_address, org_tel_code
+      live_together, staff_no, create_time
+
       )
     values (#{userInfoId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{applyId,jdbcType=VARCHAR}, 
       #{idcardValidity,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{domicileProvince,jdbcType=VARCHAR}, 
@@ -65,12 +76,11 @@
       #{childrenStatus,jdbcType=VARCHAR}, #{houseStatus,jdbcType=VARCHAR}, #{residentProvince,jdbcType=VARCHAR}, 
       #{residentCity,jdbcType=VARCHAR}, #{residentAddress,jdbcType=VARCHAR}, #{residentTelCode,jdbcType=VARCHAR}, 
       #{email,jdbcType=VARCHAR}, #{annualIncome,jdbcType=DECIMAL}, #{creditCardLimit,jdbcType=DECIMAL}, 
-      #{liveTogether,jdbcType=VARCHAR}, #{staffNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{orgName,jdbcType=VARCHAR}, #{orgType,jdbcType=VARCHAR}, #{orgProvince,jdbcType=VARCHAR}, 
-      #{orgCity,jdbcType=VARCHAR}, #{orgAddress,jdbcType=VARCHAR}, #{orgTelCode,jdbcType=VARCHAR}
+      #{liveTogether,jdbcType=VARCHAR}, #{staffNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.hzcf.platform.pojo.userInfo" >
+  <insert id="insertSelective" parameterType="UserInfo" >
     insert into user_info
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="userInfoId != null" >
@@ -239,15 +249,11 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hzcf.platform.pojo.userInfo" >
+  <update id="updateByApplyId" parameterType="UserInfo" >
     update user_info
     <set >
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="applyId != null" >
-        apply_id = #{applyId,jdbcType=VARCHAR},
-      </if>
+
+
       <if test="idcardValidity != null" >
         idcard_validity = #{idcardValidity,jdbcType=VARCHAR},
       </if>
@@ -321,9 +327,9 @@
         org_tel_code = #{orgTelCode,jdbcType=VARCHAR},
       </if>
     </set>
-    where user_info_id = #{userInfoId,jdbcType=VARCHAR}
+    where apply_id = #{applyId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hzcf.platform.pojo.userInfo" >
+  <update id="updateByid" parameterType="UserInfo" >
     update user_info
     set user_id = #{userId,jdbcType=VARCHAR},
       apply_id = #{applyId,jdbcType=VARCHAR},
@@ -351,6 +357,6 @@
       org_city = #{orgCity,jdbcType=VARCHAR},
       org_address = #{orgAddress,jdbcType=VARCHAR},
       org_tel_code = #{orgTelCode,jdbcType=VARCHAR}
-    where user_info_id = #{userInfoId,jdbcType=VARCHAR}
+    where apply_id = #{applyId,jdbcType=VARCHAR}
   </update>
-</mapper>-->
+</mapper>

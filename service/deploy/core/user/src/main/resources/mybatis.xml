@@ -4,6 +4,8 @@
 	<typeAliases>
 		<typeAlias type="com.hzcf.platform.core.user.data.User" alias="User"/>
 		<typeAlias type="com.hzcf.platform.core.user.data.UserApplyInfo" alias="UserApplyInfo"/>
+		<typeAlias type="com.hzcf.platform.core.user.data.UserInfo" alias="UserInfo"/>
+		<typeAlias type="com.hzcf.platform.core.user.data.UserRelation" alias="UserRelation"/>
 	</typeAliases>
 	
 	
@@ -12,6 +14,8 @@
 	<mappers>
 		<mapper resource="sqlmap/Usermapper.xml" />
 		<mapper resource="sqlmap/UserApplyInfoMapper.xml" />
+		<mapper resource="sqlmap/userInfoMapper.xml" />
+		<mapper resource="sqlmap/userRelationMapper.xml" />
 	</mappers>
 
 </configuration>

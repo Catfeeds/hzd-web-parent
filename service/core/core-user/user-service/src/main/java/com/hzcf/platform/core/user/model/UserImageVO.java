@@ -1,7 +1,9 @@
 package com.hzcf.platform.core.user.model;
+import com.hzcf.platform.common.model.BaseVO;
+
 import java.util.Date;
 
-public class UserImageVO {
+public class UserImageVO extends BaseVO {
     private String imageId;
 
     private String userId;

@@ -1,8 +1,10 @@
 package com.hzcf.platform.core.user.data;
 
+import com.hzcf.platform.common.model.AbstractEntity;
+
 import java.util.Date;
 
-public class UserImage {
+public class UserImage extends AbstractEntity {
     private String imageId;
 
     private String userId;

@@ -1,5 +1,7 @@
 package com.hzcf.platform.core;
 
+import com.hzcf.platform.core.user.model.UserApplyInfoVO;
+import com.hzcf.platform.core.user.model.UserVO;
 import org.apache.commons.lang3.StringUtils;
 
 import com.hzcf.platform.common.exception.CheckException;
@@ -56,4 +58,24 @@ public class DataVerifcation {
 	            throw new CheckException("用户名输入不合法");
 	        } 
 	    }
+
+
+	    public static void checkUserApplyInfoVO(UserApplyInfoVO userApplyInfoVO,UserVO userVO) throws CheckException  {
+
+			if (StringUtils.isBlank(userApplyInfoVO.getLoanPurposeOne()) ) {
+				throw new CheckException("借款用途大类输入为空");
+			}else if (StringUtils.isBlank(userVO.getId())){
+				throw new CheckException("用户ID不能为空");
+			}else if (StringUtils.isBlank(userApplyInfoVO.getLoanPurposeTwo())){
+				throw new CheckException("借款用途小类输入为空");
+			}else if (userApplyInfoVO.getMinApplyAmount()==null){
+				throw new CheckException("申请最低额度输入为空");
+			}else if (userApplyInfoVO.getMaxApplyAmount()==null){
+				throw new CheckException("申请最高额度输入为空");
+			}else if (userApplyInfoVO.getMaxMonthlyPayment()==null ){
+				throw new CheckException("可接受最高月还款额输入为空");
+			}
+
+
+		}
 }

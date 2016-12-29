@@ -2,11 +2,12 @@ package com.hzcf.platform.core.user.dao;
 
 
 import com.hzcf.platform.core.user.data.UserInfo;
+import com.hzcf.platform.framework.core.storage.IBaseDao;
 
-public interface userInfoDao {
+public interface UserInfoDao extends IBaseDao<UserInfo> {
     int deleteByPrimaryKey(String userInfoId);
 
-    int insert(UserInfo record);
+
 
     int insertSelective(UserInfo record);
 
@@ -14,5 +15,7 @@ public interface userInfoDao {
 
     int updateByPrimaryKeySelective(UserInfo record);
 
-    int updateByPrimaryKey(UserInfo record);
+    Boolean updateByApplyId(UserInfo userInfo);
+
+    UserInfo selectByApplyId(String ApplyId);
 }

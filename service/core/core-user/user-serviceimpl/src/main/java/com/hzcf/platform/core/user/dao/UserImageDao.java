@@ -3,7 +3,7 @@ package com.hzcf.platform.core.user.dao;
 
 import com.hzcf.platform.core.user.data.UserImage;
 
-public interface userImageDao {
+public interface UserImageDao {
     int deleteByPrimaryKey(String imageId);
 
     int insert(UserImage record);

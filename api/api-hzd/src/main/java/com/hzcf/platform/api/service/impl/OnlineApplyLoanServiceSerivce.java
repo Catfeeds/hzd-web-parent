@@ -8,17 +8,21 @@ import com.hzcf.platform.api.service.IOnlineApplyLoanService;
 import com.hzcf.platform.common.exception.CheckException;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.common.util.status.StatusCodes;
+import com.hzcf.platform.common.util.uuid.UUIDGenerator;
 import com.hzcf.platform.core.DataVerifcation;
 import com.hzcf.platform.core.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserApplyInfoVO;
 import com.hzcf.platform.core.user.model.UserInfoVO;
 import com.hzcf.platform.core.user.model.UserRelationVO;
 import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
 import com.hzcf.platform.core.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -31,6 +35,8 @@ public class OnlineApplyLoanServiceSerivce implements IOnlineApplyLoanService {
     private static final Log logger = Log.getLogger(OnlineApplyLoanServiceSerivce.class);
     @Autowired
     public UserService userSerivce;
+    @Autowired
+    public UserApplyInfoSerivce userApplyInfoSerivce;
 
     @Override
     public BackResult isApplyLoanQuery(UserVO user) {
@@ -80,7 +86,43 @@ public class OnlineApplyLoanServiceSerivce implements IOnlineApplyLoanService {
 
     @Override
     public BackResult onlineLoanapplyOne(UserVO user, UserApplyInfoVO userApplyInfoVO) {
-        return null;
+        try {
+            //TODO 测试数据
+            if(user==null){
+               user= new UserVO();
+                user.setId("89898989898aa");
+                Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByUserId("89898989898aa");
+                UserApplyInfoVO items = userApplyInfoVOResult.getItems();
+                return new BackResult(0,"成功",items);
+            }
+
+
+            //------------
+            DataVerifcation.checkUserApplyInfoVO(userApplyInfoVO,user);
+            String applyId=UUIDGenerator.getUUID();
+            userApplyInfoVO.setApplyId(applyId);
+            userApplyInfoVO.setUserId(user.getId());
+            userApplyInfoVO.setStatus(BaseConfig.apply_loan_1);
+            userApplyInfoVO.setApplySubmitTime(new Date());
+            Result<String> stringResult = userApplyInfoSerivce.create(userApplyInfoVO);
+            if(StatusCodes.OK==(stringResult.getStatus())){
+                return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
+            }
+
+        }catch (CheckException e ){
+            e.printStackTrace();
+            return new  BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(),e.getMessage(),null);
+
+        }catch (Exception e){
+            logger.i("-----------系统异常,请检查数据源-------");
+            e.printStackTrace();
+            return new  BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(),HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),null);
+        }
+
+        return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+
+
+
     }
 
     @Override

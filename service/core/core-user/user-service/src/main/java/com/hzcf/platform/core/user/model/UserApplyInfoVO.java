@@ -24,6 +24,8 @@ public class UserApplyInfoVO extends BaseVO {
 
     private Date applySubmitTime;
 
+
+
     public String getApplyId() {
         return applyId;
     }

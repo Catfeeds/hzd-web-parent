@@ -1,9 +1,13 @@
 package com.hzcf.platform.core.user.data;
 
+
+
+import com.hzcf.platform.common.model.AbstractEntity;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
-public class UserInfo {
+public class UserInfo extends AbstractEntity {
     private String userInfoId;
 
     private String userId;

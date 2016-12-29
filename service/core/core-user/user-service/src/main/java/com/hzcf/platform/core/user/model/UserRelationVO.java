@@ -4,11 +4,14 @@ package com.hzcf.platform.core.user.model;
  * Created by leijiaming on 2016/12/29 0029.
  */
 
+import com.hzcf.platform.common.model.BaseVO;
+
 import java.util.Date;
 
 
 
-public class UserRelationVO {
+public class UserRelationVO  extends BaseVO {
+
     private String relationId;
 
     private String userId;

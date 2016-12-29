@@ -67,9 +67,10 @@ public class UserServiceImpl implements IUserService {
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.i("注册出现异常---手机号:"+user.getMobile());
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
 		}
+		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
 
-		return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
 	}
 
 	/**

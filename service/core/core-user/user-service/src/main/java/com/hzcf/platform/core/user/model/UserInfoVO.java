@@ -4,11 +4,13 @@ package com.hzcf.platform.core.user.model;
  * Created by leijiaming on 2016/12/29 0029.
  */
 
+import com.hzcf.platform.common.model.BaseVO;
+
 import java.math.BigDecimal;
 import java.util.Date;
 
 
-public class UserInfoVO {
+public class UserInfoVO extends BaseVO {
     private String userInfoId;
 
     private String userId;
