@@ -33,7 +33,7 @@ public enum HzdStatusCodeEnum {
 	MEF_CODE_2111(2111, "查询出现异常"),
 	MEF_CODE_2200(2200, "提交失败"),
 	MEF_CODE_2211(2211, "提交出现异常"),
-	
+	MEF_CODE_2400(2400, "无效的借款编号"),
 	//=====短信接口 
 	MEF_CODE_3010(3010, "手机号码为空"),
 	MEF_CODE_3000(3000, "验证码有误"),

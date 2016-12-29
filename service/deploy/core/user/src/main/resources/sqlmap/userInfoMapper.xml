@@ -53,7 +53,7 @@
         select
         <include refid="Base_Column_List" />
         from user_info
-        where user_info_id = #{ApplyId,jdbcType=VARCHAR}
+        where apply_id = #{ApplyId,jdbcType=VARCHAR}
     </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >

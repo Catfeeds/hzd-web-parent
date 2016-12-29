@@ -10,4 +10,5 @@ import com.hzcf.platform.framework.core.service.IBaseService;
 public interface UserApplyInfoSerivce extends IBaseService<UserApplyInfoVO> {
 
     Result<UserApplyInfoVO> selectByUserId(String userId);
+    Result<UserApplyInfoVO> selectByApplyId(String applyId);
 }

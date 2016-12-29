@@ -48,7 +48,6 @@ public class UserInfo extends AbstractEntity {
 
     private String staffNo;
 
-    private Date createTime;
 
     private String orgName;
 
@@ -222,13 +221,7 @@ public class UserInfo extends AbstractEntity {
         this.staffNo = staffNo == null ? null : staffNo.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 
     public String getOrgName() {
         return orgName;

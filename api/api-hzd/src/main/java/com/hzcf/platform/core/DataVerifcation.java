@@ -1,12 +1,16 @@
 package com.hzcf.platform.core;
 
 import com.hzcf.platform.core.user.model.UserApplyInfoVO;
+import com.hzcf.platform.core.user.model.UserInfoVO;
+import com.hzcf.platform.core.user.model.UserRelationVO;
 import com.hzcf.platform.core.user.model.UserVO;
 import org.apache.commons.lang3.StringUtils;
 
 import com.hzcf.platform.common.exception.CheckException;
 import com.hzcf.platform.common.util.utils.JudgeNumberLegal;
 import com.hzcf.platform.common.util.utils.ServiceUtil;
+
+import java.util.List;
 
 /**
  * 
@@ -78,4 +82,79 @@ public class DataVerifcation {
 
 
 		}
+
+		public static void checkUserInfoVOTwo(UserInfoVO userInfoVO, UserVO userVO) throws CheckException{
+
+			if (StringUtils.isBlank(userVO.getId()) ) {
+				throw new CheckException("用户UserID为空");
+			}else if (StringUtils.isBlank(userInfoVO.getIdcardValidity())){
+				throw new CheckException("证件有效期不能为空");
+			}else if (StringUtils.isBlank(userInfoVO.getEducation())){
+				throw new CheckException("最高学历不能为空");
+			}else if (StringUtils.isBlank(userInfoVO.getDomicileProvince())){
+				throw new CheckException("户籍所在省不能为空");
+			}else if (StringUtils.isBlank(userInfoVO.getDomicileCity())){
+				throw new CheckException("户籍所在市不能为空");
+			}else if (StringUtils.isBlank(userInfoVO.getDomicileAddress())){
+				throw new CheckException("户籍详细地址不能为空");
+			}else if (StringUtils.isBlank(userInfoVO.getMarriageStatus())){
+				throw new CheckException("婚姻状况不能为空");
+			}else if (StringUtils.isBlank(userInfoVO.getChildrenStatus())){
+				throw new CheckException("有无子女不能为空");
+			}else if (StringUtils.isBlank(userInfoVO.getHouseStatus())){
+				throw new CheckException("房产情况不能为空");
+			}else if (StringUtils.isBlank(userInfoVO.getResidentProvince())){
+				throw new CheckException("家庭所在省不能为空");
+			}else if (StringUtils.isBlank(userInfoVO.getResidentCity())){
+				throw new CheckException("家庭所在市不能为空");
+			}else if (StringUtils.isBlank(userInfoVO.getResidentAddress())){
+				throw new CheckException("家庭详细地址不能为空");
+			}else if (StringUtils.isBlank(userInfoVO.getResidentTelCode())){
+				throw new CheckException("家庭电话号码不能为空");
+			}else if (StringUtils.isBlank(userInfoVO.getEmail())){
+				throw new CheckException("电子邮件地址不能为空");
+			}else if (userInfoVO.getAnnualIncome()==null){
+				throw new CheckException("个人年收入不能为空");
+			}else if (userInfoVO.getCreditCardLimit()==null){
+				throw new CheckException("信用卡最高额度不能为空");
+			}else if (StringUtils.isBlank(userInfoVO.getLiveTogether())){
+				throw new CheckException("共同居住者不能为空");
+			}else if (StringUtils.isBlank(userInfoVO.getStaffNo())){
+				throw new CheckException("员工编号不能为空");
+			}
+
+
+		}
+
+	public static void checkUserInfoVOThree(UserInfoVO userInfoVO, UserVO userVO) throws CheckException{
+
+		if (StringUtils.isBlank(userVO.getId()) ) {
+			throw new CheckException("用户UserID为空");
+		}else if (StringUtils.isBlank(userInfoVO.getOrgName())){
+			throw new CheckException("单位名称不能为空");
+		}else if (StringUtils.isBlank(userInfoVO.getOrgType())){
+			throw new CheckException("单位性质不能为空");
+		}else if (StringUtils.isBlank(userInfoVO.getOrgProvince())){
+			throw new CheckException("单位所在省不能为空");
+		}else if (StringUtils.isBlank(userInfoVO.getOrgCity())){
+			throw new CheckException("单位所在市不能为空");
+		}else if (StringUtils.isBlank(userInfoVO.getOrgAddress())){
+			throw new CheckException("单位详细地址不能为空");
+		}else if (StringUtils.isBlank(userInfoVO.getOrgTelCode())){
+			throw new CheckException("单位电话号码不能为空");
+		}
+
+
+
+	}
+
+	public static  void checkUserRelationVO(UserVO user,  List<UserRelationVO> userRelationVO) throws  CheckException{
+
+		if (StringUtils.isBlank(user.getId()) ) {
+			throw new CheckException("用户UserID为空");
+		}else if (userRelationVO==null){
+			throw new CheckException("请填写联系人信息");
+		}
+
+	}
 }

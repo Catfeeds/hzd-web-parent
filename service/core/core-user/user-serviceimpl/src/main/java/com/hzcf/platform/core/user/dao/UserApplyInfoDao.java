@@ -9,6 +9,6 @@ public interface UserApplyInfoDao  extends IBaseDao<UserApplyInfo> {
 
 
     UserApplyInfo selectByUserId(String userId);
-
+    UserApplyInfo selectByApplyId(String applyId);
 
 }
