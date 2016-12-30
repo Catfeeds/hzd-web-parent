@@ -45,6 +45,21 @@ public class UserApplyInfoSerivceImpl  extends AbstractBaseServiceImpl<UserApply
         }
     }
 
+    @Override
+    public Result<UserApplyInfoVO> selectByApplyId(String applyId) {
+        try {
+            UserApplyInfo t = purchaseOrderDao.selectByApplyId(applyId);
+            if (null == t) {
+                logger.debug("data null.");
+                return new Result<UserApplyInfoVO>(StatusCodes.OK, null);
+            }
+            return new Result<UserApplyInfoVO>(StatusCodes.OK, toVO(t));
+        } catch (Exception e) {
+            logger.error("an error occur in getByPK service : {}", e);
+            return new Result<UserApplyInfoVO>(StatusCodes.INTERNAL_SERVER_ERROR, getModel());
+        }
+    }
+
 
     @Override
     protected UserApplyInfoVO getModel() {
@@ -91,9 +106,4 @@ public class UserApplyInfoSerivceImpl  extends AbstractBaseServiceImpl<UserApply
 	}
 
 
-	@Override
-	public Result<UserApplyInfoVO> selectByApplyId(String applyId) {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

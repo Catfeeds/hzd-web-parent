@@ -11,7 +11,6 @@ public class UserRelation extends AbstractEntity {
 
     private String applyId;
 
-    private String userInfoId;
 
     private String name;
 
@@ -21,7 +20,7 @@ public class UserRelation extends AbstractEntity {
 
     private String type;
 
-    private Date createTime;
+
 
     public String getRelationId() {
         return relationId;
@@ -47,13 +46,6 @@ public class UserRelation extends AbstractEntity {
         this.applyId = applyId == null ? null : applyId.trim();
     }
 
-    public String getUserInfoId() {
-        return userInfoId;
-    }
-
-    public void setUserInfoId(String userInfoId) {
-        this.userInfoId = userInfoId == null ? null : userInfoId.trim();
-    }
 
     public String getName() {
         return name;
@@ -87,11 +79,5 @@ public class UserRelation extends AbstractEntity {
         this.type = type == null ? null : type.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 }
