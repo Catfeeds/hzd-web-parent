@@ -165,7 +165,7 @@
         where id = #{id,jdbcType=VARCHAR}
     </update>
 
-	  <sql id="Base_Where_Clause">
+	 <sql id="Base_Where_Clause">
 	    <if test="user.idCard != null and user.idCard != ''"> and id_card=#{user.idCard} </if>
 	    <if test="user.name != null and user.name !=''"> and name like CONCAT('%',#{user.name},'%')     </if>
 	    <if test="user.mobile != null and user.mobile != ''"> and mobile=#{user.mobile} </if>

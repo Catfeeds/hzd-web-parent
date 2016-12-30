@@ -12,6 +12,22 @@
     <result column="status" property="status" jdbcType="VARCHAR" />
     <result column="apply_submit_time" property="applySubmitTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  
+  <resultMap id="queryForListMap" type="com.hzcf.platform.core.user.model.UserApplyInfoVO">  
+        <id column="apply_id" property="applyId" jdbcType="VARCHAR" />
+        <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    	<result column="mobile" property="mobile" jdbcType="VARCHAR" />
+	    <result column="name" property="name" jdbcType="VARCHAR" />
+	    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+	    <result column="loan_purpose_one" property="loanPurposeOne" jdbcType="VARCHAR" />
+	    <result column="loan_purpose_two" property="loanPurposeTwo" jdbcType="VARCHAR" />
+	    <result column="min_apply_amount" property="minApplyAmount" jdbcType="DECIMAL" />
+	    <result column="max_apply_amount" property="maxApplyAmount" jdbcType="DECIMAL" />
+	    <result column="max_monthly_payment" property="maxMonthlyPayment" jdbcType="DECIMAL" />
+	    <result column="apply_submit_time" property="applySubmitTime" jdbcType="TIMESTAMP" />
+	    <result column="status" property="status" jdbcType="VARCHAR" />
+   </resultMap>
+      
   <sql id="Base_Column_List" >
     apply_id, user_id, loan_purpose_one, loan_purpose_two, min_apply_amount, max_apply_amount, 
     max_monthly_payment, status, apply_submit_time
@@ -139,4 +155,34 @@
       apply_submit_time = #{applySubmitTime,jdbcType=TIMESTAMP}
     where apply_id = #{applyId,jdbcType=VARCHAR}
   </update>
+  
+  	 <sql id="Base_Where_Clause">
+	    <if test="apply.name != null and apply.name !=''"> and name like CONCAT('%',#{apply.name},'%')     </if>
+	    <if test="apply.mobile != null and apply.mobile != ''"> and mobile=#{apply.mobile} </if>
+	    <if test="apply.startDate != null and apply.startDate !='' and apply.endDate != null and apply.endDate != ''">
+	        and date_format(create_time, '%Y-%m-%d') BETWEEN #{apply.startDate} AND #{apply.endDate} 
+	    </if>
+	  </sql>
+  	<!-- 分页查询 -->
+	<select id="FINDLIST" resultMap="queryForListMap" parameterType="java.util.Map">
+		SELECT u.mobile, u.name, u.id_card, a.user_id, a.loan_purpose_one, a.loan_purpose_two, 
+		a.min_apply_amount, a.max_apply_amount, a.max_monthly_payment, a.apply_submit_time, a.status
+		FROM users u INNER JOIN user_apply_info a
+		ON u.id = a.user_id
+	    <where>
+	      <include refid="Base_Where_Clause"/>
+	    </where>
+		ORDER BY a.apply_submit_time DESC
+	    <if test="page.page > 0">
+	    LIMIT #{page.start},#{page.end}
+	    </if>
+	</select>
+	
+	<select id="FINDLIST_COUNT" resultType="long" parameterType="java.util.Map">
+		SELECT COUNT(1) FROM users u INNER JOIN user_apply_info a
+		ON u.id = a.user_id
+	    <where>
+	      <include refid="Base_Where_Clause"/>
+	    </where>
+	</select>	
 </mapper>

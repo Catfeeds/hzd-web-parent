@@ -7,31 +7,33 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzcf.platform.common.util.log.Log;
+import com.hzcf.platform.core.user.model.UserApplyInfoVO;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.mgr.sys.common.pageModel.DataGrid;
 import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
+import com.hzcf.platform.mgr.sys.service.IApplyService;
 import com.hzcf.platform.mgr.sys.service.IUserService;
 /**
- * @description:后台用户管理
+ * @description:后台进件管理Controller
  * @author zhangmx
  * 
  */
 @Controller
-public class UserController {
+public class ApplyController {
 
-	private static final Log logger = Log.getLogger(UserController.class);
+	private static final Log logger = Log.getLogger(ApplyController.class);
     
 	@Autowired
-	IUserService sysUserService;
+	IApplyService applyService;
 	
-	@RequestMapping(value = "/users/list",method = RequestMethod.GET)
+	@RequestMapping(value = "/apply/list",method = RequestMethod.GET)
 	public String memberList() {
-	    return "users/list";
+	    return "apply/list";
 	}
 	
-	@RequestMapping(value="/users/page",method=RequestMethod.POST)
+	@RequestMapping(value="/apply/page",method=RequestMethod.POST)
     @ResponseBody
-    public DataGrid userPage(PageHelper page, UserVO user){
-		return sysUserService.getUserPage(page, user);
+    public DataGrid userPage(PageHelper page, UserApplyInfoVO apply){
+		return applyService.getApplyPage(page, apply);
     }
 }

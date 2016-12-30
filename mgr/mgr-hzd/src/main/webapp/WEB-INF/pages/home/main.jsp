@@ -46,7 +46,7 @@
         <li>  
             <span>线上进件</span>  
             <ul>  
-                <li><span><a href="javascript:void(0)" onclick="addTab('进件列表', '#')">进件列表</a></span></li>  
+                <li><span><a href="javascript:void(0)" onclick="addTab('进件列表', '${path}/apply/list')">进件列表</a></span></li>  
             </ul>  
         </li>  
         
