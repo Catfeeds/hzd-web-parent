@@ -86,5 +86,16 @@ public class OnlineApplyLoanController {
         return onlineApplyLoanService.onlineLoanapplyInfoPerfect(user,userRelationVO,applyId);
     }
 
+    /**
+     * 用户进件申请  个人信息预览  第六步
+     */
+    @RequestMapping(value = {"rest/api/100/onlineLoanapply/info/Preview/{applyId}","api/100/onlineLoanapply/info/Preview/{applyId}"},method = RequestMethod.POST)
+    public BackResult onlineLoanapplyInfoPreview(@RequestAttribute(BaseConfig.USER_TYPE)  UserVO user,
+                                                 @PathVariable String applyId){
+        logger.i("进入  -----用户进件申请第六步,个人信息预览 ");
+        logger.i("入参user:"+ JsonUtil.json2String(user));
+        logger.i("applyId:"+ applyId);
+        return onlineApplyLoanService.onlineLoanapplyInfoPreview(user,applyId);
+    }
 
 }

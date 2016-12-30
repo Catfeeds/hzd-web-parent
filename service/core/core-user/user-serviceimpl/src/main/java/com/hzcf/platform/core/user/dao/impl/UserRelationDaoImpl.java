@@ -31,7 +31,7 @@ public class UserRelationDaoImpl extends AbstractMysqlBaseDaoImpl<UserRelation> 
 
     @Override
     public List<UserRelation>selectByApplyId(String applyId) {
-        return this.sqlSessionTemplate.selectOne(this.getSqlName("selectByUserId"), applyId);
+        return this.sqlSessionTemplate.selectList(this.getSqlName("selectByApplyId"), applyId);
 
     }
 

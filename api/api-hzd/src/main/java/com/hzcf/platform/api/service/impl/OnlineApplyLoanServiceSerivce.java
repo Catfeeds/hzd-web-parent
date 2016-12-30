@@ -3,6 +3,7 @@ package com.hzcf.platform.api.service.impl;
 
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.config.BaseConfig;
+import com.hzcf.platform.api.form.onlineLoanapplyInfoPreviewForm;
 import com.hzcf.platform.api.model.CheckApplyLoanStatus;
 import com.hzcf.platform.api.service.IOnlineApplyLoanService;
 import com.hzcf.platform.common.exception.CheckException;
@@ -262,6 +263,26 @@ public class OnlineApplyLoanServiceSerivce implements IOnlineApplyLoanService {
       //  return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
 
 
+    }
+
+    @Override
+    public BackResult onlineLoanapplyInfoPreview(UserVO user, String applyId) {
+
+        Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
+        UserApplyInfoVO userApplyInfoVO = userApplyInfoVOResult.getItems();
+
+        Result<UserInfoVO> userInfoVOResult = userInfoService.selectByApplyId(applyId);
+        UserInfoVO userInfoVO = userInfoVOResult.getItems();
+
+
+        Result<List<UserRelationVO>> listResult = UserRelationService.selectByApplyId(applyId);
+        List<UserRelationVO> userRelationVOList = listResult.getItems();
+        if(userApplyInfoVO ==null || userInfoVO ==null || userRelationVOList.size()==0){
+            return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(), HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
+        }
+
+        return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),new
+                onlineLoanapplyInfoPreviewForm(userApplyInfoVO,userInfoVO,userRelationVOList));
     }
 
 }

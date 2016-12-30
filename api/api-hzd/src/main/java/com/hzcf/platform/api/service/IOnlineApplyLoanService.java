@@ -54,4 +54,13 @@ public interface IOnlineApplyLoanService {
      * @return
      */
     public BackResult onlineLoanapplyInfoPerfect(UserVO user, List<UserRelationVO> userRelationVO,String applyId);
+
+
+    /**
+     * 进件申请第刘步 个人信息预览
+     * @param user
+     * @param
+     * @return
+     */
+    public BackResult onlineLoanapplyInfoPreview(UserVO user, String applyId);
 }
