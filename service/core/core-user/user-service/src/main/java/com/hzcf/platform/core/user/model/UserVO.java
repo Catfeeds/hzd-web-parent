@@ -30,8 +30,8 @@ public class UserVO extends BaseVO{
 	private String checkStatus;
 
 	private String nopassCause;
-
-
+	private String submitTime;
+	
 	private String token;
 
 	//缓存验证码 类型
@@ -43,6 +43,9 @@ public class UserVO extends BaseVO{
     private String regTime;
     private String startDate;
     private String endDate;
+    private String subStartDate;
+    private String subEndDate;
+    
 	/**
 	 * 终端类型
 	 */
@@ -199,6 +202,30 @@ public class UserVO extends BaseVO{
 
 	public void setEndDate(String endDate) {
 		this.endDate = endDate;
+	}
+
+	public String getSubmitTime() {
+		return submitTime;
+	}
+
+	public void setSubmitTime(String submitTime) {
+		this.submitTime = submitTime;
+	}
+
+	public String getSubStartDate() {
+		return subStartDate;
+	}
+
+	public void setSubStartDate(String subStartDate) {
+		this.subStartDate = subStartDate;
+	}
+
+	public String getSubEndDate() {
+		return subEndDate;
+	}
+
+	public void setSubEndDate(String subEndDate) {
+		this.subEndDate = subEndDate;
 	}
 	
 }

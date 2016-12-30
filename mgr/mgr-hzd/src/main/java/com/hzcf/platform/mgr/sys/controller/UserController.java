@@ -24,14 +24,46 @@ public class UserController {
 	@Autowired
 	IUserService sysUserService;
 	
+	/**
+	 * 用户列表页面
+	 * @return
+	 */
 	@RequestMapping(value = "/users/list",method = RequestMethod.GET)
-	public String memberList() {
+	public String userList() {
 	    return "users/list";
 	}
 	
+	/**
+	 * 用户分页
+	 * @param page
+	 * @param user
+	 * @return
+	 */
 	@RequestMapping(value="/users/page",method=RequestMethod.POST)
     @ResponseBody
     public DataGrid userPage(PageHelper page, UserVO user){
 		return sysUserService.getUserPage(page, user);
     }
+	
+	/**
+	 * 实名认证列表页面
+	 * @return
+	 */
+	@RequestMapping(value = "/users/check/list",method = RequestMethod.GET)
+	public String checkUserList() {
+	    return "users/checklist";
+	}
+	
+	/**
+	 * 实名认证列表分页
+	 * @param page
+	 * @param user
+	 * @return
+	 */
+	@RequestMapping(value="/users/check/page",method=RequestMethod.POST)
+    @ResponseBody
+    public DataGrid checkUserPage(PageHelper page, UserVO user){
+		return sysUserService.getUserPage(page, user);
+    }	
+	
 }

@@ -23,7 +23,7 @@ public class User extends AbstractEntity {
 
     private String nopassCause;
 
-
+    private String submitTime;
 
 
     public String getMobile() {
@@ -89,6 +89,14 @@ public class User extends AbstractEntity {
     public void setNopassCause(String nopassCause) {
         this.nopassCause = nopassCause == null ? null : nopassCause.trim();
     }
+
+	public String getSubmitTime() {
+		return submitTime;
+	}
+
+	public void setSubmitTime(String submitTime) {
+		this.submitTime = submitTime;
+	}
 
 
 }
