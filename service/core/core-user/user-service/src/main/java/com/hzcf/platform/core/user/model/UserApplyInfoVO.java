@@ -8,7 +8,7 @@ import java.util.Date;
 public class UserApplyInfoVO extends BaseVO {
     private String applyId;
 
-    private String userId;
+    private String userId; 
 
     private String loanPurposeOne; //借款用途大类
 

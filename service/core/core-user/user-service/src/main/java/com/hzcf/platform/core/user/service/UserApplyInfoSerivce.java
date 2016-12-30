@@ -14,7 +14,7 @@ import com.hzcf.platform.framework.core.service.IBaseService;
 public interface UserApplyInfoSerivce extends IBaseService<UserApplyInfoVO> {
 
     Result<UserApplyInfoVO> selectByUserId(String userId);
-    
+    Result<UserApplyInfoVO> selectByApplyId(String applyId);
     
 	public PaginatedResult<UserApplyInfoVO> getUserApplyInfoList(Map<String, Object> parmMap);
 	public Long getUserApplyInfoTotal(Map<String, Object> parmMap);

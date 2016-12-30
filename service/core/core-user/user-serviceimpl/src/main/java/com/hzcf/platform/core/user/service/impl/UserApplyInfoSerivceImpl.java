@@ -89,4 +89,11 @@ public class UserApplyInfoSerivceImpl  extends AbstractBaseServiceImpl<UserApply
 	public Long getUserApplyInfoTotal(Map<String, Object> parmMap) {
 		return purchaseOrderDao.getUserApplyInfoTotal(parmMap);
 	}
+
+
+	@Override
+	public Result<UserApplyInfoVO> selectByApplyId(String applyId) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }
