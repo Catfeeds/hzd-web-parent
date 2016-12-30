@@ -73,7 +73,7 @@ public class LoginController {
 		while (enums.hasMoreElements()) {
 			session.removeAttribute(enums.nextElement().toString());
 		}
-		return "login";
+		return "login/login";
 	}
 	
 	@RequestMapping(value = "/sys/tologin")

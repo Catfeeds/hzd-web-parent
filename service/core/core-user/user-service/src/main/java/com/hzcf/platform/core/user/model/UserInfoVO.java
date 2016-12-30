@@ -17,53 +17,54 @@ public class UserInfoVO extends BaseVO {
 
     private String applyId;
 
-    private String idcardValidity;
+    private String idcardValidity; //证件有效期
 
-    private String education;
+    private String education;//最高学历（10-研究生；20-大学本科（简称“大学”）；30-大学专科和专科学校（简称“大专”）；40-中等专业学校或中等技术学校；50-技术学校；60-高中；70-初中；80-小学；90-文盲或半文盲；99-未知。）
 
-    private String domicileProvince;
+    private String domicileProvince;//户籍所在省
 
-    private String domicileCity;
+    private String domicileCity;//户籍所在市
 
-    private String domicileAddress;
+    private String domicileAddress;//户籍详细地址
 
-    private String marriageStatus;
+    private String marriageStatus;//婚姻状况（10-未婚；20-已婚；21-初婚；22-再婚；23-复婚；30-丧偶；40-离婚；90-未说明的婚姻状况。）
 
-    private String childrenStatus;
+    private String childrenStatus;//有无子女 1有  0无
 
-    private String houseStatus;
+    private String houseStatus;//房产情况
 
-    private String residentProvince;
+    private String residentProvince;//家庭所在省
 
-    private String residentCity;
+    private String residentCity;//家庭所在市
 
-    private String residentAddress;
+    private String residentAddress;//家庭详细地址
 
-    private String residentTelCode;
+    private String residentTelCode;//家庭电话号码
 
-    private String email;
+    private String email;//电子邮件地址
 
-    private BigDecimal annualIncome;
+    private BigDecimal annualIncome;//个人年收入
 
-    private BigDecimal creditCardLimit;
+    private BigDecimal creditCardLimit;//信用卡最高额度
 
-    private String liveTogether;
+    private String liveTogether;//共同居住者
 
-    private String staffNo;
+    private String staffNo;//员工编号
 
-    private Date createTime;
 
-    private String orgName;
 
-    private String orgType;
+    private String orgName;//单位名称
 
-    private String orgProvince;
+    private String orgType;//单位性质
 
-    private String orgCity;
+    private String orgProvince;//单位所在省
 
-    private String orgAddress;
+    private String orgCity;//单位所在市
 
-    private String orgTelCode;
+    private String orgAddress;//单位详细地址
+
+    private String orgTelCode;//单位电话号码
+
 
     public String getUserInfoId() {
         return userInfoId;
@@ -225,13 +226,7 @@ public class UserInfoVO extends BaseVO {
         this.staffNo = staffNo == null ? null : staffNo.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 
     public String getOrgName() {
         return orgName;

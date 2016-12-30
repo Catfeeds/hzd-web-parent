@@ -36,14 +36,14 @@ public interface IOnlineApplyLoanService {
      * @param userInfoVO
      * @return
      */
-    public BackResult onlineLoanapplyInfoTwo(UserVO user, UserInfoVO userInfoVO);
+    public BackResult  onlineLoanapplyInfoTwo(UserVO user, UserInfoVO userInfoVO,String applyId);
     /**
      * 进件申请第三步 详细信息
      * @param user
      * @param userInfoVO
      * @return
      */
-    public BackResult onlineLoanapplyInfoThree(UserVO user, UserInfoVO userInfoVO);
+    public BackResult onlineLoanapplyInfoThree(UserVO user, UserInfoVO userInfoVO,String applyId);
 
 
 
@@ -53,5 +53,14 @@ public interface IOnlineApplyLoanService {
      * @param userRelationVO
      * @return
      */
-    public BackResult onlineLoanapplyInfoPerfect(UserVO user, List<UserRelationVO> userRelationVO);
+    public BackResult onlineLoanapplyInfoPerfect(UserVO user, List<UserRelationVO> userRelationVO,String applyId);
+
+
+    /**
+     * 进件申请第刘步 个人信息预览
+     * @param user
+     * @param
+     * @return
+     */
+    public BackResult onlineLoanapplyInfoPreview(UserVO user, String applyId);
 }

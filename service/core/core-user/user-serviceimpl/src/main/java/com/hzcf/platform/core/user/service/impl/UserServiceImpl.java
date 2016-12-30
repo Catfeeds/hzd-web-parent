@@ -1,11 +1,8 @@
 package com.hzcf.platform.core.user.service.impl;
 
 
-import com.hzcf.platform.core.user.dao.UserDao;
-import com.hzcf.platform.core.user.data.User;
-import com.hzcf.platform.core.user.service.UserService;
-import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
-
+import java.util.List;
+import java.util.Map;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -14,14 +11,13 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Map;
-
-import org.apache.commons.beanutils.BeanUtils;
-
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
+import com.hzcf.platform.core.user.dao.UserDao;
+import com.hzcf.platform.core.user.data.User;
 import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.core.user.service.UserService;
 import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
 import com.hzcf.platform.framework.core.storage.IBaseDao;
 @Service
@@ -109,17 +105,17 @@ public class UserServiceImpl extends AbstractBaseServiceImpl<UserVO,User> implem
     }
 
 	@Override
-	public PaginatedResult<UserVO> getUserPage(Map<String, Object> parmMap){
+	public PaginatedResult<UserVO> getUserList(Map<String, Object> parmMap){
 		try {
-			PaginatedResult<User> result = purchaseOrderDao.getUserPage(parmMap);
-			if (null == result || result.getItems() == null) {
+			List<User> result = purchaseOrderDao.getUserList(parmMap);
+			if (null == result) {
 				logger.debug("data null.");
 				PaginatedResult<UserVO> resultVO = new PaginatedResult<UserVO>();
 				resultVO.setStatus(StatusCodes.OK);
 				return resultVO;
 			}
 			PaginatedResult<UserVO> resultVO = new PaginatedResult<UserVO>();
-			resultVO.setItems(toVO(result.getItems()));
+			resultVO.setItems(toVO(result));
 			resultVO.setStatus(StatusCodes.OK);
 			return resultVO;
 		} catch (Exception e) {
@@ -128,6 +124,11 @@ public class UserServiceImpl extends AbstractBaseServiceImpl<UserVO,User> implem
 			resultVO.setStatus(StatusCodes.INTERNAL_SERVER_ERROR);
 			return resultVO;
 		}
+	}
+	
+	@Override
+	public Long getUserTotal(Map<String, Object> parmMap){
+		return purchaseOrderDao.getUserTotal(parmMap);
 	}
 
 }

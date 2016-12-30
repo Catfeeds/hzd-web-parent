@@ -18,8 +18,6 @@ public class UserRelationVO  extends BaseVO {
 
     private String applyId;
 
-    private String userInfoId;
-
     private String name;//证明人姓名
 
     private String relationType;//和本人关系
@@ -28,7 +26,6 @@ public class UserRelationVO  extends BaseVO {
 
     private String type;//0=工作证明 1=家庭证明人2=紧急联络人
 
-    private Date createTime;
 
     public String getRelationId() {
         return relationId;
@@ -54,13 +51,6 @@ public class UserRelationVO  extends BaseVO {
         this.applyId = applyId == null ? null : applyId.trim();
     }
 
-    public String getUserInfoId() {
-        return userInfoId;
-    }
-
-    public void setUserInfoId(String userInfoId) {
-        this.userInfoId = userInfoId == null ? null : userInfoId.trim();
-    }
 
     public String getName() {
         return name;
@@ -94,11 +84,5 @@ public class UserRelationVO  extends BaseVO {
         this.type = type == null ? null : type.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 }

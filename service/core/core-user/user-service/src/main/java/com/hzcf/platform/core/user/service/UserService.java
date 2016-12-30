@@ -42,5 +42,6 @@ public interface UserService extends IBaseService<UserVO>{
 
 	public Result<Boolean> updateByPrimaryKeySelective(UserVO user);
 	
-	public PaginatedResult<UserVO> getUserPage(Map<String, Object> parmMap);
+	public PaginatedResult<UserVO> getUserList(Map<String, Object> parmMap);
+	public Long getUserTotal(Map<String, Object> parmMap);
 }

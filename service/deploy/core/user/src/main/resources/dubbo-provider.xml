@@ -23,10 +23,21 @@
     <bean id="userService" class="com.hzcf.platform.core.user.service.impl.UserServiceImpl" />
 
     <bean id="userApplyInfoSerivce" class="com.hzcf.platform.core.user.service.impl.UserApplyInfoSerivceImpl" />
+    <bean id="msgBoxservice" class="com.hzcf.platform.core.user.service.impl.MsgBoxserviceImpl" />
+    <bean id="userRelationService" class="com.hzcf.platform.core.user.service.impl.UserRelationServiceImpl" />
+    <bean id="userDictService" class="com.hzcf.platform.core.user.service.impl.UserDictServiceImpl" />
+    <bean id="userImageService" class="com.hzcf.platform.core.user.service.impl.UserImageServiceImpl" />
+    <bean id="userInfoService" class="com.hzcf.platform.core.user.service.impl.UserInfoServiceImpl" />
+
+
     <!-- 声明需要暴露的服务接口 -->
     <dubbo:service interface="com.hzcf.platform.core.user.service.UserService" ref="userService"/>
-
     <dubbo:service interface="com.hzcf.platform.core.user.service.UserApplyInfoSerivce" ref="userApplyInfoSerivce"/>
+    <dubbo:service interface="com.hzcf.platform.core.user.service.MsgBoxservice" ref="msgBoxservice"/>
+    <dubbo:service interface="com.hzcf.platform.core.user.service.UserRelationService" ref="userRelationService"/>
+    <dubbo:service interface="com.hzcf.platform.core.user.service.UserDictService" ref="userDictService"/>
+    <dubbo:service interface="com.hzcf.platform.core.user.service.UserImageService" ref="userImageService"/>
+    <dubbo:service interface="com.hzcf.platform.core.user.service.UserInfoService" ref="userInfoService"/>
 
 
 </beans>

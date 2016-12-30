@@ -8,7 +8,7 @@ import java.util.Date;
 public class UserApplyInfoVO extends BaseVO {
     private String applyId;
 
-    private String userId;
+    private String userId; 
 
     private String loanPurposeOne; //借款用途大类
 
@@ -24,7 +24,12 @@ public class UserApplyInfoVO extends BaseVO {
 
     private Date applySubmitTime;
 
-
+    //ext
+	private String mobile;
+	private String name;
+	private String idCard;
+    private String startDate;
+    private String endDate;
 
     public String getApplyId() {
         return applyId;
@@ -97,4 +102,47 @@ public class UserApplyInfoVO extends BaseVO {
     public void setApplySubmitTime(Date applySubmitTime) {
         this.applySubmitTime = applySubmitTime;
     }
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getIdCard() {
+		return idCard;
+	}
+
+	public void setIdCard(String idCard) {
+		this.idCard = idCard;
+	}
+
+	public String getStartDate() {
+		return startDate;
+	}
+
+	public void setStartDate(String startDate) {
+		this.startDate = startDate;
+	}
+
+	public String getEndDate() {
+		return endDate;
+	}
+
+	public void setEndDate(String endDate) {
+		this.endDate = endDate;
+	}
+    
+    
+    
 }
