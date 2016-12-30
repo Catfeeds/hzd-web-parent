@@ -18,6 +18,12 @@
     from user_dict
     where dict_id = #{dictId,jdbcType=VARCHAR}
   </select>
+
+  <select id="selectList" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from user_dict
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user_dict
     where dict_id = #{dictId,jdbcType=VARCHAR}
