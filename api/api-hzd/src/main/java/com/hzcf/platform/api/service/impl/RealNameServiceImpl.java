@@ -58,16 +58,13 @@ public class RealNameServiceImpl implements IRealNameService {
          *2、“姓名”“身份证号”是否真实存在，是否对应（第2点暂时不做）
          */
         if(StringUtils.isBlank(realName) || !JudgeNumberLegal.isNameString(realName)){
-        	
-        	
-        	
+        	//返回“保存失败”，用户的“真实姓名”不符合要求，null
+        	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1031.getCode(),HzdStatusCodeEnum.MEF_CODE_1031.getMsg(),null);
         }
         if(StringUtils.isBlank(idCard) || !ServiceUtil.validateIdNo(idCard)){
-        	
-        	
-        	
+        	//返回“保存失败”，用户的“身份证号码”不符合要求，null
+        	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1032.getCode(),HzdStatusCodeEnum.MEF_CODE_1032.getMsg(),null);
         }
-        
         /*第二步验证：验证实名认证信息是否已经存在，
          *存在：该身份信息已经使用，实名认证失败
          *不存在：该身份信息没有使用，实名认证符合要求
@@ -79,7 +76,7 @@ public class RealNameServiceImpl implements IRealNameService {
         if(StatusCodes.OK==updateResult.getStatus()){//更新借款人实名认证信息成功
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),items);//返回“保存成功”，用户的实名认证信息
         }else{
-        	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1031.getCode(),HzdStatusCodeEnum.MEF_CODE_1031.getMsg(),null);//返回“保存失败”，null
+        	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1033.getCode(),HzdStatusCodeEnum.MEF_CODE_1033.getMsg(),null);//返回“保存失败”，null
         }
 	}
 	/**保存借款人上传的图片信息
