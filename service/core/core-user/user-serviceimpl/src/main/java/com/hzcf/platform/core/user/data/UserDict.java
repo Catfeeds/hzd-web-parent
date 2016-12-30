@@ -13,6 +13,17 @@ public class UserDict extends AbstractEntity {
 
     private Integer dictSort;
 
+    private String dictPath;
+
+    public String getDictPath() {
+        return dictPath;
+    }
+
+    public void setDictPath(String dictPath) {
+        this.dictPath = dictPath;
+    }
+
+
     public String getDictId() {
         return dictId;
     }
