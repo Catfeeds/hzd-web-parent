@@ -15,12 +15,12 @@ import com.hzcf.platform.core.user.model.UserVO;
   */
 @Service
 public class LoadServiceImpl implements ILoadService {
-	/**查询借款人的借款信息
+	/**查询借款人的借款信息，状态
 	 * 
 	 */
 	@Override
 	public BackResult selectload(UserVO user) {
-
+		
 		
 		
 		
