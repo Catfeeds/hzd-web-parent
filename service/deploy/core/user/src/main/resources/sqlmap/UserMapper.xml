@@ -14,10 +14,11 @@
         <result column="check_status" property="checkStatus" jdbcType="VARCHAR" />
         <result column="nopass_cause" property="nopassCause" jdbcType="VARCHAR" />
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+        <result column="submit_time" property="submitTime" jdbcType="TIMESTAMP" />
     </resultMap>
     <sql id="Base_Column_List" >
         id, mobile, name, user_name, password, id_card, status, check_status, nopass_cause,
-        create_time
+        create_time,submit_time
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select
@@ -47,11 +48,11 @@
         insert into users (id, mobile, name,
         user_name, password, id_card,
         status, check_status, nopass_cause,
-        create_time)
+        create_time, submit_time)
         values (#{id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
         #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR},
         #{status,jdbcType=VARCHAR}, #{checkStatus,jdbcType=VARCHAR}, #{nopassCause,jdbcType=VARCHAR},
-        #{createTime,jdbcType=TIMESTAMP})
+        #{createTime,jdbcType=TIMESTAMP}, #{submitTime,jdbcType=TIMESTAMP})
     </insert>
     <insert id="insertSelective" parameterType="User" >
         insert into users
@@ -86,6 +87,9 @@
             <if test="createTime != null" >
                 create_time,
             </if>
+            <if test="submitTime != null" >
+                submit_time,
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -118,6 +122,9 @@
             <if test="createTime != null" >
                 #{createTime,jdbcType=TIMESTAMP},
             </if>
+            <if test="submitTime != null" >
+                #{submitTime,jdbcType=TIMESTAMP},
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="User" >
@@ -148,6 +155,9 @@
             <if test="createTime != null" >
                 create_time = #{createTime,jdbcType=TIMESTAMP},
             </if>
+            <if test="submitTime != null" >
+                submit_time = #{submitTime,jdbcType=TIMESTAMP},
+            </if>            
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>
@@ -161,7 +171,8 @@
         status = #{status,jdbcType=VARCHAR},
         check_status = #{checkStatus,jdbcType=VARCHAR},
         nopass_cause = #{nopassCause,jdbcType=VARCHAR},
-        create_time = #{createTime,jdbcType=TIMESTAMP}
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+        submit_time = #{submitTime,jdbcType=TIMESTAMP}
         where id = #{id,jdbcType=VARCHAR}
     </update>
 
@@ -171,6 +182,10 @@
 	    <if test="user.mobile != null and user.mobile != ''"> and mobile=#{user.mobile} </if>
 	    <if test="user.startDate != null and user.startDate !='' and user.endDate != null and user.endDate != ''">
 	        and date_format(create_time, '%Y-%m-%d') BETWEEN #{user.startDate} AND #{user.endDate} 
+	    </if>
+	    <if test="user.checkStatus != null and user.checkStatus != ''"> and check_status=#{user.checkStatus} </if>
+	    <if test="user.subStartDate != null and user.subStartDate !='' and user.subEndDate != null and user.subEndDate != ''">
+	        and date_format(submit_time, '%Y-%m-%d') BETWEEN #{user.subStartDate} AND #{user.subEndDate} 
 	    </if>
 	  </sql>
   	<!-- 分页查询 -->
