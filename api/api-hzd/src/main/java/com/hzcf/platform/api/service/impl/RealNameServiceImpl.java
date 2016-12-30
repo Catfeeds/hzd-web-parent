@@ -1,13 +1,16 @@
 package com.hzcf.platform.api.service.impl;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.hzcf.platform.common.util.status.StatusCodes;
+
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.api.service.IRealNameService;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
+import com.hzcf.platform.common.util.utils.JudgeNumberLegal;
+import com.hzcf.platform.common.util.utils.ServiceUtil;
 import com.hzcf.platform.core.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.UserService;
@@ -48,8 +51,22 @@ public class RealNameServiceImpl implements IRealNameService {
 		Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
         UserVO items=byMobile.getItems();
         /**验证实名认证信息是否符合要求*/
-        //第一步验证：验证实名认证信息中的“姓名”“身份证号”是否对应，是否符合要求，
-        
+        String realName=items.getName();//借款人的姓名
+        String idCard=items.getIdCard();//借款人的身份证号码
+        /*第一步验证：验证实名认证信息是否符合要求
+         *1、“姓名”“身份证号”是否符合正则表达式的要求
+         *2、“姓名”“身份证号”是否真实存在，是否对应（第2点暂时不做）
+         */
+        if(StringUtils.isBlank(realName) || !JudgeNumberLegal.isNameString(realName)){
+        	
+        	
+        	
+        }
+        if(StringUtils.isBlank(idCard) || !ServiceUtil.validateIdNo(idCard)){
+        	
+        	
+        	
+        }
         
         /*第二步验证：验证实名认证信息是否已经存在，
          *存在：该身份信息已经使用，实名认证失败
