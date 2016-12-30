@@ -24,6 +24,8 @@ public enum HzdStatusCodeEnum {
 	MEF_CODE_1011(1011, "用户未注册"),
 	MEF_CODE_1012(1012, "用户未登录"),
 	MEF_CODE_1022(1022, "账号或密码错误"),
+	MEF_CODE_1030(1030, "用户未实名认证"),
+	MEF_CODE_1031(1031, "保存用户实名认证信息失败"),
 	MEF_CODE_1111(1111, "token已失效"),
 	MEF_CODE_1099(1099, "用户被禁用,禁止登录"),
 
