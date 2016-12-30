@@ -29,10 +29,10 @@ public class RealNameServiceImpl implements IRealNameService {
      */
 	@Override
 	public BackResult selectRealName(UserVO user) {
-		//根据借款人的手机号查询用户信息
+		/**初始化参数：根据借款人的手机号查询用户信息*/
 		Result<UserVO> byMobile=userSerivce.getByMobile(user.getMobile());
         UserVO items=byMobile.getItems();
-        //判断借款人的实名状态
+        /**判断借款人的实名状态，设置返回结果*/
         if(BaseConfig.card_status_0.equals(items.getCheckStatus())){//身份证有效，借款人已经实名认证
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),items);//返回“查询成功”，借款人的实名认证信息
         }else{//身份证无效，借款人未实名认证，对应的状态：BaseConfig.card_status_1.equals(items.getCheckStatus())
@@ -44,12 +44,21 @@ public class RealNameServiceImpl implements IRealNameService {
 	 */
 	@Override
 	public BackResult saveRealName(UserVO user) {
-		//根据借款人的手机号查询借款人信息
+		/**初始化参数：根据借款人的手机号查询借款人信息,该信息包含“实名认证信息”*/
 		Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
         UserVO items=byMobile.getItems();
-        //更新借款人的实名状态
+        /**验证实名认证信息是否符合要求*/
+        //第一步验证：验证实名认证信息中的“姓名”“身份证号”是否对应，是否符合要求，
+        
+        
+        /*第二步验证：验证实名认证信息是否已经存在，
+         *存在：该身份信息已经使用，实名认证失败
+         *不存在：该身份信息没有使用，实名认证符合要求
+         */
+        
+        /**更新借款人的实名状态*/
         Result<Boolean> updateResult=userSerivce.updateMobile(items);
-        //判断更新操作结果，设置返回结果
+        /**判断更新操作结果，设置返回结果*/
         if(StatusCodes.OK==updateResult.getStatus()){//更新借款人实名认证信息成功
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),items);//返回“保存成功”，用户的实名认证信息
         }else{
@@ -61,8 +70,6 @@ public class RealNameServiceImpl implements IRealNameService {
 	 */
 	@Override
 	public BackResult saveRealNamePic(UserVO user) {
-		
-		
 		
 		
 		return null;
