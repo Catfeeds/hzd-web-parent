@@ -57,10 +57,14 @@ public class RealNameServiceImpl implements IRealNameService {
         }
 	}
 	/**保存借款人上传的图片信息
-	 * 
+	 * 需要2个参数：借款人信息，实名认证的图片信息
 	 */
 	@Override
 	public BackResult saveRealNamePic(UserVO user) {
+		
+		
+		
+		
 		return null;
 	}
 }

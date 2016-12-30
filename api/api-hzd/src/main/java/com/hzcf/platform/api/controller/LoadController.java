@@ -24,7 +24,7 @@ public class LoadController {
 	private static final Log logger = Log.getLogger(LoadController.class);
 	@Autowired
     private ILoadService loadService;//实名认证的service
-	/**
+	/**查询借款人的借款信息，状态
 	 * 
 	 */
 	@RequestMapping(value="rest/selectload")
