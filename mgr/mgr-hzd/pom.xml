@@ -23,6 +23,10 @@
 			<artifactId>framework-webmvc</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.hzcf.framework</groupId>
+			<artifactId>framework-fastdfs</artifactId>
+		</dependency>		
+		<dependency>
 			<groupId>com.hzcf.core.sys</groupId>
 			<artifactId>core-sys-service</artifactId>
 		</dependency>
