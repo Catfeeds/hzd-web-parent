@@ -24,7 +24,7 @@
     delete from msg_box
     where msg_id = #{msgId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="andy.model.MsgBox" >
+  <insert id="insert" parameterType="com.hzcf.platform.core.user.data.MsgBox" >
     insert into msg_box (msg_id, user_id, msg_type, 
       msg_title, msg_content, create_time, 
       status, is_read)
@@ -32,7 +32,7 @@
       #{msgTitle,jdbcType=VARCHAR}, #{msgContent,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
       #{status,jdbcType=VARCHAR}, #{isRead,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="andy.model.MsgBox" >
+  <insert id="insertSelective" parameterType="com.hzcf.platform.core.user.data.MsgBox" >
     insert into msg_box
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="msgId != null" >
