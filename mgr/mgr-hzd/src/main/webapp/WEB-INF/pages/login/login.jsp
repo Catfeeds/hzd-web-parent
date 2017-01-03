@@ -34,18 +34,20 @@
 				
 				$("body").keydown(function(event){
 					if(event.keyCode==13){
-						$("#submit").click();
+						$("#submit").click();  
 					}
 				});
 				
 				$("#submit").bind("click", function() {
 					if (valid()) {
+						var irand = $("#irand").val();
 						var password = $("#password").val();
 						var username = $("#username").val();
 						$.ajax( {
 							type : "POST",
 							url : root+"sys/login.do",
 							data : {
+								irand :irand,
 								username : username,
 								password : password
 							},
@@ -84,9 +86,19 @@
 					$("#message").html('用户名或密码不能为空!');
 					return false;
 				}
+				if ($("#irand").val() == '') {
+				$("#message").html('验证码不能为空!');
+				return false;
+			}
 				$("#message").html("");
 				return true;
 			};
+			
+			//更换验证码
+			function changeImge(){
+				var img = document.getElementById("randImage"); 
+				img.src = img.src+'?';
+			}
 		</script>
 	</head>
 	<body>
@@ -139,6 +151,22 @@
 										</td>
 										<td>
 											<input class="textbox" id="password" type="password" value="" name="password">
+										</td>
+										<td width=120>
+											&nbsp;
+										</td>
+									</tr>
+									<tr height=40>
+										<td width=245 align=right>
+											<img src="<%=basePath%>/images/pencil.png" align="absmiddle" />
+                                            <span style="font-size: 14px; font-family: Verdana, 微软雅黑, 黑体">验&nbsp;&nbsp;&nbsp;证&nbsp;&nbsp;&nbsp;码：</span>
+										</td>
+										<td class="bg_text small">
+											<input type="text" id="irand" name="irand" maxLength="7"/>
+										</td>
+										<td>
+											<img src="<%=basePath %>/images/yanzhengma.jsp" id="randImage" alt="换一张" />
+										<a href="javascript:void(0);" onclick="changeImge()" title="换一张">换一张</a>
 										</td>
 										<td width=120>
 											&nbsp;
