@@ -1,17 +1,18 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hzcf.platform.core.user.data.MsgBox" >
-  <resultMap id="BaseResultMap" type="MsgBox" >
-    <result column="msg_id" property="msgId" jdbcType="VARCHAR" />
+  <resultMap id="BaseResultMap" type="com.hzcf.platform.core.user.data.MsgBox" >
+    <id column="msg_id" property="msgId" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="msg_type" property="msgType" jdbcType="VARCHAR" />
     <result column="msg_title" property="msgTitle" jdbcType="VARCHAR" />
     <result column="msg_content" property="msgContent" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="is_read" property="isRead" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    msg_id, user_id, msg_type, msg_title, msg_content, create_time, status
+    msg_id, user_id, msg_type, msg_title, msg_content, create_time, status, is_read
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -23,15 +24,15 @@
     delete from msg_box
     where msg_id = #{msgId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="MsgBox" >
+  <insert id="insert" parameterType="andy.model.MsgBox" >
     insert into msg_box (msg_id, user_id, msg_type, 
       msg_title, msg_content, create_time, 
-      status)
+      status, is_read)
     values (#{msgId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{msgType,jdbcType=VARCHAR}, 
       #{msgTitle,jdbcType=VARCHAR}, #{msgContent,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
-      #{status,jdbcType=VARCHAR})
+      #{status,jdbcType=VARCHAR}, #{isRead,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="MsgBox" >
+  <insert id="insertSelective" parameterType="andy.model.MsgBox" >
     insert into msg_box
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="msgId != null" >
@@ -54,6 +55,9 @@
       </if>
       <if test="status != null" >
         status,
+      </if>
+      <if test="isRead != null" >
+        is_read,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -78,9 +82,12 @@
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
       </if>
+      <if test="isRead != null" >
+        #{isRead,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="MsgBox" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzcf.platform.core.user.data.MsgBox" >
     update msg_box
     <set >
       <if test="userId != null" >
@@ -101,17 +108,40 @@
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
       </if>
+      <if test="isRead != null" >
+        is_read = #{isRead,jdbcType=VARCHAR},
+      </if>
     </set>
     where msg_id = #{msgId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="MsgBox" >
+  <update id="updateByPrimaryKey" parameterType="com.hzcf.platform.core.user.data.MsgBox" >
     update msg_box
     set user_id = #{userId,jdbcType=VARCHAR},
       msg_type = #{msgType,jdbcType=VARCHAR},
       msg_title = #{msgTitle,jdbcType=VARCHAR},
       msg_content = #{msgContent,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP},
-      status = #{status,jdbcType=VARCHAR}
+      status = #{status,jdbcType=VARCHAR},
+      is_read = #{isRead,jdbcType=VARCHAR}
     where msg_id = #{msgId,jdbcType=VARCHAR}
   </update>
+  
+  <select id="selectUnReadNum" resultMap="int" parameterType="com.hzcf.platform.core.user.data.MsgBox" >
+    select count(1)
+    from msg_box
+    where is_read = 0 and user_id = #{id,jdbcType=VARCHAR}
+  </select>   
+  
+  <select id="selectAllByUser" resultMap="BaseResultMap" parameterType="com.hzcf.platform.core.user.data.MsgBox" >
+    select 
+    <include refid="Base_Column_List" />
+    from msg_box
+    where user_id = #{id,jdbcType=VARCHAR}
+  </select>   
+  
+  <update id="updateReadByUser" parameterType="com.hzcf.platform.core.user.data.MsgBox" >
+    update msg_box
+    set is_read = 1
+    where user_id = #{id,jdbcType=VARCHAR}
+  </update>   
 </mapper>
