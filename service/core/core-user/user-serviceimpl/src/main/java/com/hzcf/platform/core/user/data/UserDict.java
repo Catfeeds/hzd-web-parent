@@ -19,6 +19,16 @@ public class UserDict extends AbstractEntity {
         return dictPath;
     }
 
+    public int pid;
+
+    public int getPid() {
+        return pid;
+    }
+
+    public void setPid(int pid) {
+        this.pid = pid;
+    }
+
     public void setDictPath(String dictPath) {
         this.dictPath = dictPath;
     }
