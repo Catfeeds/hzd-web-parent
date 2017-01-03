@@ -20,4 +20,5 @@ public interface UserDictDao extends IBaseDao<UserDict> {
     int updateByPrimaryKey(UserDict record);
 
     List<UserDict> selectList();
+    List<UserDict> selectJkytList();
 }

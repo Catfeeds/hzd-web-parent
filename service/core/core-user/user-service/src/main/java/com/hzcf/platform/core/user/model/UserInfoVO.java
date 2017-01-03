@@ -11,11 +11,11 @@ import java.util.Date;
 
 
 public class UserInfoVO extends BaseVO {
-    private String userInfoId;
+    private String userInfoId;//用户详情ID
 
-    private String userId;
+    private String userId;//用户ID
 
-    private String applyId;
+    private String applyId;//用户申请ID
 
     private String idcardValidity; //证件有效期
 
