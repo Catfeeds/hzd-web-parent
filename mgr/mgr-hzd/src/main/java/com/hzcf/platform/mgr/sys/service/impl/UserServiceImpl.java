@@ -52,7 +52,8 @@ public class UserServiceImpl implements IUserService {
 		SmsUserInfo se = new SmsUserInfo();
 		DateUtils dateUtils = new DateUtils();
 		Result<UserVO> user = userSerivce.getByMobile(mobile);
-		Result<UserImageVO> userImage =  userImageService.getByMobile(mobile);
+		Long userId = new Long(user.getItems().getId());
+		Result<UserImageVO> userImage =  userImageService.getByPK(userId);
 		se.setMobile(mobile);
 		se.setName(user.getItems().getName());
 		se.setIdCard(user.getItems().getIdCard());
@@ -65,6 +66,24 @@ public class UserServiceImpl implements IUserService {
 		
 		return se;
 	}
+
+
+	@Override
+	public void save(String mobile,String name, String idCard, String card1, String card2, String card3) {
+		UserVO user = new UserVO();
+		UserImageVO userImage = new UserImageVO();
+		user.setName(name);
+		user.setIdCard(idCard);
+		
+		Result<UserVO> userVO = userSerivce.getByMobile(mobile);
+		userImage.setUserId(userVO.getItems().getId());
+		userImage.setArtWork(card1);
+		userImage.setArtWork(card2);
+		userImage.setArtWork(card3);
+		userSerivce.insertSelective(user);
+		userImageService.update(userImage);
+	}
+
 
 
 }

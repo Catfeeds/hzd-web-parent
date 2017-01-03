@@ -2,12 +2,17 @@ package com.hzcf.platform.mgr.sys.controller;
 
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.core.user.model.UserVO;
@@ -72,10 +77,29 @@ public class UserController {
 	/**
 	 * 实名认证详情页面
 	 * @return
-	 *//*
-	@RequestMapping(value = "/users/check/detail",method = RequestMethod.GET)
-	public String edit(String mobile,Map<String,Object> map) {
-		map.put("edit",sysUserService.getSmsUserDetail(mobile));
-	    return "users/detail";
-	}*/
+	 */
+	@RequestMapping(value="/users/check/detail",method=RequestMethod.POST)
+	public String detail(String mobile,Model m) {
+		
+		//System.out.println(mobile);
+		SmsUserInfo smsUserInfo = sysUserService.getSmsUserDetail(mobile);
+		m.addAttribute("smsUserInfo",smsUserInfo);
+		return "users/detail";
+	}
+	
+	@RequestMapping(value="/users/check/edit",method=RequestMethod.POST)
+	public String edit(String mobile,Model m) {
+		
+		//System.out.println(mobile);
+		SmsUserInfo smsUserInfo = sysUserService.getSmsUserDetail(mobile);
+		m.addAttribute("smsUserInfo",smsUserInfo);
+		return "users/edit";
+	}
+	
+	/*@RequestMapping(value="/users/check/edit",method=RequestMethod.POST)
+    @ResponseBody
+    public String save(String name,String idCard,String card1,String card2,String card3){
+		return null;
+    }	*/
+	
 }

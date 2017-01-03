@@ -21,7 +21,7 @@ $(function(){
 			{field:'nopassCause',title:'不通过原因',width:100},
 		   {field:'-',title:'操作',width:100,formatter:function(value,row,index){
 			   //return "<a href='#' onClick='edit(" + row.id + ")'>修改 </a> <a href='#' onClick='dele(" + row.id + ")'>下线</a> ";
-			   return "<a href='#' onclick='edit(\""+row.id+"\");' >查看详情 </a>&nbsp;<a href='#' onclick='dele(\""+row.id+"\");' >修改</a>";   
+			   return "<a href='#' onclick='detail(\""+row.mobile+"\");' >查看详情 </a>&nbsp;<a href='#' onclick='edit(\""+row.mobile+"\");' >修改</a>";   
 		   }}
 		  
 		]],
@@ -37,6 +37,19 @@ $(function(){
 	});
 });
 
+function detail(mobile){
+	alert("${path}/users/check/detail");
+	$('#grid').datagrid({
+		url:'${path}/users/check/detail?mobile='+mobile,
+		//mobile:mobile
+	});
+}
+
+ function edit(mobile){
+	$('#grid').datagrid({
+		url:'${path}/users/check/edit?mobile='+mobile,
+	});
+}
 function doSearch(){
 	$('#grid').datagrid('load',{
 		mobile: $('#mobile').val(),
