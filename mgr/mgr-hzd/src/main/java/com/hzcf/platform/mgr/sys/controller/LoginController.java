@@ -26,7 +26,7 @@ public class LoginController {
 
 	@ResponseBody
 	@RequestMapping(value = "/sys/login", produces = { "application/json;charset=UTF-8" })
-	public LoginJsonResult login(String username, String password,
+	public LoginJsonResult login(String irand,String username, String password,
 			HttpServletRequest request) {
 		String result = "";
 		/*User userDB = getDBUser(username, password);
@@ -49,7 +49,13 @@ public class LoginController {
 					+ "\'}";
 		}*/
 		LoginJsonResult loginJsonResult = new LoginJsonResult();
-		if("admin".equals(username) && "admin".equals(password)){
+		String rand = (String) request.getSession().getAttribute("rand");
+		if(!rand.equalsIgnoreCase(irand)){
+			result = "验证码错误!";
+			loginJsonResult.setMsg("error");
+			loginJsonResult.setSuccess(true);
+			loginJsonResult.setResultContents(result);
+		} else if("admin".equals(username) && "admin".equals(password)){
 			result = "登录成功!";
 			loginJsonResult.setMsg("ok");
 			loginJsonResult.setSuccess(true);
@@ -57,12 +63,12 @@ public class LoginController {
 			loginJsonResult.setSysType("redpack");
 			loginJsonResult.setResultContents(result);
 		}else {
-			result = "用户名或密码错误!";
-			loginJsonResult.setMsg("error");
-			loginJsonResult.setSuccess(true);
-			loginJsonResult.setResultContents(result);
+				result = "用户名或密码错误!";
+				loginJsonResult.setMsg("error");
+				loginJsonResult.setSuccess(true);
+				loginJsonResult.setResultContents(result);
 		}
-
+		
 		return loginJsonResult;
 	}
 

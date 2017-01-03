@@ -5,6 +5,8 @@ import com.hzcf.platform.core.user.data.UserDict;
 import com.hzcf.platform.framework.core.storage.mysql.AbstractMysqlBaseDaoImpl;
 import org.springframework.stereotype.Repository;
 
+import java.util.List;
+
 /**
  * Created by leijiaming on 2016/12/29 0029.
  */
@@ -38,5 +40,12 @@ public class UserDictDaoImpl extends AbstractMysqlBaseDaoImpl<UserDict> implemen
     @Override
     public int updateByPrimaryKey(UserDict record) {
         return 0;
+    }
+
+    @Override
+    public List<UserDict> selectList() {
+        System.out.print("ss");
+        return sqlSessionTemplate.selectList("selectList");
+
     }
 }

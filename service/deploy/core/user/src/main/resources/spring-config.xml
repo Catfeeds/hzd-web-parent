@@ -61,6 +61,11 @@
 	<!-- 配置SqlSessionTemplate -->  
     <bean id="sqlSessionTemplate" class="org.mybatis.spring.SqlSessionTemplate"> 
         <constructor-arg name="sqlSessionFactory" ref="sqlSessionFactory" /> 
-    </bean> 
+    </bean>
 
-</beans>  
+
+	<bean id="cacheBeanPostProcessor" class="com.hzcf.platform.core.user.commom.beanPostProcessor.CacheBeanPostProcessor"/>
+
+	<bean id="dictUtilInitService" class="com.hzcf.platform.core.user.commom.dictTools.DictUtilInitService"></bean>
+
+</beans>

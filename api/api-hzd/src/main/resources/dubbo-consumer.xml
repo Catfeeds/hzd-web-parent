@@ -26,7 +26,7 @@
     <dubbo:reference id="userDictService" interface="com.hzcf.platform.core.user.service.UserDictService" check="false" />
     <dubbo:reference id="userImageService" interface="com.hzcf.platform.core.user.service.UserImageService" check="false" />
     <dubbo:reference id="userInfoService" interface="com.hzcf.platform.core.user.service.UserInfoService" check="false" />
-
+    <dubbo:reference id="dictUtilService" interface="com.hzcf.platform.core.user.service.DictUtilService" check="false" />
 
 
 

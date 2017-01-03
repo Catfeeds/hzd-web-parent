@@ -20,5 +20,5 @@
            	
 	<import resource="spring-config.xml"/>
 	<import resource="dubbo-provider.xml"/>
-	
+	<import resource="cache.xml"/>
 </beans>  

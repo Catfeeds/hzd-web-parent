@@ -1,7 +1,10 @@
 package com.hzcf.platform.mgr.sys.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -10,6 +13,7 @@ import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.mgr.sys.common.pageModel.DataGrid;
 import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
+import com.hzcf.platform.mgr.sys.common.pageModel.SmsUserInfo;
 import com.hzcf.platform.mgr.sys.service.IUserService;
 /**
  * @description:后台用户管理
@@ -65,5 +69,13 @@ public class UserController {
     public DataGrid checkUserPage(PageHelper page, UserVO user){
 		return sysUserService.getUserPage(page, user);
     }	
-	
+	/**
+	 * 实名认证详情页面
+	 * @return
+	 *//*
+	@RequestMapping(value = "/users/check/detail",method = RequestMethod.GET)
+	public String edit(String mobile,Map<String,Object> map) {
+		map.put("edit",sysUserService.getSmsUserDetail(mobile));
+	    return "users/detail";
+	}*/
 }

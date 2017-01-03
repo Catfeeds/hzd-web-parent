@@ -4,6 +4,8 @@ package com.hzcf.platform.core.user.dao;
 import com.hzcf.platform.core.user.data.UserDict;
 import com.hzcf.platform.framework.core.storage.IBaseDao;
 
+import java.util.List;
+
 public interface UserDictDao extends IBaseDao<UserDict> {
     int deleteByPrimaryKey(String dictId);
 
@@ -16,4 +18,6 @@ public interface UserDictDao extends IBaseDao<UserDict> {
     int updateByPrimaryKeySelective(UserDict record);
 
     int updateByPrimaryKey(UserDict record);
+
+    List<UserDict> selectList();
 }

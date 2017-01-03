@@ -21,6 +21,12 @@
     from user_image
     where image_id = #{imageId,jdbcType=VARCHAR}
   </select>
+  <select id="selectByMobile" parameterType="String" resultMap="BaseResultMap">
+       select
+       <include refid="Base_Column_List" />
+       from user_image
+       where mobile=#{mobile,jdbcType=VARCHAR}
+  </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user_image
     where image_id = #{imageId,jdbcType=VARCHAR}

@@ -39,4 +39,9 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
     public int updateByPrimaryKey(UserImage record) {
         return 0;
     }
+
+	@Override
+	public UserImage getByMobile(String mobile) {
+		return sqlSessionTemplate.selectOne(getSqlName("selectByMobile"), mobile);
+	}
 }
