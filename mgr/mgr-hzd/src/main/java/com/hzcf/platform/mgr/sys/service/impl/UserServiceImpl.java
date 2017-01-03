@@ -10,10 +10,15 @@ import org.springframework.stereotype.Service;
 
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
+import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.core.user.service.UserImageService;
 import com.hzcf.platform.core.user.service.UserService;
 import com.hzcf.platform.mgr.sys.common.pageModel.DataGrid;
 import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
+import com.hzcf.platform.mgr.sys.common.pageModel.SmsUserInfo;
+import com.hzcf.platform.mgr.sys.common.util.DateUtils;
 import com.hzcf.platform.mgr.sys.service.IUserService;
 
 @Service
@@ -23,6 +28,8 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	public UserService userSerivce;
 	
+	@Autowired
+	private UserImageService userImageService;
 	
 	@Override
 	public DataGrid getUserPage(PageHelper pageHelper, UserVO userVO){
@@ -37,6 +44,26 @@ public class UserServiceImpl implements IUserService {
 		PaginatedResult result = userSerivce.getUserList(parmMap);
 		dataGrid.setRows(result.getItems());
 		return dataGrid;
+	}
+
+
+	@Override
+	public SmsUserInfo getSmsUserDetail(String mobile) {
+		SmsUserInfo se = new SmsUserInfo();
+		DateUtils dateUtils = new DateUtils();
+		Result<UserVO> user = userSerivce.getByMobile(mobile);
+		Result<UserImageVO> userImage =  userImageService.getByMobile(mobile);
+		se.setMobile(mobile);
+		se.setName(user.getItems().getName());
+		se.setIdCard(user.getItems().getIdCard());
+		se.setCheckStatus(user.getItems().getCheckStatus());
+		se.setCreateTime(dateUtils.formatDate(user.getItems().getCreateTime()));
+		se.setArtWork(userImage.getItems().getArtWork());
+		se.setSmall(userImage.getItems().getSmall());
+		se.setImageType(userImage.getItems().getImageType());
+		se.setType(userImage.getItems().getType());
+		
+		return se;
 	}
 
 

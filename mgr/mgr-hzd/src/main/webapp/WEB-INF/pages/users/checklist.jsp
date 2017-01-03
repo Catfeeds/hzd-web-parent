@@ -37,7 +37,6 @@ $(function(){
 	});
 });
 
-
 function doSearch(){
 	$('#grid').datagrid('load',{
 		mobile: $('#mobile').val(),
