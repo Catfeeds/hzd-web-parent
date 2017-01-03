@@ -5,4 +5,7 @@ package com.hzcf.platform.core.user.service;
  */
 public interface DictUtilService {
     public Object getDict();
+
+
+
 }

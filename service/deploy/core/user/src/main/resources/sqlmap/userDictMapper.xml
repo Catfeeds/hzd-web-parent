@@ -7,10 +7,11 @@
     <result column="dict_text" property="dictText" jdbcType="VARCHAR" />
     <result column="dict_value" property="dictValue" jdbcType="VARCHAR" />
     <result column="dict_sort" property="dictSort" jdbcType="INTEGER" />
+    <result column="pid" property="pid" jdbcType="INTEGER" />
     <result column="dict_path" property="dictPath" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    dict_id, dict_type, dict_text, dict_value, dict_sort,dict_path
+    dict_id, dict_type, dict_text, dict_value, dict_sort,pid,dict_path
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -22,8 +23,17 @@
   <select id="selectList" resultMap="BaseResultMap"  >
     select
     <include refid="Base_Column_List" />
-    from user_dict
+    from user_dict  where  dict_value !='' and pid is null
+
   </select>
+
+  <select id="selectJkytList" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from user_dict where   pid  !='' or dict_type='LOANUSE'
+
+  </select>
+
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user_dict
     where dict_id = #{dictId,jdbcType=VARCHAR}

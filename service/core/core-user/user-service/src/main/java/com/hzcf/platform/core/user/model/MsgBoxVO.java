@@ -18,6 +18,8 @@ public class MsgBoxVO extends BaseVO {
     private Date createTime;
 
     private String status;
+    
+    private String isRead;
 
     public String getMsgId() {
         return msgId;
@@ -74,4 +76,14 @@ public class MsgBoxVO extends BaseVO {
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
     }
+
+	public String getIsRead() {
+		return isRead;
+	}
+
+	public void setIsRead(String isRead) {
+		this.isRead = isRead;
+	}
+    
+    
 }
