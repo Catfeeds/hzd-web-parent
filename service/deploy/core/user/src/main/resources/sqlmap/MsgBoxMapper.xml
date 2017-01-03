@@ -15,7 +15,7 @@
     msg_id, user_id, msg_type, msg_title, msg_content, create_time, status, is_read
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
+    select
     <include refid="Base_Column_List" />
     from msg_box
     where msg_id = #{msgId,jdbcType=VARCHAR}
@@ -24,15 +24,15 @@
     delete from msg_box
     where msg_id = #{msgId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.hzcf.platform.core.user.data.MsgBox" >
-    insert into msg_box (msg_id, user_id, msg_type, 
-      msg_title, msg_content, create_time, 
+  <insert id="insert" parameterType="MsgBox" >
+    insert into msg_box (msg_id, user_id, msg_type,
+      msg_title, msg_content, create_time,
       status, is_read)
-    values (#{msgId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{msgType,jdbcType=VARCHAR}, 
-      #{msgTitle,jdbcType=VARCHAR}, #{msgContent,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}, 
+    values (#{msgId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{msgType,jdbcType=VARCHAR},
+      #{msgTitle,jdbcType=VARCHAR}, #{msgContent,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
       #{status,jdbcType=VARCHAR}, #{isRead,jdbcType=VARCHAR})
   </insert>
-  <insert id="insertSelective" parameterType="com.hzcf.platform.core.user.data.MsgBox" >
+  <insert id="insertSelective" parameterType="MsgBox" >
     insert into msg_box
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="msgId != null" >
@@ -87,7 +87,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.hzcf.platform.core.user.data.MsgBox" >
+  <update id="updateByPrimaryKeySelective" parameterType="MsgBox" >
     update msg_box
     <set >
       <if test="userId != null" >
@@ -114,7 +114,7 @@
     </set>
     where msg_id = #{msgId,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.hzcf.platform.core.user.data.MsgBox" >
+  <update id="updateByPrimaryKey" parameterType="MsgBox" >
     update msg_box
     set user_id = #{userId,jdbcType=VARCHAR},
       msg_type = #{msgType,jdbcType=VARCHAR},
@@ -125,23 +125,23 @@
       is_read = #{isRead,jdbcType=VARCHAR}
     where msg_id = #{msgId,jdbcType=VARCHAR}
   </update>
-  
-  <select id="selectUnReadNum" resultMap="int" parameterType="com.hzcf.platform.core.user.data.MsgBox" >
+
+  <select id="selectUnReadNum" resultType="int" parameterType="MsgBox" >
     select count(1)
     from msg_box
     where is_read = 0 and user_id = #{id,jdbcType=VARCHAR}
-  </select>   
-  
-  <select id="selectAllByUser" resultMap="BaseResultMap" parameterType="com.hzcf.platform.core.user.data.MsgBox" >
-    select 
+  </select>
+
+  <select id="selectAllByUser" resultMap="BaseResultMap" parameterType="MsgBox" >
+    select
     <include refid="Base_Column_List" />
     from msg_box
     where user_id = #{id,jdbcType=VARCHAR}
-  </select>   
-  
-  <update id="updateReadByUser" parameterType="com.hzcf.platform.core.user.data.MsgBox" >
+  </select>
+
+  <update id="updateReadByUser" parameterType="MsgBox" >
     update msg_box
     set is_read = 1
     where user_id = #{id,jdbcType=VARCHAR}
-  </update>   
+  </update>
 </mapper>

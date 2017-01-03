@@ -44,9 +44,17 @@ public class UserServiceImpl implements IUserService {
 	 * @date 2016年12月7日
 	 * @throws
 	 */
-	public BackResult register(UserVO user) {
+	public BackResult register(UserVO user,String type) {
 		try {
-			DataVerifcation.datavVerification(user.getMobile());
+			DataVerifcation.datavVerification(user.getMobile(),type);
+			String registerType = cache.load(ConstantsToken.SMS_CACHE_REG_KEY + user.getMobile());
+
+			if(!type.equals(registerType)){
+				logger.i("");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_3000.getCode(), HzdStatusCodeEnum.MEF_CODE_3000.getMsg());
+
+			}
+
 			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
 			UserVO items = byMobile.getItems();
 
