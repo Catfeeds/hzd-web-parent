@@ -27,9 +27,9 @@ public class DictUtilInitService {
      */
     public void loadData() {
 
-        List<UserDict> userDicts = userDictDao.selectJkytList();
-        Map<String, Object> stringObjectMap = initJkytDictinfo(userDicts);
-        System.out.println("----------1-------"+stringObjectMap.toString());
+        //List<UserDict> userDicts = userDictDao.selectJkytList();
+       //// Map<String, Object> stringObjectMap = initJkytDictinfo(userDicts);
+      //  System.out.println("----------1-------"+stringObjectMap.toString());
        // System.out.println("----------2-------"+stringObjectMap1.toString());
     }
 
