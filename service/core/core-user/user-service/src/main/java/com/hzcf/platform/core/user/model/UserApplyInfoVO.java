@@ -6,9 +6,9 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class UserApplyInfoVO extends BaseVO {
-    private String applyId;
+    private String applyId;//申请编号
 
-    private String userId; 
+    private String userId;//用户ID
 
     private String loanPurposeOne; //借款用途大类
 
@@ -20,16 +20,16 @@ public class UserApplyInfoVO extends BaseVO {
 
     private BigDecimal maxMonthlyPayment; //可接受最高月还款额
 
-    private String status;
+    private String status;//1=有效   0=无效
 
-    private Date applySubmitTime;
+    private Date applySubmitTime;//进件时间
 
-    //ext
-	private String mobile;
-	private String name;
-	private String idCard;
-    private String startDate;
-    private String endDate;
+    //ext，对应后台页面中的“用户列表”中的查询条件
+	private String mobile;//用户手机号
+	private String name;//用户姓名
+	private String idCard;//身份证号
+    private String startDate;//注册日期-开始时间
+    private String endDate;//注册日期-结束时间
 
     public String getApplyId() {
         return applyId;

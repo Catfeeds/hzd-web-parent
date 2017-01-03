@@ -16,4 +16,10 @@ public interface UserImageDao extends IBaseDao<UserImage> {
     int updateByPrimaryKeySelective(UserImage record);
 
     int updateByPrimaryKey(UserImage record);
+    
+   // UserImage getByMobile(String mobile);
+    
+    UserImage getById(String id);
+    
+    boolean updateByUserId(String userId);
 }

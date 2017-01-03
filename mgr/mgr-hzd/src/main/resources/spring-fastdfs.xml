@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="
+        http://www.springframework.org/schema/beans
+	    http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+    <bean id="fastdfsConfig" class="com.hzcf.platform.framework.fastdfs.client.FastDFSConfig">
+		<property name="connectTimeout" value="6000" />
+		<property name="networkTimeout" value="30000" />
+		<property name="charset" value="UTF-8" />
+		<property name="httpTrackerPort" value="80" />
+		<property name="httpAntiStealtoken" value="false" />
+		<property name="httpSecret_key" value="" />
+		
+		<property name="trackerAddrs">
+            <bean class="org.springframework.beans.factory.config.ListFactoryBean">
+                <property name="targetListClass">
+                    <value>java.util.ArrayList</value>
+                </property>
+                <property name="sourceList">
+                    <list>
+                        <!-- <value>up.img-pc.exiao.me:22122</value> -->
+                        <value>10.20.200.47:22122</value>
+                    </list>
+                </property>
+            </bean>
+        </property>
+
+	</bean>
+    <!--(3)此处获取对象的方式是从工厂类中获取静态方法-->  
+    <!-- <bean name="fastdfsClient" class="com.exiao.platform.framework.fastdfs.FastDFSClientFactory" factory-method="getFastdfsClient"></bean>  -->
+	<bean name="fastdfsClient" class="com.hzcf.platform.framework.fastdfs.FastDFSClientImpl" scope="prototype"></bean>
+</beans>

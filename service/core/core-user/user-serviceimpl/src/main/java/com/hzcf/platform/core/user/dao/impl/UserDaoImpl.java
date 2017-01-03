@@ -55,4 +55,16 @@ public class UserDaoImpl  extends AbstractMysqlBaseDaoImpl<User> implements User
 	public Long getUserTotal(Map<String, Object> parmMap){
 		return sqlSessionTemplate.selectOne(getSqlName("FINDLIST_COUNT"), parmMap);
 	}
+	/*根据用户的真实姓名（name）和身份证号码（id_card），查询“真实姓名”和“身份证号码”重复的数量
+	 *	请求数据：
+			格式：Map<String,Object>
+			参数：name，idCard
+		返回数据：
+			格式：Map<String,Object>
+			参数：realnamerepeat（真实姓名重复的数量），idcardrepeat（身份证号码重复的数量）,allrepeat（真实姓名和身份证号码总共的重复数量）
+	 */
+	@Override
+	public Map selectNameAndIdCardRepeat(Map<String, Object> paramMap) {
+		return sqlSessionTemplate.selectOne(getSqlName("selectNameAndIdCardRepeat"), paramMap);
+	}
 }

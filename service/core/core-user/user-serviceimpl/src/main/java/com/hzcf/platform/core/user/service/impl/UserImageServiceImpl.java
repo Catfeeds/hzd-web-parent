@@ -1,9 +1,10 @@
 package com.hzcf.platform.core.user.service.impl;
 
+import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.core.user.dao.UserImageDao;
-import com.hzcf.platform.core.user.data.UserDict;
+import com.hzcf.platform.core.user.data.User;
 import com.hzcf.platform.core.user.data.UserImage;
-import com.hzcf.platform.core.user.model.UserDictVO;
 import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.service.UserImageService;
 import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
@@ -36,4 +37,45 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
     protected IBaseDao<UserImage> getGenericDAO() {
         return purchaseOrderDao;
     }
+
+	/*@Override
+	public Result<UserImageVO> getByMobile(String mobile) {
+		try {
+			UserImage t = purchaseOrderDao.getByMobile(mobile);
+			if (null == t) {
+				logger.debug("data null.");
+				return new Result<UserImageVO>(StatusCodes.OK, null);
+			}
+			return new Result<UserImageVO>(StatusCodes.OK, toVO(t));
+		} catch (Exception e) {
+			logger.error("an error occur in getByPK service : {}", e);
+			return new Result<UserImageVO>(StatusCodes.INTERNAL_SERVER_ERROR, getModel());
+		}
+	}
+*/
+	@Override
+	public Result<UserImageVO> getById(String userId) {
+		try {
+			UserImage t = purchaseOrderDao.getById(userId);
+			if (null == t) {
+				logger.debug("data null.");
+				return new Result<UserImageVO>(StatusCodes.OK, null);
+			}
+			return new Result<UserImageVO>(StatusCodes.OK, toVO(t));
+		} catch (Exception e) {
+			logger.error("an error occur in getByPK service : {}", e);
+			return new Result<UserImageVO>(StatusCodes.INTERNAL_SERVER_ERROR, getModel());
+		}
+	}
+
+	public Result<Boolean> update(UserImageVO userImageVO){
+		try {
+			UserImage t = toDO(userImageVO);
+			purchaseOrderDao.updateByUserId(t.getUserId());
+			return new Result<Boolean>(StatusCodes.OK, true);
+		} catch (Exception e) {
+			logger.error("an error occur in update service : {}", e);
+			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
+		}
+	}
 }

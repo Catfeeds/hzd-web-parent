@@ -1,5 +1,8 @@
 package com.hzcf.platform.api.service.impl;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -68,15 +71,34 @@ public class RealNameServiceImpl implements IRealNameService {
         /*第二步验证：验证实名认证信息是否已经存在，
          *存在：该身份信息已经使用，实名认证失败
          *不存在：该身份信息没有使用，实名认证符合要求
+         *请求数据：
+			格式：Map<String,Object>
+			参数：name，idCard
+		返回数据：
+			格式：Map<String,Object>
+			参数：realnamerepeat（真实姓名重复的数量），idcardrepeat（身份证号码重复的数量）,allrepeat（真实姓名和身份证号码总共的重复数量）
          */
-        
+        Map<String,Object> paramsMap=new HashMap<String,Object>();//初始化Map
+        paramsMap.put("name", realName);//存储“真实姓名”
+        paramsMap.put("idCard", idCard);//存储“身份证号”
+        Map<String,Object> resultMap=userSerivce.selectNameAndIdCardRepeat(paramsMap);//查询“真实姓名”，“身份证号”重复的数量
+        int realnamerepeat=(Integer) resultMap.get("realnamerepeat");//“真实姓名”重复的数量
+        int idcardrepeat=(Integer) resultMap.get("idcardrepeat");//“身份证号”重复的数量
+        if(realnamerepeat>0){
+        	//返回“保存失败”，“真实姓名”重复，null
+        	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1033.getCode(),HzdStatusCodeEnum.MEF_CODE_1033.getMsg(),null);
+        }
+        if(idcardrepeat>0){
+        	//返回“保存失败”，“身份证号码”重复，null
+        	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1034.getCode(),HzdStatusCodeEnum.MEF_CODE_1034.getMsg(),null);
+        }
         /**更新借款人的实名状态*/
         Result<Boolean> updateResult=userSerivce.updateMobile(items);
         /**判断更新操作结果，设置返回结果*/
         if(StatusCodes.OK==updateResult.getStatus()){//更新借款人实名认证信息成功
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),items);//返回“保存成功”，用户的实名认证信息
         }else{
-        	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1033.getCode(),HzdStatusCodeEnum.MEF_CODE_1033.getMsg(),null);//返回“保存失败”，null
+        	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1035.getCode(),HzdStatusCodeEnum.MEF_CODE_1035.getMsg(),null);//返回“保存失败”，null
         }
 	}
 	/**保存借款人上传的图片信息
