@@ -35,4 +35,8 @@ public interface UserDao extends IBaseDao<User> {
 	
 	public List<User> getUserList(Map<String, Object> parmMap);
 	public Long getUserTotal(Map<String, Object> parmMap);
+	/*根据用户的真实姓名（name）和身份证号码（id_card），查询“真实姓名”和“身份证号码”重复的数量
+	 *	查询结果：realnamerepeat（真实姓名重复的数量），idcardrepeat（身份证号码重复的数量）,allrepeat（真实姓名和身份证号码总共的重复数量）
+	 */
+	public Map selectNameAndIdCardRepeat(Map<String, Object> parmMap);
 }
