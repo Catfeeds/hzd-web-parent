@@ -9,5 +9,8 @@ import com.hzcf.platform.framework.core.service.IBaseService;
  */
 public interface UserImageService extends IBaseService<UserImageVO> {
 	
-	public Result<UserImageVO> getByMobile(String mobile);
+	//public Result<UserImageVO> getByMobile(String mobile);
+	
+	public Result<UserImageVO> getById(String userId);
+	public Result<Boolean> update(UserImageVO userImageVO);
 }

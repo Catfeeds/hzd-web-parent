@@ -21,11 +21,11 @@
     from user_image
     where image_id = #{imageId,jdbcType=VARCHAR}
   </select>
-  <select id="selectByMobile" parameterType="String" resultMap="BaseResultMap">
+  <select id="selectByUserId" parameterType="String" resultMap="BaseResultMap">
        select
        <include refid="Base_Column_List" />
        from user_image
-       where mobile=#{mobile,jdbcType=VARCHAR}
+       where user_id=#{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user_image
@@ -143,5 +143,36 @@
       type = #{type,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where image_id = #{imageId,jdbcType=VARCHAR}
+  </update>
+  
+  <update id="updateByUserId" parameterType="UserImage" >
+    update user_image
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyId != null" >
+        apply_id = #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="userInfoId != null" >
+        user_info_id = #{userInfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="artWork != null" >
+        art_work = #{artWork,jdbcType=VARCHAR},
+      </if>
+      <if test="small != null" >
+        small = #{small,jdbcType=VARCHAR},
+      </if>
+      <if test="imageType != null" >
+        image_type = #{imageType,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR}
   </update>
         </mapper>

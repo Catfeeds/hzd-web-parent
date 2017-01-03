@@ -40,8 +40,21 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
         return 0;
     }
 
-	@Override
+	/*@Override
 	public UserImage getByMobile(String mobile) {
 		return sqlSessionTemplate.selectOne(getSqlName("selectByMobile"), mobile);
+	}*/
+
+	@Override
+	public UserImage getById(String id) {
+		return sqlSessionTemplate.selectOne(getSqlName("selectByUserId"), id);
+	}
+
+	@Override
+	public boolean updateByUserId(String userId) {
+		if (userId != null && userId.length()>0 ) {
+			sqlSessionTemplate.update(getSqlName("updateByUserId"), userId);
+}
+return true;
 	}
 }

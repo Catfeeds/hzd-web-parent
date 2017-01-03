@@ -52,8 +52,7 @@ public class UserServiceImpl implements IUserService {
 		SmsUserInfo se = new SmsUserInfo();
 		DateUtils dateUtils = new DateUtils();
 		Result<UserVO> user = userSerivce.getByMobile(mobile);
-		Long userId = new Long(user.getItems().getId());
-		Result<UserImageVO> userImage =  userImageService.getByPK(userId);
+		Result<UserImageVO> userImage =  userImageService.getById(user.getItems().getId());
 		se.setMobile(mobile);
 		se.setName(user.getItems().getName());
 		se.setIdCard(user.getItems().getIdCard());
