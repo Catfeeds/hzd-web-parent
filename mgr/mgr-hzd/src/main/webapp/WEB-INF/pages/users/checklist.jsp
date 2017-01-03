@@ -38,17 +38,15 @@ $(function(){
 });
 
 function detail(mobile){
-	alert("${path}/users/check/detail");
-	$('#grid').datagrid({
-		url:'${path}/users/check/detail?mobile='+mobile,
+	//$('#grid').datagrid({
+		//url:'${path}/users/check/detail?mobile='+mobile,
 		//mobile:mobile
-	});
+	//});;
+	window.location = '${path}/users/check/detail?mobile='+mobile;
 }
 
  function edit(mobile){
-	$('#grid').datagrid({
-		url:'${path}/users/check/edit?mobile='+mobile,
-	});
+	 window.location = '${path}/users/check/edit?mobile='+mobile;
 }
 function doSearch(){
 	$('#grid').datagrid('load',{

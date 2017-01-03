@@ -25,7 +25,7 @@
        select
        <include refid="Base_Column_List" />
        from user_image
-       where user_id=#{id,jdbcType=VARCHAR}
+       where type=4 and user_id=#{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user_image

@@ -78,7 +78,7 @@ public class UserController {
 	 * 实名认证详情页面
 	 * @return
 	 */
-	@RequestMapping(value="/users/check/detail",method=RequestMethod.POST)
+	@RequestMapping(value="/users/check/detail",method=RequestMethod.GET)
 	public String detail(String mobile,Model m) {
 		
 		//System.out.println(mobile);
@@ -87,7 +87,7 @@ public class UserController {
 		return "users/detail";
 	}
 	
-	@RequestMapping(value="/users/check/edit",method=RequestMethod.POST)
+	@RequestMapping(value="/users/check/edit",method=RequestMethod.GET)
 	public String edit(String mobile,Model m) {
 		
 		//System.out.println(mobile);

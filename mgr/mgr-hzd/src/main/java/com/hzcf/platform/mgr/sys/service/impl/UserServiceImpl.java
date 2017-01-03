@@ -46,22 +46,40 @@ public class UserServiceImpl implements IUserService {
 		return dataGrid;
 	}
 
-
+	
 	@Override
 	public SmsUserInfo getSmsUserDetail(String mobile) {
 		SmsUserInfo se = new SmsUserInfo();
 		DateUtils dateUtils = new DateUtils();
 		Result<UserVO> user = userSerivce.getByMobile(mobile);
-		Result<UserImageVO> userImage =  userImageService.getById(user.getItems().getId());
+		//Result<UserImageVO> userImage =  userImageService.getById(user.getItems().getId());
+		//System.out.println((user.getItems()).getId());
+		Result<UserImageVO> userImage = userImageService.getById((user.getItems()).getId());
+		if(userImage.getStatus()==200 && userImage.getItems()!=null){
+			se.setArtWork(userImage.getItems().getArtWork());
+			se.setSmall(userImage.getItems().getSmall());
+			se.setImageType(userImage.getItems().getImageType());
+			se.setType(userImage.getItems().getType());
+		}
+		
 		se.setMobile(mobile);
 		se.setName(user.getItems().getName());
 		se.setIdCard(user.getItems().getIdCard());
-		se.setCheckStatus(user.getItems().getCheckStatus());
+		String statu = user.getItems().getCheckStatus();
+		if("0".equals(statu)){
+			se.setStatusInfo("通过");
+			se.setButt("返回");
+		}
+		if("1".equals(statu)){
+			se.setStatusInfo("不通过");
+			se.setButt("返回");
+		}
+		if("2".equals(statu)){
+			se.setStatusInfo("待审核");
+			se.setButt("提交");
+		}
 		se.setCreateTime(dateUtils.formatDate(user.getItems().getCreateTime()));
-		se.setArtWork(userImage.getItems().getArtWork());
-		se.setSmall(userImage.getItems().getSmall());
-		se.setImageType(userImage.getItems().getImageType());
-		se.setType(userImage.getItems().getType());
+		
 		
 		return se;
 	}

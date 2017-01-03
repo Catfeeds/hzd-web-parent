@@ -12,5 +12,7 @@ public interface UserImageService extends IBaseService<UserImageVO> {
 	//public Result<UserImageVO> getByMobile(String mobile);
 	
 	public Result<UserImageVO> getById(String userId);
+	
 	public Result<Boolean> update(UserImageVO userImageVO);
+	
 }
