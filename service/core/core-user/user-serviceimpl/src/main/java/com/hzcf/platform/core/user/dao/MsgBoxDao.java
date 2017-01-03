@@ -16,17 +16,5 @@ public interface MsgBoxDao extends IBaseDao<MsgBox> {
     public boolean updateReadByUser(MsgBox msgBox);
 	
 	
-    int deleteByPrimaryKey(String msgId);
-
-    int insert(MsgBox record);
-
-    int insertSelective(MsgBox record);
-
-    MsgBox selectByPrimaryKey(String msgId);
-
-    int updateByPrimaryKeySelective(MsgBox record);
-
-    int updateByPrimaryKey(MsgBox record);
-    
 
 }

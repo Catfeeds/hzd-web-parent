@@ -20,55 +20,30 @@ public class MsgBoxDaoImpl  extends AbstractMysqlBaseDaoImpl<MsgBox> implements 
      * by zhangmx 
      * 未读个数
      */
-    public int selectUnReadNum(User user){
-    	return sqlSessionTemplate.selectOne(getSqlName("selectUnReadNum"), user);
+	@Override
+    public int selectUnReadNum(MsgBox msgBox){
+    	return sqlSessionTemplate.selectOne(getSqlName("selectUnReadNum"), msgBox);
     }
     /**
      * by zhangmx
      * 查询所有消息
      */
-    public List<User> selectAllByUser(User user){
-    	return sqlSessionTemplate.selectList(getSqlName("selectAllByUser"), user);
+	@Override
+    public List<MsgBox> selectAllByUser(MsgBox msgBox){
+    	return sqlSessionTemplate.selectList(getSqlName("selectAllByUser"), msgBox);
     }
     /**
      * by zhangmx
      * 修改成已读
      */
-    public boolean updateReadByUser(User user){
-    	if (user != null && user.getMobile().length()>0 ) {
-			sqlSessionTemplate.update(getSqlName("updateReadByUser"), user);
+	@Override
+    public boolean updateReadByUser(MsgBox msgBox){
+    	if (msgBox != null) {
+			sqlSessionTemplate.update(getSqlName("updateReadByUser"), msgBox);
 		}
 		return true;
     }
 	
 	
-    @Override
-    public int deleteByPrimaryKey(String msgId) {
-        return 0;
-    }
-
-    @Override
-    public int insert(MsgBox record) {
-        return 0;
-    }
-
-    @Override
-    public int insertSelective(MsgBox record) {
-        return 0;
-    }
-
-    @Override
-    public MsgBox selectByPrimaryKey(String msgId) {
-        return null;
-    }
-
-    @Override
-    public int updateByPrimaryKeySelective(MsgBox record) {
-        return 0;
-    }
-
-    @Override
-    public int updateByPrimaryKey(MsgBox record) {
-        return 0;
-    }
+    
 }
