@@ -30,8 +30,9 @@ $(function(){
 		fitColumns:true,
 		fit:true,
 		singleSelect:true,
-		pagination:true,
-		pageSize:20,
+		pagination:true,//开启分页
+		pageSize:1,//默认每页大小。暂时设置为1，方便调试
+		pageList:[1,2,3,4,5,10,20,30,40,50],//可以设定的每页大小
 		collapsible:true,
 		toolbar: '#toolbar'
 	});

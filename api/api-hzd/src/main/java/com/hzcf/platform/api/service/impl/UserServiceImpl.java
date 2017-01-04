@@ -110,8 +110,9 @@ public class UserServiceImpl implements IUserService {
 					items.setTerminal(agent.getTerminal());
 					cache.save(ConstantsToken.USER_CACHE_KEY+token, items,ConstantsToken.TOKEN_EXPIRES_HOUR);
 					logger.i("用户登录成功.手机号:"+user.getMobile());
-					map.put("mobile", user.getMobile());
+					map.put("mobile", items.getMobile());
 					map.put("token", token);
+					map.put("id",items.getId());
 					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
 				}
 				logger.i("用户帐号密码错误.手机号:"+user.getMobile());

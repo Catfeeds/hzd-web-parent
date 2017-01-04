@@ -1,9 +1,11 @@
 package com.hzcf.platform.mgr.sys.controller;
 
+import java.io.File;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +19,8 @@ import org.springframework.web.servlet.ModelAndView;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.framework.fastdfs.FastDFSClient;
+import com.hzcf.platform.framework.fastdfs.common.FileCommon;
 import com.hzcf.platform.mgr.sys.common.pageModel.DataGrid;
 import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
 import com.hzcf.platform.mgr.sys.common.pageModel.SmsUserInfo;
@@ -33,6 +37,36 @@ public class UserController {
     
 	@Autowired
 	IUserService sysUserService;
+	
+	@Autowired
+	FastDFSClient fastdfsClient;
+	
+	@RequestMapping(value = "/users/fast",method = RequestMethod.GET)
+	public String fast() throws Exception {
+		// String res = fastdfsClient.helloFjx();
+		//File folder = new File("C:\\Users\\Administrator\\Desktop\\testpic");
+		File folder = new File("D:\\img");
+		if (folder.isDirectory()) {
+			File[] files = folder.listFiles();
+			for (File file : files) {
+				if (file.exists() && file.isFile()) {
+					String file_url = fastdfsClient.upload(FileCommon.File2byte(file), getSuffix(file.getName()), null);
+					System.out.println(file.getName() + " : " + file_url);
+				}
+			}
+		}
+		return null;
+	}
+	
+	private static String getSuffix(String url) {
+		if (url != null) {
+			int index = url.lastIndexOf(".");
+			if (index > 0) {
+				return url.substring(index + 1);
+			}
+		}
+		return url;
+	}
 	
 	/**
 	 * 用户列表页面
