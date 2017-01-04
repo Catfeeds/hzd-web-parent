@@ -13,6 +13,6 @@ public interface UserImageService extends IBaseService<UserImageVO> {
 	
 	public Result<UserImageVO> getById(String userId);
 	
-	public Result<Boolean> update(UserImageVO userImageVO);
+	public Result<Boolean> updateImage(UserImageVO userImageVO);
 	
 }

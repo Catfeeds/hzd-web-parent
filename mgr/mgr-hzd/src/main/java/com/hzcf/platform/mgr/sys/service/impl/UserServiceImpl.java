@@ -66,6 +66,7 @@ public class UserServiceImpl implements IUserService {
 		se.setName(user.getItems().getName());
 		se.setIdCard(user.getItems().getIdCard());
 		String statu = user.getItems().getCheckStatus();
+		se.setCheckStatus(statu);
 		if("0".equals(statu)){
 			se.setStatusInfo("通过");
 			se.setButt("返回");
@@ -78,28 +79,59 @@ public class UserServiceImpl implements IUserService {
 			se.setStatusInfo("待审核");
 			se.setButt("提交");
 		}
-		se.setCreateTime(dateUtils.formatDate(user.getItems().getCreateTime()));
-		
+		se.setCreateTime(dateUtils.getDate(user.getItems().getSubmitTime()));
+		//System.out.println(user.getItems().getCreateTime());
 		
 		return se;
 	}
 
 
 	@Override
-	public void save(String mobile,String name, String idCard, String card1, String card2, String card3) {
+	public void update(String mobile,String name, String idCard, String card1, String card2, String card3) {
 		UserVO user = new UserVO();
 		UserImageVO userImage = new UserImageVO();
+		user.setMobile(mobile);
 		user.setName(name);
 		user.setIdCard(idCard);
 		
 		Result<UserVO> userVO = userSerivce.getByMobile(mobile);
+		user.setId(userVO.getItems().getId());
+		userSerivce.updateByPrimaryKeySelective(user);
 		userImage.setUserId(userVO.getItems().getId());
 		userImage.setArtWork(card1);
 		userImage.setArtWork(card2);
 		userImage.setArtWork(card3);
-		userSerivce.insertSelective(user);
-		userImageService.update(userImage);
+		userImageService.updateImage(userImage);
 	}
+
+
+	@Override
+	public Result<Boolean> updateStatus(String mobile, String checkStatus,String nopassCause) {
+		UserVO user = new UserVO();
+		user.setCheckStatus(checkStatus);
+		user.setMobile(mobile);
+		if(nopassCause!=null){
+			user.setNopassCause(nopassCause);
+		}
+		Result<UserVO> use1 = userSerivce.getByMobile(mobile);
+		user.setId(use1.getItems().getId());
+		return userSerivce.updateByPrimaryKeySelective(user);
+	}
+
+
+	/*@Override
+	public Result<Boolean> update(SmsUserInfo smsUserInfo) {
+		UserVO user = new UserVO();
+		UserImageVO userImage = new UserImageVO();
+		user.setMobile(smsUserInfo.getMobile());
+		user.setName(smsUserInfo.getName());
+		user.setIdCard(smsUserInfo.getIdCard());
+		userImage.setSmall(smsUserInfo.getSmall());
+		userImage.setType(userImage.getType());
+		Result<UserVO> use1 = userSerivce.getByMobile(smsUserInfo.getMobile());
+		user.setId(use1.getItems().getId());
+		return userSerivce.updateByPrimaryKeySelective(user);
+	}*/
 
 
 

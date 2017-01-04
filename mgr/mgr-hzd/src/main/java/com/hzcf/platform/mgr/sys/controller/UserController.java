@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hzcf.platform.common.util.log.Log;
+import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.mgr.sys.common.pageModel.DataGrid;
 import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
@@ -96,10 +97,22 @@ public class UserController {
 		return "users/edit";
 	}
 	
-	/*@RequestMapping(value="/users/check/edit",method=RequestMethod.POST)
-    @ResponseBody
-    public String save(String name,String idCard,String card1,String card2,String card3){
-		return null;
-    }	*/
+	@RequestMapping(value="/users/check/update",method=RequestMethod.POST)
+    public String update(HttpServletRequest request){
+		String name = request.getParameter("name");
+		String mobile = request.getParameter("mobile");
+		String idCard = request.getParameter("idCard");
+		String card1 = request.getParameter("card1");
+		String card2 = request.getParameter("card2");
+		String card3 = request.getParameter("card3");
+		sysUserService.update(mobile, name, idCard, card1, card2, card3);
+		return "redirect:/users/check/list";
+    }	
 	
+	@RequestMapping(value="/users/check/updateStatus",method=RequestMethod.GET)
+	public String updateStatus(String mobile,String checkStatus,String nopassCause) {
+		
+		Result<Boolean> st= sysUserService.updateStatus(mobile, checkStatus,nopassCause);
+		return "redirect:/users/check/list";
+	}
 }
