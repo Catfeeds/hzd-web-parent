@@ -12,11 +12,11 @@ import java.util.Date;
 
 public class UserRelationVO  extends BaseVO {
 
-    private String relationId;
+    private String relationId;//用户关系ID
 
-    private String userId;
+    private String userId;//用户ID
 
-    private String applyId;
+    private String applyId;//用户申请编号
 
     private String name;//证明人姓名
 

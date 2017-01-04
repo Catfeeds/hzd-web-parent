@@ -75,7 +75,7 @@ public class SmsController {
 	@RequestMapping(value="api/100/sms/smsCheck/{type}",method=RequestMethod.POST)
 	@ResponseBody
 	public BackResult smsCheck(@RequestBodyForm UserVO user,@PathVariable String type){
-		logger.i("进入修改密码SmsController====UserVO:"+user.toString());
+		logger.i("进入SmsController====UserVO:"+user.toString());
 		return smsService.smsCheck(user.getSmsCacheType(),user.getMobile(),type);
 	}
 	

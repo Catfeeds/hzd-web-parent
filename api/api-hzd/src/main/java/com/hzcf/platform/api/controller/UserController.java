@@ -40,12 +40,12 @@ public class UserController {
 	@Autowired
 	IUserService registerUserService;
 	
-	@RequestMapping(value="api/100/user/register",method=RequestMethod.POST)
+	@RequestMapping(value="api/100/user/register/{type}",method=RequestMethod.POST)
 	@ResponseBody
-	public BackResult register(@RequestBodyForm UserVO user){
+	public BackResult register(@RequestBodyForm UserVO user,@PathVariable  String type){
 		logger.i("进入用户注册功能 ====入参====UserVO:"+user.toString());
 
-		return registerUserService.register(user);
+		return registerUserService.register(user,type);
 	}
 	
 	@RequestMapping(value="api/100/user/logon",method=RequestMethod.POST)
