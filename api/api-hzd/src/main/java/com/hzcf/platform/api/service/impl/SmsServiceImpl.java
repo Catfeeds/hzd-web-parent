@@ -49,7 +49,7 @@ public class SmsServiceImpl implements ISmsService {
 						logger.i("-------------获取短信验证码成功" + six + "phoneNum:"+ mobile);
 						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), six);
 					}else{
-						logger.i("获取验证码失败"+ mobile);
+						logger.i("调用接口失败"+ mobile);
 						return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
 					}
 				}
