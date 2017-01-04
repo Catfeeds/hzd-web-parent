@@ -21,7 +21,8 @@
                 <property name="sourceList">
                     <list>
                         <!-- <value>up.img-pc.exiao.me:22122</value> -->
-                        <value>10.20.200.47:22122</value>
+                        <!--<value>10.20.200.47:22122</value>-->
+                        <value>10.10.10.64:22122</value>
                     </list>
                 </property>
             </bean>
