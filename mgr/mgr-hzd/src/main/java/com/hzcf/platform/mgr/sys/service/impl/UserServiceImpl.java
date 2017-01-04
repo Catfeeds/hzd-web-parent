@@ -79,7 +79,9 @@ public class UserServiceImpl implements IUserService {
 			se.setStatusInfo("待审核");
 			se.setButt("提交");
 		}
-		se.setCreateTime(dateUtils.getDate(user.getItems().getSubmitTime()));
+		if(user.getItems().getSubmitTime()!=""&&user.getItems().getSubmitTime()!=null){
+			se.setCreateTime(dateUtils.getDate(user.getItems().getSubmitTime()));
+		}
 		//System.out.println(user.getItems().getCreateTime());
 		
 		return se;
@@ -87,9 +89,8 @@ public class UserServiceImpl implements IUserService {
 
 
 	@Override
-	public void update(String mobile,String name, String idCard, String card1, String card2, String card3) {
+	public void update(String mobile,String name, String idCard) {
 		UserVO user = new UserVO();
-		UserImageVO userImage = new UserImageVO();
 		user.setMobile(mobile);
 		user.setName(name);
 		user.setIdCard(idCard);
@@ -97,11 +98,6 @@ public class UserServiceImpl implements IUserService {
 		Result<UserVO> userVO = userSerivce.getByMobile(mobile);
 		user.setId(userVO.getItems().getId());
 		userSerivce.updateByPrimaryKeySelective(user);
-		userImage.setUserId(userVO.getItems().getId());
-		userImage.setArtWork(card1);
-		userImage.setArtWork(card2);
-		userImage.setArtWork(card3);
-		userImageService.updateImage(userImage);
 	}
 
 

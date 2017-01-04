@@ -17,7 +17,7 @@ public interface IUserService {
 	
 	public SmsUserInfo getSmsUserDetail(String mobile);
 	
-	public void update(String mobile,String name,String idCard,String card1,String card2,String card3);
+	public void update(String mobile,String name,String idCard);
 	
 	public Result<Boolean> updateStatus(String mobile,String checkStatus,String nopassCause);
 	

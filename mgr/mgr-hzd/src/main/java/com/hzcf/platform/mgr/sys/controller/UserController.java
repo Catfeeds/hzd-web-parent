@@ -1,6 +1,7 @@
 package com.hzcf.platform.mgr.sys.controller;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -55,7 +56,7 @@ public class UserController {
 				}
 			}
 		}
-		return null;
+		return "redirect:/users/check/list";
 	}
 	
 	private static String getSuffix(String url) {
@@ -131,22 +132,25 @@ public class UserController {
 		return "users/edit";
 	}
 	
-	@RequestMapping(value="/users/check/update",method=RequestMethod.POST)
-    public String update(HttpServletRequest request){
-		String name = request.getParameter("name");
-		String mobile = request.getParameter("mobile");
-		String idCard = request.getParameter("idCard");
-		String card1 = request.getParameter("card1");
-		String card2 = request.getParameter("card2");
-		String card3 = request.getParameter("card3");
-		sysUserService.update(mobile, name, idCard, card1, card2, card3);
+	@RequestMapping(value="/users/check/update",method=RequestMethod.GET)
+    public String update(String mobile,String name,String idCard){
+		try {
+			name=new String(name.getBytes("iso8859-1"), "UTF-8");
+			sysUserService.update(mobile, name, idCard);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return "redirect:/users/check/list";
     }	
 	
 	@RequestMapping(value="/users/check/updateStatus",method=RequestMethod.GET)
-	public String updateStatus(String mobile,String checkStatus,String nopassCause) {
-		
-		Result<Boolean> st= sysUserService.updateStatus(mobile, checkStatus,nopassCause);
+	public String updateStatus(String mobile,String checkStatus,String nopassCause){
+		try {
+			nopassCause=new String(nopassCause.getBytes("iso8859-1"), "UTF-8");
+			Result<Boolean> st= sysUserService.updateStatus(mobile, checkStatus,nopassCause);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 		return "redirect:/users/check/list";
 	}
 }

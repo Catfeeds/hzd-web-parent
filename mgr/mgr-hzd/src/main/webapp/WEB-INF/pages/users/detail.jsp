@@ -38,7 +38,7 @@ pageEncoding="UTF-8"%>
 			var checkStatus = $('input:radio[name=radioCheck]:checked').val();
 			var mobile = $("#hid1").val();
 			var nopassCause = $("#mytext").val();
-			alert(nopassCause);
+			// alert(nopassCause);
 			window.location = '${path}/users/check/updateStatus?mobile='+mobile+ "&checkStatus="+checkStatus+"&nopassCause="+nopassCause;
 		}
 		
@@ -48,7 +48,7 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 <form action="${path}/users/check/updateStatus" method="post" id="form">
-<table id="grid" style="width: 520px;height: 550px">
+<table id="grid" style="width: 800px;height: 550px">
 	<tr>
 		<td>用户信息</td>
 	</tr>
@@ -71,9 +71,9 @@ pageEncoding="UTF-8"%>
 	</tr>
 	<tr>
 		<td>图片上传信息</td>
-		<td><img src=${smsUserInfo.artWork}  alt="" /></td>
-		<td><img src=${smsUserInfo.artWork}  alt="" /></td>
-		<td><img src=${smsUserInfo.artWork}  alt="" /></td>
+		<td><img style="width: 200px;height: 100px"  src= ${smsUserInfo.small} /></td>
+		<td><img style="width: 200px;height: 100px"  src= ${smsUserInfo.small} /></td>
+		<td><img style="width: 200px;height: 100px"  src= ${smsUserInfo.small} /></td>
 	</tr>
 	<tr style="display: none " id="sh">
 		<td>审核意见</td>

@@ -10,35 +10,53 @@ pageEncoding="UTF-8"%>
 	function save(){
 		var name = $("#name").val();
 		var idCard = $("#idCard").val();
-		
-		document.getElementById("form1").submit();
+		var mobile = $("#mobile").val();
+		var msg = $("#div").val();
+		if(msg==""){
+			window.location = '${path}/users/check/update?mobile='+mobile+"&name="+name+"&idCard="+idCard;
+			// document.getElementById("form2").submit();
+		}else{
+			$("#div").html("校验未通过不能提交");
+		}
 	}
 	function xm(){
-		alert(1111);
+		//alert(1111);
 		var name = $("#name").val();
 		if(name==null||name==""){
 			$("#div").html("姓名不能为空");
+		}else{
+			var reg = /^[\u4E00-\u9FA5]{2,8}$/;
+			if(!reg.test(name)){
+				$("#div").html("输入的姓名在2~8个汉字");
+				return  false; 
+			}
+			$("#div").html("");
 		}
 		
 	}
 	
-	function sfz(){}
+	function sfz(){
+		var idCard = $("#idCard").val();
+		if(idCard==null || idCard==""){
+			$("#div").html("身份证号不能为空");
+		}else{
+			 var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  
+			 if(reg.test(idCard) === false){    
+				 $("#div").html("身份证号不合法"); 
+			    return  false; 
+			 }
+
+			$("#div").html("");
+		}
+	}
 	
-	function Aclick(){
-		window.location = '${path}/users/check/list';
-	}
-	function Aclick(){
-		window.location = '${path}/users/check/list';	
-	}
-	function Aclick(){
-		window.location = '${path}/users/check/list';
-	}
 </script>
 </head>
 <body>
-<form action="${path}/users/check/update" method="post" id="form1">
+<div id="div" style="line-height: 100px; font-size: 1rem; color: red;"></div>
+<form action="${path}/users/check/update" method="post" id="form1" enctype="multipart/form-data">
 
-<table id="table" style="width: 520px;height: 550px"  >
+<table id="table" style="width: 800px;height: 350px"  >
 	<tr id="div" style="display: none "></tr>
 	<tr>
 		<h>用户信息</h>
@@ -61,20 +79,26 @@ pageEncoding="UTF-8"%>
 		<td>${smsUserInfo.createTime}</td>
 		
 	</tr>
+	
+</table>
+</form>
+
+<form action="${path}/users/fast" method="get" id="form2" enctype="multipart/form-data">
+<table id="table" style="width: 800px;height: 350px">
 	<tr>
 		<td>图片上传信息</td></tr>
 	<tr>
-		<td><input type="button" onclick="Aclick();" value="重新上传"/></td>
-		<td><input type="button" onclick="Bclick();" value="重新上传"/></td>
-		<td><input type="button" onclick="Cclick();" value="重新上传"/></td>
+		<td><input type="file" multiple  value="重新上传"/></td>
+		<td><input type="file" multiple  value="重新上传"/></td>
+		<td><input type="file" multiple  value="重新上传"/></td>
 	</tr>
-	
 	<tr>
 		<td>
-		<input type="hidden" name="mobile" value=${smsUserInfo.mobile} /> 
+		<input type="hidden" name="mobile" id="mobile" value=${smsUserInfo.mobile} /> 
 		<input type="button" value="保存" onclick="save()"/> </td>
 	</tr>
 </table>
+
 </form>
 </body>
 </html>
