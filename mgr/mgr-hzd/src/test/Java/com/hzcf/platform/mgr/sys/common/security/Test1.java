@@ -25,7 +25,8 @@ public class Test1 {
 	@Test
 	public void test() throws Exception {
 		// String res = fastdfsClient.helloFjx();
-		File folder = new File("C:\\Users\\Administrator\\Desktop\\testpic");
+		//File folder = new File("C:\\Users\\Administrator\\Desktop\\testpic");
+		File folder = new File("D:\\img");
 		if (folder.isDirectory()) {
 			File[] files = folder.listFiles();
 			for (File file : files) {
