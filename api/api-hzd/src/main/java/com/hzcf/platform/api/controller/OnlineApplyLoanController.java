@@ -88,7 +88,7 @@ public class OnlineApplyLoanController {
     }
 
 
-    @RequestMapping(value = {"rest/api/100/onlineLoanapply/ImgUpload/{applyId}","api/100/onlineLoanapply/ImgUpload/{applyId}"},method = RequestMethod.GET)
+    @RequestMapping(value = {"rest/api/100/onlineLoanapply/ImgUpload/{applyId}","api/100/onlineLoanapply/ImgUpload/{applyId}"},method = RequestMethod.POST)
     public BackResult onlineLoanapplyImgUpload(HttpServletRequest request, @RequestAttribute(BaseConfig.USER_TYPE)  UserVO user, @RequestBodyForm UserImageVO userImageVO)  {
         logger.i("线上进件申请上传图片");
         logger.i("入参user:"+ JsonUtil.json2String(user));
