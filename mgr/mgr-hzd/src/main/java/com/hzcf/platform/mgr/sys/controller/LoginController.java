@@ -5,12 +5,16 @@ import java.util.Enumeration;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import com.google.gson.Gson;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.hzcf.platform.core.sys.model.SysUsersVO;
+import com.hzcf.platform.mgr.sys.common.pageModel.SysUsersInfo;
+import com.hzcf.platform.mgr.sys.service.ISysUsersService;
 /**
  * 
  * @author zhangmx
@@ -21,14 +25,12 @@ public class LoginController {
 
 	private static final Logger logger = LoggerFactory.getLogger(LoginController.class);
 
-	/*@Resource
-	private UserService userService;*/
-
+	@Autowired
+	ISysUsersService sysUsersService;
+	
 	@ResponseBody
-	@RequestMapping(value = "/sys/login", produces = { "application/json;charset=UTF-8" })
-	public LoginJsonResult login(String irand,String username, String password,
-			HttpServletRequest request) {
-		String result = "";
+	@RequestMapping(value = "/sys/login", produces = { "application/json" })
+	public LoginJsonResult login(String irand,String username,String password,HttpServletRequest request) {
 		/*User userDB = getDBUser(username, password);
 		if (userDB != null) {
 			if(userDB.getStatus() == 0){//用户状态为“已注销”
@@ -48,14 +50,17 @@ public class LoginController {
 			msg = "{msg:\'error\',success:true,resultContents:\'" + result
 					+ "\'}";
 		}*/
-		LoginJsonResult loginJsonResult = new LoginJsonResult();
+		String result = "";
 		String rand = (String) request.getSession().getAttribute("rand");
-		if(!rand.equalsIgnoreCase(irand)){
+		SysUsersInfo sysUsersInfo = sysUsersService.getSysUsersInfo(username);
+		String passwordDB = sysUsersInfo.getPassword();
+		LoginJsonResult loginJsonResult = new LoginJsonResult();
+		if(!irand.equalsIgnoreCase(rand)){
 			result = "验证码错误!";
 			loginJsonResult.setMsg("error");
 			loginJsonResult.setSuccess(true);
 			loginJsonResult.setResultContents(result);
-		} else if("admin".equals(username) && "admin".equals(password)){
+		} else if(password.equals(passwordDB)){
 			result = "登录成功!";
 			loginJsonResult.setMsg("ok");
 			loginJsonResult.setSuccess(true);
@@ -63,10 +68,10 @@ public class LoginController {
 			loginJsonResult.setSysType("redpack");
 			loginJsonResult.setResultContents(result);
 		}else {
-				result = "用户名或密码错误!";
-				loginJsonResult.setMsg("error");
-				loginJsonResult.setSuccess(true);
-				loginJsonResult.setResultContents(result);
+			result = "用户名或密码错误!";
+			loginJsonResult.setMsg("error");
+			loginJsonResult.setSuccess(true);
+			loginJsonResult.setResultContents(result);
 		}
 		
 		return loginJsonResult;
