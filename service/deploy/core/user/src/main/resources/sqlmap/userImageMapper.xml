@@ -12,6 +12,20 @@
     <result column="type" property="type" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
+  <resultMap id="BaseResultMapVO" type="com.hzcf.platform.core.user.model.UserImageVO" >
+    <result column="image_id" property="imageId" jdbcType="VARCHAR" />
+    <result column="user_id" property="userId" jdbcType="VARCHAR" />
+    <result column="apply_id" property="applyId" jdbcType="VARCHAR" />
+    <result column="user_info_id" property="userInfoId" jdbcType="VARCHAR" />
+    <result column="art_work" property="artWork" jdbcType="VARCHAR" />
+    <result column="small" property="small" jdbcType="VARCHAR" />
+    <result column="image_type" property="imageType" jdbcType="VARCHAR" />
+    <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
+  </resultMap>  
+  
+  
+  
   <sql id="Base_Column_List" >
     image_id, user_id, apply_id, user_info_id, art_work, small, image_type, type, create_time
   </sql>
@@ -27,6 +41,14 @@
        from user_image
        where type=4 and user_id=#{id,jdbcType=VARCHAR}
   </select>
+  <!-- 根据运单号（apply_id），图片类型（type），查询图片集合 -->
+  <select id="selectUserImageByApplyIdAndType" resultMap="BaseResultMapVO" parameterType="java.util.Map">
+       select
+       <include refid="Base_Column_List" />
+       from user_image
+       where apply_id=#{applyId,jdbcType=VARCHAR} and type=#{type,jdbcType=VARCHAR}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user_image
     where image_id = #{imageId,jdbcType=VARCHAR}

@@ -9,6 +9,10 @@ import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.service.UserImageService;
 import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
 import com.hzcf.platform.framework.core.storage.IBaseDao;
+
+import java.util.List;
+import java.util.Map;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,5 +83,20 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
 			return new Result<UserImageVO>(StatusCodes.INTERNAL_SERVER_ERROR, getModel());
 		}
 	}
-
+	//String applyId, String type
+	@Override
+	public Result<List<UserImageVO>> selectUserImageByApplyIdAndType(Map<String, Object> parmMap) {
+		List<UserImageVO> result = null;
+		try {
+			result = purchaseOrderDao.selectUserImageByApplyIdAndType(parmMap);
+			if (null == result) {
+				logger.debug("data null.");
+				return new Result<List<UserImageVO>>(StatusCodes.OK, null);
+			}
+			return new Result<List<UserImageVO>>(StatusCodes.OK,result);
+		} catch (Exception e) {
+			logger.error("an error occur in getByPK service : {}", e);
+			return new Result<List<UserImageVO>>(StatusCodes.INTERNAL_SERVER_ERROR,result);
+		}
+	}
 }

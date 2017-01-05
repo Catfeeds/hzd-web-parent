@@ -1,8 +1,14 @@
 package com.hzcf.platform.core.user.dao.impl;
 
+import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.user.dao.UserImageDao;
 import com.hzcf.platform.core.user.data.UserImage;
+import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.framework.core.storage.mysql.AbstractMysqlBaseDaoImpl;
+
+import java.util.List;
+import java.util.Map;
+
 import org.springframework.stereotype.Repository;
 
 /**
@@ -48,6 +54,11 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
 	@Override
 	public UserImage getById(String id) {
 		return sqlSessionTemplate.selectOne(getSqlName("selectByUserId"), id);
+	}
+	//String applyId, String type
+	@Override
+	public List<UserImageVO> selectUserImageByApplyIdAndType(Map<String,Object> paramsMap) {
+		return sqlSessionTemplate.selectList("selectUserImageByApplyIdAndType",paramsMap);
 	}
 
 	@Override
