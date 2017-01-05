@@ -1,5 +1,10 @@
 package com.hzcf.platform.mgr.sys.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -11,6 +16,8 @@ import com.hzcf.platform.core.user.model.UserApplyInfoVO;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.mgr.sys.common.pageModel.DataGrid;
 import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
+import com.hzcf.platform.mgr.sys.common.util.DateUtils;
+import com.hzcf.platform.mgr.sys.common.util.ExportExcel;
 import com.hzcf.platform.mgr.sys.service.IApplyService;
 import com.hzcf.platform.mgr.sys.service.IUserService;
 /**
@@ -36,4 +43,37 @@ public class ApplyController {
     public DataGrid userPage(PageHelper page, UserApplyInfoVO apply){
 		return applyService.getApplyPage(page, apply);
     }
+	
+	
+	/**
+	 * 导出Excel
+	 * @return
+	 */
+	@RequestMapping(value = "/apply/excel",method = RequestMethod.POST)
+    public void exportApplyUser(HttpServletResponse response, UserApplyInfoVO apply){
+		String title = "jinjian"+DateUtils.getDate();
+        String[] rowsName = new String[]{"序号","手机号","姓名","借款用途","借款用途详情","申请最低额度","申请最高额度","月还款最高额度","提交时间","进件状态"};
+        List<UserApplyInfoVO> result = applyService.getUserApplyForSearch(apply);
+        List<Object[]>  dataList = new ArrayList<Object[]>();
+        Object[] objs = null;
+        UserApplyInfoVO vo = null;
+        for (int i = 0; i < result.size(); i++) {
+        	vo = result.get(i);
+            objs = new Object[rowsName.length];
+            objs[0] = i+1;
+            objs[1] = vo.getMobile();
+            objs[2] = vo.getName();
+            objs[3] = vo.getLoanPurposeOne();
+            objs[4] = vo.getLoanPurposeTwo();
+            objs[5] = vo.getMinApplyAmount();
+            objs[6] = vo.getMaxApplyAmount();
+            
+            objs[7] = vo.getMaxMonthlyPayment();
+            objs[8] = DateUtils.formatDate(vo.getApplySubmitTime(), "yyyy-MM-dd HH:mm:ss");
+            objs[9] = vo.getStatus();
+            dataList.add(objs);
+        }
+        ExportExcel ex = new ExportExcel(title, rowsName, dataList);
+        ex.export(response);
+   }
 }

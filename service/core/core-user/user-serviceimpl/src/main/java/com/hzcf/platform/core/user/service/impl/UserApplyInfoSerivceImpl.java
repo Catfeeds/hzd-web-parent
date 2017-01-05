@@ -92,7 +92,7 @@ public class UserApplyInfoSerivceImpl  extends AbstractBaseServiceImpl<UserApply
 			resultVO.setStatus(StatusCodes.OK);
 			return resultVO;
 		} catch (Exception e) {
-			logger.error("an error occur in getUserApplyInfoList service : {}", e);
+			logger.error("an error occur in UserApplyInfoSerivceImpl service : {getUserApplyInfoList}", e);
 			PaginatedResult<UserApplyInfoVO> resultVO = new PaginatedResult<UserApplyInfoVO>();
 			resultVO.setStatus(StatusCodes.INTERNAL_SERVER_ERROR);
 			return resultVO;
@@ -105,5 +105,24 @@ public class UserApplyInfoSerivceImpl  extends AbstractBaseServiceImpl<UserApply
 		return purchaseOrderDao.getUserApplyInfoTotal(parmMap);
 	}
 
-
+	public PaginatedResult<UserApplyInfoVO> getUserApplyForSearch(Map<String, Object> parmMap){
+		try {
+			List<UserApplyInfoVO> result = purchaseOrderDao.getUserApplyForSearch(parmMap);
+			if (null == result) {
+				logger.debug("data null.");
+				PaginatedResult<UserApplyInfoVO> resultVO = new PaginatedResult<UserApplyInfoVO>();
+				resultVO.setStatus(StatusCodes.OK);
+				return resultVO;
+			}
+			PaginatedResult<UserApplyInfoVO> resultVO = new PaginatedResult<UserApplyInfoVO>();
+			resultVO.setItems(result);
+			resultVO.setStatus(StatusCodes.OK);
+			return resultVO;
+		} catch (Exception e) {
+			logger.error("an error occur in UserApplyInfoSerivceImpl service : {getUserApplyForSearch}", e);
+			PaginatedResult<UserApplyInfoVO> resultVO = new PaginatedResult<UserApplyInfoVO>();
+			resultVO.setStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+			return resultVO;
+		}
+	}
 }
