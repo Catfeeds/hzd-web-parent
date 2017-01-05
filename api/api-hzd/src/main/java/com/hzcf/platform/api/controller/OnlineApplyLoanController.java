@@ -7,14 +7,15 @@ import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.api.service.IOnlineApplyLoanService;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
-import com.hzcf.platform.core.user.model.UserApplyInfoVO;
-import com.hzcf.platform.core.user.model.UserInfoVO;
-import com.hzcf.platform.core.user.model.UserRelationVO;
-import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.core.user.model.*;
+import com.hzcf.platform.framework.fastdfs.FastDFSClient;
+import com.hzcf.platform.framework.fastdfs.common.FileCommon;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import javax.servlet.http.HttpServletRequest;
+import java.io.File;
 import java.util.List;
 
 /**
@@ -26,8 +27,8 @@ public class OnlineApplyLoanController {
     private static final Log logger = Log.getLogger(OnlineApplyLoanController.class);
     @Autowired
     private IOnlineApplyLoanService onlineApplyLoanService;
-
-    /**
+    @Autowired
+    FastDFSClient fastdfsClient;    /**
      * 查询是否可以进件
      * @param user
      * @return
@@ -86,6 +87,34 @@ public class OnlineApplyLoanController {
         return onlineApplyLoanService.onlineLoanapplyInfoPerfect(user,userRelationVO,applyId);
     }
 
+
+    @RequestMapping(value = {"rest/api/100/onlineLoanapply/ImgUpload/{applyId}","api/100/onlineLoanapply/ImgUpload/{applyId}"},method = RequestMethod.GET)
+    public BackResult onlineLoanapplyImgUpload(HttpServletRequest request, @RequestAttribute(BaseConfig.USER_TYPE)  UserVO user, @RequestBodyForm UserImageVO userImageVO)  {
+        logger.i("线上进件申请上传图片");
+        logger.i("入参user:"+ JsonUtil.json2String(user));
+        logger.i("userImageVO:"+ JsonUtil.json2String(userImageVO));
+        return onlineApplyLoanService.onlineLoanapplyImgUpload(request,user, userImageVO);
+        /*
+            File folder = new File("F:\\img");
+            String file_url = null;
+            if (folder.isDirectory()) {
+                File[] files = folder.listFiles();
+                for (File file : files) {
+                    if (file.exists() && file.isFile()) {
+
+                        try {
+                            file_url = fastdfsClient.upload(FileCommon.File2byte(file),  getSuffix(file.getName()), null);
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+                        System.out.println(file.getName() + " : " + file_url);
+                    }
+                }
+            }
+            return new BackResult(0,"11",file_url);*/
+
+
+    }
     /**
      * 用户进件申请  个人信息预览  第六步
      */
@@ -97,5 +126,13 @@ public class OnlineApplyLoanController {
         logger.i("applyId:"+ applyId);
         return onlineApplyLoanService.onlineLoanapplyInfoPreview(user,applyId);
     }
-
+    private static String getSuffix(String url) {
+        if (url != null) {
+            int index = url.lastIndexOf(".");
+            if (index > 0) {
+                return url.substring(index + 1);
+            }
+        }
+        return url;
+    }
 }
