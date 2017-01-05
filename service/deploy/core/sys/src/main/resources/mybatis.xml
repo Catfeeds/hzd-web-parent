@@ -2,13 +2,13 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
 <configuration>
 	<typeAliases>
-
+		<typeAlias type="com.hzcf.platform.core.sys.data.SysUsers" alias="SysUsers"/>
 	</typeAliases>
 
 
 	<!-- 指定映射文件 -->
-<!--	<mappers>
-		
-	</mappers>-->
+	<mappers>
+		<mapper resource="sqlmap/SysUsersmapper.xml" />
+	</mappers>
 </configuration>
 

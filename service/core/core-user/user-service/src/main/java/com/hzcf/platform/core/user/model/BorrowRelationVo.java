@@ -3,8 +3,7 @@ package com.hzcf.platform.core.user.model;
 
 /**
   * @Description:
-  * 	“borrowRelationVo实体类”对应线下的实体类
-  * 	“borrowRelationVo实体类”表示：借款人关系
+  * 	BorrowRelationVo：表示借款人关系，用于线上和线下对接转换
   * @author 作者:裴高祥 E-mail:pgx19890112@163.com Tel:13241706779
   * @date 创建时间：2017年1月3日 下午4:56:51 
   * @version 1.0 
