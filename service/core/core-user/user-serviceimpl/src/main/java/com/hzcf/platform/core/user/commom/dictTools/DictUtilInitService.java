@@ -28,9 +28,64 @@ public class DictUtilInitService {
     public void loadData() {
 
         List<UserDict> userDicts = userDictDao.selectJkytList();
-       //// Map<String, Object> stringObjectMap = initJkytDictinfo(userDicts);
-      //  System.out.println("----------1-------"+stringObjectMap.toString());
+        Map<String, Object> stringObjectMap = initLoanuse(userDicts);
+        System.out.println("----------1-------"+stringObjectMap.toString());
        // System.out.println("----------2-------"+stringObjectMap1.toString());
+    }
+    
+    
+    /**
+     * 借款用途
+     * @return
+     */
+    public  Map<String,Object> initLoanuse(List<UserDict> userDictList){
+    	Map<String,Object> dictionaryInfoMap = new HashMap<String, Object>(); 
+        String key = "";
+        String pid = "";
+        Map<String,Object> faMap=new HashMap<String, Object>(); ; 
+        List<UserDictJson> tempList= new ArrayList();
+        UserDictJson jsonTemp = null;
+        UserDictJson userDictJson = null;
+        for(UserDict userDice:userDictList ){
+        	//父ID
+            if(userDice.getPid() != null){
+            	key = userDice.getDictType();
+            	
+            	if(pid.equals(userDice.getPid().toString())){
+            		userDictJson = new UserDictJson();
+            		userDictJson.setDict_value(userDice.getDictValue());
+                    userDictJson.setDict_text(userDice.getDictText());
+                    dictionaryInfoMap.put(key, userDictJson);
+            	}else{
+            		if(faMap.containsKey(key)){
+                        userDictJson = new UserDictJson();
+                        tempList = (List)faMap.get(key);
+                        userDictJson.setDict_value(userDice.getDictValue());
+                        userDictJson.setDict_text(userDice.getDictText());
+                        tempList.add(userDictJson);
+                        //tempMap.put(key, userDictJson);
+                        faMap.put(userDice.getDictType(),tempList);
+                        
+                        jsonTemp = (UserDictJson) dictionaryInfoMap.get(key);
+                        jsonTemp.setMap(faMap);
+                        dictionaryInfoMap.put(key, jsonTemp);
+                    }else{
+                        tempList = new ArrayList<UserDictJson>();
+                        userDictJson = new UserDictJson();
+                        userDictJson.setDict_value(userDice.getDictValue());
+                        userDictJson.setDict_text(userDice.getDictText());
+                        tempList.add(userDictJson);
+                        faMap.put(userDice.getDictType(),tempList);
+                    }
+            		
+            	}
+            	
+            }else{
+            	pid = userDice.getDictId();
+            }
+        }
+
+      return dictionaryInfoMap;
     }
 
 
