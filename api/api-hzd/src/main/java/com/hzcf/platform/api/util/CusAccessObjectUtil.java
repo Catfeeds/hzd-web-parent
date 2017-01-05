@@ -1,4 +1,4 @@
-package com.hzcf.platform.core;
+package com.hzcf.platform.api.util;
 
 import java.net.InetAddress;
 import java.net.UnknownHostException;

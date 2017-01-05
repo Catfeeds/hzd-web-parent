@@ -1,4 +1,4 @@
-package com.hzcf.platform.core;
+package com.hzcf.platform.api.baseEnum;
 
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 

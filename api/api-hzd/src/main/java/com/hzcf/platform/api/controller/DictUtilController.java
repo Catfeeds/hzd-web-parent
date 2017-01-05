@@ -2,7 +2,7 @@ package com.hzcf.platform.api.controller;
 
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.common.util.log.Log;
-import com.hzcf.platform.core.HzdStatusCodeEnum;
+import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.service.DictUtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;

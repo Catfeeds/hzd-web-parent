@@ -11,8 +11,8 @@ import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.common.util.uuid.UUIDGenerator;
-import com.hzcf.platform.core.DataVerifcation;
-import com.hzcf.platform.core.HzdStatusCodeEnum;
+import com.hzcf.platform.api.common.DataVerifcation;
+import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.*;
 import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
 import com.hzcf.platform.core.user.service.UserImageService;
@@ -20,7 +20,6 @@ import com.hzcf.platform.core.user.service.UserInfoService;
 import com.hzcf.platform.core.user.service.UserRelationService;
 import com.hzcf.platform.core.user.service.UserService;
 import com.hzcf.platform.framework.fastdfs.FastDFSClient;
-import com.hzcf.platform.framework.fastdfs.common.FileCommon;
 
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
@@ -31,7 +30,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.util.*;
 
 /**

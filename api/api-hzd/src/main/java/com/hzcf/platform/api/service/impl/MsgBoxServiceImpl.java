@@ -9,9 +9,8 @@ import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
-import com.hzcf.platform.core.HzdStatusCodeEnum;
+import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.MsgBoxVO;
-import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.MsgBoxservice;
 
 import java.util.HashMap;

@@ -61,7 +61,7 @@ public class MsgBox extends AbstractEntity {
         this.msgContent = msgContent == null ? null : msgContent.trim();
     }
 
-   
+
 
     public String getStatus() {
         return status;

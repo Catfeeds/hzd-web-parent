@@ -14,7 +14,7 @@ import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.common.util.utils.JudgeNumberLegal;
 import com.hzcf.platform.common.util.utils.ServiceUtil;
-import com.hzcf.platform.core.HzdStatusCodeEnum;
+import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.UserService;
 

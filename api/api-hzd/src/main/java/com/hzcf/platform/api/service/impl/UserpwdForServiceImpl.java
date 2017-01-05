@@ -1,6 +1,6 @@
 package com.hzcf.platform.api.service.impl;
 
-import com.hzcf.platform.core.ConstantsToken;
+import com.hzcf.platform.api.common.ConstantsToken;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -11,8 +11,8 @@ import com.hzcf.platform.common.cache.ICache;
 import com.hzcf.platform.common.exception.CheckException;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
-import com.hzcf.platform.core.DataVerifcation;
-import com.hzcf.platform.core.HzdStatusCodeEnum;
+import com.hzcf.platform.api.common.DataVerifcation;
+import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.UserService;
 /**
