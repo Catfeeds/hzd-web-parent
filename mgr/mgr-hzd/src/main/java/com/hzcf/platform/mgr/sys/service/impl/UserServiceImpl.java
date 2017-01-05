@@ -46,42 +46,88 @@ public class UserServiceImpl implements IUserService {
 		return dataGrid;
 	}
 
-
+	
 	@Override
 	public SmsUserInfo getSmsUserDetail(String mobile) {
 		SmsUserInfo se = new SmsUserInfo();
 		DateUtils dateUtils = new DateUtils();
 		Result<UserVO> user = userSerivce.getByMobile(mobile);
-		Result<UserImageVO> userImage =  userImageService.getById(user.getItems().getId());
+		//Result<UserImageVO> userImage =  userImageService.getById(user.getItems().getId());
+		//System.out.println((user.getItems()).getId());
+		Result<UserImageVO> userImage = userImageService.getById((user.getItems()).getId());
+		if(userImage.getStatus()==200 && userImage.getItems()!=null){
+			se.setArtWork(userImage.getItems().getArtWork());
+			se.setSmall(userImage.getItems().getSmall());
+			se.setImageType(userImage.getItems().getImageType());
+			se.setType(userImage.getItems().getType());
+		}
+		
 		se.setMobile(mobile);
 		se.setName(user.getItems().getName());
 		se.setIdCard(user.getItems().getIdCard());
-		se.setCheckStatus(user.getItems().getCheckStatus());
-		se.setCreateTime(dateUtils.formatDate(user.getItems().getCreateTime()));
-		se.setArtWork(userImage.getItems().getArtWork());
-		se.setSmall(userImage.getItems().getSmall());
-		se.setImageType(userImage.getItems().getImageType());
-		se.setType(userImage.getItems().getType());
+		String statu = user.getItems().getCheckStatus();
+		se.setCheckStatus(statu);
+		if("0".equals(statu)){
+			se.setStatusInfo("通过");
+			se.setButt("返回");
+		}
+		if("1".equals(statu)){
+			se.setStatusInfo("不通过");
+			se.setButt("返回");
+		}
+		if("2".equals(statu)){
+			se.setStatusInfo("待审核");
+			se.setButt("提交");
+		}
+		if(user.getItems().getSubmitTime()!=""&&user.getItems().getSubmitTime()!=null){
+			se.setCreateTime(dateUtils.getDate(user.getItems().getSubmitTime()));
+		}
+		//System.out.println(user.getItems().getCreateTime());
 		
 		return se;
 	}
 
 
 	@Override
-	public void save(String mobile,String name, String idCard, String card1, String card2, String card3) {
+	public void update(String mobile,String name, String idCard) {
 		UserVO user = new UserVO();
-		UserImageVO userImage = new UserImageVO();
+		user.setMobile(mobile);
 		user.setName(name);
 		user.setIdCard(idCard);
 		
 		Result<UserVO> userVO = userSerivce.getByMobile(mobile);
-		userImage.setUserId(userVO.getItems().getId());
-		userImage.setArtWork(card1);
-		userImage.setArtWork(card2);
-		userImage.setArtWork(card3);
-		userSerivce.insertSelective(user);
-		userImageService.update(userImage);
+		user.setId(userVO.getItems().getId());
+		userSerivce.updateByPrimaryKeySelective(user);
 	}
+
+
+	@Override
+	public Result<Boolean> updateStatus(String mobile, String checkStatus,String nopassCause) {
+		UserVO user = new UserVO();
+		user.setCheckStatus(checkStatus);
+		user.setMobile(mobile);
+		if(nopassCause!=null){
+			user.setNopassCause(nopassCause);
+		}
+		Result<UserVO> use1 = userSerivce.getByMobile(mobile);
+		user.setId(use1.getItems().getId());
+		return userSerivce.updateByPrimaryKeySelective(user);
+	}
+
+
+	/*@Override
+	public Result<Boolean> update(SmsUserInfo smsUserInfo) {
+		UserVO user = new UserVO();
+		UserImageVO userImage = new UserImageVO();
+		user.setMobile(smsUserInfo.getMobile());
+		user.setName(smsUserInfo.getName());
+		user.setIdCard(smsUserInfo.getIdCard());
+		userImage.setSmall(smsUserInfo.getSmall());
+		userImage.setType(userImage.getType());
+		Result<UserVO> use1 = userSerivce.getByMobile(smsUserInfo.getMobile());
+		user.setId(use1.getItems().getId());
+		return userSerivce.updateByPrimaryKeySelective(user);
+	}*/
 
 
 

@@ -21,5 +21,5 @@ public interface UserImageDao extends IBaseDao<UserImage> {
     
     UserImage getById(String id);
     
-    boolean updateByUserId(String userId);
+    boolean updateByUserId(UserImage userImage);
 }

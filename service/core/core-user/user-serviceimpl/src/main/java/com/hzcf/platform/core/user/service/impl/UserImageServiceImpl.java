@@ -39,9 +39,9 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
     }
 
 	/*@Override
-	public Result<UserImageVO> getByMobile(String mobile) {
+	public Result<UserImageVO> getById(String userId) {
 		try {
-			UserImage t = purchaseOrderDao.getByMobile(mobile);
+			UserImage t = purchaseOrderDao.getById(userId);
 			if (null == t) {
 				logger.debug("data null.");
 				return new Result<UserImageVO>(StatusCodes.OK, null);
@@ -51,10 +51,22 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
 			logger.error("an error occur in getByPK service : {}", e);
 			return new Result<UserImageVO>(StatusCodes.INTERNAL_SERVER_ERROR, getModel());
 		}
+	}*/
+
+	public Result<Boolean> updateImage(UserImageVO userImageVO){
+		try {
+			UserImage t = toDO(userImageVO);
+			purchaseOrderDao.updateByUserId(t);
+			return new Result<Boolean>(StatusCodes.OK, true);
+		} catch (Exception e) {
+			logger.error("an error occur in update service : {}", e);
+			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
+		}
 	}
-*/
+
 	@Override
 	public Result<UserImageVO> getById(String userId) {
+		System.out.println(userId);
 		try {
 			UserImage t = purchaseOrderDao.getById(userId);
 			if (null == t) {
@@ -68,14 +80,4 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
 		}
 	}
 
-	public Result<Boolean> update(UserImageVO userImageVO){
-		try {
-			UserImage t = toDO(userImageVO);
-			purchaseOrderDao.updateByUserId(t.getUserId());
-			return new Result<Boolean>(StatusCodes.OK, true);
-		} catch (Exception e) {
-			logger.error("an error occur in update service : {}", e);
-			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
-		}
-	}
 }

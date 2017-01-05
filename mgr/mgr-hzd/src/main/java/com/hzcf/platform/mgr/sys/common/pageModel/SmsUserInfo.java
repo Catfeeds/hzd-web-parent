@@ -11,7 +11,20 @@ public class SmsUserInfo {
 	private String idCard;
 	private String checkStatus;
 	private String createTime;
-	
+	private String statusInfo;
+	private String butt;
+	public String getButt() {
+		return butt;
+	}
+	public void setButt(String butt) {
+		this.butt = butt;
+	}
+	public String getStatusInfo() {
+		return statusInfo;
+	}
+	public void setStatusInfo(String statusInfo) {
+		this.statusInfo = statusInfo;
+	}
 	private String artWork;
 	private String small;
 	private String imageType;

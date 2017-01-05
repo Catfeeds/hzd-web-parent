@@ -1,6 +1,7 @@
 package com.hzcf.platform.mgr.sys.controller;
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.hzcf.platform.common.util.log.Log;
+import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.framework.fastdfs.FastDFSClient;
 import com.hzcf.platform.framework.fastdfs.common.FileCommon;
@@ -54,7 +56,7 @@ public class UserController {
 				}
 			}
 		}
-		return null;
+		return "redirect:/users/check/list";
 	}
 	
 	private static String getSuffix(String url) {
@@ -112,7 +114,7 @@ public class UserController {
 	 * 实名认证详情页面
 	 * @return
 	 */
-	@RequestMapping(value="/users/check/detail",method=RequestMethod.POST)
+	@RequestMapping(value="/users/check/detail",method=RequestMethod.GET)
 	public String detail(String mobile,Model m) {
 		
 		//System.out.println(mobile);
@@ -121,7 +123,7 @@ public class UserController {
 		return "users/detail";
 	}
 	
-	@RequestMapping(value="/users/check/edit",method=RequestMethod.POST)
+	@RequestMapping(value="/users/check/edit",method=RequestMethod.GET)
 	public String edit(String mobile,Model m) {
 		
 		//System.out.println(mobile);
@@ -130,10 +132,25 @@ public class UserController {
 		return "users/edit";
 	}
 	
-	/*@RequestMapping(value="/users/check/edit",method=RequestMethod.POST)
-    @ResponseBody
-    public String save(String name,String idCard,String card1,String card2,String card3){
-		return null;
-    }	*/
+	@RequestMapping(value="/users/check/update",method=RequestMethod.GET)
+    public String update(String mobile,String name,String idCard){
+		try {
+			name=new String(name.getBytes("iso8859-1"), "UTF-8");
+			sysUserService.update(mobile, name, idCard);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/users/check/list";
+    }	
 	
+	@RequestMapping(value="/users/check/updateStatus",method=RequestMethod.GET)
+	public String updateStatus(String mobile,String checkStatus,String nopassCause){
+		try {
+			nopassCause=new String(nopassCause.getBytes("iso8859-1"), "UTF-8");
+			Result<Boolean> st= sysUserService.updateStatus(mobile, checkStatus,nopassCause);
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
+		return "redirect:/users/check/list";
+	}
 }
