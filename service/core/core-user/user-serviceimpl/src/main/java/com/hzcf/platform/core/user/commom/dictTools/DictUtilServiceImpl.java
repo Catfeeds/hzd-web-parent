@@ -5,6 +5,8 @@ import com.hzcf.platform.common.cache.ICache;
 import com.hzcf.platform.core.user.service.DictUtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.Map;
+
 /**
  * Created by leijiaming on 2016/12/30 0030.
  */
@@ -13,7 +15,15 @@ public class DictUtilServiceImpl  implements DictUtilService {
     @Autowired
     private ICache cache;
     @Override
-    public Object getDict(){
-        return cache.load("userDictMap");
+    public Map<String,Object> applyDictionaryJkyt() {
+        return  cache.load("applyDictionaryJkyt");
+    }
+    @Override
+    public Map<String,Object> applyDictionaryinfo() {
+        return  cache.load("applyDictionaryinfo");
+    }
+    @Override
+    public Map<String,Object> applyDictionaryRegion() {
+        return  cache.load("applyDictionaryRegion");
     }
 }

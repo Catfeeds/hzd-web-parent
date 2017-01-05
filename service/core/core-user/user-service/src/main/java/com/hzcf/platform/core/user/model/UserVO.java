@@ -15,22 +15,22 @@ public class UserVO extends BaseVO{
 
 
 
-	private String mobile;
+	private String mobile;//手机号
 
-	private String name;
+	private String name;//借款人的真实姓名
 
-	private String userName;
+	private String userName;//用户账号
 
-	private String password;
+	private String password;//密码
 
-	private String idCard;
+	private String idCard;//身份证号码
 
-	private String status;
+	private String status;//0=正常    1=禁用
 
-	private String checkStatus;
+	private String checkStatus;//审核状态  0通过 1不通过 2待审核
 
-	private String nopassCause;
-	private String submitTime;
+	private String nopassCause;//不通过原因
+	private String submitTime;//实名认证提交时间
 	
 	private String token;
 

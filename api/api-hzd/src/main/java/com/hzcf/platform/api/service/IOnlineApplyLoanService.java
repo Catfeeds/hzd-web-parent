@@ -1,13 +1,14 @@
 package com.hzcf.platform.api.service;
 
 
+import com.hzcf.platform.api.annotation.RequestAttribute;
+import com.hzcf.platform.api.annotation.RequestBodyForm;
 import com.hzcf.platform.api.common.BackResult;
 
-import com.hzcf.platform.core.user.model.UserApplyInfoVO;
-import com.hzcf.platform.core.user.model.UserInfoVO;
-import com.hzcf.platform.core.user.model.UserRelationVO;
-import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.api.config.BaseConfig;
+import com.hzcf.platform.core.user.model.*;
 
+import javax.servlet.http.HttpServletRequest;
 import java.util.List;
 
 /**
@@ -55,12 +56,21 @@ public interface IOnlineApplyLoanService {
      */
     public BackResult onlineLoanapplyInfoPerfect(UserVO user, List<UserRelationVO> userRelationVO,String applyId);
 
-
     /**
-     * 进件申请第刘步 个人信息预览
+     * 进件申请第五步 上传图片
+     * @param request
      * @param user
-     * @param
+     * @param userImageVO
      * @return
      */
+    public BackResult onlineLoanapplyImgUpload(HttpServletRequest request,UserVO user, UserImageVO userImageVO,String applyId) ;
+
+
+        /**
+         * 进件申请第刘步 个人信息预览
+         * @param user
+         * @param
+         * @return
+         */
     public BackResult onlineLoanapplyInfoPreview(UserVO user, String applyId);
 }

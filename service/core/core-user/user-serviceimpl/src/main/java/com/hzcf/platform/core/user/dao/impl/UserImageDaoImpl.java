@@ -27,8 +27,11 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
     }
 
     @Override
-    public int insertSelective(UserImage record) {
-        return 0;
+    public boolean insertSelective(UserImage userImage) {
+        if (userImage.getImageId() != null && userImage.getImageId().length()>0 ) {
+            sqlSessionTemplate.insert(getSqlName("insertSelective"), userImage);
+        }
+        return true;
     }
 
     @Override
@@ -65,7 +68,9 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
 	public boolean updateByUserId(UserImage userImage) {
 		if (userImage.getUserId() != null && userImage.getUserId().length()>0 ) {
 			sqlSessionTemplate.update(getSqlName("updateByUserId"), userImage);
+            return true;
 		}
-		return true;
+
+        return false;
 	}
 }

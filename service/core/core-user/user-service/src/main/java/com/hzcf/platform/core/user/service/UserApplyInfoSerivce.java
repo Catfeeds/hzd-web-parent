@@ -18,4 +18,8 @@ public interface UserApplyInfoSerivce extends IBaseService<UserApplyInfoVO> {
     
 	public PaginatedResult<UserApplyInfoVO> getUserApplyInfoList(Map<String, Object> parmMap);
 	public Long getUserApplyInfoTotal(Map<String, Object> parmMap);
+	
+	//不分页
+	public PaginatedResult<UserApplyInfoVO> getUserApplyForSearch(Map<String, Object> parmMap);
+	
 }

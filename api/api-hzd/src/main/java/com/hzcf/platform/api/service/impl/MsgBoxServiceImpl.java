@@ -9,10 +9,12 @@ import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
-import com.hzcf.platform.core.HzdStatusCodeEnum;
+import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.MsgBoxVO;
-import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.MsgBoxservice;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
   * @Description:站内信service
@@ -30,9 +32,12 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 	 */
 	@Override
 	public BackResult selectUnReadNum(MsgBoxVO msgBoxVO) {
+		Map<String,Object> map = new HashMap<String,Object>();
+
 		if(msgBoxVO != null){
 			Result<Integer> result = this.msgBoxservice.selectUnReadNum(msgBoxVO);
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), result.getItems().intValue());
+			map.put("number",result.getItems());
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
 		}else{
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_2100.getCode(), HzdStatusCodeEnum.MEF_CODE_2100.getMsg(), null);
 		}

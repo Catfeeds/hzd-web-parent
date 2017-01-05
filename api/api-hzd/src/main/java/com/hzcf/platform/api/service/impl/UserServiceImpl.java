@@ -19,9 +19,9 @@ import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.common.util.uuid.UUIDGenerator;
-import com.hzcf.platform.core.ConstantsToken;
-import com.hzcf.platform.core.DataVerifcation;
-import com.hzcf.platform.core.HzdStatusCodeEnum;
+import com.hzcf.platform.api.common.ConstantsToken;
+import com.hzcf.platform.api.common.DataVerifcation;
+import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.UserService;
 

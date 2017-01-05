@@ -52,6 +52,13 @@ function doSearch(){
 		endDate: $('#endDate').datebox('getValue')
 	});
 }
+
+function doExport(){
+	//window.location="${path}/member/excel";
+	$("#searchForm").attr("action", "${path}/apply/excel");
+	 $("#searchForm").attr("method", "POST");
+	 $("#searchForm").submit();
+}
 </script>
 
 </head>

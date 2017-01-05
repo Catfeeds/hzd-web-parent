@@ -20,7 +20,7 @@ public class UserImageVO extends BaseVO {
 
     private String type;
 
-    private Date createTime;
+
 
     public String getImageId() {
         return imageId;
@@ -86,11 +86,4 @@ public class UserImageVO extends BaseVO {
         this.type = type == null ? null : type.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
 }

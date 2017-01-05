@@ -16,8 +16,6 @@ import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.service.IUserService;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.api.config.BaseConfig;
-import com.hzcf.platform.api.config.ConfigSmsUtil;
-import com.hzcf.platform.core.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;
 
 /**

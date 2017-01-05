@@ -8,8 +8,6 @@ import com.hzcf.platform.common.model.BaseVO;
 
 import java.util.Date;
 
-
-
 public class UserRelationVO  extends BaseVO {
 
     private String relationId;//用户关系ID
@@ -22,7 +20,7 @@ public class UserRelationVO  extends BaseVO {
 
     private String relationType;//和本人关系
 
-    private String mobile;//mobile
+    private String mobile;//电话/手机号
 
     private String type;//0=工作证明 1=家庭证明人2=紧急联络人
 

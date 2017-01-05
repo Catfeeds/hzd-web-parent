@@ -2,6 +2,7 @@ package com.hzcf.platform.mgr.sys.service.impl;
 
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,13 @@ public class ApplyServiceImpl implements IApplyService {
 		dataGrid.setRows(result.getItems());
 		return dataGrid;
 	}
-
+	
+	@Override
+	public List<UserApplyInfoVO> getUserApplyForSearch(UserApplyInfoVO apply){
+		Map<String, Object> parmMap = new HashMap();
+		parmMap.put("apply", apply);
+		PaginatedResult result =  userApplyInfoSerivce.getUserApplyForSearch(parmMap);
+		return result.getItems();
+	}
 
 }

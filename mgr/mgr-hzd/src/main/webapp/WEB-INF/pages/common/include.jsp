@@ -2,7 +2,7 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set value="${pageContext.request.contextPath}" var="path" scope="page"/>
 <script type="text/javascript">
-    var path = "${path}";
+    
 </script>
 
 <script src="${path}/script/easyui/js/jquery.min.js" type="text/javascript"></script>

@@ -10,8 +10,8 @@ import com.hzcf.platform.api.model.WxjinjianQueryRsp;
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
-import com.hzcf.platform.core.DataVerifcation;
-import com.hzcf.platform.core.HzdStatusCodeEnum;
+import com.hzcf.platform.api.common.DataVerifcation;
+import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.webService.OnlineLoanWebService;
 

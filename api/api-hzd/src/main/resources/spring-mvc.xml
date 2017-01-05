@@ -34,10 +34,15 @@
     <mvc:resources location="/static/protocol/css/" mapping="/static/protocol/css/**" />  
 
     <mvc:resources location="/static/protocol/images/" mapping="/static/protocol/images/**" />  
- 	 <mvc:resources location="/static/versions/" mapping="/static/versions/**" />  
- 	
-  	
-  		 <!--配置拦截器, 多个拦截器,顺序执行 -->
+ 	 <mvc:resources location="/static/versions/" mapping="/static/versions/**" />
+       <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+            <property name="defaultEncoding" value="utf-8"></property>
+            <property name="maxUploadSize" value="10485760000"></property>
+            <property name="maxInMemorySize" value="40960"></property>
+       </bean>
+
+
+    <!--配置拦截器, 多个拦截器,顺序执行 -->
     <mvc:interceptors>  
         <mvc:interceptor>  
             <!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
@@ -74,9 +79,9 @@
   	
 	<!-- 系统异常转换 -->  
     <bean class="com.hzcf.platform.framework.webmvc.interceptor.SystemHanlderExceptionResolver" />
-    
-    
-    
+
+
+    <context:component-scan base-package="com.hzcf.platform" />
     
 </beans>
 	

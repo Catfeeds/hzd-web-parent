@@ -1,5 +1,7 @@
 package com.hzcf.platform.mgr.sys.service;
 
+import java.util.List;
+
 import com.hzcf.platform.core.user.model.UserApplyInfoVO;
 import com.hzcf.platform.mgr.sys.common.pageModel.DataGrid;
 import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
@@ -12,5 +14,7 @@ import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
 public interface IApplyService {
 	
 	public DataGrid getApplyPage(PageHelper pageHelper, UserApplyInfoVO apply);
+	
+	public List<UserApplyInfoVO> getUserApplyForSearch(UserApplyInfoVO apply);
 	
 }
