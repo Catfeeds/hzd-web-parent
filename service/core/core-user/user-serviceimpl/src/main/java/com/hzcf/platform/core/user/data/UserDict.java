@@ -19,13 +19,13 @@ public class UserDict extends AbstractEntity {
         return dictPath;
     }
 
-    public int pid;
+    public Integer pid;
 
-    public int getPid() {
+    public Integer getPid() {
         return pid;
     }
 
-    public void setPid(int pid) {
+    public void setPid(Integer pid) {
         this.pid = pid;
     }
 
