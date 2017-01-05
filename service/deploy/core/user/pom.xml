@@ -68,6 +68,7 @@
 
 	<build>
 		<finalName>deploy-core-user</finalName>
+<!--
 
 		<resources>  
 	        <resource>  
@@ -87,6 +88,7 @@
 	            <filtering>false</filtering>  
 	        </resource>  
 	    </resources>
+-->
 
 	    <plugins>
 	      	<plugin>

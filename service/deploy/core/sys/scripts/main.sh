@@ -6,11 +6,12 @@ CURR_HOME=$(dirname $(readlink -f $0))
 
 #jvm options
 JAVA_OPTS="-Xms1g -Xmx3g -Djava.awt.headless=true -XX:MaxPermSize=512m -server -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=85  -Xnoclassgc -Xverify:none -XX:+CMSClassUnloadingEnabled -XX:+CMSPermGenSweepingEnabled"
-JAR_FILE="$CURR_HOME/../deploy-core-sys.jar"
+JAR_FILE="$CURR_HOME/../deploy-core-user.jar"
 
+#CMD="nohup java $JAVA_OPTS -jar $JAR_FILE  &"
 CMD="nohup java $JAVA_OPTS -jar $JAR_FILE > /dev/null 2>&1 &"
 
-PID_FILE="/data0/core/deploy-core-sys/run/core-sys.pid"
+PID_FILE="/home/hzcfadmin/hzd-all/data0/core/deploy-core-user/run/core-user.pid"
 
 ###################################
 #startup
@@ -46,7 +47,7 @@ stop() {
       sleep 3
       if [ -d "/proc/$pid" ]; then
          echo "Process still alive, killing it in anger!"
-	     kill -9 $pid > /dev/null 2>&1
+             kill -9 $pid > /dev/null 2>&1
       fi
       echo "Process stopped"
    fi

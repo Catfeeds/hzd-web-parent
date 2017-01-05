@@ -73,6 +73,7 @@
 	
 	<build>
 		<finalName>deploy-core-sys</finalName>
+<!--
 
 		<resources>
 			<resource>
@@ -92,6 +93,7 @@
 				<filtering>false</filtering>
 			</resource>
 		</resources>
+-->
 
 	    <plugins>
 	      	<plugin>
