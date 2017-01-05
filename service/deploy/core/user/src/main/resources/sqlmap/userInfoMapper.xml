@@ -5,7 +5,12 @@
     <result column="user_info_id" property="userInfoId" jdbcType="VARCHAR" />
     <result column="user_id" property="userId" jdbcType="VARCHAR" />
     <result column="apply_id" property="applyId" jdbcType="VARCHAR" />
+    <!--身份证信息-->
+    <result column="id_type" property="idType" jdbcType="VARCHAR" />
     <result column="idcard_validity" property="idcardValidity" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="TIMESTAMP" />
+    <result column="gender" property="gender" jdbcType="VARCHAR" />
+	<!--家庭收入信息  -->    
     <result column="education" property="education" jdbcType="VARCHAR" />
     <result column="domicile_province" property="domicileProvince" jdbcType="VARCHAR" />
     <result column="domicile_city" property="domicileCity" jdbcType="VARCHAR" />
@@ -17,29 +22,37 @@
     <result column="resident_city" property="residentCity" jdbcType="VARCHAR" />
     <result column="resident_address" property="residentAddress" jdbcType="VARCHAR" />
     <result column="resident_tel_code" property="residentTelCode" jdbcType="VARCHAR" />
+    <result column="resident_post_code" property="residentPostCode" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="annual_income" property="annualIncome" jdbcType="DECIMAL" />
     <result column="credit_card_limit" property="creditCardLimit" jdbcType="DECIMAL" />
     <result column="live_together" property="liveTogether" jdbcType="VARCHAR" />
     <result column="staff_no" property="staffNo" jdbcType="VARCHAR" />
+	<!-- 单位信息 -->    
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
     <result column="org_name" property="orgName" jdbcType="VARCHAR" />
     <result column="org_type" property="orgType" jdbcType="VARCHAR" />
     <result column="org_province" property="orgProvince" jdbcType="VARCHAR" />
     <result column="org_city" property="orgCity" jdbcType="VARCHAR" />
     <result column="org_address" property="orgAddress" jdbcType="VARCHAR" />
+    <result column="org_post_code" property="orgPostCode" jdbcType="VARCHAR" />
     <result column="org_tel_code" property="orgTelCode" jdbcType="VARCHAR" />
+    <!-- 借款信息 -->
+    <result column="is_express" property="isExpress" jdbcType="VARCHAR" />
+    <result column="product_id" property="productId" jdbcType="VARCHAR" />
+    <result column="period" property="period" jdbcType="VARCHAR" />
+    <result column="receiver_login_name" property="receiverLoginName" jdbcType="VARCHAR" />
+    <result column="is_inside" property="isInside" jdbcType="VARCHAR" />
+    <result column="org_team_id" property="orgTeamId" jdbcType="VARCHAR" />
+    <result column="borrow_type" property="borrowType" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    user_info_id, user_id, apply_id, idcard_validity, education, domicile_province, domicile_city, 
-    domicile_address, marriage_status, children_status, house_status, resident_province, 
-    resident_city, resident_address, resident_tel_code, email, annual_income, credit_card_limit, 
-    live_together, staff_no, create_time, org_name, org_type, org_province, org_city, 
-    org_address, org_tel_code
+    user_info_id,user_id,apply_id,id_type,idcard_validity,birthday,gender,education,domicile_province,domicile_city,
+    domicile_address,marriage_status,children_status,house_status,resident_province,resident_city,resident_address,
+    resident_tel_code,resident_post_code,email,annual_income,credit_card_limit,live_together,
+    staff_no,create_time,org_name,org_type,org_province,org_city,org_address,org_post_code,org_tel_code,
+	is_express,product_id,period,receiver_login_name,is_inside,org_team_id,borrow_type
   </sql>
-
-
-
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -61,23 +74,22 @@
     where user_info_id = #{userInfoId,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="UserInfo" >
-    insert into user_info (user_info_id, user_id, apply_id, 
-      idcard_validity, education, domicile_province, 
-      domicile_city, domicile_address, marriage_status, 
-      children_status, house_status, resident_province, 
-      resident_city, resident_address, resident_tel_code, 
-      email, annual_income, credit_card_limit, 
-      live_together, staff_no, create_time
-
+    insert into user_info (user_info_id,user_id,apply_id,id_type,idcard_validity,birthday,gender,education,domicile_province,domicile_city,
+    domicile_address,marriage_status,children_status,house_status,resident_province,resident_city,resident_address,
+    resident_tel_code,resident_post_code,email,annual_income,credit_card_limit,live_together,
+    staff_no,create_time,org_name,org_type,org_province,org_city,org_address,org_post_code,org_tel_code,
+	is_express,product_id,period,receiver_login_name,is_inside,org_team_id,borrow_type
       )
-    values (#{userInfoId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{applyId,jdbcType=VARCHAR}, 
-      #{idcardValidity,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{domicileProvince,jdbcType=VARCHAR}, 
+    values (#{userInfoId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{applyId,jdbcType=VARCHAR}, #{idType,jdbcType=VARCHAR},
+      #{idcardValidity,jdbcType=VARCHAR},#{birthday,jdbcType=TIMESTAMP}, #{gender,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{domicileProvince,jdbcType=VARCHAR}, 
       #{domicileCity,jdbcType=VARCHAR}, #{domicileAddress,jdbcType=VARCHAR}, #{marriageStatus,jdbcType=VARCHAR}, 
       #{childrenStatus,jdbcType=VARCHAR}, #{houseStatus,jdbcType=VARCHAR}, #{residentProvince,jdbcType=VARCHAR}, 
-      #{residentCity,jdbcType=VARCHAR}, #{residentAddress,jdbcType=VARCHAR}, #{residentTelCode,jdbcType=VARCHAR}, 
+      #{residentCity,jdbcType=VARCHAR}, #{residentAddress,jdbcType=VARCHAR}, #{residentTelCode,jdbcType=VARCHAR},#{residentPostCode,jdbcType=VARCHAR},  
       #{email,jdbcType=VARCHAR}, #{annualIncome,jdbcType=DECIMAL}, #{creditCardLimit,jdbcType=DECIMAL}, 
-      #{liveTogether,jdbcType=VARCHAR}, #{staffNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
-
+      #{liveTogether,jdbcType=VARCHAR}, #{staffNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
+      #{orgName,jdbcType=VARCHAR},#{orgType,jdbcType=VARCHAR},#{orgProvince,jdbcType=VARCHAR},#{orgCity,jdbcType=VARCHAR},#{orgAddress,jdbcType=VARCHAR},
+      #{orgPostCode,jdbcType=VARCHAR},#{orgTelCode,jdbcType=VARCHAR},#{isExpress,jdbcType=VARCHAR},#{productId,jdbcType=VARCHAR},#{period,jdbcType=VARCHAR},
+      #{receiverLoginName,jdbcType=VARCHAR},#{isInside,jdbcType=VARCHAR},#{orgTeamId,jdbcType=VARCHAR},#{borrowType,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="UserInfo" >
@@ -92,8 +104,17 @@
       <if test="applyId != null" >
         apply_id,
       </if>
+      <if test="idType != null" >
+        id_type,
+      </if>
       <if test="idcardValidity != null" >
         idcard_validity,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="gender != null" >
+        gender,
       </if>
       <if test="education != null" >
         education,
@@ -128,6 +149,9 @@
       <if test="residentTelCode != null" >
         resident_tel_code,
       </if>
+      <if test="residentPostCode != null" >
+        resident_post_code,
+      </if>
       <if test="email != null" >
         email,
       </if>
@@ -161,8 +185,32 @@
       <if test="orgAddress != null" >
         org_address,
       </if>
+      <if test="orgPostCode != null" >
+        org_post_code,
+      </if>
       <if test="orgTelCode != null" >
         org_tel_code,
+      </if>
+      <if test="isExpress != null" >
+        is_express,
+      </if>
+      <if test="productId != null" >
+        product_id,
+      </if>
+      <if test="period != null" >
+        period,
+      </if>
+      <if test="receiverLoginName != null" >
+        receiver_login_name,
+      </if>
+      <if test="isInside != null" >
+        is_inside,
+      </if>
+      <if test="orgTeamId != null" >
+        org_team_id,
+      </if>
+      <if test="borrowType != null" >
+        borrow_type,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -175,8 +223,17 @@
       <if test="applyId != null" >
         #{applyId,jdbcType=VARCHAR},
       </if>
+      <if test="idType != null" >
+        #{idType,jdbcType=VARCHAR},
+      </if>
       <if test="idcardValidity != null" >
         #{idcardValidity,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=VARCHAR},
       </if>
       <if test="education != null" >
         #{education,jdbcType=VARCHAR},
@@ -211,6 +268,9 @@
       <if test="residentTelCode != null" >
         #{residentTelCode,jdbcType=VARCHAR},
       </if>
+      <if test="residentPostCode != null" >
+        #{residentPostCode,jdbcType=VARCHAR},
+      </if>
       <if test="email != null" >
         #{email,jdbcType=VARCHAR},
       </if>
@@ -244,18 +304,49 @@
       <if test="orgAddress != null" >
         #{orgAddress,jdbcType=VARCHAR},
       </if>
+      <if test="orgPostCode != null" >
+        #{orgPostCode,jdbcType=VARCHAR},
+      </if>
       <if test="orgTelCode != null" >
         #{orgTelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isExpress != null" >
+        #{isExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverLoginName != null" >
+        #{receiverLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="isInside != null" >
+        #{isInside,jdbcType=VARCHAR},
+      </if>
+      <if test="orgTeamId != null" >
+        #{orgTeamId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowType != null" >
+        #{borrowType,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
   <update id="updateByApplyId" parameterType="UserInfo" >
     update user_info
     <set >
-
-
+      <if test="idType != null" >
+        id_type = #{idType,jdbcType=VARCHAR},
+      </if>
       <if test="idcardValidity != null" >
         idcard_validity = #{idcardValidity,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=TIMESTAMP},
+      </if>
+      <if test="gender != null" >
+        gender = #{gender,jdbcType=VARCHAR},
       </if>
       <if test="education != null" >
         education = #{education,jdbcType=VARCHAR},
@@ -290,6 +381,9 @@
       <if test="residentTelCode != null" >
         resident_tel_code = #{residentTelCode,jdbcType=VARCHAR},
       </if>
+      <if test="residentPostCode != null" >
+        resident_post_code = #{residentPostCode,jdbcType=VARCHAR},
+      </if>
       <if test="email != null" >
         email = #{email,jdbcType=VARCHAR},
       </if>
@@ -323,17 +417,45 @@
       <if test="orgAddress != null" >
         org_address = #{orgAddress,jdbcType=VARCHAR},
       </if>
+      <if test="orgPostCode != null" >
+        org_post_code = #{orgPostCode,jdbcType=VARCHAR},
+      </if>
       <if test="orgTelCode != null" >
         org_tel_code = #{orgTelCode,jdbcType=VARCHAR},
+      </if>
+      <if test="isExpress != null" >
+        is_express = #{isExpress,jdbcType=VARCHAR},
+      </if>
+      <if test="productId != null" >
+        product_id = #{productId,jdbcType=VARCHAR},
+      </if>
+      <if test="period != null" >
+        period = #{period,jdbcType=VARCHAR},
+      </if>
+      <if test="receiverLoginName != null" >
+        receiver_login_name = #{receiverLoginName,jdbcType=VARCHAR},
+      </if>
+      <if test="isInside != null" >
+        is_inside = #{isInside,jdbcType=VARCHAR},
+      </if>
+      <if test="orgTeamId != null" >
+        org_team_id = #{orgTeamId,jdbcType=VARCHAR},
+      </if>
+      <if test="borrowType != null" >
+        borrow_type = #{borrowType,jdbcType=VARCHAR},
       </if>
     </set>
     where apply_id = #{applyId,jdbcType=VARCHAR}
   </update>
   <update id="updateByid" parameterType="UserInfo" >
     update user_info
-    set user_id = #{userId,jdbcType=VARCHAR},
+    set 
+      user_id = #{userId,jdbcType=VARCHAR},
       apply_id = #{applyId,jdbcType=VARCHAR},
+      id_type = #{idType,jdbcType=VARCHAR},
       idcard_validity = #{idcardValidity,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=TIMESTAMP},
+      gender = #{gender,jdbcType=VARCHAR},
       education = #{education,jdbcType=VARCHAR},
       domicile_province = #{domicileProvince,jdbcType=VARCHAR},
       domicile_city = #{domicileCity,jdbcType=VARCHAR},
@@ -345,6 +467,7 @@
       resident_city = #{residentCity,jdbcType=VARCHAR},
       resident_address = #{residentAddress,jdbcType=VARCHAR},
       resident_tel_code = #{residentTelCode,jdbcType=VARCHAR},
+      resident_post_code = #{residentPostCode,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       annual_income = #{annualIncome,jdbcType=DECIMAL},
       credit_card_limit = #{creditCardLimit,jdbcType=DECIMAL},
@@ -356,7 +479,15 @@
       org_province = #{orgProvince,jdbcType=VARCHAR},
       org_city = #{orgCity,jdbcType=VARCHAR},
       org_address = #{orgAddress,jdbcType=VARCHAR},
-      org_tel_code = #{orgTelCode,jdbcType=VARCHAR}
+      org_post_code = #{orgPostCode,jdbcType=VARCHAR},
+      org_tel_code = #{orgTelCode,jdbcType=VARCHAR},
+      is_express = #{isExpress,jdbcType=VARCHAR},
+      product_id = #{productId,jdbcType=VARCHAR},
+      period = #{period,jdbcType=VARCHAR},
+      receiver_login_name = #{receiverLoginName,jdbcType=VARCHAR},
+      is_inside = #{isInside,jdbcType=VARCHAR},
+      org_team_id = #{orgTeamId,jdbcType=VARCHAR},
+      borrow_type = #{borrowType,jdbcType=VARCHAR},
     where apply_id = #{applyId,jdbcType=VARCHAR}
   </update>
 </mapper>

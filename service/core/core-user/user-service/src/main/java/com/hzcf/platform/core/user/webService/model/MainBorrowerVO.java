@@ -1,4 +1,4 @@
-package com.hzcf.platform.core.user.model;
+package com.hzcf.platform.core.user.webService.model;
 
 import java.math.BigDecimal;
 import java.util.Date;

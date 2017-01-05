@@ -1,278 +1,454 @@
 package com.hzcf.platform.core.user.model;
 
-/**
- * Created by leijiaming on 2016/12/29 0029.
- */
-
 import com.hzcf.platform.common.model.BaseVO;
 
 import java.math.BigDecimal;
 import java.util.Date;
 
-
+/**
+ * @Description:
+ * 	UserInfoVO：借款人信息类
+ * @author leijiaming on 2016/12/29 0029.
+ * @version 1.0 
+ * @since  JDK1.7
+ */
 public class UserInfoVO extends BaseVO {
     private String userInfoId;//用户详情ID
-
     private String userId;//用户ID
-
     private String applyId;//用户申请ID
 
+    /**身份证信息*/
+    private String idType;//证件类型,默认值为“01”  (新增字段)
     private String idcardValidity; //证件有效期
-
+    private Date birthday;//出生日期,从身份证号中截取   (新增字段)
+    private String gender;//性别,根据身份证号倒数第二位设置值      (新增字段)
+    
+    
+    /**户籍信息*/
     private String education;//最高学历（10-研究生；20-大学本科（简称“大学”）；30-大学专科和专科学校（简称“大专”）；40-中等专业学校或中等技术学校；50-技术学校；60-高中；70-初中；80-小学；90-文盲或半文盲；99-未知。）
-
     private String domicileProvince;//户籍所在省
-
     private String domicileCity;//户籍所在市
-
     private String domicileAddress;//户籍详细地址
-
+    private String domicilePostCode;//户籍邮政编码    (新增字段)
+    
+    
+    /**家庭收入信息*/
     private String marriageStatus;//婚姻状况（10-未婚；20-已婚；21-初婚；22-再婚；23-复婚；30-丧偶；40-离婚；90-未说明的婚姻状况。）
-
     private String childrenStatus;//有无子女 1有  0无
-
     private String houseStatus;//房产情况
-
     private String residentProvince;//家庭所在省
-
     private String residentCity;//家庭所在市
-
     private String residentAddress;//家庭详细地址
-
     private String residentTelCode;//家庭电话号码
-
+    private String residentPostCode;//家庭邮政编码  (新增字段)
     private String email;//电子邮件地址
-
     private BigDecimal annualIncome;//个人年收入
-
     private BigDecimal creditCardLimit;//信用卡最高额度
-
     private String liveTogether;//共同居住者
-
-    private String staffNo;//员工编号
-
+    private String staffNo;//员工编号，对应线下的employeeId（员工编号）
 
 
+    /**单位信息*/
     private String orgName;//单位名称
-
     private String orgType;//单位性质
-
     private String orgProvince;//单位所在省
-
     private String orgCity;//单位所在市
-
     private String orgAddress;//单位详细地址
-
+    private String orgPostCode;//单位邮政编码  (新增字段)
     private String orgTelCode;//单位电话号码
 
+    
+    /**借款信息*/
+    private String isExpress;//是否加急,默认为0，就是默认为否  (新增字段)
+    private String productId;//贷款类型,默认为“精英贷1.89”,对应的productId的值为“01”  (新增字段)
+    private String period;//期数(月)   (新增字段)
+    private String receiverLoginName;//受理人，默认为“线上进件”  (新增字段)
+    private String isInside;//网内/网外  (新增字段)
+    private String orgTeamId;//所属团队，咨询师  (新增字段)
+    private String borrowType;//借款类型  (新增字段)
 
-    public String getUserInfoId() {
-        return userInfoId;
-    }
+	public UserInfoVO() {
+		super();
+	}
+	public UserInfoVO(String userInfoId, String userId, String applyId, String idType, String idcardValidity,
+			Date birthday, String gender, String education, String domicileProvince, String domicileCity,
+			String domicileAddress, String domicilePostCode, String marriageStatus, String childrenStatus,
+			String houseStatus, String residentProvince, String residentCity, String residentAddress,
+			String residentTelCode, String residentPostCode, String email, BigDecimal annualIncome,
+			BigDecimal creditCardLimit, String liveTogether, String staffNo, String orgName, String orgType,
+			String orgProvince, String orgCity, String orgAddress, String orgPostCode, String orgTelCode,
+			String isExpress, String productId, String period, String receiverLoginName, String isInside,
+			String orgTeamId, String borrowType) {
+		super();
+		this.userInfoId = userInfoId;
+		this.userId = userId;
+		this.applyId = applyId;
+		this.idType = idType;
+		this.idcardValidity = idcardValidity;
+		this.birthday = birthday;
+		this.gender = gender;
+		this.education = education;
+		this.domicileProvince = domicileProvince;
+		this.domicileCity = domicileCity;
+		this.domicileAddress = domicileAddress;
+		this.domicilePostCode = domicilePostCode;
+		this.marriageStatus = marriageStatus;
+		this.childrenStatus = childrenStatus;
+		this.houseStatus = houseStatus;
+		this.residentProvince = residentProvince;
+		this.residentCity = residentCity;
+		this.residentAddress = residentAddress;
+		this.residentTelCode = residentTelCode;
+		this.residentPostCode = residentPostCode;
+		this.email = email;
+		this.annualIncome = annualIncome;
+		this.creditCardLimit = creditCardLimit;
+		this.liveTogether = liveTogether;
+		this.staffNo = staffNo;
+		this.orgName = orgName;
+		this.orgType = orgType;
+		this.orgProvince = orgProvince;
+		this.orgCity = orgCity;
+		this.orgAddress = orgAddress;
+		this.orgPostCode = orgPostCode;
+		this.orgTelCode = orgTelCode;
+		this.isExpress = isExpress;
+		this.productId = productId;
+		this.period = period;
+		this.receiverLoginName = receiverLoginName;
+		this.isInside = isInside;
+		this.orgTeamId = orgTeamId;
+		this.borrowType = borrowType;
+	}
 
-    public void setUserInfoId(String userInfoId) {
-        this.userInfoId = userInfoId == null ? null : userInfoId.trim();
-    }
+	public String getUserInfoId() {
+		return userInfoId;
+	}
 
-    public String getUserId() {
-        return userId;
-    }
+	public void setUserInfoId(String userInfoId) {
+		this.userInfoId = userInfoId;
+	}
 
-    public void setUserId(String userId) {
-        this.userId = userId == null ? null : userId.trim();
-    }
+	public String getUserId() {
+		return userId;
+	}
 
-    public String getApplyId() {
-        return applyId;
-    }
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 
-    public void setApplyId(String applyId) {
-        this.applyId = applyId == null ? null : applyId.trim();
-    }
+	public String getApplyId() {
+		return applyId;
+	}
 
-    public String getIdcardValidity() {
-        return idcardValidity;
-    }
+	public void setApplyId(String applyId) {
+		this.applyId = applyId;
+	}
 
-    public void setIdcardValidity(String idcardValidity) {
-        this.idcardValidity = idcardValidity == null ? null : idcardValidity.trim();
-    }
+	public String getIdType() {
+		return idType;
+	}
 
-    public String getEducation() {
-        return education;
-    }
+	public void setIdType(String idType) {
+		this.idType = idType;
+	}
 
-    public void setEducation(String education) {
-        this.education = education == null ? null : education.trim();
-    }
+	public String getIdcardValidity() {
+		return idcardValidity;
+	}
 
-    public String getDomicileProvince() {
-        return domicileProvince;
-    }
+	public void setIdcardValidity(String idcardValidity) {
+		this.idcardValidity = idcardValidity;
+	}
 
-    public void setDomicileProvince(String domicileProvince) {
-        this.domicileProvince = domicileProvince == null ? null : domicileProvince.trim();
-    }
+	public Date getBirthday() {
+		return birthday;
+	}
 
-    public String getDomicileCity() {
-        return domicileCity;
-    }
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
 
-    public void setDomicileCity(String domicileCity) {
-        this.domicileCity = domicileCity == null ? null : domicileCity.trim();
-    }
+	public String getGender() {
+		return gender;
+	}
 
-    public String getDomicileAddress() {
-        return domicileAddress;
-    }
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
 
-    public void setDomicileAddress(String domicileAddress) {
-        this.domicileAddress = domicileAddress == null ? null : domicileAddress.trim();
-    }
+	public String getEducation() {
+		return education;
+	}
 
-    public String getMarriageStatus() {
-        return marriageStatus;
-    }
+	public void setEducation(String education) {
+		this.education = education;
+	}
 
-    public void setMarriageStatus(String marriageStatus) {
-        this.marriageStatus = marriageStatus == null ? null : marriageStatus.trim();
-    }
+	public String getDomicileProvince() {
+		return domicileProvince;
+	}
 
-    public String getChildrenStatus() {
-        return childrenStatus;
-    }
+	public void setDomicileProvince(String domicileProvince) {
+		this.domicileProvince = domicileProvince;
+	}
 
-    public void setChildrenStatus(String childrenStatus) {
-        this.childrenStatus = childrenStatus == null ? null : childrenStatus.trim();
-    }
+	public String getDomicileCity() {
+		return domicileCity;
+	}
 
-    public String getHouseStatus() {
-        return houseStatus;
-    }
+	public void setDomicileCity(String domicileCity) {
+		this.domicileCity = domicileCity;
+	}
 
-    public void setHouseStatus(String houseStatus) {
-        this.houseStatus = houseStatus == null ? null : houseStatus.trim();
-    }
+	public String getDomicileAddress() {
+		return domicileAddress;
+	}
 
-    public String getResidentProvince() {
-        return residentProvince;
-    }
+	public void setDomicileAddress(String domicileAddress) {
+		this.domicileAddress = domicileAddress;
+	}
 
-    public void setResidentProvince(String residentProvince) {
-        this.residentProvince = residentProvince == null ? null : residentProvince.trim();
-    }
+	public String getDomicilePostCode() {
+		return domicilePostCode;
+	}
 
-    public String getResidentCity() {
-        return residentCity;
-    }
+	public void setDomicilePostCode(String domicilePostCode) {
+		this.domicilePostCode = domicilePostCode;
+	}
 
-    public void setResidentCity(String residentCity) {
-        this.residentCity = residentCity == null ? null : residentCity.trim();
-    }
+	public String getMarriageStatus() {
+		return marriageStatus;
+	}
 
-    public String getResidentAddress() {
-        return residentAddress;
-    }
+	public void setMarriageStatus(String marriageStatus) {
+		this.marriageStatus = marriageStatus;
+	}
 
-    public void setResidentAddress(String residentAddress) {
-        this.residentAddress = residentAddress == null ? null : residentAddress.trim();
-    }
+	public String getChildrenStatus() {
+		return childrenStatus;
+	}
 
-    public String getResidentTelCode() {
-        return residentTelCode;
-    }
+	public void setChildrenStatus(String childrenStatus) {
+		this.childrenStatus = childrenStatus;
+	}
 
-    public void setResidentTelCode(String residentTelCode) {
-        this.residentTelCode = residentTelCode == null ? null : residentTelCode.trim();
-    }
+	public String getHouseStatus() {
+		return houseStatus;
+	}
 
-    public String getEmail() {
-        return email;
-    }
+	public void setHouseStatus(String houseStatus) {
+		this.houseStatus = houseStatus;
+	}
 
-    public void setEmail(String email) {
-        this.email = email == null ? null : email.trim();
-    }
+	public String getResidentProvince() {
+		return residentProvince;
+	}
 
-    public BigDecimal getAnnualIncome() {
-        return annualIncome;
-    }
+	public void setResidentProvince(String residentProvince) {
+		this.residentProvince = residentProvince;
+	}
 
-    public void setAnnualIncome(BigDecimal annualIncome) {
-        this.annualIncome = annualIncome;
-    }
+	public String getResidentCity() {
+		return residentCity;
+	}
 
-    public BigDecimal getCreditCardLimit() {
-        return creditCardLimit;
-    }
+	public void setResidentCity(String residentCity) {
+		this.residentCity = residentCity;
+	}
 
-    public void setCreditCardLimit(BigDecimal creditCardLimit) {
-        this.creditCardLimit = creditCardLimit;
-    }
+	public String getResidentAddress() {
+		return residentAddress;
+	}
 
-    public String getLiveTogether() {
-        return liveTogether;
-    }
+	public void setResidentAddress(String residentAddress) {
+		this.residentAddress = residentAddress;
+	}
 
-    public void setLiveTogether(String liveTogether) {
-        this.liveTogether = liveTogether == null ? null : liveTogether.trim();
-    }
+	public String getResidentTelCode() {
+		return residentTelCode;
+	}
 
-    public String getStaffNo() {
-        return staffNo;
-    }
+	public void setResidentTelCode(String residentTelCode) {
+		this.residentTelCode = residentTelCode;
+	}
 
-    public void setStaffNo(String staffNo) {
-        this.staffNo = staffNo == null ? null : staffNo.trim();
-    }
+	public String getResidentPostCode() {
+		return residentPostCode;
+	}
 
+	public void setResidentPostCode(String residentPostCode) {
+		this.residentPostCode = residentPostCode;
+	}
 
+	public String getEmail() {
+		return email;
+	}
 
-    public String getOrgName() {
-        return orgName;
-    }
+	public void setEmail(String email) {
+		this.email = email;
+	}
 
-    public void setOrgName(String orgName) {
-        this.orgName = orgName == null ? null : orgName.trim();
-    }
+	public BigDecimal getAnnualIncome() {
+		return annualIncome;
+	}
 
-    public String getOrgType() {
-        return orgType;
-    }
+	public void setAnnualIncome(BigDecimal annualIncome) {
+		this.annualIncome = annualIncome;
+	}
 
-    public void setOrgType(String orgType) {
-        this.orgType = orgType == null ? null : orgType.trim();
-    }
+	public BigDecimal getCreditCardLimit() {
+		return creditCardLimit;
+	}
 
-    public String getOrgProvince() {
-        return orgProvince;
-    }
+	public void setCreditCardLimit(BigDecimal creditCardLimit) {
+		this.creditCardLimit = creditCardLimit;
+	}
 
-    public void setOrgProvince(String orgProvince) {
-        this.orgProvince = orgProvince == null ? null : orgProvince.trim();
-    }
+	public String getLiveTogether() {
+		return liveTogether;
+	}
 
-    public String getOrgCity() {
-        return orgCity;
-    }
+	public void setLiveTogether(String liveTogether) {
+		this.liveTogether = liveTogether;
+	}
 
-    public void setOrgCity(String orgCity) {
-        this.orgCity = orgCity == null ? null : orgCity.trim();
-    }
+	public String getStaffNo() {
+		return staffNo;
+	}
 
-    public String getOrgAddress() {
-        return orgAddress;
-    }
+	public void setStaffNo(String staffNo) {
+		this.staffNo = staffNo;
+	}
 
-    public void setOrgAddress(String orgAddress) {
-        this.orgAddress = orgAddress == null ? null : orgAddress.trim();
-    }
+	public String getOrgName() {
+		return orgName;
+	}
 
-    public String getOrgTelCode() {
-        return orgTelCode;
-    }
+	public void setOrgName(String orgName) {
+		this.orgName = orgName;
+	}
 
-    public void setOrgTelCode(String orgTelCode) {
-        this.orgTelCode = orgTelCode == null ? null : orgTelCode.trim();
-    }
+	public String getOrgType() {
+		return orgType;
+	}
+
+	public void setOrgType(String orgType) {
+		this.orgType = orgType;
+	}
+
+	public String getOrgProvince() {
+		return orgProvince;
+	}
+
+	public void setOrgProvince(String orgProvince) {
+		this.orgProvince = orgProvince;
+	}
+
+	public String getOrgCity() {
+		return orgCity;
+	}
+
+	public void setOrgCity(String orgCity) {
+		this.orgCity = orgCity;
+	}
+
+	public String getOrgAddress() {
+		return orgAddress;
+	}
+
+	public void setOrgAddress(String orgAddress) {
+		this.orgAddress = orgAddress;
+	}
+
+	public String getOrgPostCode() {
+		return orgPostCode;
+	}
+
+	public void setOrgPostCode(String orgPostCode) {
+		this.orgPostCode = orgPostCode;
+	}
+
+	public String getOrgTelCode() {
+		return orgTelCode;
+	}
+
+	public void setOrgTelCode(String orgTelCode) {
+		this.orgTelCode = orgTelCode;
+	}
+
+	public String getIsExpress() {
+		return isExpress;
+	}
+
+	public void setIsExpress(String isExpress) {
+		this.isExpress = isExpress;
+	}
+
+	public String getProductId() {
+		return productId;
+	}
+
+	public void setProductId(String productId) {
+		this.productId = productId;
+	}
+
+	public String getPeriod() {
+		return period;
+	}
+
+	public void setPeriod(String period) {
+		this.period = period;
+	}
+
+	public String getReceiverLoginName() {
+		return receiverLoginName;
+	}
+
+	public void setReceiverLoginName(String receiverLoginName) {
+		this.receiverLoginName = receiverLoginName;
+	}
+
+	public String getIsInside() {
+		return isInside;
+	}
+
+	public void setIsInside(String isInside) {
+		this.isInside = isInside;
+	}
+
+	public String getOrgTeamId() {
+		return orgTeamId;
+	}
+
+	public void setOrgTeamId(String orgTeamId) {
+		this.orgTeamId = orgTeamId;
+	}
+
+	public String getBorrowType() {
+		return borrowType;
+	}
+
+	public void setBorrowType(String borrowType) {
+		this.borrowType = borrowType;
+	}
+
+	@Override
+	public String toString() {
+		return "UserInfoVO [userInfoId=" + userInfoId + ", userId=" + userId + ", applyId=" + applyId + ", idType="
+				+ idType + ", idcardValidity=" + idcardValidity + ", birthday=" + birthday + ", gender=" + gender
+				+ ", education=" + education + ", domicileProvince=" + domicileProvince + ", domicileCity="
+				+ domicileCity + ", domicileAddress=" + domicileAddress + ", domicilePostCode=" + domicilePostCode
+				+ ", marriageStatus=" + marriageStatus + ", childrenStatus=" + childrenStatus + ", houseStatus="
+				+ houseStatus + ", residentProvince=" + residentProvince + ", residentCity=" + residentCity
+				+ ", residentAddress=" + residentAddress + ", residentTelCode=" + residentTelCode
+				+ ", residentPostCode=" + residentPostCode + ", email=" + email + ", annualIncome=" + annualIncome
+				+ ", creditCardLimit=" + creditCardLimit + ", liveTogether=" + liveTogether + ", staffNo=" + staffNo
+				+ ", orgName=" + orgName + ", orgType=" + orgType + ", orgProvince=" + orgProvince + ", orgCity="
+				+ orgCity + ", orgAddress=" + orgAddress + ", orgPostCode=" + orgPostCode + ", orgTelCode=" + orgTelCode
+				+ ", isExpress=" + isExpress + ", productId=" + productId + ", period=" + period
+				+ ", receiverLoginName=" + receiverLoginName + ", isInside=" + isInside + ", orgTeamId=" + orgTeamId
+				+ ", borrowType=" + borrowType + "]";
+	}
+
 }
