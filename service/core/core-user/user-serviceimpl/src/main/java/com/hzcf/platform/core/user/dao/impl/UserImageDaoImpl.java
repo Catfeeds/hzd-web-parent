@@ -73,4 +73,9 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
 
         return false;
 	}
+
+	@Override
+	public List<UserImageVO> selectUserImageByUserIdAndType(Map<String, String> paramsMap) {
+		return sqlSessionTemplate.selectList("selectUserImageByUserIdAndType",paramsMap);
+	}
 }

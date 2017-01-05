@@ -21,7 +21,12 @@ $(function(){
 			{field:'checkStatus',title:'借款状态',width:100},
 		   {field:'-',title:'操作',width:100,formatter:function(value,row,index){
 			   //return "<a href='#' onClick='edit(" + row.id + ")'>修改 </a> <a href='#' onClick='dele(" + row.id + ")'>下线</a> ";
-			   return "<a href='#' onclick='edit(\""+row.id+"\");' >重置密码 </a>&nbsp;<a href='#' onclick='dele(\""+row.id+"\");' >禁用</a>";   
+			   // return "<a href='#' onclick='updatePassWord(\""+row.mobile+"\,"+row.name+"\");' >重置密码 </a>&nbsp;<a href='#' onclick='status(\""+row.mobile+"\,"+row.status+"\");'> row.status==0?"禁用":"启用"</a>";   
+			   if(row.status==0){
+				   return "<a href='#' onclick='updatePassWord(\""+row.mobile+"\,"+row.name+"\");' >重置密码 </a>&nbsp;<a href='#' onclick='status(\""+row.mobile+"\,"+row.status+"\");'>禁用</a>";
+			   }else{
+				   return "<a href='#' onclick='updatePassWord(\""+row.mobile+"\,"+row.name+"\");' >重置密码 </a>&nbsp;<a href='#' onclick='status(\""+row.mobile+"\,"+row.status+"\");'>启用</a>";
+			   }
 		   }}
 		  
 		]],
@@ -38,7 +43,29 @@ $(function(){
 	});
 });
 
-
+function status(stu){
+	var arr=stu.split(",");
+	var mobile = arr[0];
+	var status = arr[1];
+	if(status==0){
+		if(window.confirm('确定禁用吗？')){
+			status = 1;
+			window.location = '${path}/users/check/status?mobile='+mobile+"&status="+status;
+			return true;
+	     }else{
+	        return false;
+	    }
+	}
+	if(status==1){
+		if(window.confirm('确定启用吗？')){
+			status = 0;
+			window.location = '${path}/users/check/status?mobile='+mobile+"&status="+status;
+			return true;
+	     }else{
+	        return false;
+	    }
+	}
+}
 function doSearch(){
 	$('#grid').datagrid('load',{
 		mobile: $('#mobile').val(),
@@ -48,6 +75,37 @@ function doSearch(){
 		startDate: $('#startDate').datebox('getValue'),
 		endDate: $('#endDate').datebox('getValue')
 	});
+}
+
+function updatePassWord(canshu) {
+
+	var arr=canshu.split(",");
+	var mobile = arr[0];
+	var name = arr[1];
+	$("#div").html(mobile);
+	$("#di").text(name);
+	
+    $("#dd").dialog({
+	 closable: false, //右上角的关闭按钮，因为dialog框架关联的是window框架，window框架关联的是panel框架，所以该API是在panel框架中找到的
+	 title: "重置密码", //dialog左上角的名称
+	 modal: true, //模式化
+	 width: 400,
+	 height: 300,
+	 buttons: [//dialog右下角的按钮，以Json数组形式添加
+	    {
+	    text: "提交", //按钮名称
+	    handler: function () {//按钮点击之后出发的方
+	    	var passWord = $("#pw1").val();
+	    	var pw = $("#pw2").val();
+	    	if(passWord==pw){
+	    		$("#msg").html("");
+	    		window.location = '${path}/users/check/updatePassword?mobile='+mobile+"&passWord="+passWord;
+	    	}else{
+	    		$("#msg").html("俩次密码不一致");
+	    	}	
+	    }
+	}]
+    });
 }
 </script>
 
@@ -81,5 +139,45 @@ function doSearch(){
 	</div>
 	</form>
 </div>
+<div id="dd">
+<form id="updatepw" method="psot">
+	<table style="width: 300px;height: 200px">
+		<tr>
+			<th>
+				手机号 :
+			</th>
+			<td>
+				<div id="div"></div>
+			</td>
+		</tr>
+		<tr>
+			<th>
+				用户名 :
+			</th>
+			<td id="di">
+				
+			</td>
+		</tr>
+		<tr>
+			<th>
+				新密码 :
+			</th>
+			<td>
+				<input id="pw1" type="password" />
+			</td>
+		</tr>
+		<tr>
+			<th>
+				确认新密码 :
+			</th>
+			<td>
+				<input id="pw2" type="password" />
+			</td>
+		</tr>
+		<tr><td><div id="msg" style="line-height: 100px; font-size: 1rem; color: red;"></div></td></tr>
+	</table>
+</form>
+</div>
+
 </body>
 </html>

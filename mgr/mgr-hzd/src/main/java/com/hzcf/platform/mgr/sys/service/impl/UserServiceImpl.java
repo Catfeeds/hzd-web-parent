@@ -1,12 +1,17 @@
 package com.hzcf.platform.mgr.sys.service.impl;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
@@ -50,16 +55,20 @@ public class UserServiceImpl implements IUserService {
 	@Override
 	public SmsUserInfo getSmsUserDetail(String mobile) {
 		SmsUserInfo se = new SmsUserInfo();
+		Map<String, String> parmMap = new HashMap<String, String>();
 		DateUtils dateUtils = new DateUtils();
 		Result<UserVO> user = userSerivce.getByMobile(mobile);
-		//Result<UserImageVO> userImage =  userImageService.getById(user.getItems().getId());
-		//System.out.println((user.getItems()).getId());
-		Result<UserImageVO> userImage = userImageService.getById((user.getItems()).getId());
-		if(userImage.getStatus()==200 && userImage.getItems()!=null){
-			se.setArtWork(userImage.getItems().getArtWork());
-			se.setSmall(userImage.getItems().getSmall());
-			se.setImageType(userImage.getItems().getImageType());
-			se.setType(userImage.getItems().getType());
+		parmMap.put("userId",user.getItems().getId());
+		parmMap.put("type", "4");
+		Result<List<UserImageVO>> userImage = userImageService.selectUserImageByUserIdAndType(parmMap);
+		List<UserImageVO> userList = userImage.getItems();
+		if(userImage.getStatus()==200 && userList.size()>0){
+			se.setArtWorkA(userList.get(0).getArtWork());
+			se.setArtWorkB(userList.get(1).getArtWork());
+			se.setArtWorkC(userList.get(2).getArtWork());
+			se.setSmallA(userList.get(0).getSmall());
+			se.setSmallB(userList.get(1).getSmall());
+			se.setSmallC(userList.get(2).getSmall());
 		}
 		
 		se.setMobile(mobile);
@@ -115,20 +124,26 @@ public class UserServiceImpl implements IUserService {
 	}
 
 
-	/*@Override
-	public Result<Boolean> update(SmsUserInfo smsUserInfo) {
+	@Override
+	public Result<Boolean> updatePassWord(String mobile, String passWord) {
 		UserVO user = new UserVO();
-		UserImageVO userImage = new UserImageVO();
-		user.setMobile(smsUserInfo.getMobile());
-		user.setName(smsUserInfo.getName());
-		user.setIdCard(smsUserInfo.getIdCard());
-		userImage.setSmall(smsUserInfo.getSmall());
-		userImage.setType(userImage.getType());
-		Result<UserVO> use1 = userSerivce.getByMobile(smsUserInfo.getMobile());
-		user.setId(use1.getItems().getId());
+		user.setMobile(mobile);
+		user.setPassword(passWord);
+		Result<UserVO> useVO = userSerivce.getByMobile(mobile);
+		user.setId(useVO.getItems().getId());
 		return userSerivce.updateByPrimaryKeySelective(user);
-	}*/
+		
+	}
 
 
+	@Override
+	public Result<Boolean> status(String mobile, String status) {
+		UserVO user = new UserVO();
+		user.setMobile(mobile);
+		user.setStatus(status);
+		Result<UserVO> useVO = userSerivce.getByMobile(mobile);
+		user.setId(useVO.getItems().getId());
+		return userSerivce.updateByPrimaryKeySelective(user);
+	}
 
 }
