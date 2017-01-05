@@ -15,7 +15,7 @@ public class MsgBox extends AbstractEntity {
 
     private String msgContent;
 
-    private Date createTime;
+
 
     private String status;
     
@@ -61,13 +61,7 @@ public class MsgBox extends AbstractEntity {
         this.msgContent = msgContent == null ? null : msgContent.trim();
     }
 
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
+   
 
     public String getStatus() {
         return status;

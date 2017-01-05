@@ -79,7 +79,7 @@ public class OnlineApplyLoanController {
      * 用户进件申请  完善个人信息  第四步
      */
     @RequestMapping(value = {"rest/api/100/onlineLoanapply/info/perfect/{applyId}","api/100/onlineLoanapply/info/perfect/{applyId}"},method = RequestMethod.POST)
-    public BackResult onlineLoanapplyInfoPerfect(@RequestAttribute(BaseConfig.USER_TYPE)  UserVO user,@RequestBodyForm List<UserRelationVO> userRelationVO ,
+    public BackResult onlineLoanapplyInfoPerfect(@RequestAttribute(BaseConfig.USER_TYPE)  UserVO user,@RequestBodyForm   List<UserRelationVO> userRelationVO ,
                                                  @PathVariable String applyId){
         logger.i("进入  -----用户进件申请第四步,录入借款人详细信息 ");
         logger.i("入参user:"+ JsonUtil.json2String(user));

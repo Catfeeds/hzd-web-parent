@@ -283,7 +283,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	@Override
 	public BackResult onlineLoanapplyImgUpload(HttpServletRequest request, UserVO user, UserImageVO userImageVO,String applyId) {
 
-		//TODO 入参校验
+		//TODO 图片入参校验
 
 		Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
 		UserApplyInfoVO items = userApplyInfoVOResult.getItems();

@@ -26,10 +26,12 @@ public class DictUtilInitService {
      * Spring 容器初始化时加载
      */
     public void loadData() {
-
+        //  KYE applyDictionaryJkyt 借款用途
+        //  KYE applyDictionaryinfo 个人信息
+        //  KYE applyDictionaryRegion 省市区
         List<UserDict> userDicts = userDictDao.selectJkytList();
         Map<String, Object> stringObjectMap = initLoanuse(userDicts);
-        System.out.println("----------1-------"+stringObjectMap.toString());
+
        // System.out.println("----------2-------"+stringObjectMap1.toString());
     }
     
