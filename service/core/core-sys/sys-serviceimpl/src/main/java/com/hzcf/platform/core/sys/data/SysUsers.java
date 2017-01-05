@@ -1,9 +1,12 @@
-package com.hzcf.platform.core.user.data;
+package com.hzcf.platform.core.sys.data;
 
 import java.util.Date;
 
-public class SysUsers {
-    private String id;
+import com.hzcf.platform.common.model.AbstractEntity;
+
+public class SysUsers extends AbstractEntity {
+    
+	private String id;
 
     private String userName;
 

@@ -1,11 +1,13 @@
-package com.hzcf.platform.core.user.model;
+package com.hzcf.platform.core.sys.model;
 
 import com.hzcf.platform.common.model.BaseVO;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 
 import java.util.Date;
 
-public class SysUserVO extends BaseVO{
+public class SysUsersVO extends BaseVO{
+	
+	private static final long serialVersionUID = 1L;
 	
 	private String id;
 

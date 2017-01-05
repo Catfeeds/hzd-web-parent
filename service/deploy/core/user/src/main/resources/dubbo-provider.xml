@@ -10,10 +10,10 @@
     <dubbo:application name="core-module1-service" logger="slf4j"/>
  
     <!-- 使用multicast广播注册中心暴露服务地址 -->
-     <dubbo:registry address="multicast://224.5.6.7:5234" />
+     <!-- <dubbo:registry address="multicast://224.5.6.7:5234" /> -->
  
  	<!-- 使用zookeeper注册中心暴露服务地址 -->
-	<!--<dubbo:registry address="zookeeper://127.0.0.1:2181" check="false" /> -->
+	<dubbo:registry address="zookeeper://127.0.0.1:2181" check="false" />
 	<!--<dubbo:registry protocol= "zookeeper" address="dubbo-zk1.hzcf.me:2181,dubbo-zk2.hzcf.me:2181,dubbo-zk3.hzcf.me:2181" check="false"/>-->
  
     <!-- 用dubbo协议在20880端口暴露服务 -->
@@ -29,7 +29,7 @@
     <bean id="userImageService" class="com.hzcf.platform.core.user.service.impl.UserImageServiceImpl" />
     <bean id="userInfoService" class="com.hzcf.platform.core.user.service.impl.UserInfoServiceImpl" />
     <bean id="dictUtilService"  class="com.hzcf.platform.core.user.commom.dictTools.DictUtilServiceImpl"></bean>
-
+	
 
     <!-- 声明需要暴露的服务接口 -->
     <dubbo:service interface="com.hzcf.platform.core.user.service.UserService" ref="userService"/>
@@ -40,6 +40,7 @@
     <dubbo:service interface="com.hzcf.platform.core.user.service.UserImageService" ref="userImageService"/>
     <dubbo:service interface="com.hzcf.platform.core.user.service.UserInfoService" ref="userInfoService"/>
     <dubbo:service interface="com.hzcf.platform.core.user.service.DictUtilService"  ref="dictUtilService"/>
-
+	
+	
 
 </beans>

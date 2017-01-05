@@ -46,13 +46,14 @@
 						$.ajax( {
 							type : "POST",
 							url : root+"sys/login.do",
-							data : {
-								irand :irand,
+							data :{
+								irand : irand,
 								username : username,
 								password : password
-							},
+								},
+							dataType:'json',
 							success : function(data) {
-								var dataObj = eval(data);
+								var dataObj = eval("data");
 								if (dataObj.msg == 'ok') {
 									// 1. 交互系统提交参数
 									try{
@@ -96,8 +97,7 @@
 			
 			//更换验证码
 			function changeImge(){
-				var img = document.getElementById("randImage"); 
-				img.src = img.src+'?';
+				document.getElementById("randImage").src = "<%=basePath %>/images/yanzhengma.jsp?k="+Math.random();
 			}
 		</script>
 	</head>
@@ -166,7 +166,7 @@
 										</td>
 										<td>
 											<img src="<%=basePath %>/images/yanzhengma.jsp" id="randImage" alt="换一张" />
-										<a href="javascript:void(0);" onclick="changeImge()" title="换一张">换一张</a>
+											<a href="javascript:void(0);" onclick="changeImge()" title="换一张">换一张</a>
 										</td>
 										<td width=120>
 											&nbsp;
