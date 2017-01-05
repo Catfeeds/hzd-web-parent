@@ -40,7 +40,6 @@
     <!-- 借款信息 -->
     <result column="is_express" property="isExpress" jdbcType="VARCHAR" />
     <result column="product_id" property="productId" jdbcType="VARCHAR" />
-    <result column="period" property="period" jdbcType="VARCHAR" />
     <result column="receiver_login_name" property="receiverLoginName" jdbcType="VARCHAR" />
     <result column="is_inside" property="isInside" jdbcType="VARCHAR" />
     <result column="org_team_id" property="orgTeamId" jdbcType="VARCHAR" />
@@ -51,7 +50,7 @@
     domicile_address,marriage_status,children_status,house_status,resident_province,resident_city,resident_address,
     resident_tel_code,resident_post_code,email,annual_income,credit_card_limit,live_together,
     staff_no,create_time,org_name,org_type,org_province,org_city,org_address,org_post_code,org_tel_code,
-	is_express,product_id,period,receiver_login_name,is_inside,org_team_id,borrow_type
+	is_express,product_id,receiver_login_name,is_inside,org_team_id,borrow_type
   </sql>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -78,7 +77,7 @@
     domicile_address,marriage_status,children_status,house_status,resident_province,resident_city,resident_address,
     resident_tel_code,resident_post_code,email,annual_income,credit_card_limit,live_together,
     staff_no,create_time,org_name,org_type,org_province,org_city,org_address,org_post_code,org_tel_code,
-	is_express,product_id,period,receiver_login_name,is_inside,org_team_id,borrow_type
+	is_express,product_id,receiver_login_name,is_inside,org_team_id,borrow_type
       )
     values (#{userInfoId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{applyId,jdbcType=VARCHAR}, #{idType,jdbcType=VARCHAR},
       #{idcardValidity,jdbcType=VARCHAR},#{birthday,jdbcType=TIMESTAMP}, #{gender,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{domicileProvince,jdbcType=VARCHAR}, 
@@ -88,7 +87,7 @@
       #{email,jdbcType=VARCHAR}, #{annualIncome,jdbcType=DECIMAL}, #{creditCardLimit,jdbcType=DECIMAL}, 
       #{liveTogether,jdbcType=VARCHAR}, #{staffNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
       #{orgName,jdbcType=VARCHAR},#{orgType,jdbcType=VARCHAR},#{orgProvince,jdbcType=VARCHAR},#{orgCity,jdbcType=VARCHAR},#{orgAddress,jdbcType=VARCHAR},
-      #{orgPostCode,jdbcType=VARCHAR},#{orgTelCode,jdbcType=VARCHAR},#{isExpress,jdbcType=VARCHAR},#{productId,jdbcType=VARCHAR},#{period,jdbcType=VARCHAR},
+      #{orgPostCode,jdbcType=VARCHAR},#{orgTelCode,jdbcType=VARCHAR},#{isExpress,jdbcType=VARCHAR},#{productId,jdbcType=VARCHAR},
       #{receiverLoginName,jdbcType=VARCHAR},#{isInside,jdbcType=VARCHAR},#{orgTeamId,jdbcType=VARCHAR},#{borrowType,jdbcType=VARCHAR}
       )
   </insert>
@@ -196,9 +195,6 @@
       </if>
       <if test="productId != null" >
         product_id,
-      </if>
-      <if test="period != null" >
-        period,
       </if>
       <if test="receiverLoginName != null" >
         receiver_login_name,
@@ -316,9 +312,6 @@
       <if test="productId != null" >
         #{productId,jdbcType=VARCHAR},
       </if>
-      <if test="period != null" >
-        #{period,jdbcType=VARCHAR},
-      </if>
       <if test="receiverLoginName != null" >
         #{receiverLoginName,jdbcType=VARCHAR},
       </if>
@@ -429,9 +422,6 @@
       <if test="productId != null" >
         product_id = #{productId,jdbcType=VARCHAR},
       </if>
-      <if test="period != null" >
-        period = #{period,jdbcType=VARCHAR},
-      </if>
       <if test="receiverLoginName != null" >
         receiver_login_name = #{receiverLoginName,jdbcType=VARCHAR},
       </if>
@@ -483,7 +473,6 @@
       org_tel_code = #{orgTelCode,jdbcType=VARCHAR},
       is_express = #{isExpress,jdbcType=VARCHAR},
       product_id = #{productId,jdbcType=VARCHAR},
-      period = #{period,jdbcType=VARCHAR},
       receiver_login_name = #{receiverLoginName,jdbcType=VARCHAR},
       is_inside = #{isInside,jdbcType=VARCHAR},
       org_team_id = #{orgTeamId,jdbcType=VARCHAR},

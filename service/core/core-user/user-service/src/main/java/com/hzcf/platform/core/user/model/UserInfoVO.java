@@ -61,7 +61,6 @@ public class UserInfoVO extends BaseVO {
     /**借款信息*/
     private String isExpress;//是否加急,默认为0，就是默认为否  (新增字段)
     private String productId;//贷款类型,默认为“精英贷1.89”,对应的productId的值为“01”  (新增字段)
-    private String period;//期数(月)   (新增字段)
     private String receiverLoginName;//受理人，默认为“线上进件”  (新增字段)
     private String isInside;//网内/网外  (新增字段)
     private String orgTeamId;//所属团队，咨询师  (新增字段)
@@ -70,6 +69,7 @@ public class UserInfoVO extends BaseVO {
 	public UserInfoVO() {
 		super();
 	}
+
 	public UserInfoVO(String userInfoId, String userId, String applyId, String idType, String idcardValidity,
 			Date birthday, String gender, String education, String domicileProvince, String domicileCity,
 			String domicileAddress, String domicilePostCode, String marriageStatus, String childrenStatus,
@@ -77,8 +77,8 @@ public class UserInfoVO extends BaseVO {
 			String residentTelCode, String residentPostCode, String email, BigDecimal annualIncome,
 			BigDecimal creditCardLimit, String liveTogether, String staffNo, String orgName, String orgType,
 			String orgProvince, String orgCity, String orgAddress, String orgPostCode, String orgTelCode,
-			String isExpress, String productId, String period, String receiverLoginName, String isInside,
-			String orgTeamId, String borrowType) {
+			String isExpress, String productId, String receiverLoginName, String isInside, String orgTeamId,
+			String borrowType) {
 		super();
 		this.userInfoId = userInfoId;
 		this.userId = userId;
@@ -114,7 +114,6 @@ public class UserInfoVO extends BaseVO {
 		this.orgTelCode = orgTelCode;
 		this.isExpress = isExpress;
 		this.productId = productId;
-		this.period = period;
 		this.receiverLoginName = receiverLoginName;
 		this.isInside = isInside;
 		this.orgTeamId = orgTeamId;
@@ -393,14 +392,6 @@ public class UserInfoVO extends BaseVO {
 		this.productId = productId;
 	}
 
-	public String getPeriod() {
-		return period;
-	}
-
-	public void setPeriod(String period) {
-		this.period = period;
-	}
-
 	public String getReceiverLoginName() {
 		return receiverLoginName;
 	}
@@ -446,9 +437,8 @@ public class UserInfoVO extends BaseVO {
 				+ ", creditCardLimit=" + creditCardLimit + ", liveTogether=" + liveTogether + ", staffNo=" + staffNo
 				+ ", orgName=" + orgName + ", orgType=" + orgType + ", orgProvince=" + orgProvince + ", orgCity="
 				+ orgCity + ", orgAddress=" + orgAddress + ", orgPostCode=" + orgPostCode + ", orgTelCode=" + orgTelCode
-				+ ", isExpress=" + isExpress + ", productId=" + productId + ", period=" + period
-				+ ", receiverLoginName=" + receiverLoginName + ", isInside=" + isInside + ", orgTeamId=" + orgTeamId
-				+ ", borrowType=" + borrowType + "]";
+				+ ", isExpress=" + isExpress + ", productId=" + productId + ", receiverLoginName=" + receiverLoginName
+				+ ", isInside=" + isInside + ", orgTeamId=" + orgTeamId + ", borrowType=" + borrowType + "]";
 	}
 
 }
