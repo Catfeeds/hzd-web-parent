@@ -1,7 +1,12 @@
 package com.hzcf.platform.core.user.dao;
 
 
+import java.util.List;
+import java.util.Map;
+
+import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.user.data.UserImage;
+import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.framework.core.storage.IBaseDao;
 
 public interface UserImageDao extends IBaseDao<UserImage> {
@@ -20,6 +25,9 @@ public interface UserImageDao extends IBaseDao<UserImage> {
    // UserImage getByMobile(String mobile);
     
     UserImage getById(String id);
+    
+    //String applyId,String type
+    public List<UserImageVO> selectUserImageByApplyIdAndType(Map<String,Object> paramsMap);
     
     boolean updateByUserId(UserImage userImage);
 }
