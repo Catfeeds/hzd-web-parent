@@ -1,20 +1,13 @@
 package com.hzcf.platform.mgr.sys.controller;
 
 import java.io.File;
-import java.io.UnsupportedEncodingException;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
@@ -133,23 +126,31 @@ public class UserController {
 	
 	@RequestMapping(value="/users/check/update",method=RequestMethod.GET)
     public String update(String mobile,String name,String idCard){
-		try {
-			name=new String(name.getBytes("iso8859-1"), "UTF-8");
-			sysUserService.update(mobile, name, idCard);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		sysUserService.update(mobile, name, idCard);
 		return "redirect:/users/check/list";
     }	
 	
 	@RequestMapping(value="/users/check/updateStatus",method=RequestMethod.GET)
 	public String updateStatus(String mobile,String checkStatus,String nopassCause){
-		try {
-			nopassCause=new String(nopassCause.getBytes("iso8859-1"), "UTF-8");
-			Result<Boolean> st= sysUserService.updateStatus(mobile, checkStatus,nopassCause);
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
+		sysUserService.updateStatus(mobile, checkStatus,nopassCause);
 		return "redirect:/users/check/list";
 	}
+	
+	@RequestMapping(value="/users/check/updatePassword",method=RequestMethod.GET)
+	public String updatePassword(String mobile,String passWord){
+		sysUserService.updatePassWord(mobile, passWord);
+		return "redirect:/users/list";
+	}
+	/**
+	 * 修改状态
+	 * @param mobile
+	 * @param passWord
+	 * @return
+	 */
+	@RequestMapping(value="/users/check/status",method=RequestMethod.GET)
+	public String status(String mobile,String status){
+		sysUserService.status(mobile, status);
+		return "redirect:/users/list";
+	}	
+	
 }

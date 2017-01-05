@@ -49,6 +49,14 @@
        where apply_id=#{applyId,jdbcType=VARCHAR} and type=#{type,jdbcType=VARCHAR}
   </select>
   
+  <!-- 根据用户ID号（user_id），图片类型（type），查询图片集合 -->
+  <select id="selectUserImageByUserIdAndType" resultMap="BaseResultMapVO" parameterType="java.util.Map">
+       select
+       <include refid="Base_Column_List" />
+       from user_image
+       where user_id=#{userId} and type=#{type}
+  </select>
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user_image
     where image_id = #{imageId,jdbcType=VARCHAR}

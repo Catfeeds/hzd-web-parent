@@ -111,4 +111,22 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
 			return new Result<List<UserImageVO>>(StatusCodes.INTERNAL_SERVER_ERROR,result);
 		}
 	}
+	
+	@Override
+	public Result<List<UserImageVO>> selectUserImageByUserIdAndType(Map<String, String> parmMap) {
+		List<UserImageVO> result = null;
+		try {
+			result = purchaseOrderDao.selectUserImageByUserIdAndType(parmMap);
+		/*	System.out.println("------------------------------------");
+			System.out.println(result);*/
+			if (null == result) {
+				logger.debug("data null.");
+				return new Result<List<UserImageVO>>(StatusCodes.OK, null);
+			}
+			return new Result<List<UserImageVO>>(StatusCodes.OK,result);
+		} catch (Exception e) {
+			logger.error("an error occur in getByPK service : {}", e);
+			return new Result<List<UserImageVO>>(StatusCodes.INTERNAL_SERVER_ERROR,result);
+		}
+	}
 }

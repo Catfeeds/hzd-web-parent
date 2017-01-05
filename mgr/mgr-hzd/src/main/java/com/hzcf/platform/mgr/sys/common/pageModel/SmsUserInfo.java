@@ -25,8 +25,12 @@ public class SmsUserInfo {
 	public void setStatusInfo(String statusInfo) {
 		this.statusInfo = statusInfo;
 	}
-	private String artWork;
-	private String small;
+	private String artWorkA;
+	private String artWorkB;
+	private String artWorkC;
+	private String smallA;
+	private String smallB;
+	private String smallC;
 	private String imageType;
 	private String type;
 	public String getMobile() {
@@ -59,17 +63,42 @@ public class SmsUserInfo {
 	public void setCreateTime(String createTime) {
 		this.createTime = createTime;
 	}
-	public String getArtWork() {
-		return artWork;
+	
+	public String getArtWorkA() {
+		return artWorkA;
 	}
-	public void setArtWork(String artWork) {
-		this.artWork = artWork;
+	public void setArtWorkA(String artWorkA) {
+		this.artWorkA = artWorkA;
 	}
-	public String getSmall() {
-		return small;
+	public String getArtWorkB() {
+		return artWorkB;
 	}
-	public void setSmall(String small) {
-		this.small = small;
+	public void setArtWorkB(String artWorkB) {
+		this.artWorkB = artWorkB;
+	}
+	public String getArtWorkC() {
+		return artWorkC;
+	}
+	public void setArtWorkC(String artWorkC) {
+		this.artWorkC = artWorkC;
+	}
+	public String getSmallA() {
+		return smallA;
+	}
+	public void setSmallA(String smallA) {
+		this.smallA = smallA;
+	}
+	public String getSmallB() {
+		return smallB;
+	}
+	public void setSmallB(String smallB) {
+		this.smallB = smallB;
+	}
+	public String getSmallC() {
+		return smallC;
+	}
+	public void setSmallC(String smallC) {
+		this.smallC = smallC;
 	}
 	public String getImageType() {
 		return imageType;

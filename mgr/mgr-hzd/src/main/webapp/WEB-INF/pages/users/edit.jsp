@@ -83,14 +83,14 @@ pageEncoding="UTF-8"%>
 </table>
 </form>
 
-<form action="${path}/users/fast" method="get" id="form2" enctype="multipart/form-data">
+<form action="${path}/users/check/smsImgUpload" method="post" id="form2" enctype="multipart/form-data">
 <table id="table" style="width: 800px;height: 350px">
 	<tr>
 		<td>图片上传信息</td></tr>
 	<tr>
-		<td><input type="file" multiple  value="重新上传"/></td>
-		<td><input type="file" multiple  value="重新上传"/></td>
-		<td><input type="file" multiple  value="重新上传"/></td>
+		<td>重新上传<input type="file" name="images" /></td>
+		<td>重新上传<input type="file" name="images" /></td>
+		<td>重新上传<input type="file" name="images" /></td>
 	</tr>
 	<tr>
 		<td>

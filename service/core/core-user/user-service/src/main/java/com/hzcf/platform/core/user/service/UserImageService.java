@@ -19,6 +19,7 @@ public interface UserImageService extends IBaseService<UserImageVO> {
 	//String applyId,String type
 	public Result<List<UserImageVO>> selectUserImageByApplyIdAndType(Map<String, Object> parmMap);
 
+	public Result<List<UserImageVO>> selectUserImageByUserIdAndType(Map<String, String> parmMap);
 	public Result<Boolean> updateImage(UserImageVO userImageVO);
 	public Result<Boolean> insertSelective(UserImageVO userImageVO);
 	
