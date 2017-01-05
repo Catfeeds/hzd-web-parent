@@ -15,7 +15,7 @@
 	
 	<!-- 指定映射文件 -->
 	<mappers>
-		<mapper resource="sqlmap/Usermapper.xml" />
+		<mapper resource="sqlmap/UserMapper.xml" />
 		<mapper resource="sqlmap/UserApplyInfoMapper.xml" />
 		<mapper resource="sqlmap/userInfoMapper.xml" />
 		<mapper resource="sqlmap/userRelationMapper.xml" />
