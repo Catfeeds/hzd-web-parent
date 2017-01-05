@@ -17,6 +17,8 @@ import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
+import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -85,8 +87,8 @@ public class OnlineApplyLoanController {
         logger.i("进入  -----用户进件申请第四步,录入借款人详细信息 ");
         logger.i("入参user:"+ JsonUtil.json2String(user));
         logger.i("入参userApplyInfoVO:"+ JsonUtil.json2String(userRelationForm));
-        List<UserRelationVO> userRelationVO= userRelationForm.getUserRelationVOList();
-        return onlineApplyLoanService.onlineLoanapplyInfoPerfect(user,userRelationVO,applyId);
+
+        return onlineApplyLoanService.onlineLoanapplyInfoPerfect(user,userRelationForm.getUserRelationVOList(),applyId);
     }
 
 
@@ -99,9 +101,9 @@ public class OnlineApplyLoanController {
         logger.i("入参user:"+ JsonUtil.json2String(user));
         logger.i("userImageVO:"+ JsonUtil.json2String(userImageVO));
         return onlineApplyLoanService.onlineLoanapplyImgUpload(request,user, userImageVO,applyId);
-
-
     }
+
+
     /**
      * 用户进件申请  个人信息预览  第六步
      */

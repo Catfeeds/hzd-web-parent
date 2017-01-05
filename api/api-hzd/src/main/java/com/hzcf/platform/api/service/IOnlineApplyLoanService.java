@@ -66,7 +66,8 @@ public interface IOnlineApplyLoanService {
     public BackResult onlineLoanapplyImgUpload(HttpServletRequest request,UserVO user, UserImageVO userImageVO,String applyId) ;
 
 
-        /**
+
+    /**
          * 进件申请第刘步 个人信息预览
          * @param user
          * @param

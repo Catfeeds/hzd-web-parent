@@ -15,12 +15,13 @@
   </resultMap>
   
   <resultMap id="queryForListMap" type="com.hzcf.platform.core.user.model.UserApplyInfoVO">
-  		<!-- 附加字段 -->  
+  		<!-- 附加字段 -->
+       <id column="apply_id" property="applyId" jdbcType="VARCHAR" />
     	<result column="mobile" property="mobile" jdbcType="VARCHAR" />
 	    <result column="name" property="name" jdbcType="VARCHAR" />
 	    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
 		<!-- 借款人申请信息字段 -->	    
-        <id column="apply_id" property="applyId" jdbcType="VARCHAR" />
+
         <result column="user_id" property="userId" jdbcType="VARCHAR" />
 	    <result column="loan_purpose_one" property="loanPurposeOne" jdbcType="VARCHAR" />
 	    <result column="loan_purpose_two" property="loanPurposeTwo" jdbcType="VARCHAR" />
