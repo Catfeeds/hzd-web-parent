@@ -89,29 +89,14 @@ public class OnlineApplyLoanController {
 
 
     @RequestMapping(value = {"rest/api/100/onlineLoanapply/ImgUpload/{applyId}","api/100/onlineLoanapply/ImgUpload/{applyId}"},method = RequestMethod.POST)
-    public BackResult onlineLoanapplyImgUpload(HttpServletRequest request, @RequestAttribute(BaseConfig.USER_TYPE)  UserVO user, @RequestBodyForm UserImageVO userImageVO)  {
+    public BackResult onlineLoanapplyImgUpload(HttpServletRequest request,
+                                               @RequestAttribute(BaseConfig.USER_TYPE)  UserVO user,
+                                               @RequestBodyForm UserImageVO userImageVO,
+                                               @PathVariable String applyId)  {
         logger.i("线上进件申请上传图片");
         logger.i("入参user:"+ JsonUtil.json2String(user));
         logger.i("userImageVO:"+ JsonUtil.json2String(userImageVO));
-        return onlineApplyLoanService.onlineLoanapplyImgUpload(request,user, userImageVO);
-        /*
-            File folder = new File("F:\\img");
-            String file_url = null;
-            if (folder.isDirectory()) {
-                File[] files = folder.listFiles();
-                for (File file : files) {
-                    if (file.exists() && file.isFile()) {
-
-                        try {
-                            file_url = fastdfsClient.upload(FileCommon.File2byte(file),  getSuffix(file.getName()), null);
-                        } catch (Exception e) {
-                            e.printStackTrace();
-                        }
-                        System.out.println(file.getName() + " : " + file_url);
-                    }
-                }
-            }
-            return new BackResult(0,"11",file_url);*/
+        return onlineApplyLoanService.onlineLoanapplyImgUpload(request,user, userImageVO,applyId);
 
 
     }

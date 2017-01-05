@@ -14,7 +14,7 @@ public interface UserImageDao extends IBaseDao<UserImage> {
 
     int insert(UserImage record);
 
-    int insertSelective(UserImage record);
+    boolean insertSelective(UserImage record);
 
     UserImage selectByPrimaryKey(String imageId);
 

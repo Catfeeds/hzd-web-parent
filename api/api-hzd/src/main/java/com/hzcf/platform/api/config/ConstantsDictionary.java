@@ -39,6 +39,7 @@ public class ConstantsDictionary {
 			CONNECTTIMEOUT = Integer.valueOf(props.getProperty("CONNECTTIMEOUT"));
 			SNSNUMFAILUREDATE = Integer.valueOf(props.getProperty("SNSNUMFAILUREDATE"));//短信失效时间
 			CONTENTTEXT = props.getProperty("CONTENTTEXT");
+			imgUpload  = props.getProperty("imgUpload");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -65,4 +66,5 @@ public class ConstantsDictionary {
 	public final static String SMSSSTATUS1="1";
 	public final static String SMSSSTATUS0="0";//失效
 	public static String CONTENTTEXT;
+	public static String imgUpload;
 }

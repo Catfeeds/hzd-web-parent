@@ -56,7 +56,14 @@ public interface IOnlineApplyLoanService {
      */
     public BackResult onlineLoanapplyInfoPerfect(UserVO user, List<UserRelationVO> userRelationVO,String applyId);
 
-    public BackResult onlineLoanapplyImgUpload(HttpServletRequest request,UserVO user, UserImageVO userImageVO) ;
+    /**
+     * 进件申请第五步 上传图片
+     * @param request
+     * @param user
+     * @param userImageVO
+     * @return
+     */
+    public BackResult onlineLoanapplyImgUpload(HttpServletRequest request,UserVO user, UserImageVO userImageVO,String applyId) ;
 
 
         /**

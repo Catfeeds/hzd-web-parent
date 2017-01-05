@@ -69,6 +69,18 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
 	}
 
 	@Override
+	public Result<Boolean> insertSelective(UserImageVO userImageVO) {
+		try {
+			UserImage t = toDO(userImageVO);
+			purchaseOrderDao.insertSelective(t);
+			return new Result<Boolean>(StatusCodes.OK, true);
+		} catch (Exception e) {
+			logger.error("an error occur in update service : {}", e);
+			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
+		}
+	}
+
+	@Override
 	public Result<UserImageVO> getById(String userId) {
 		System.out.println(userId);
 		try {

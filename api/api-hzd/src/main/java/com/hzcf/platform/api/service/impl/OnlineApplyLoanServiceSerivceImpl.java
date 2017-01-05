@@ -2,6 +2,7 @@ package com.hzcf.platform.api.service.impl;
 
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.config.BaseConfig;
+import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.form.onlineLoanapplyInfoPreviewForm;
 import com.hzcf.platform.api.model.CheckApplyLoanStatus;
 import com.hzcf.platform.api.service.IOnlineApplyLoanService;
@@ -21,6 +22,7 @@ import com.hzcf.platform.core.user.service.UserService;
 import com.hzcf.platform.framework.fastdfs.FastDFSClient;
 import com.hzcf.platform.framework.fastdfs.common.FileCommon;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -279,55 +281,67 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	}
 
 	@Override
-	public BackResult onlineLoanapplyImgUpload(HttpServletRequest request, UserVO user, UserImageVO userImageVO) {
+	public BackResult onlineLoanapplyImgUpload(HttpServletRequest request, UserVO user, UserImageVO userImageVO,String applyId) {
 
+		//TODO 入参校验
+
+		Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
+		UserApplyInfoVO items = userApplyInfoVOResult.getItems();
+		if (items == null) {
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(),
+					HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
+		}
 		long startTime = System.currentTimeMillis();
-
 		// 将当前上下文初始化给 CommonsMutipartResolver （多部分解析器）
-
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
-
 				request.getSession().getServletContext());
-
 		// 检查form中是否有enctype="multipart/form-data"
 		String file_url = "";
 		if (multipartResolver.isMultipart(request))
-
 		{
-
 			// 将request变成多部分request
-
 			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
-
 			// 获取multiRequest 中所有的文件名
-
 			Iterator iter = multiRequest.getFileNames();
-
 			while (iter.hasNext())
-
 			{
-
 				// 一次遍历所有文件
-
 				MultipartFile file = multiRequest.getFile(iter.next().toString());
 				if (file != null)
 				{
 					String myFileName = file.getOriginalFilename();
-					
 					try {
-						
 						if(StringUtils.isNotBlank(myFileName)){
 							file_url = fastdfsClient.upload(file.getBytes(), getSuffix(myFileName), null);
-							
 						//	userImageService
 						}
-						long endTime = System.currentTimeMillis();
 
-						System.out.println("方法三的运行时间：" + String.valueOf(endTime - startTime) + "ms");
-						return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(), HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
+						if(StringUtils.isBlank(file_url)){
+							return new BackResult(HzdStatusCodeEnum.MEF_CODE_4100.getCode(), HzdStatusCodeEnum.MEF_CODE_4100.getMsg());
+						}
+						userImageVO.setImageId(UUIDGenerator.getUUID());
+						userImageVO.setApplyId(applyId);
+						userImageVO.setArtWork(file_url);
+						userImageVO.setCreateTime(new Date());
+						Result<Boolean> booleanResult = userImageService.insertSelective(userImageVO);
+						if (StatusCodes.OK != (booleanResult.getStatus())) {
+							return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+									HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+						}
+						long endTime = System.currentTimeMillis();
+						String url =ConstantsDictionary.imgUpload+"/"+file_url;
+						Map   map = new HashedMap();
+						map.put("url",url);
+						map.put("type",userImageVO.getType());
+
+						logger.i("上传图片运行时间：" + String.valueOf(endTime - startTime) + "ms" +url);
+						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
 
 					} catch (Exception e) {
+						logger.i("-----------系统异常,请检查数据源-------");
 						e.printStackTrace();
+						return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
+								null);
 					}
 				}
 

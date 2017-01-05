@@ -1,3 +1,4 @@
+/*
 package com.hzcf.platform.mgr.sys.common.security;
 
 import com.hzcf.platform.framework.fastdfs.FastDFSClient;
@@ -10,11 +11,13 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.io.File;
 
+*/
 /**
  * 单元测试
  *
  * @author fengjx. @date：2015/1/6 0006
- */
+ *//*
+
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration("/spring-fastdfs.xml")
 public class Test1 {
@@ -65,3 +68,4 @@ public class Test1 {
 	}
 
 }
+*/

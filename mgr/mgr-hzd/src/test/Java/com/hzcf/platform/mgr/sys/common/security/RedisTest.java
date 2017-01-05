@@ -1,3 +1,4 @@
+/*
 package com.hzcf.platform.mgr.sys.common.security;
 
 import java.util.Date;
@@ -33,3 +34,4 @@ public class RedisTest {
     	System.out.println("StartTimestamp=" + value.getStartTimestamp());
     }
 }
+*/
