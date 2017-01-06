@@ -21,11 +21,11 @@ public class DictUtilController {
     @Autowired
     DictUtilService dictUtilService;
 
-    @RequestMapping(value="rest/api/100/apply/dictionary/jkyt",method= RequestMethod.POST)
+    @RequestMapping(value={"rest/api/100/apply/dictionary/jkyt","api/100/apply/dictionary/jkyt"},method= RequestMethod.POST)
     public BackResult applyDictionaryJkyt(){
         try {
-            Map<String, Object> stringObjectMap = dictUtilService.applyDictionaryJkyt();
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),stringObjectMap);
+            //Map<String, Object> stringObjectMap = dictUtilService.applyDictionaryJkyt();
+            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),dictUtilService.applyDictionaryJkyt());
         }catch (Exception e){
             logger.i("-----------系统异常,请检查数据源-------");
             e.printStackTrace();

@@ -1,5 +1,7 @@
 package com.hzcf.platform.api.controller;
 
+import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
+import com.hzcf.platform.api.config.ConfigSmsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -76,6 +78,9 @@ public class SmsController {
 	@ResponseBody
 	public BackResult smsCheck(@RequestBodyForm UserVO user,@PathVariable String type){
 		logger.i("进入SmsController====UserVO:"+user.toString());
+		if(ConfigSmsUtil.superSmsNum(user.getMobile(),type)){
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
+		}
 		return smsService.smsCheck(user.getSmsCacheType(),user.getMobile(),type);
 	}
 	
