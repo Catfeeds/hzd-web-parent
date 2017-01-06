@@ -5,6 +5,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hzcf.platform.api.annotation.RequestAttribute;
@@ -33,7 +34,7 @@ public class RealNameController {
 	/**查询实名认证状态，信息
 	 * 
 	 * */
-    @RequestMapping(value="rest/selectrealname")
+    @RequestMapping(value="rest/selectrealname",method = RequestMethod.POST)
     public BackResult selectrealname(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
         logger.i("查询借款人实名认证信息");
         logger.i("入参"+ JsonUtil.json2String(user));
@@ -42,7 +43,7 @@ public class RealNameController {
 	/**保存实名认证信息
 	 * 
 	 * */
-    @RequestMapping(value="rest/saverealname")
+    @RequestMapping(value="rest/saverealname",method = RequestMethod.POST)
     public BackResult saverealname(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
         logger.i("保存借款人实名认证信息");
         logger.i("入参"+ JsonUtil.json2String(user));
@@ -51,7 +52,7 @@ public class RealNameController {
 	/**上传实名认证图片
 	 * 
 	 * */
-    @RequestMapping(value="rest/saverealnamepic")
+    @RequestMapping(value="rest/saverealnamepic",method = RequestMethod.POST)
     public BackResult saverealnamepic(HttpServletRequest request,
             @RequestAttribute(BaseConfig.USER_TYPE)  UserVO user,
             @RequestBodyForm UserImageVO userImageVO,
