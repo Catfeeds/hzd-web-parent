@@ -1,5 +1,7 @@
 package com.hzcf.platform.api.service.impl;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -43,7 +45,8 @@ import com.hzcf.platform.framework.fastdfs.FastDFSClient;
   */
 @Service
 public class RealNameServiceImpl implements IRealNameService {
-	private static final Log logger = Log.getLogger(RealNameServiceImpl.class);
+	private static final Log logger = Log.getLogger(RealNameServiceImpl.class);//logger日志
+	DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//格式化时间的对象
     @Autowired
     public UserService userSerivce;//借款人service
 	@Autowired
@@ -88,12 +91,17 @@ public class RealNameServiceImpl implements IRealNameService {
 	 */
 	@Override
 	public BackResult saveRealName(UserVO user) {
-		/**初始化参数：根据借款人的手机号查询借款人信息,该信息包含“实名认证信息”*/
+		/**验证借款人信息是否存在：根据借款人的手机号查询借款人信息*/
 		Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
-        UserVO items=byMobile.getItems();
+		UserVO items=byMobile.getItems();
+        if(items==null){
+        	//返回“保存失败”，“1011”，“用户未注册”
+        	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1011.getCode(),HzdStatusCodeEnum.MEF_CODE_1011.getMsg(),null);
+        }
+        /**初始化参数：姓名，身份证号*/
+        String realName=user.getName();//借款人的姓名
+        String idCard=user.getIdCard();//借款人的身份证号码
         /**验证实名认证信息是否符合要求*/
-        String realName=items.getName();//借款人的姓名
-        String idCard=items.getIdCard();//借款人的身份证号码
         /*第一步验证：验证实名认证信息是否符合要求
          *1、“姓名”“身份证号”是否符合正则表达式的要求
          *2、“姓名”“身份证号”是否真实存在，是否对应（第2点暂时不做）
@@ -131,7 +139,12 @@ public class RealNameServiceImpl implements IRealNameService {
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1034.getCode(),HzdStatusCodeEnum.MEF_CODE_1034.getMsg(),null);
         }
         /**更新借款人的实名状态*/
-        Result<Boolean> updateResult=userSerivce.updateMobile(items);
+        UserVO updateUserVO=new UserVO();
+        updateUserVO.setId(items.getId());//主键id
+        updateUserVO.setName(realName);//姓名
+        updateUserVO.setIdCard(idCard);//身份证号
+        updateUserVO.setSubmitTime(sdf.format(new Date()));//提交实名认证时间
+        Result<Boolean> updateResult=userSerivce.updateByPrimaryKeySelective(updateUserVO);
         /**判断更新操作结果，设置返回结果*/
         if(StatusCodes.OK==updateResult.getStatus()){//更新借款人实名认证信息成功
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),items);//返回“保存成功”，用户的实名认证信息
