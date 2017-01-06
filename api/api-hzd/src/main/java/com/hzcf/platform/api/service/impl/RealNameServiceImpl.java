@@ -1,22 +1,38 @@
 package com.hzcf.platform.api.service.impl;
 
+import java.util.Date;
 import java.util.HashMap;
+import java.util.Iterator;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.config.BaseConfig;
+import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.service.IRealNameService;
+import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.common.util.utils.JudgeNumberLegal;
 import com.hzcf.platform.common.util.utils.ServiceUtil;
+import com.hzcf.platform.common.util.uuid.UUIDGenerator;
+import com.hzcf.platform.core.user.model.UserApplyInfoVO;
+import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
+import com.hzcf.platform.core.user.service.UserImageService;
 import com.hzcf.platform.core.user.service.UserService;
+import com.hzcf.platform.framework.fastdfs.FastDFSClient;
 
 /**
   * @Description:实名认证的操作
@@ -27,8 +43,30 @@ import com.hzcf.platform.core.user.service.UserService;
   */
 @Service
 public class RealNameServiceImpl implements IRealNameService {
+	private static final Log logger = Log.getLogger(RealNameServiceImpl.class);
     @Autowired
     public UserService userSerivce;//借款人service
+	@Autowired
+	public UserApplyInfoSerivce userApplyInfoSerivce;//用户申请信息service
+	@Autowired
+	public FastDFSClient fastdfsClient;//底层上传组件类
+	@Autowired
+	public UserImageService userImageService;//借款人图片信息service
+	/**
+	 * @Title: getSuffix 截取图片的后缀
+	 * @Description: 返回“.”以后的内容，用于截取“.”以后的内容
+	 * @time: 2017年1月5日 下午6:24:37  
+	 * @return:String
+	 */
+	private static String getSuffix(String url) {
+		if (url != null) {
+			int index = url.lastIndexOf(".");
+			if (index > 0) {
+				return url.substring(index + 1);
+			}
+		}
+		return url;
+	}
     /**查询借款人的实名认证信息，状态
      * 
      * 
@@ -105,9 +143,70 @@ public class RealNameServiceImpl implements IRealNameService {
 	 * 需要2个参数：借款人信息，实名认证的图片信息
 	 */
 	@Override
-	public BackResult saveRealNamePic(UserVO user) {
-		
-		
-		return null;
+	public BackResult saveRealNamePic(HttpServletRequest request, UserVO user, UserImageVO userImageVO,String applyId) {
+		//获取用户的申请信息
+		Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
+		UserApplyInfoVO items = userApplyInfoVOResult.getItems();
+		if (items == null) {
+			//返回“2400”，“无效的借款编号”
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(),HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
+		}
+		long startTime = System.currentTimeMillis();//获取当前时间戳
+		//将当前上下文初始化给 CommonsMutipartResolver （多部分解析器）
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
+				request.getSession().getServletContext());
+		String file_url = "";
+		//检查form中是否有enctype="multipart/form-data"
+		if (multipartResolver.isMultipart(request)){
+			// 将request变成多部分request
+			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+			// 获取multiRequest 中所有的文件名
+			Iterator iter = multiRequest.getFileNames();
+			while (iter.hasNext()){
+				// 一次遍历所有文件
+				MultipartFile file = multiRequest.getFile(iter.next().toString());
+				if (file != null){
+					String myFileName = file.getOriginalFilename();//获取文件的名称
+					try {
+						if(StringUtils.isNotBlank(myFileName)){
+							//上传图片，上传操作完成后返回图片的路径地址：file_url
+							file_url=fastdfsClient.upload(file.getBytes(), getSuffix(myFileName), null);
+						//	userImageService
+						}
+						//若file_url为空，即：上传图片失败
+						if(StringUtils.isBlank(file_url)){
+							//返回“4100”，“图片上传失败请重新上传”
+							return new BackResult(HzdStatusCodeEnum.MEF_CODE_4100.getCode(), HzdStatusCodeEnum.MEF_CODE_4100.getMsg());
+						}
+						userImageVO.setImageId(UUIDGenerator.getUUID());//图片id
+						userImageVO.setApplyId(applyId);//申请单号
+						userImageVO.setArtWork(file_url);//服务器存储的图片的地址
+						userImageVO.setCreateTime(new Date());//创建时间
+						//
+						Result<Boolean> booleanResult = userImageService.insertSelective(userImageVO);
+						if (StatusCodes.OK != (booleanResult.getStatus())) {
+							return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+									HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+						}
+						long endTime = System.currentTimeMillis();
+						String url =ConstantsDictionary.imgUpload+"/"+file_url;
+						Map   map = new HashedMap();
+						map.put("url",url);
+						map.put("type",userImageVO.getType());
+
+						logger.i("上传图片运行时间：" + String.valueOf(endTime - startTime) + "ms" +url);
+						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
+
+					} catch (Exception e) {
+						logger.i("-----------系统异常,请检查数据源-------");
+						e.printStackTrace();
+						return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
+								null);
+					}
+				}
+
+			}
+		}
+		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
 	}
 }
