@@ -9,6 +9,7 @@
 		<typeAlias type="com.hzcf.platform.core.user.data.UserImage" alias="UserImage"/>
 		<typeAlias type="com.hzcf.platform.core.user.data.UserDict" alias="UserDict"/>
 		<typeAlias type="com.hzcf.platform.core.user.data.MsgBox" alias="MsgBox"/>
+		<typeAlias type="com.hzcf.platform.core.user.data.District" alias="District"/>
 	</typeAliases>
 	
 	
@@ -22,6 +23,7 @@
 		<mapper resource="sqlmap/userImageMapper.xml" />
 		<mapper resource="sqlmap/userDictMapper.xml" />
 		<mapper resource="sqlmap/MsgBoxMapper.xml" />
+		<mapper resource="sqlmap/DistrictMapper.xml" />
 	</mappers>
 
 </configuration>
