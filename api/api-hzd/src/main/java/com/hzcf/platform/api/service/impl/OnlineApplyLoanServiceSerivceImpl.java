@@ -158,6 +158,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			userInfoVO.setIdType("01");//身份证类型,默认01
 			userInfoVO.setDomicilePostCode("1111");//户籍邮政编码 TODO 户籍邮政编码
 			userInfoVO.setResidentPostCode("1111");//家庭邮政编码 TODO 家庭邮政编码
+			userInfoVO.setResidentTelAreaCode("区号"); //区号: TODO
 			userInfoVO.setBorrowType("01");//借贷类型  TODO ?
 			userInfoVO.setOrgTeamId("所属团队"); //所属团队 // TODO 所属团队
 			userInfoVO.setIsInside("01"); //内网外网 // TODO 内网外挂
@@ -202,7 +203,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			}
 			userInfoVO.setApplyId(applyId);
 			userInfoVO.setOrgPostCode("单位邮政编码");//TODO 单位邮政编码
-
+			userInfoVO.setOrgTelAreaCode("单位区号"); //TODO 单位区号
 			userInfoVO.setCreateTime(new Date());
 			Result<Boolean> booleanResult = userInfoService.updateUserInfo(userInfoVO);
 			if (StatusCodes.OK == (booleanResult.getStatus())) {
