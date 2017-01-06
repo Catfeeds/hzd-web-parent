@@ -22,6 +22,7 @@
     <result column="resident_city" property="residentCity" jdbcType="VARCHAR" />
     <result column="resident_address" property="residentAddress" jdbcType="VARCHAR" />
     <result column="resident_tel_code" property="residentTelCode" jdbcType="VARCHAR" />
+    <result column="resident_tel_area_code" property="residentTelAreaCode" jdbcType="VARCHAR" />
     <result column="resident_post_code" property="residentPostCode" jdbcType="VARCHAR" />
     <result column="email" property="email" jdbcType="VARCHAR" />
     <result column="annual_income" property="annualIncome" jdbcType="DECIMAL" />
@@ -36,6 +37,7 @@
     <result column="org_city" property="orgCity" jdbcType="VARCHAR" />
     <result column="org_address" property="orgAddress" jdbcType="VARCHAR" />
     <result column="org_post_code" property="orgPostCode" jdbcType="VARCHAR" />
+    <result column="org_tel_area_code" property="orgTelAreaCode" jdbcType="VARCHAR" />
     <result column="org_tel_code" property="orgTelCode" jdbcType="VARCHAR" />
     <!-- 借款信息 -->
     <result column="is_express" property="isExpress" jdbcType="VARCHAR" />

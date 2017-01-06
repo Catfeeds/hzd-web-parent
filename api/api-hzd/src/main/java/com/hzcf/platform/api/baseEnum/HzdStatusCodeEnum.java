@@ -24,6 +24,7 @@ public enum HzdStatusCodeEnum {
 	MEF_CODE_1011(1011, "用户未注册"),
 	MEF_CODE_1012(1012, "用户未登录"),
 	MEF_CODE_1022(1022, "账号或密码错误"),
+	MEF_CODE_1045(1045, "为查询到用户信息"),
 	
 	MEF_CODE_1030(1030, "用户未实名认证"),
 	MEF_CODE_1031(1031, "用户的真实姓名不符合要求"),
@@ -48,7 +49,7 @@ public enum HzdStatusCodeEnum {
 	//====图片信息
 	MEF_CODE_4100(4100, "图片上传失败请重新上传"),
 
-
+	MEF_CODE_5100(5100, "未查询到信息"),
 
 
 	MEF_CODE_9000(9000, "传入参数有误"),

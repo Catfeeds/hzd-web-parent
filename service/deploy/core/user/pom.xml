@@ -106,6 +106,10 @@
 							<Class-Path>configs/</Class-Path>
 						</manifestEntries>
 					</archive>
+					<excludes>
+						<exclude>**/*.properties</exclude>
+						<exclude>**/*.xml</exclude>
+					</excludes>
 				</configuration>
 			</plugin>
       		<plugin>

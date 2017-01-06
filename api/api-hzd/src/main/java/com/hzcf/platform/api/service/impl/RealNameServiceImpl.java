@@ -1,22 +1,38 @@
 package com.hzcf.platform.api.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
+import javax.servlet.http.HttpServletRequest;
+
+import com.hzcf.platform.api.util.ImageUrlUtil;
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.config.BaseConfig;
+import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.service.IRealNameService;
+import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.common.util.utils.JudgeNumberLegal;
 import com.hzcf.platform.common.util.utils.ServiceUtil;
+import com.hzcf.platform.common.util.uuid.UUIDGenerator;
+import com.hzcf.platform.core.user.model.UserApplyInfoVO;
+import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
+import com.hzcf.platform.core.user.service.UserImageService;
 import com.hzcf.platform.core.user.service.UserService;
+import com.hzcf.platform.framework.fastdfs.FastDFSClient;
 
 /**
   * @Description:实名认证的操作
@@ -27,8 +43,31 @@ import com.hzcf.platform.core.user.service.UserService;
   */
 @Service
 public class RealNameServiceImpl implements IRealNameService {
+	private static final Log logger = Log.getLogger(RealNameServiceImpl.class);
+	DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     @Autowired
     public UserService userSerivce;//借款人service
+	@Autowired
+	public UserApplyInfoSerivce userApplyInfoSerivce;//用户申请信息service
+	@Autowired
+	public FastDFSClient fastdfsClient;//底层上传组件类
+	@Autowired
+	public UserImageService userImageService;//借款人图片信息service
+	/**
+	 * @Title: getSuffix 截取图片的后缀
+	 * @Description: 返回“.”以后的内容，用于截取“.”以后的内容
+	 * @time: 2017年1月5日 下午6:24:37  
+	 * @return:String
+	 */
+	private static String getSuffix(String url) {
+		if (url != null) {
+			int index = url.lastIndexOf(".");
+			if (index > 0) {
+				return url.substring(index + 1);
+			}
+		}
+		return url;
+	}
     /**查询借款人的实名认证信息，状态
      * 
      * 
@@ -53,9 +92,13 @@ public class RealNameServiceImpl implements IRealNameService {
 		/**初始化参数：根据借款人的手机号查询借款人信息,该信息包含“实名认证信息”*/
 		Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
         UserVO items=byMobile.getItems();
+        if(items==null){
+        	//返回“保存失败”，"1011"，"用户未注册"
+        	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1011.getCode(),HzdStatusCodeEnum.MEF_CODE_1011.getMsg(),null);
+        }
         /**验证实名认证信息是否符合要求*/
-        String realName=items.getName();//借款人的姓名
-        String idCard=items.getIdCard();//借款人的身份证号码
+        String realName=user.getName();//借款人的姓名
+        String idCard=user.getIdCard();//借款人的身份证号码
         /*第一步验证：验证实名认证信息是否符合要求
          *1、“姓名”“身份证号”是否符合正则表达式的要求
          *2、“姓名”“身份证号”是否真实存在，是否对应（第2点暂时不做）
@@ -93,7 +136,12 @@ public class RealNameServiceImpl implements IRealNameService {
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1034.getCode(),HzdStatusCodeEnum.MEF_CODE_1034.getMsg(),null);
         }
         /**更新借款人的实名状态*/
-        Result<Boolean> updateResult=userSerivce.updateMobile(items);
+        UserVO updateUserVO=new UserVO();
+        updateUserVO.setId(items.getId());//用户id
+        updateUserVO.setName(realName);//姓名
+        updateUserVO.setIdCard(idCard);//身份证号
+        updateUserVO.setSubmitTime(sdf.format(new Date()));//提交实名认证时间
+        Result<Boolean> updateResult=userSerivce.updateByPrimaryKeySelective(updateUserVO);
         /**判断更新操作结果，设置返回结果*/
         if(StatusCodes.OK==updateResult.getStatus()){//更新借款人实名认证信息成功
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),items);//返回“保存成功”，用户的实名认证信息
@@ -101,13 +149,93 @@ public class RealNameServiceImpl implements IRealNameService {
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1035.getCode(),HzdStatusCodeEnum.MEF_CODE_1035.getMsg(),null);//返回“保存失败”，null
         }
 	}
-	/**保存借款人上传的图片信息
+
+
+
+    @Override
+    public BackResult findImageInfo(UserVO user) {
+        List<UserImageVO> items=null;
+        if(StringUtils.isNotBlank(user.getId())){
+
+            Result<List<UserImageVO>> UserImageVOList = userImageService.getUserId(user.getId());
+            items= UserImageVOList.getItems();
+            if (items == null) {
+                return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(),
+                        HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
+            }
+            for(UserImageVO u:items){
+                u.setArtWork(ImageUrlUtil.geturl(u.getArtWork()));
+            }
+            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
+                    HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),items);
+        }
+
+
+        return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+                HzdStatusCodeEnum.MEF_CODE_0001.getMsg(),null);
+    }
+
+    /**保存借款人上传的图片信息
 	 * 需要2个参数：借款人信息，实名认证的图片信息
 	 */
 	@Override
-	public BackResult saveRealNamePic(UserVO user) {
-		
-		
-		return null;
+	public BackResult saveRealNamePic(HttpServletRequest request, UserVO user, UserImageVO userImageVO) {
+
+		long startTime = System.currentTimeMillis();//获取当前时间戳
+		//将当前上下文初始化给 CommonsMutipartResolver （多部分解析器）
+		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
+				request.getSession().getServletContext());
+		String file_url = "";
+		//检查form中是否有enctype="multipart/form-data"
+		if (multipartResolver.isMultipart(request)){
+			// 将request变成多部分request
+			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
+			// 获取multiRequest 中所有的文件名
+			Iterator iter = multiRequest.getFileNames();
+			while (iter.hasNext()){
+				// 一次遍历所有文件
+				MultipartFile file = multiRequest.getFile(iter.next().toString());
+				if (file != null){
+					String myFileName = file.getOriginalFilename();//获取文件的名称
+					try {
+						if(StringUtils.isNotBlank(myFileName)){
+							//上传图片，上传操作完成后返回图片的路径地址：file_url
+							file_url=fastdfsClient.upload(file.getBytes(), getSuffix(myFileName), null);
+						//	userImageService
+						}
+						//若file_url为空，即：上传图片失败
+						if(StringUtils.isBlank(file_url)){
+							//返回“4100”，“图片上传失败请重新上传”
+							return new BackResult(HzdStatusCodeEnum.MEF_CODE_4100.getCode(), HzdStatusCodeEnum.MEF_CODE_4100.getMsg());
+						}
+						userImageVO.setImageId(UUIDGenerator.getUUID());//图片id
+
+						userImageVO.setArtWork(file_url);//服务器存储的图片的地址
+						userImageVO.setCreateTime(new Date());//创建时间
+
+						Result<Boolean> booleanResult = userImageService.insertSelective(userImageVO);
+						if (StatusCodes.OK != (booleanResult.getStatus())) {
+							return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+									HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+						}
+						long endTime = System.currentTimeMillis();
+						Map   map = new HashedMap();
+						map.put("url", ImageUrlUtil.geturl(file_url));
+						map.put("type",userImageVO.getType());
+
+						logger.i("上传图片运行时间：" + String.valueOf(endTime - startTime) + "ms" +file_url);
+						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
+
+					} catch (Exception e) {
+						logger.i("-----------系统异常,请检查数据源-------");
+						e.printStackTrace();
+						return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
+								null);
+					}
+				}
+
+			}
+		}
+		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
 	}
 }

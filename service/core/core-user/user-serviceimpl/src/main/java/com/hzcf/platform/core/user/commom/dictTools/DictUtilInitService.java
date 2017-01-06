@@ -31,8 +31,10 @@ public class DictUtilInitService {
         //  KYE applyDictionaryRegion 省市区
         List<UserDict> userDicts = userDictDao.selectJkytList();
         Map<String, Object> stringObjectMap = initLoanuse(userDicts);
+        String applyDictionaryJkyt = JsonUtil.json2String(stringObjectMap);
+        cache.save("applyDictionaryJkyt",applyDictionaryJkyt);
 
-       // System.out.println("----------2-------"+stringObjectMap1.toString());
+
     }
     
     

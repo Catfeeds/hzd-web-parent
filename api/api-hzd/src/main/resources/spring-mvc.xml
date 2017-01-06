@@ -78,7 +78,7 @@
 
   	
 	<!-- 系统异常转换 -->  
-    <bean class="com.hzcf.platform.framework.webmvc.interceptor.SystemHanlderExceptionResolver" />
+    <bean class="com.hzcf.platform.interceptor.SystemHanlderExceptionResolver" />
 
 
     <context:component-scan base-package="com.hzcf.platform" />

@@ -11,12 +11,12 @@
 		<typeAlias type="com.hzcf.platform.core.user.data.MsgBox" alias="MsgBox"/>
 		<typeAlias type="com.hzcf.platform.core.user.data.District" alias="District"/>
 	</typeAliases>
-	
-	
-	
+
+
+
 	<!-- 指定映射文件 -->
 	<mappers>
-		<mapper resource="sqlmap/Usermapper.xml" />
+		<mapper resource="sqlmap/UserMapper.xml" />
 		<mapper resource="sqlmap/UserApplyInfoMapper.xml" />
 		<mapper resource="sqlmap/userInfoMapper.xml" />
 		<mapper resource="sqlmap/userRelationMapper.xml" />

@@ -60,7 +60,7 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
 	public Result<Boolean> updateImage(UserImageVO userImageVO){
 		try {
 			UserImage t = toDO(userImageVO);
-			purchaseOrderDao.updateByUserId(t);
+			purchaseOrderDao.updateByImageId(t);
 			return new Result<Boolean>(StatusCodes.OK, true);
 		} catch (Exception e) {
 			logger.error("an error occur in update service : {}", e);
@@ -81,18 +81,18 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
 	}
 
 	@Override
-	public Result<UserImageVO> getById(String userId) {
-		System.out.println(userId);
+	public Result<List<UserImageVO>> getUserId(String userId) {
+
 		try {
-			UserImage t = purchaseOrderDao.getById(userId);
+			List<UserImage> t = purchaseOrderDao.getUserId(userId);
 			if (null == t) {
 				logger.debug("data null.");
-				return new Result<UserImageVO>(StatusCodes.OK, null);
+				return new Result<List<UserImageVO>>(StatusCodes.INTERNAL_SERVER_ERROR, null);
 			}
-			return new Result<UserImageVO>(StatusCodes.OK, toVO(t));
+			return new Result<List<UserImageVO>>(StatusCodes.OK, toVO(t));
 		} catch (Exception e) {
 			logger.error("an error occur in getByPK service : {}", e);
-			return new Result<UserImageVO>(StatusCodes.INTERNAL_SERVER_ERROR, getModel());
+			return new Result<List<UserImageVO>>(StatusCodes.INTERNAL_SERVER_ERROR,  null);
 		}
 	}
 	//String applyId, String type

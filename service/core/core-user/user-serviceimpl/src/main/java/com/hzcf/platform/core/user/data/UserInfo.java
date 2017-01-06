@@ -1,7 +1,6 @@
 package com.hzcf.platform.core.user.data;
 
 
-
 import com.hzcf.platform.common.model.AbstractEntity;
 
 import java.math.BigDecimal;
@@ -35,6 +34,7 @@ public class UserInfo extends AbstractEntity {
     private String residentCity;//家庭所在市
     private String residentAddress;//家庭详细地址
     private String residentTelCode;//家庭电话号码
+    private String residentTelAreaCode;//家庭电话区号  (新增字段)
     private String residentPostCode;//家庭邮政编码  (新增字段)
     private String email;//电子邮件地址
     private BigDecimal annualIncome;//个人年收入
@@ -50,6 +50,7 @@ public class UserInfo extends AbstractEntity {
     private String orgCity;//单位所在市
     private String orgAddress;//单位详细地址
     private String orgPostCode;//单位邮政编码  (新增字段)
+    private String orgTelAreaCode;//单位电话区号  (新增字段)
     private String orgTelCode;//单位电话号码
 
     
@@ -67,11 +68,11 @@ public class UserInfo extends AbstractEntity {
 			Date birthday, String gender, String education, String domicileProvince, String domicileCity,
 			String domicileAddress, String domicilePostCode, String marriageStatus, String childrenStatus,
 			String houseStatus, String residentProvince, String residentCity, String residentAddress,
-			String residentTelCode, String residentPostCode, String email, BigDecimal annualIncome,
-			BigDecimal creditCardLimit, String liveTogether, String staffNo, String orgName, String orgType,
-			String orgProvince, String orgCity, String orgAddress, String orgPostCode, String orgTelCode,
-			String isExpress, String productId, String receiverLoginName, String isInside, String orgTeamId,
-			String borrowType) {
+			String residentTelCode, String residentTelAreaCode, String residentPostCode, String email,
+			BigDecimal annualIncome, BigDecimal creditCardLimit, String liveTogether, String staffNo, String orgName,
+			String orgType, String orgProvince, String orgCity, String orgAddress, String orgPostCode,
+			String orgTelAreaCode, String orgTelCode, String isExpress, String productId, String receiverLoginName,
+			String isInside, String orgTeamId, String borrowType) {
 		super();
 		this.userInfoId = userInfoId;
 		this.userId = userId;
@@ -92,6 +93,7 @@ public class UserInfo extends AbstractEntity {
 		this.residentCity = residentCity;
 		this.residentAddress = residentAddress;
 		this.residentTelCode = residentTelCode;
+		this.residentTelAreaCode = residentTelAreaCode;
 		this.residentPostCode = residentPostCode;
 		this.email = email;
 		this.annualIncome = annualIncome;
@@ -104,6 +106,7 @@ public class UserInfo extends AbstractEntity {
 		this.orgCity = orgCity;
 		this.orgAddress = orgAddress;
 		this.orgPostCode = orgPostCode;
+		this.orgTelAreaCode = orgTelAreaCode;
 		this.orgTelCode = orgTelCode;
 		this.isExpress = isExpress;
 		this.productId = productId;
@@ -226,6 +229,12 @@ public class UserInfo extends AbstractEntity {
 	public void setResidentTelCode(String residentTelCode) {
 		this.residentTelCode = residentTelCode;
 	}
+	public String getResidentTelAreaCode() {
+		return residentTelAreaCode;
+	}
+	public void setResidentTelAreaCode(String residentTelAreaCode) {
+		this.residentTelAreaCode = residentTelAreaCode;
+	}
 	public String getResidentPostCode() {
 		return residentPostCode;
 	}
@@ -298,6 +307,12 @@ public class UserInfo extends AbstractEntity {
 	public void setOrgPostCode(String orgPostCode) {
 		this.orgPostCode = orgPostCode;
 	}
+	public String getOrgTelAreaCode() {
+		return orgTelAreaCode;
+	}
+	public void setOrgTelAreaCode(String orgTelAreaCode) {
+		this.orgTelAreaCode = orgTelAreaCode;
+	}
 	public String getOrgTelCode() {
 		return orgTelCode;
 	}
@@ -349,10 +364,11 @@ public class UserInfo extends AbstractEntity {
 				+ ", marriageStatus=" + marriageStatus + ", childrenStatus=" + childrenStatus + ", houseStatus="
 				+ houseStatus + ", residentProvince=" + residentProvince + ", residentCity=" + residentCity
 				+ ", residentAddress=" + residentAddress + ", residentTelCode=" + residentTelCode
-				+ ", residentPostCode=" + residentPostCode + ", email=" + email + ", annualIncome=" + annualIncome
-				+ ", creditCardLimit=" + creditCardLimit + ", liveTogether=" + liveTogether + ", staffNo=" + staffNo
-				+ ", orgName=" + orgName + ", orgType=" + orgType + ", orgProvince=" + orgProvince + ", orgCity="
-				+ orgCity + ", orgAddress=" + orgAddress + ", orgPostCode=" + orgPostCode + ", orgTelCode=" + orgTelCode
+				+ ", residentTelAreaCode=" + residentTelAreaCode + ", residentPostCode=" + residentPostCode + ", email="
+				+ email + ", annualIncome=" + annualIncome + ", creditCardLimit=" + creditCardLimit + ", liveTogether="
+				+ liveTogether + ", staffNo=" + staffNo + ", orgName=" + orgName + ", orgType=" + orgType
+				+ ", orgProvince=" + orgProvince + ", orgCity=" + orgCity + ", orgAddress=" + orgAddress
+				+ ", orgPostCode=" + orgPostCode + ", orgTelAreaCode=" + orgTelAreaCode + ", orgTelCode=" + orgTelCode
 				+ ", isExpress=" + isExpress + ", productId=" + productId + ", receiverLoginName=" + receiverLoginName
 				+ ", isInside=" + isInside + ", orgTeamId=" + orgTeamId + ", borrowType=" + borrowType + "]";
 	}
