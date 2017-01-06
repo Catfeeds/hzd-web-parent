@@ -1,16 +1,21 @@
 package com.hzcf.platform.api.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hzcf.platform.api.annotation.RequestAttribute;
+import com.hzcf.platform.api.annotation.RequestBodyForm;
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.api.service.IOnlineApplyLoanService;
 import com.hzcf.platform.api.service.IRealNameService;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
+import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.model.UserVO;
 
 /**
@@ -44,12 +49,15 @@ public class RealNameController {
         return realNameService.saveRealName(user);
     }
 	/**上传实名认证图片
-	 * 需要两个参数：用户信息，图片信息
+	 * 
 	 * */
     @RequestMapping(value="rest/saverealnamepic")
-    public BackResult saverealnamepic(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
+    public BackResult saverealnamepic(HttpServletRequest request,
+            @RequestAttribute(BaseConfig.USER_TYPE)  UserVO user,
+            @RequestBodyForm UserImageVO userImageVO,
+            @PathVariable String applyId)  {
         logger.i("保存借款人实名认证信息的图片");
         logger.i("入参"+ JsonUtil.json2String(user));
-        return realNameService.saveRealNamePic(user);
+        return realNameService.saveRealNamePic(request,user, userImageVO,applyId);
     }
 }
