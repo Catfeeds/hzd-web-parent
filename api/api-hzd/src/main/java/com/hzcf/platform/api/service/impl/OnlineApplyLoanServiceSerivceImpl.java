@@ -104,14 +104,6 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	@Override
 	public BackResult onlineLoanapplyOne(UserVO user, UserApplyInfoVO userApplyInfoVO) {
 		try {
-			// TODO 测试数据
-			if (user == null) {
-				user = new UserVO();
-				user.setId("89898989898aa");
-				Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByUserId("89898989898aa");
-				UserApplyInfoVO items = userApplyInfoVOResult.getItems();
-				return new BackResult(0, "成功", items);
-			}
 
 			// ------------
 			DataVerifcation.checkUserApplyInfoVO(userApplyInfoVO, user);
@@ -147,12 +139,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
 		try {
 
-			// TODO 测试数据
-			if (user == null) {
-				user = new UserVO();
-				user.setId("89898989898aa");
 
-			}
 			
 			DataVerifcation.checkUserInfoVOTwo(userInfoVO, user);
 
@@ -167,6 +154,18 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			userInfoVO.setUserId(user.getId());
 			userInfoVO.setApplyId(applyId);
 			userInfoVO.setCreateTime(new Date());
+
+			userInfoVO.setIdType("01");//身份证类型,默认01
+			userInfoVO.setDomicilePostCode("1111");//户籍邮政编码 TODO 户籍邮政编码
+			userInfoVO.setResidentPostCode("1111");//家庭邮政编码 TODO 家庭邮政编码
+			userInfoVO.setBorrowType("01");//借贷类型  TODO ?
+			userInfoVO.setOrgTeamId("所属团队"); //所属团队 // TODO 所属团队
+			userInfoVO.setIsInside("01"); //内网外网 // TODO 内网外挂
+			userInfoVO.setReceiverLoginName("线上进件");//受理人
+			userInfoVO.setProductId("精英贷1.89");//贷款类型 TODO
+			userInfoVO.setIsExpress("0"); //是否加急,默认为0，就是默认为否
+
+
 			Result<String> stringResult = userInfoService.create(userInfoVO);
 			if (StatusCodes.OK == (stringResult.getStatus())) {
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
@@ -191,12 +190,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	public BackResult onlineLoanapplyInfoThree(UserVO user, UserInfoVO userInfoVO, String applyId) {
 
 		try {
-			// TODO 测试数据
-			if (user == null) {
-				user = new UserVO();
-				user.setId("89898989898aa");
 
-			}
 
 			DataVerifcation.checkUserInfoVOThree(userInfoVO, user);
 
@@ -207,6 +201,8 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 						HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
 			}
 			userInfoVO.setApplyId(applyId);
+			userInfoVO.setOrgPostCode("单位邮政编码");//TODO 单位邮政编码
+
 			userInfoVO.setCreateTime(new Date());
 			Result<Boolean> booleanResult = userInfoService.updateUserInfo(userInfoVO);
 			if (StatusCodes.OK == (booleanResult.getStatus())) {
@@ -233,12 +229,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	public BackResult onlineLoanapplyInfoPerfect(UserVO user, List<UserRelationVO> userRelationVO, String applyId) {
 
 		try {
-			// TODO 测试数据
-			if (user == null) {
-				user = new UserVO();
-				user.setId("89898989898aa");
-				user.setMobile("13911890913");
-			}
+
 
 			DataVerifcation.checkUserRelationVO(user, userRelationVO);
 
