@@ -10,9 +10,9 @@
 		<typeAlias type="com.hzcf.platform.core.user.data.UserDict" alias="UserDict"/>
 		<typeAlias type="com.hzcf.platform.core.user.data.MsgBox" alias="MsgBox"/>
 	</typeAliases>
-	
-	
-	
+
+
+
 	<!-- 指定映射文件 -->
 	<mappers>
 		<mapper resource="sqlmap/UserMapper.xml" />
