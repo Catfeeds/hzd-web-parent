@@ -50,7 +50,11 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 	public BackResult selectAllByUser(MsgBoxVO msgBoxVO) {
 		if(msgBoxVO != null){
 			PaginatedResult<MsgBoxVO> result = this.msgBoxservice.selectAllByUser(msgBoxVO);
-			if(StatusCodes.OK==result.getStatus()){
+			if(StatusCodes.OK==result.getStatus() ){
+				if(result.getItems().size()==0){
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_5100.getCode(), HzdStatusCodeEnum.MEF_CODE_5100.getMsg(), result.getItems());
+
+				}
 				Result<Boolean> update_result = this.msgBoxservice.updateReadByUser(msgBoxVO);
 				if(StatusCodes.OK==update_result.getStatus()){
 					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), result.getItems());

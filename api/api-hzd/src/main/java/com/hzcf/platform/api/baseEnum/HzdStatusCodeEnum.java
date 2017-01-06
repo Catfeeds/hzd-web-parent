@@ -49,7 +49,7 @@ public enum HzdStatusCodeEnum {
 	//====图片信息
 	MEF_CODE_4100(4100, "图片上传失败请重新上传"),
 
-
+	MEF_CODE_5100(5100, "未查询到信息"),
 
 
 	MEF_CODE_9000(9000, "传入参数有误"),

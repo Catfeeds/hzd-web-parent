@@ -79,7 +79,7 @@
 			<groupId>com.hzcf.core.user</groupId>
 			<artifactId>core-user-service</artifactId>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>junit</groupId>
 			<artifactId>junit</artifactId>
