@@ -29,6 +29,6 @@ public interface UserImageDao extends IBaseDao<UserImage> {
     //String applyId,String type
     public List<UserImageVO> selectUserImageByApplyIdAndType(Map<String,Object> paramsMap);
     public List<UserImageVO> selectUserImageByUserIdAndType(Map<String,String> paramsMap);
-    boolean updateByUserId(UserImage userImage);
+    boolean updateByImageId(UserImage userImage);
 
 }

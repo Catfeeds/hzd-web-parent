@@ -132,7 +132,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="UserImage" >
+  <update id="updateByImageId" parameterType="UserImage" >
     update user_image
     <set >
       <if test="userId != null" >

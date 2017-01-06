@@ -66,9 +66,9 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
 	}
 
 	@Override
-	public boolean updateByUserId(UserImage userImage) {
-		if (userImage.getUserId() != null && userImage.getUserId().length()>0 ) {
-			sqlSessionTemplate.update(getSqlName("updateByUserId"), userImage);
+	public boolean updateByImageId(UserImage userImage) {
+		if (userImage.getUserId() != null && userImage.getImageId().length()>0 ) {
+			sqlSessionTemplate.update(getSqlName("updateByImageId"), userImage);
             return true;
 		}
 
