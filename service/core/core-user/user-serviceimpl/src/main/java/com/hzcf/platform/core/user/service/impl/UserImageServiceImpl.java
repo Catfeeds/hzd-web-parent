@@ -60,7 +60,7 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
 	public Result<Boolean> updateImage(UserImageVO userImageVO){
 		try {
 			UserImage t = toDO(userImageVO);
-			purchaseOrderDao.updateByUserId(t);
+			purchaseOrderDao.updateByImageId(t);
 			return new Result<Boolean>(StatusCodes.OK, true);
 		} catch (Exception e) {
 			logger.error("an error occur in update service : {}", e);
