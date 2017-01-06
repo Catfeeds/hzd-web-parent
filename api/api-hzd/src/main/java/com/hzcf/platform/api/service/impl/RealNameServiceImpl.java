@@ -1,10 +1,12 @@
 package com.hzcf.platform.api.service.impl;
 
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.hzcf.platform.api.util.ImageUrlUtil;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -141,8 +143,14 @@ public class RealNameServiceImpl implements IRealNameService {
 	 * 需要2个参数：借款人信息，实名认证的图片信息
 	 */
 	@Override
-	public BackResult saveRealNamePic(HttpServletRequest request, UserVO user, UserImageVO userImageVO) {
-
+	public BackResult saveRealNamePic(HttpServletRequest request, UserVO user, UserImageVO userImageVO,String applyId) {
+		//获取用户的申请信息
+		Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
+		UserApplyInfoVO items = userApplyInfoVOResult.getItems();
+		if (items == null) {
+			//返回“2400”，“无效的借款编号”
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(),HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
+		}
 		long startTime = System.currentTimeMillis();//获取当前时间戳
 		//将当前上下文初始化给 CommonsMutipartResolver （多部分解析器）
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
@@ -171,7 +179,7 @@ public class RealNameServiceImpl implements IRealNameService {
 							return new BackResult(HzdStatusCodeEnum.MEF_CODE_4100.getCode(), HzdStatusCodeEnum.MEF_CODE_4100.getMsg());
 						}
 						userImageVO.setImageId(UUIDGenerator.getUUID());//图片id
-
+						userImageVO.setApplyId(applyId);//申请单号
 						userImageVO.setArtWork(file_url);//服务器存储的图片的地址
 						userImageVO.setCreateTime(new Date());//创建时间
 						//
@@ -182,7 +190,7 @@ public class RealNameServiceImpl implements IRealNameService {
 						}
 						long endTime = System.currentTimeMillis();
 						String url =ConstantsDictionary.imgUpload+"/"+file_url;
-						Map<String,Object> map=new HashMap<String,Object>();
+						Map   map = new HashedMap();
 						map.put("url",url);
 						map.put("type",userImageVO.getType());
 
@@ -200,29 +208,5 @@ public class RealNameServiceImpl implements IRealNameService {
 			}
 		}
 		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
-	}
-
-	@Override
-	public BackResult findImageInfo(UserVO user) {
-		Map<String,Object> map=new HashMap<String,Object>();
-		Result<List<UserImageVO>> resultuserImageVO = null;
-		if(StringUtils.isNotBlank(user.getId())){
-
-			resultuserImageVO = userImageService.getUserId(user.getId());
-			if (StatusCodes.OK != (resultuserImageVO.getStatus())) {
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
-			}
-			for (UserImageVO u :resultuserImageVO.getItems()){
-
-						u.setArtWork(ImageUrlUtil.geturl(u.getArtWork()));
-			}
-
-		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),resultuserImageVO.getItems());
-
-		}
-		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg(),null);
-
-
 	}
 }
