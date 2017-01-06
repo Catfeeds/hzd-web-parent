@@ -49,7 +49,7 @@
 <br>
 <br>
 <h1>springMVC包装类上传文件</h1>
-<form name="userForm2" action="http://localhost:8080/api-hzd/api/100/onlineLoanapply/ImgUpload/123456" enctype="multipart/form-data" method="post">
+<form name="userForm2" action="http://Loanapply/ImgUpload/123456" enctype="multipart/form-data" method="post">
 <div id="newUpload2">
     <input type="file" name="file">
     <input name="userId" type="text" value="123">

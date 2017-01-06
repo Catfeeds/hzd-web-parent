@@ -18,5 +18,12 @@ public interface IRealNameService {
 	//保存实名认证信息
 	public BackResult saveRealName(UserVO user);
 	//上传实名认证的图片
-	public BackResult saveRealNamePic(HttpServletRequest request, UserVO user, UserImageVO userImageVO,String applyId);
+	public BackResult saveRealNamePic(HttpServletRequest request, UserVO user, UserImageVO userImageVO);
+
+	/**
+	 * 查询实名认证图片
+	 * @param user
+	 * @return
+	 */
+	public BackResult findImageInfo( UserVO user);
 }

@@ -43,7 +43,7 @@ public class RealNameController {
 	/**保存实名认证信息
 	 * 
 	 * */
-    @RequestMapping(value="rest/saverealname",method = RequestMethod.POST)
+    @RequestMapping(value="rest/api/100/user/saverealname",method = RequestMethod.POST)
     public BackResult saverealname(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
         logger.i("保存借款人实名认证信息");
         logger.i("入参"+ JsonUtil.json2String(user));
@@ -52,13 +52,23 @@ public class RealNameController {
 	/**上传实名认证图片
 	 * 
 	 * */
-    @RequestMapping(value="rest/saverealnamepic",method = RequestMethod.POST)
+    @RequestMapping(value="rest/api/100/user/saverealnamepic",method = RequestMethod.POST)
     public BackResult saverealnamepic(HttpServletRequest request,
             @RequestAttribute(BaseConfig.USER_TYPE)  UserVO user,
-            @RequestBodyForm UserImageVO userImageVO,
-            @PathVariable String applyId)  {
+            @RequestBodyForm UserImageVO userImageVO)  {
         logger.i("保存借款人实名认证信息的图片");
         logger.i("入参"+ JsonUtil.json2String(user));
-        return realNameService.saveRealNamePic(request,user, userImageVO,applyId);
+        return realNameService.saveRealNamePic(request,user, userImageVO);
+    }
+
+    /**查询实名认证图片
+     *
+     * */
+    @RequestMapping(value={"rest/api/100/user/findImageInfo","test1/test1"},method = RequestMethod.POST)
+    public BackResult findImageInfo(
+                                      @RequestAttribute(BaseConfig.USER_TYPE)  UserVO user)  {
+        logger.i("保存借款人实名认证信息的图片");
+        logger.i("入参"+ JsonUtil.json2String(user));
+        return realNameService.findImageInfo(user);
     }
 }

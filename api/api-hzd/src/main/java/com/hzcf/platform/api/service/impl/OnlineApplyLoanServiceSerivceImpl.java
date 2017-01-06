@@ -45,7 +45,8 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	@Autowired
 	public UserInfoService userInfoService;
 	@Autowired
-	public UserRelationService UserRelationService;
+	public UserRelationService userRelationService;
+	@Autowired
 	public UserImageService userImageService;
 	@Autowired
 	FastDFSClient fastdfsClient;
@@ -245,7 +246,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 				userRelation.setApplyId(applyId);
 				userRelation.setCreateTime(new Date());
 				userRelation.setUserId(user.getId());
-				Result<String> stringResult = UserRelationService.create(userRelation);
+				Result<String> stringResult = userRelationService.create(userRelation);
 				if (StatusCodes.OK != (stringResult.getStatus())) {
 					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
 							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
@@ -363,7 +364,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 		Result<UserInfoVO> userInfoVOResult = userInfoService.selectByApplyId(applyId);
 		UserInfoVO userInfoVO = userInfoVOResult.getItems();
 
-		Result<List<UserRelationVO>> listResult = UserRelationService.selectByApplyId(applyId);
+		Result<List<UserRelationVO>> listResult = userRelationService.selectByApplyId(applyId);
 		List<UserRelationVO> userRelationVOList = listResult.getItems();
 		if (userApplyInfoVO == null || userInfoVO == null || userRelationVOList.size() == 0) {
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(), HzdStatusCodeEnum.MEF_CODE_2400.getMsg());

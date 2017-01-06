@@ -30,8 +30,9 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
     public boolean insertSelective(UserImage userImage) {
         if (userImage.getImageId() != null && userImage.getImageId().length()>0 ) {
             sqlSessionTemplate.insert(getSqlName("insertSelective"), userImage);
+            return true;
         }
-        return true;
+        return false;
     }
 
     @Override
@@ -55,8 +56,8 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
 	}*/
 
 	@Override
-	public UserImage getById(String id) {
-		return sqlSessionTemplate.selectOne(getSqlName("selectByUserId"), id);
+	public List<UserImage> getUserId(String UserId) {
+		return sqlSessionTemplate.selectList(getSqlName("selectByUserId"), UserId);
 	}
 	//String applyId, String type
 	@Override

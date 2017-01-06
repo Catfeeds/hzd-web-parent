@@ -39,7 +39,7 @@
        select
        <include refid="Base_Column_List" />
        from user_image
-       where type=4 and user_id=#{id,jdbcType=VARCHAR}
+       where type='4' and user_id=#{id,jdbcType=VARCHAR}
   </select>
   <!-- 根据运单号（apply_id），图片类型（type），查询图片集合 -->
   <select id="selectUserImageByApplyIdAndType" resultMap="BaseResultMapVO" parameterType="java.util.Map">

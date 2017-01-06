@@ -14,7 +14,7 @@ public interface UserImageService extends IBaseService<UserImageVO> {
 	
 	//public Result<UserImageVO> getByMobile(String mobile);
 	
-	public Result<UserImageVO> getById(String userId);
+	public Result<List<UserImageVO>> getUserId(String userId);
 	
 	//String applyId,String type
 	public Result<List<UserImageVO>> selectUserImageByApplyIdAndType(Map<String, Object> parmMap);
