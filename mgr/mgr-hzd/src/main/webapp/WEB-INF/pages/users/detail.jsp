@@ -71,10 +71,10 @@ pageEncoding="UTF-8"%>
 	</tr>
 	<tr>
 		<td>图片上传信息</td>
-		<td><img style="width: 200px;height: 100px"  src= ${smsUserInfo.smallA} /></td>
-		<!-- <td><img style="width: 200px;height: 100px"  src= "../../images/accept.png"/></td> -->
-		<td><img style="width: 200px;height: 100px"  src= ${smsUserInfo.smallB} /></td>
-		<td><img style="width: 200px;height: 100px"  src= ${smsUserInfo.smallC} /></td>
+		<td><img style="width: 200px;height: 100px" src="${smsUserInfo.artWorkA}"></td> 
+		<!-- <td><img style="width: 200px;height: 100px"  src= "http://10.10.10.64/group1/M00/00/01/CgoKQFhwiAeAbdESAAMVBy88HO4296.JPG"/></td> -->
+		<td><img style="width: 200px;height: 100px"  src= "${smsUserInfo.artWorkB}"></td>
+		<td><img style="width: 200px;height: 100px"  src= "${smsUserInfo.artWorkC}"></td>
 	</tr>
 	<tr style="display: none " id="sh">
 		<td>审核意见</td>

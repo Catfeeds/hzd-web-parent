@@ -1,4 +1,4 @@
-package com.hzcf.platform.core.user.data;
+package com.hzcf.platform.core.user.model;
 
 import java.io.Serializable;
 import java.util.Map;

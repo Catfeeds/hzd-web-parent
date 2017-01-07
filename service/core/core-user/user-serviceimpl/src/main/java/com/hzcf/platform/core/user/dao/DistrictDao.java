@@ -21,4 +21,6 @@ public interface DistrictDao  extends IBaseDao<District> {
     List<District> selectAllProvince();
     
     List<District> selectAllCity();
+    List<District> selectAllArea();
+    
 }

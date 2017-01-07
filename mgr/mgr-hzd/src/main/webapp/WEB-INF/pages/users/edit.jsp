@@ -8,13 +8,13 @@ pageEncoding="UTF-8"%>
 <%@include file="../common/include.jsp"%> 
 <script type="text/javascript">
 	function save(){
-		var name = $("#name").val();
+		xm();
+		/* var name = $("#name").val();
 		var idCard = $("#idCard").val();
-		var mobile = $("#mobile").val();
+		var mobile = $("#mobile").val(); */
 		var msg = $("#div").val();
 		if(msg==""){
-			window.location = '${path}/users/check/update?mobile='+mobile+"&name="+name+"&idCard="+idCard;
-			// document.getElementById("form2").submit();
+			document.getElementById("form1").submit();
 		}else{
 			$("#div").html("校验未通过不能提交");
 		}
@@ -54,9 +54,9 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 <div id="div" style="line-height: 100px; font-size: 1rem; color: red;"></div>
-<form action="${path}/users/check/update" method="post" id="form1" enctype="multipart/form-data">
+<form action="${path}/users/check/updateUserAndImage" method="post" id="form1" enctype="multipart/form-data">
 
-<table id="table" style="width: 800px;height: 350px"  >
+<table id="table" style="width: 800px;height: 600px"  >
 	<tr id="div" style="display: none "></tr>
 	<tr>
 		<h>用户信息</h>
@@ -79,12 +79,6 @@ pageEncoding="UTF-8"%>
 		<td>${smsUserInfo.createTime}</td>
 		
 	</tr>
-	
-</table>
-</form>
-
-<form action="${path}/users/check/smsImgUpload" method="post" id="form2" enctype="multipart/form-data">
-<table id="table" style="width: 800px;height: 350px">
 	<tr>
 		<td>图片上传信息</td></tr>
 	<tr>
@@ -97,8 +91,14 @@ pageEncoding="UTF-8"%>
 		<input type="hidden" name="mobile" id="mobile" value=${smsUserInfo.mobile} /> 
 		<input type="button" value="保存" onclick="save()"/> </td>
 	</tr>
+	
+</table>
+<%-- </form>
+
+<form action="${path}/users/check/smsImgUpload" method="post" id="form2" enctype="multipart/form-data">
+<table id="table" style="width: 800px;height: 350px">
 </table>
 
-</form>
+</form> --%>
 </body>
 </html>

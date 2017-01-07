@@ -15,12 +15,18 @@ public class DistrictDaoImpl  extends AbstractMysqlBaseDaoImpl<District> impleme
 
 	@Override
 	public List<District> selectAllProvince() {
-		return sqlSessionTemplate.selectList("selectAllProvince");
+		return sqlSessionTemplate.selectList(getSqlName("selectAllProvince"));
 	}
 
 	@Override
 	public List<District> selectAllCity() {
 		return sqlSessionTemplate.selectList(getSqlName("selectAllCity"));
+	}
+	
+
+	@Override
+	public List<District> selectAllArea() {
+		return sqlSessionTemplate.selectList(getSqlName("selectAllArea"));
 	}
 
 	@Override
@@ -58,6 +64,7 @@ public class DistrictDaoImpl  extends AbstractMysqlBaseDaoImpl<District> impleme
 		// TODO Auto-generated method stub
 		return 0;
 	}
+
 
 	
    

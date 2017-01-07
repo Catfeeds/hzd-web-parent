@@ -2,9 +2,11 @@ package com.hzcf.platform.core.user.commom.dictTools;
 
 import com.alibaba.dubbo.config.annotation.Service;
 import com.hzcf.platform.common.cache.ICache;
+import com.hzcf.platform.core.user.model.UserDictJson;
 import com.hzcf.platform.core.user.service.DictUtilService;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -14,16 +16,26 @@ import java.util.Map;
 public class DictUtilServiceImpl  implements DictUtilService {
     @Autowired
     private ICache cache;
+
     @Override
     public Map<String, Object> applyDictionaryJkyt() {
-        return  (Map<String, Object>) cache.load("applyDictionaryJkyt");
+        return (Map<String, Object>) cache.load("applyDictionaryJkyt");
     }
+
     @Override
-    public Map<String,Object> applyDictionaryinfo() {
-        return  (Map<String, Object>)cache.load("applyDictionaryinfo");
+    public Map<String, Object> applyDictionaryinfo() {
+        return (Map<String, Object>) cache.load("applyDictionaryinfo");
     }
+
     @Override
-    public Map<String,Object> applyDictionaryRegion() {
-        return  (Map<String, Object>)cache.load("applyDictionaryRegion");
-    }
+    public List<UserDictJson> applyDictionaryRegionsheng() {
+        return (List<UserDictJson>) cache.load("applyDictionaryRegionsheng");    }
+
+    @Override
+    public Map<String, Object> applyDictionaryRegionshi() {
+        return (Map<String, Object>) cache.load("applyDictionaryRegionshi");    }
+
+    @Override
+    public Map<String, Object> applyDictionaryRegionqu() {
+        return (Map<String, Object>) cache.load("applyDictionaryRegionqu");    }
 }

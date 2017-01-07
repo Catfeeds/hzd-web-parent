@@ -39,11 +39,7 @@ public class BackResult {
 	        this.message = message;
 	    }
 
-	    public BackResult(int state, String message, String showMessage) {
-	        setState(state);
-	        setMessage(message);
-	        setShowMessage(showMessage);
-	    }
+
 
 	    public BackResult() {
 	        // nothing...
