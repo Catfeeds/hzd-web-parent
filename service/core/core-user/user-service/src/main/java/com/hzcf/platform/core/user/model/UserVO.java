@@ -3,17 +3,13 @@ package com.hzcf.platform.core.user.model;
 import com.hzcf.platform.common.model.BaseVO;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserVO extends BaseVO{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 9188703063339311809L;
+public class UserVO extends BaseVO implements Serializable{
 
 
-
+	private static final long serialVersionUID = 7441953954948417770L;
 
 	private String mobile;//手机号
 
@@ -82,12 +78,10 @@ public class UserVO extends BaseVO{
 	}
 
 	public UserVO(){
-		
+
 	}
 
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
+
 
 
 

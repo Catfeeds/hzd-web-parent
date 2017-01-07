@@ -1,5 +1,7 @@
 package com.hzcf.platform.api.common;
 
+import java.io.Serializable;
+
 /**
  * 
  * @description:token 长亮
@@ -13,7 +15,7 @@ package com.hzcf.platform.api.common;
  * 2016年12月8日                       雷佳明                           1.0       1.0 Version 
  * </pre>
  */
-public class ConstantsToken {
+public class ConstantsToken  implements Serializable{
 
     /**
      * 存储当前登录用户id的字段名

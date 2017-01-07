@@ -18,10 +18,12 @@ public class ConfigSmsUtil {
     	if(smsNum.equals(ConstantsDictionary.SMSNUM) && "TRUE".equals(ConstantsDictionary.SMSNUMSWITCH)){
 
     		logger.i("---------用户使用超级验证码:mobile:"+mobile);
+				cache.save(ConstantsToken.SMS_CACHE_REG_KEY+mobile, smsNum ,ConstantsToken.SMS_EXPIRES_MIN);
+				cache.save(ConstantsToken.SMS_CACHE_FINDPWD_KEY+mobile, smsNum ,ConstantsToken.SMS_EXPIRES_MIN);
+				cache.save(ConstantsToken.SMS_CACHE_UPDATEPWD_KEY+mobile, smsNum ,ConstantsToken.SMS_EXPIRES_MIN);
+
 			//缓存验证码
-			cache.save(ConstantsToken.SMS_CACHE_REG_KEY+mobile, smsNum ,ConstantsToken.SMS_EXPIRES_MIN);
-			cache.save(ConstantsToken.SMS_CACHE_FINDPWD_KEY+mobile, smsNum ,ConstantsToken.SMS_EXPIRES_MIN);
-			cache.save(ConstantsToken.SMS_CACHE_UPDATEPWD_KEY+mobile, smsNum ,ConstantsToken.SMS_EXPIRES_MIN);
+
 
 			logger.i("-------------获取短信验证码成功" + ConstantsDictionary.SMSNUM + "mobile:"+ mobile);
 			return true;

@@ -1,5 +1,7 @@
 package com.hzcf.platform.api.controller;
 
+import com.google.gson.Gson;
+import com.google.gson.JsonObject;
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
@@ -24,8 +26,10 @@ public class DictUtilController {
     @RequestMapping(value={"rest/api/100/apply/dictionary/jkyt","api/100/apply/dictionary/jkyt"},method= RequestMethod.POST)
     public BackResult applyDictionaryJkyt(){
         try {
-            //Map<String, Object> stringObjectMap = dictUtilService.applyDictionaryJkyt();
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),dictUtilService.applyDictionaryJkyt());
+            Map<String, Object>  map =dictUtilService.applyDictionaryJkyt();
+            logger.i("map"+map);
+
+            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
         }catch (Exception e){
             logger.i("-----------系统异常,请检查数据源-------");
             e.printStackTrace();

@@ -7,7 +7,7 @@ import java.util.Map;
  */
 public interface DictUtilService {
 
-    public Map<String,Object> applyDictionaryJkyt();
+    public Map<String, Object> applyDictionaryJkyt();
 
 
     public Map<String,Object> applyDictionaryinfo();

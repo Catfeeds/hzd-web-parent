@@ -15,8 +15,8 @@ public class DictUtilServiceImpl  implements DictUtilService {
     @Autowired
     private ICache cache;
     @Override
-    public Map<String,Object> applyDictionaryJkyt() {
-        return  cache.load("applyDictionaryJkyt");
+    public Map<String, Object> applyDictionaryJkyt() {
+        return  (Map<String, Object>) cache.load("applyDictionaryJkyt");
     }
     @Override
     public Map<String,Object> applyDictionaryinfo() {
