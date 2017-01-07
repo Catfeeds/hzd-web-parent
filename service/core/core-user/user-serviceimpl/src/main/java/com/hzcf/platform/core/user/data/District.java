@@ -3,7 +3,7 @@ package com.hzcf.platform.core.user.data;
 import com.hzcf.platform.common.model.AbstractEntity;
 
 public class District extends AbstractEntity {
-    private String id;
+	private String id;
 
     private String value;
 
@@ -14,6 +14,12 @@ public class District extends AbstractEntity {
     private String pid;
 
     private String status;
+
+    private String isInside;
+
+    private String areacode;
+
+    private String postcode;
 
     public String getId() {
         return id;
@@ -61,5 +67,29 @@ public class District extends AbstractEntity {
 
     public void setStatus(String status) {
         this.status = status == null ? null : status.trim();
+    }
+
+    public String getIsInside() {
+        return isInside;
+    }
+
+    public void setIsInside(String isInside) {
+        this.isInside = isInside == null ? null : isInside.trim();
+    }
+
+    public String getAreacode() {
+        return areacode;
+    }
+
+    public void setAreacode(String areacode) {
+        this.areacode = areacode == null ? null : areacode.trim();
+    }
+
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode == null ? null : postcode.trim();
     }
 }
