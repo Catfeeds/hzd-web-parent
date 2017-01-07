@@ -77,14 +77,7 @@ public class SmsController {
 	@ResponseBody
 	public BackResult smsCheck(@RequestBodyForm UserVO user,@PathVariable String type){
 		logger.i("进入SmsController====UserVO:"+user.toString());
-		try {
-			if(ConfigSmsUtil.superSmsNum(user.getMobile(),type)){
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
-			}
-		}catch (Exception e){
-			e.printStackTrace();
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
-		}
+		
 		return smsService.smsCheck(user.getSmsCacheType(),user.getMobile(),type);
 	}
 	

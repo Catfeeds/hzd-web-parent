@@ -12,6 +12,7 @@ import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.utils.Serialnumber;
 import com.hzcf.platform.api.common.ConstantsToken;
+import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.UserService;
@@ -136,6 +137,22 @@ public class SmsServiceImpl implements ISmsService {
 	
 	public BackResult smsCheck(String key,String mobile,String sms){
 		try {
+
+			if(sms.equals(ConstantsDictionary.SMSNUM) && "TRUE".equals(ConstantsDictionary.SMSNUMSWITCH)){
+
+	    		logger.i("---------用户使用超级验证码:mobile:"+mobile);
+	    		System.out.println(cache.getClass());
+					cache.save("SMS_CACHE_REG_"+mobile, "666666" ,ConstantsToken.SMS_EXPIRES_MIN);
+					cache.save("SMS_CACHE_FINDPWD_"+mobile, "666666" ,ConstantsToken.SMS_EXPIRES_MIN);
+					cache.save("SMS_CACHE_UPDATEPWD_"+mobile, "666666" ,ConstantsToken.SMS_EXPIRES_MIN);
+
+				//缓存验证码
+
+
+				logger.i("-------------获取超级短信验证码成功" + ConstantsDictionary.SMSNUM + "mobile:"+ mobile);
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
+			}
+			
 			Result<UserVO> byMobile = userSerivce.getByMobile(mobile);
 			UserVO items = byMobile.getItems();
 			String cacheSmsnum = cache.load(key+mobile);
@@ -152,4 +169,6 @@ public class SmsServiceImpl implements ISmsService {
 
 		}
 	}
+
+	
 }
