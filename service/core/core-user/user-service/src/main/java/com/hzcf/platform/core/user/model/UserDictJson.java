@@ -1,6 +1,7 @@
 package com.hzcf.platform.core.user.model;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -11,6 +12,7 @@ public class UserDictJson implements Serializable{
     private  String dict_value;
     private  String dict_text;
     private Map<String,Object> map;
+    private List<UserDictJson> list;
 
     public String getDict_value() {
         return dict_value;
@@ -34,6 +36,14 @@ public class UserDictJson implements Serializable{
 
 	public void setMap(Map<String, Object> map) {
 		this.map = map;
+	}
+
+	public List<UserDictJson> getList() {
+		return list;
+	}
+
+	public void setList(List<UserDictJson> list) {
+		this.list = list;
 	}
 
 	@Override

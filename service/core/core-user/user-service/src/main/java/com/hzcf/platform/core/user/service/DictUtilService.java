@@ -13,7 +13,7 @@ public interface DictUtilService {
      * 借款用途
      * @return
      */
-    public Map<String, Object> applyDictionaryJkyt();
+    public List<UserDictJson> applyDictionaryJkyt();
 
 
     public Map<String,Object> applyDictionaryinfo();

@@ -29,7 +29,7 @@ public class DictUtilController {
     @RequestMapping(value={"rest/api/100/apply/dictionary/jkyt","api/100/apply/dictionary/jkyt"},method= RequestMethod.POST)
     public BackResult applyDictionaryJkyt(){
         try {
-            Map<String, Object>  map =dictUtilService.applyDictionaryJkyt();
+        	List<UserDictJson>  map =dictUtilService.applyDictionaryJkyt();
             logger.i("map"+map);
             return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
         }catch (Exception e){

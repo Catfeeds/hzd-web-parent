@@ -42,7 +42,7 @@ public class DictUtilInitService {
 
     	//借款用途
     	List<UserDict> userDicts = userDictDao.selectJkytList();
-        Map<String, Object> applyDictionaryJkyt = initLoanuse(userDicts);
+        List<UserDictJson> applyDictionaryJkyt = initLoanuse(userDicts);
         cache.save("applyDictionaryJkyt",applyDictionaryJkyt);
         System.out.println("applyDictionaryJkyt"+applyDictionaryJkyt);
 
@@ -168,13 +168,49 @@ public class DictUtilInitService {
         return tempList;
     }
     
+   
     
+    //借款用途
+    public  List<UserDictJson> initLoanuse(List<UserDict> userDictList){
+    	Map<String,Object> dictionaryInfoMap = new HashMap<String, Object>(); 
+        String key = "";
+        String pid = "";
+        List<UserDictJson> tempList=new ArrayList();;
+        List<UserDictJson> neiList = null;
+        UserDictJson userDictJson = null;
+        for(UserDict userDice:userDictList){
+            //子类
+        	if(userDice.getDictValue().length() > 2){
+        		for(int i=0;i<tempList.size();i++){
+        			UserDictJson json = (UserDictJson)tempList.get(i);
+        			//找到父类
+        			if(userDice.getDictValue().indexOf(json.getDict_value()) > -1){
+        				neiList = json.getList();
+        				userDictJson = new UserDictJson();
+        				userDictJson.setDict_value(userDice.getDictValue());
+        				userDictJson.setDict_text(userDice.getDictText());
+        				neiList.add(userDictJson);
+        				tempList.set(i, json);
+        			}
+        		}
+        	//父类
+        	}else{
+        		userDictJson = new UserDictJson();
+                userDictJson.setDict_value(userDice.getDictValue());
+                userDictJson.setDict_text(userDice.getDictText());
+                neiList = new ArrayList();
+                userDictJson.setList(neiList);
+                tempList.add(userDictJson);
+        	}
+        }
+    	return tempList;
+    }
     
     
     /**
      * 借款用途
      * @return
-     */
+     
     public  Map<String,Object> initLoanuse(List<UserDict> userDictList){
     	Map<String,Object> dictionaryInfoMap = new HashMap<String, Object>(); 
         String key = "";
@@ -200,7 +236,7 @@ public class DictUtilInitService {
         	}
         }
         return dictionaryInfoMap;
-    }
+    }*/
     
 
     /**
