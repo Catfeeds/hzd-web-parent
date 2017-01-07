@@ -1,15 +1,14 @@
 package com.hzcf.platform.api.service.impl;
 
-import java.util.HashMap;
-import java.util.Map;
-
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
+import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.api.common.BackResult;
-import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.service.ILoadService;
-import com.hzcf.platform.api.util.HttpTool;
+import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.webService.LoadService;
 
 /**
   * @Description:借款信息的service
@@ -20,19 +19,19 @@ import com.hzcf.platform.core.user.model.UserVO;
   */
 @Service
 public class LoadServiceImpl implements ILoadService {
+	private static final Log logger = Log.getLogger(LoadServiceImpl.class);
 	/**借款人查询借款信息，状态，进度
 	 * 
 	 */
 	@Override
 	public BackResult selectLoadProgress(UserVO user) {
-		/**封装参数：*/
-		Map<String,Object> map=new HashMap<String,Object>();
-		map.put("idCard","");//身份证号
-		map.put("systemSourceId","");//系统标识
-		map.put("signature","");//签名信息
-		String result=HttpTool.doGet(ConstantsDictionary.dispatchSelectLoadProgress,map);
-		
-		
-		return null;
+		String result=LoadService.selectLoadProgress(user);
+		if (StringUtils.isNotBlank(result)) {
+			logger.i("接口：借款人查询借款进度成功，结果："+result);
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
+		}else{
+			logger.e("接口：借款人查询借款进度成功，结果："+result);
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+		}
 	}
 }

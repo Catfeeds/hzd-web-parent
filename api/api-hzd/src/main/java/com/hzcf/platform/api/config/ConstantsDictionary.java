@@ -40,7 +40,8 @@ public class ConstantsDictionary {
 			SNSNUMFAILUREDATE = Integer.valueOf(props.getProperty("SNSNUMFAILUREDATE"));//短信失效时间
 			CONTENTTEXT = props.getProperty("CONTENTTEXT");
 			imgUpload  = props.getProperty("imgUpload");
-			dispatchSelectLoadProgress=props.getProperty("dispatch.selectLoadProgress");
+			dispatchSelectLoadProgressUrl=props.getProperty("dispatch.selectLoadProgress.url");//调度的“查询借款进度”接口地址
+			dispatchSelectLoadProgressKey=props.getProperty("dispatch.selectLoadProgress.key");//调度的“查询借款进度”接口的密钥
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -69,9 +70,8 @@ public class ConstantsDictionary {
 	public static String CONTENTTEXT;
 	public static String imgUpload;
 
-	
-	public static String dispatchSelectLoadProgress;//调度的“查询借款进度”接口地址
-	
+	public static String dispatchSelectLoadProgressUrl;//调度的“查询借款进度”接口地址
+	public static String dispatchSelectLoadProgressKey;//调度的“查询借款进度”接口的密钥
 	
 }
 
