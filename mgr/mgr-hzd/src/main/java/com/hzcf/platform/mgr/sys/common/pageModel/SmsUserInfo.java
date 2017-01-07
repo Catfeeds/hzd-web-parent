@@ -68,37 +68,37 @@ public class SmsUserInfo {
 		return artWorkA;
 	}
 	public void setArtWorkA(String artWorkA) {
-		this.artWorkA = artWorkA;
+		this.artWorkA = artWorkA== null? "":artWorkA.trim();
 	}
 	public String getArtWorkB() {
 		return artWorkB;
 	}
 	public void setArtWorkB(String artWorkB) {
-		this.artWorkB = artWorkB;
+		this.artWorkB = artWorkB== null? "":artWorkB.trim();
 	}
 	public String getArtWorkC() {
 		return artWorkC;
 	}
 	public void setArtWorkC(String artWorkC) {
-		this.artWorkC = artWorkC;
+		this.artWorkC = artWorkC== null? "":artWorkC.trim();
 	}
 	public String getSmallA() {
 		return smallA;
 	}
 	public void setSmallA(String smallA) {
-		this.smallA = smallA;
+		this.smallA = smallA== null? "":smallA.trim();
 	}
 	public String getSmallB() {
 		return smallB;
 	}
 	public void setSmallB(String smallB) {
-		this.smallB = smallB;
+		this.smallB = smallB== null? "":smallB.trim();
 	}
 	public String getSmallC() {
 		return smallC;
 	}
 	public void setSmallC(String smallC) {
-		this.smallC = smallC;
+		this.smallC = smallC== null? "":smallC.trim();
 	}
 	public String getImageType() {
 		return imageType;

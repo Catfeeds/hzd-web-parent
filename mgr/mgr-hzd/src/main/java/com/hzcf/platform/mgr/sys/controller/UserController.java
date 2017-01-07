@@ -1,6 +1,9 @@
 package com.hzcf.platform.mgr.sys.controller;
 
 import java.io.File;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,8 +12,10 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.framework.fastdfs.FastDFSClient;
 import com.hzcf.platform.framework.fastdfs.common.FileCommon;
@@ -152,5 +157,15 @@ public class UserController {
 		sysUserService.status(mobile, status);
 		return "redirect:/users/list";
 	}	
+	
+	/**上传实名认证图片
+	 * 
+	 * */
+    @RequestMapping(value="/users/check/smsImgUpload",method = RequestMethod.POST)
+    public String smsImgUpload(HttpServletRequest request,String mobile)  {
+        logger.i("保存借款人实名认证信息的图片");
+        sysUserService.smsImgUpload(request, mobile);
+        return "redirect:/users/check/list";
+    }
 	
 }
