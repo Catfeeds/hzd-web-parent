@@ -36,7 +36,7 @@ public class UserDaoImpl  extends AbstractMysqlBaseDaoImpl<User> implements User
 	@Override
 	public boolean updateByPrimaryKeySelective(User user) {
 
-		if (user != null && user.getMobile().length()>0 ) {
+		if (user != null  ) {
 			sqlSessionTemplate.update(getSqlName("updateByPrimaryKeySelective"), user);
 		}
 		return true;

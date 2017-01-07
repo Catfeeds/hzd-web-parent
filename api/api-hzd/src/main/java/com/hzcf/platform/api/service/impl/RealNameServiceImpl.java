@@ -92,7 +92,7 @@ public class RealNameServiceImpl implements IRealNameService {
 	 * 
 	 */
 	@Override
-	public BackResult saveRealName(UserVO user) {
+	public BackResult saveRealName(UserVO user,Map map) {
 		/**初始化参数：根据借款人的手机号查询借款人信息,该信息包含“实名认证信息”*/
 		Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
         UserVO items=byMobile.getItems();
@@ -100,9 +100,8 @@ public class RealNameServiceImpl implements IRealNameService {
         	//返回“保存失败”，"1011"，"用户未注册"
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1011.getCode(),HzdStatusCodeEnum.MEF_CODE_1011.getMsg(),null);
         }
-        /**验证实名认证信息是否符合要求*/
-        String realName=user.getName();//借款人的姓名
-        String idCard=user.getIdCard();//借款人的身份证号码
+        String realName = (String) map.get("name");
+        String idCard = (String) map.get("idCard");
         /*第一步验证：验证实名认证信息是否符合要求
          *1、“姓名”“身份证号”是否符合正则表达式的要求
          *2、“姓名”“身份证号”是否真实存在，是否对应（第2点暂时不做）
@@ -124,12 +123,12 @@ public class RealNameServiceImpl implements IRealNameService {
 		返回数据：
 			格式：Map<String,Object>
 			参数：realnamerepeat（真实姓名重复的数量），idcardrepeat（身份证号码重复的数量）,allrepeat（真实姓名和身份证号码总共的重复数量）
-         */
+         *//*  
         Map<String,Object> paramsMap=new HashMap<String,Object>();//初始化Map
         paramsMap.put("name", realName);//存储“真实姓名”
         paramsMap.put("idCard", idCard);//存储“身份证号”
         Map<String,Object> resultMap=userSerivce.selectNameAndIdCardRepeat(paramsMap);//查询“真实姓名”，“身份证号”重复的数量
-        int realnamerepeat=(Integer) resultMap.get("realnamerepeat");//“真实姓名”重复的数量
+      int realnamerepeat=(Integer) resultMap.get("realnamerepeat");//“真实姓名”重复的数量
         int idcardrepeat=(Integer) resultMap.get("idcardrepeat");//“身份证号”重复的数量
         if(realnamerepeat>0){
         	//返回“保存失败”，“真实姓名”重复，null
@@ -138,7 +137,7 @@ public class RealNameServiceImpl implements IRealNameService {
         if(idcardrepeat>0){
         	//返回“保存失败”，“身份证号码”重复，null
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1034.getCode(),HzdStatusCodeEnum.MEF_CODE_1034.getMsg(),null);
-        }
+        }*/
         /**更新借款人的实名状态*/
         UserVO updateUserVO=new UserVO();
         updateUserVO.setId(items.getId());//用户id

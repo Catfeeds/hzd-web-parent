@@ -190,7 +190,7 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter {
 	private boolean logonExamine(UserVO uesr,RequestAgent ra,HttpServletRequest request,String token){
 		
 		
-		String ipAddress = CusAccessObjectUtil.getIpAddress(request);
+		String ipAddress = CusAccessObjectUtil.getIpAddr(request);
 		String terminal = ra.getTerminal();
 		if(uesr.getIp().equals(ipAddress) && uesr.getTerminal().equals(terminal)){
 			return true;

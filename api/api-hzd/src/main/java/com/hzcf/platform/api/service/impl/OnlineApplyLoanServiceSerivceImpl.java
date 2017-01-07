@@ -303,7 +303,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 					String myFileName = file.getOriginalFilename();
 					try {
 						if(StringUtils.isNotBlank(myFileName)){
-							file_url = fastdfsClient.upload(file.getBytes(), getSuffix(myFileName), null);
+							file_url = fastdfsClient.upload(file.getBytes(), getSuffix(myFileName),null);
 						//	userImageService
 						}
 
@@ -311,6 +311,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 							return new BackResult(HzdStatusCodeEnum.MEF_CODE_4100.getCode(), HzdStatusCodeEnum.MEF_CODE_4100.getMsg());
 						}
 						userImageVO.setImageId(UUIDGenerator.getUUID());
+						userImageVO.setUserId(user.getId());
 						userImageVO.setApplyId(applyId);
 						userImageVO.setArtWork(file_url);
 						userImageVO.setCreateTime(new Date());

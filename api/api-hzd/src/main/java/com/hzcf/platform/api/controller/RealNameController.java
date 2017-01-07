@@ -1,10 +1,14 @@
 package com.hzcf.platform.api.controller;
 
+import java.util.Map;
+
 import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.hzcf.platform.api.annotation.RequestAttribute;
@@ -41,11 +45,11 @@ public class RealNameController {
 	/**保存实名认证信息
 	 * 
 	 * */
-    @RequestMapping(value="rest/api/100/user/saverealname",method = RequestMethod.POST)
-    public BackResult saverealname(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
+    @RequestMapping(value={"rest/api/100/user/saverealname","api/100/user/saverealname"},method = RequestMethod.POST)
+    public BackResult saverealname(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,@RequestBody Map map){
         logger.i("保存借款人实名认证信息");
         logger.i("入参"+ JsonUtil.json2String(user));
-        return realNameService.saveRealName(user);
+        return realNameService.saveRealName(user,map);
     }
 	/**上传实名认证图片
 	 * 
