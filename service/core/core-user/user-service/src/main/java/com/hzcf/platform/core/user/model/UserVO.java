@@ -3,17 +3,13 @@ package com.hzcf.platform.core.user.model;
 import com.hzcf.platform.common.model.BaseVO;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 
+import java.io.Serializable;
 import java.util.Date;
 
-public class UserVO extends BaseVO{
-	
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 9188703063339311809L;
+public class UserVO extends BaseVO implements Serializable{
 
 
-
+	private static final long serialVersionUID = 7441953954948417770L;
 
 	private String mobile;//手机号
 
@@ -27,7 +23,7 @@ public class UserVO extends BaseVO{
 
 	private String status;//0=正常    1=禁用
 
-	private String checkStatus;//审核状态  0通过 1不通过 2待审核
+	private String checkStatus;//审核状态  0:通过(已认证) 1:不通过(未认证) 2:待审核(审核中)
 
 	private String nopassCause;//不通过原因
 	private String submitTime;//实名认证提交时间
@@ -82,12 +78,10 @@ public class UserVO extends BaseVO{
 	}
 
 	public UserVO(){
-		
+
 	}
 
-	public static long getSerialVersionUID() {
-		return serialVersionUID;
-	}
+
 
 
 
