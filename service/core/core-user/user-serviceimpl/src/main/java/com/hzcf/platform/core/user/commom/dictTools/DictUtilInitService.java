@@ -12,7 +12,7 @@ import com.hzcf.platform.core.user.dao.DistrictDao;
 import com.hzcf.platform.core.user.dao.UserDictDao;
 import com.hzcf.platform.core.user.data.District;
 import com.hzcf.platform.core.user.data.UserDict;
-import com.hzcf.platform.core.user.data.UserDictJson;
+import com.hzcf.platform.core.user.model.UserDictJson;
 
 /**
  * Created by leijiaming on 2016/12/30 0030.
@@ -33,26 +33,49 @@ public class DictUtilInitService {
     public void loadData() {
         //  KYE applyDictionaryJkyt 借款用途
         //  KYE applyDictionaryinfo 个人信息
-        //  KYE applyDictionaryRegion 省市区
+        //  KYE applyDictionaryRegionsheng 省
+        //  KYE applyDictionaryRegionshi 市
+        //  KYE applyDictionaryRegioqu 区
        /*List<UserDict> userDicts = userDictDao.selectJkytList();
         Map<String, Object> stringObjectMap = initLoanuse(userDicts);
         cache.save("applyDictionaryJkyt",stringObjectMap);*/
 
     	//借款用途
     	List<UserDict> userDicts = userDictDao.selectJkytList();
-        Map<String, Object> stringObjectMap = initLoanuse(userDicts);
-        //System.out.println("----------2-------"+stringObjectMap.toString());
-    	
+        Map<String, Object> applyDictionaryJkyt = initLoanuse(userDicts);
+        cache.save("applyDictionaryJkyt",applyDictionaryJkyt);
+        System.out.println("applyDictionaryJkyt"+applyDictionaryJkyt);
+
+
+
+
+        List<UserDict> userDicts1 = userDictDao.selectList();
+        Map<String, Object> applyDictionaryinfo = initUserDictinfo(userDicts1);
+        cache.save("applyDictionaryinfo",applyDictionaryinfo);
+        System.out.println("applyDictionaryinfo"+applyDictionaryinfo);
+
+
+
     	//省
-//        List<District> userDicts = districtDao.selectAllProvince();
-//        List<UserDictJson> stringObjectMap = initProvince(userDicts);
+        List<District> userDicts2 = districtDao.selectAllProvince();
+        List<UserDictJson> applyDictionaryRegionsheng = initProvince(userDicts2);
+        cache.save("applyDictionaryRegionsheng",applyDictionaryRegionsheng);
+        System.out.println("applyDictionaryRegionsheng"+applyDictionaryRegionsheng);
+
+
     	//市
-//    	List<District> userDicts = districtDao.selectAllCity();
-//        Map<String, Object> stringObjectMap = initCity(userDicts);
+    	List<District> userDicts3 = districtDao.selectAllCity();
+        Map<String, Object> applyDictionaryRegionshi = initCity(userDicts3);
+        cache.save("applyDictionaryRegionshi",applyDictionaryRegionshi);
+        System.out.println("applyDictionaryRegionshi"+applyDictionaryRegionshi);
+
+
+
         //区县
-//    	List<District> userDicts = districtDao.selectAllArea();
-//        Map<String, Object> stringObjectMap = initArea(userDicts);
-        System.out.println("----------2-------"+stringObjectMap.toString());
+    	List<District> userDicts4 = districtDao.selectAllArea();
+        Map<String, Object> applyDictionaryRegionqu = initArea(userDicts4);
+        cache.save("applyDictionaryRegionqu",applyDictionaryRegionqu);
+        System.out.println("applyDictionaryRegionqu"+applyDictionaryRegionqu);
 
     }
 

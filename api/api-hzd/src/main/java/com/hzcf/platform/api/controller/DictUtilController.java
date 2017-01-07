@@ -5,12 +5,15 @@ import com.google.gson.JsonObject;
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
+import com.hzcf.platform.core.user.model.UserDictJson;
 import com.hzcf.platform.core.user.service.DictUtilService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -37,7 +40,7 @@ public class DictUtilController {
         }
     }
 
-    @RequestMapping(value="rest/api/100/apply/dictionary/info",method= RequestMethod.POST)
+    @RequestMapping(value={"rest/api/100/apply/dictionary/info","api/100/apply/dictionary/info"},method= RequestMethod.POST)
     public BackResult applyDictionaryinfo(){
         try {
             Map<String, Object> stringObjectMap = dictUtilService.applyDictionaryinfo();
@@ -50,11 +53,41 @@ public class DictUtilController {
         }
     }
 
-    @RequestMapping(value="rest/api/100/apply/dictionary/region",method= RequestMethod.POST)
-    public BackResult applyDictionaryRegion(){
+
+
+
+
+    @RequestMapping(value={"rest/api/100/apply/dictionary/sheng","api/100/apply/dictionary/sheng"},method= RequestMethod.POST)
+    public BackResult applyDictionarySheng(){
         try {
-            Map<String, Object> stringObjectMap = dictUtilService.applyDictionaryRegion();
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),stringObjectMap);
+            List<UserDictJson> userDictJsons = dictUtilService.applyDictionaryRegionsheng();
+            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),userDictJsons);
+        }catch (Exception e){
+            logger.i("-----------系统异常,请检查数据源-------");
+            e.printStackTrace();
+            return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
+                    null);
+        }
+    }
+
+    @RequestMapping(value={"rest/api/100/apply/dictionary/shi/{code}","api/100/apply/dictionary/shi/{code}"},method= RequestMethod.POST)
+    public BackResult applyDictionaryShi(@PathVariable String code){
+        try {
+            Map<String, Object> stringObjectMap = dictUtilService.applyDictionaryRegionshi();
+            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),stringObjectMap.get(code));
+        }catch (Exception e){
+            logger.i("-----------系统异常,请检查数据源-------");
+            e.printStackTrace();
+            return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
+                    null);
+        }
+    }
+
+    @RequestMapping(value={"rest/api/100/apply/dictionary/qu/{code}","api/100/apply/dictionary/qu/{code}"},method= RequestMethod.POST)
+    public BackResult applyDictionaryQu(@PathVariable String code){
+        try {
+            Map<String, Object> stringObjectMap = dictUtilService.applyDictionaryRegionqu();
+            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),stringObjectMap.get(code));
         }catch (Exception e){
             logger.i("-----------系统异常,请检查数据源-------");
             e.printStackTrace();
