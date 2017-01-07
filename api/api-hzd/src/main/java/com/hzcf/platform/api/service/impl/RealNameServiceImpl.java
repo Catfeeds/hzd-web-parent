@@ -68,7 +68,7 @@ public class RealNameServiceImpl implements IRealNameService {
 		}
 		return url;
 	}
-    /**查询借款人的实名认证信息，状态
+	/**查询借款人的实名认证信息,状态
      * 
      * 
      */
@@ -79,7 +79,11 @@ public class RealNameServiceImpl implements IRealNameService {
         UserVO items=byMobile.getItems();
         /**判断借款人的实名状态，设置返回结果*/
         if(BaseConfig.card_status_0.equals(items.getCheckStatus())){//身份证有效，借款人已经实名认证
-        	return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),items);//返回“查询成功”，借款人的实名认证信息
+        	Map<String,Object> result=new HashMap<String,Object>();
+        	result.put("name",items.getName());
+        	result.put("idCard",items.getIdCard());
+        	result.put("checkStatus",items.getCheckStatus());
+        	return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),result);//返回“查询成功”，借款人的实名认证信息
         }else{//身份证无效，借款人未实名认证，对应的状态：BaseConfig.card_status_1.equals(items.getCheckStatus())
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1030.getCode(),HzdStatusCodeEnum.MEF_CODE_1030.getMsg(),null);//返回“查询失败”，null
         }

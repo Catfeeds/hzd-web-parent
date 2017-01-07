@@ -12,5 +12,5 @@ import com.hzcf.platform.core.user.model.UserVO;
   */
 public interface ILoadService {
 	//查询实名认证状态，信息
-	public BackResult selectload(UserVO user);
+	public BackResult selectLoadProgress(UserVO user);
 }

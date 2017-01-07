@@ -13,7 +13,7 @@ import com.hzcf.platform.core.user.model.UserImageVO;
   * @since  JDK1.8
   */
 public interface IRealNameService {
-	//查询实名认证状态，信息
+	//查询实名认证信息
 	public BackResult selectRealName(UserVO user);
 	//保存实名认证信息
 	public BackResult saveRealName(UserVO user);

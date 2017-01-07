@@ -31,7 +31,7 @@ public class RealNameController {
 	private static final Log logger = Log.getLogger(RealNameController.class);
     @Autowired
     private IRealNameService realNameService;//实名认证的service
-	/**查询实名认证状态，信息
+    /**查询实名认证信息
 	 * 
 	 * */
     @RequestMapping(value="rest/selectrealname",method = RequestMethod.POST)
