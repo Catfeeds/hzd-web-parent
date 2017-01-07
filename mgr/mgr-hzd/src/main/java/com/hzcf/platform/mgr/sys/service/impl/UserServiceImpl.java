@@ -185,6 +185,7 @@ public class UserServiceImpl implements IUserService {
 		Map<String, String> parmMap = new HashMap<String, String>();
 		UserImageVO userImage = new UserImageVO();
 		userImage.setUserId(userVO.getItems().getId());
+		userImage.setType("4");
 		parmMap.put("userId",userVO.getItems().getId());
 		parmMap.put("type", "4");
 		int index = 0;
