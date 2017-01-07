@@ -1,18 +1,19 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="com.hzcf.platform.core.user.data.District" >
-  <resultMap id="BaseResultMap" type="District" >
+  <resultMap id="BaseResultMap" type="com.hzcf.platform.core.user.data.District" >
     <id column="id" property="id" jdbcType="VARCHAR" />
     <result column="value" property="value" jdbcType="VARCHAR" />
     <result column="name" property="name" jdbcType="VARCHAR" />
     <result column="path" property="path" jdbcType="VARCHAR" />
     <result column="pid" property="pid" jdbcType="VARCHAR" />
     <result column="status" property="status" jdbcType="VARCHAR" />
+    <result column="is_inside" property="isInside" jdbcType="VARCHAR" />
+    <result column="areacode" property="areacode" jdbcType="VARCHAR" />
+    <result column="postcode" property="postcode" jdbcType="VARCHAR" />
   </resultMap>
   <sql id="Base_Column_List" >
-    id, value, name, path, pid, status
+    id, value, name, path, pid, status, is_inside, areacode, postcode
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select 
@@ -20,17 +21,39 @@
     from district
     where id = #{id,jdbcType=VARCHAR}
   </select>
+  
+  
+  <select id="selectAllProvince" resultMap="BaseResultMap" >
+    select
+    <include refid="Base_Column_List" />
+    from district where pid = 'ff80808141e30bec0141e31aa0140003'
+  </select>
+
+  
+ <select id="selectAllCity" resultMap="BaseResultMap" >
+    select 
+    <include refid="Base_Column_List" />
+    from district
+  </select>
+  
+  
+  
+  
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from district
     where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="District" >
     insert into district (id, value, name, 
-      path, pid, status)
+      path, pid, status, 
+      is_inside, areacode, postcode
+      )
     values (#{id,jdbcType=VARCHAR}, #{value,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, 
-      #{path,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR})
+      #{path,jdbcType=VARCHAR}, #{pid,jdbcType=VARCHAR}, #{status,jdbcType=VARCHAR}, 
+      #{isInside,jdbcType=VARCHAR}, #{areacode,jdbcType=VARCHAR}, #{postcode,jdbcType=VARCHAR}
+      )
   </insert>
-  <insert id="insertSelective" parameterType="District" >
+  <insert id="insertSelective" parameterType="com.hzcf.platform.core.user.data.District" >
     insert into district
     <trim prefix="(" suffix=")" suffixOverrides="," >
       <if test="id != null" >
@@ -50,6 +73,15 @@
       </if>
       <if test="status != null" >
         status,
+      </if>
+      <if test="isInside != null" >
+        is_inside,
+      </if>
+      <if test="areacode != null" >
+        areacode,
+      </if>
+      <if test="postcode != null" >
+        postcode,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides="," >
@@ -71,9 +103,18 @@
       <if test="status != null" >
         #{status,jdbcType=VARCHAR},
       </if>
+      <if test="isInside != null" >
+        #{isInside,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode != null" >
+        #{areacode,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        #{postcode,jdbcType=VARCHAR},
+      </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="District" >
+  <update id="updateByPrimaryKeySelective" parameterType="com.hzcf.platform.core.user.data.District" >
     update district
     <set >
       <if test="value != null" >
@@ -91,30 +132,32 @@
       <if test="status != null" >
         status = #{status,jdbcType=VARCHAR},
       </if>
+      <if test="isInside != null" >
+        is_inside = #{isInside,jdbcType=VARCHAR},
+      </if>
+      <if test="areacode != null" >
+        areacode = #{areacode,jdbcType=VARCHAR},
+      </if>
+      <if test="postcode != null" >
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="District" >
+  <update id="updateByPrimaryKey" parameterType="com.hzcf.platform.core.user.data.District" >
     update district
     set value = #{value,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       path = #{path,jdbcType=VARCHAR},
       pid = #{pid,jdbcType=VARCHAR},
-      status = #{status,jdbcType=VARCHAR}
+      status = #{status,jdbcType=VARCHAR},
+      is_inside = #{isInside,jdbcType=VARCHAR},
+      areacode = #{areacode,jdbcType=VARCHAR},
+      postcode = #{postcode,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   
-  <select id="selectAllProvince" resultMap="BaseResultMap" >
-    select
-    <include refid="Base_Column_List" />
-    from district where pid = 'ff80808141e30bec0141e31aa0140003'
-  </select>
 
-
-  <select id="selectAllCity" resultMap="BaseResultMap"  >
-    select <include refid="Base_Column_List" /> from district 
-
-  </select>
 
 
 </mapper>
