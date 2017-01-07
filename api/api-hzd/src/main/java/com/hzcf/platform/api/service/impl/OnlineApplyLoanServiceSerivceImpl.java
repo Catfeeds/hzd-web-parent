@@ -6,6 +6,7 @@ import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.form.onlineLoanapplyInfoPreviewForm;
 import com.hzcf.platform.api.model.CheckApplyLoanStatus;
 import com.hzcf.platform.api.service.IOnlineApplyLoanService;
+import com.hzcf.platform.api.util.serialnumber;
 import com.hzcf.platform.common.exception.CheckException;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
@@ -108,7 +109,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
 			// ------------
 			DataVerifcation.checkUserApplyInfoVO(userApplyInfoVO, user);
-			String applyId = UUIDGenerator.getUUID();
+			String applyId = serialnumber.Getnum();
 			userApplyInfoVO.setApplyId(applyId);
 			userApplyInfoVO.setUserId(user.getId());
 			userApplyInfoVO.setStatus(BaseConfig.apply_loan_1);

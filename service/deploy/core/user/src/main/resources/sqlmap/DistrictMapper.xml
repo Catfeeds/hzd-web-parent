@@ -11,7 +11,7 @@
     <result column="is_inside" property="isInside" jdbcType="VARCHAR" />
     <result column="areacode" property="areacode" jdbcType="VARCHAR" />
     <result column="postcode" property="postcode" jdbcType="VARCHAR" />
-  </resultMap>  
+  </resultMap>
   <sql id="Base_Column_List" >
     id, value, name, path, pid, status, is_inside, areacode, postcode
   </sql>
