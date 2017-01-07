@@ -20,10 +20,10 @@ public class DictUtilServiceImpl  implements DictUtilService {
     }
     @Override
     public Map<String,Object> applyDictionaryinfo() {
-        return  cache.load("applyDictionaryinfo");
+        return  (Map<String, Object>)cache.load("applyDictionaryinfo");
     }
     @Override
     public Map<String,Object> applyDictionaryRegion() {
-        return  cache.load("applyDictionaryRegion");
+        return  (Map<String, Object>)cache.load("applyDictionaryRegion");
     }
 }

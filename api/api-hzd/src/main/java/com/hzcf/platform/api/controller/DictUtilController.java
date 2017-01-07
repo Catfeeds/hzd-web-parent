@@ -28,7 +28,6 @@ public class DictUtilController {
         try {
             Map<String, Object>  map =dictUtilService.applyDictionaryJkyt();
             logger.i("map"+map);
-
             return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
         }catch (Exception e){
             logger.i("-----------系统异常,请检查数据源-------");
