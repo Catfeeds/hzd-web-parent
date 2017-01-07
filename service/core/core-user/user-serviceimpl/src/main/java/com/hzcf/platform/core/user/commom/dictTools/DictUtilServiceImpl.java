@@ -15,15 +15,15 @@ public class DictUtilServiceImpl  implements DictUtilService {
     @Autowired
     private ICache cache;
     @Override
-    public Map<String,Object> applyDictionaryJkyt() {
-        return  cache.load("applyDictionaryJkyt");
+    public Map<String, Object> applyDictionaryJkyt() {
+        return  (Map<String, Object>) cache.load("applyDictionaryJkyt");
     }
     @Override
     public Map<String,Object> applyDictionaryinfo() {
-        return  cache.load("applyDictionaryinfo");
+        return  (Map<String, Object>)cache.load("applyDictionaryinfo");
     }
     @Override
     public Map<String,Object> applyDictionaryRegion() {
-        return  cache.load("applyDictionaryRegion");
+        return  (Map<String, Object>)cache.load("applyDictionaryRegion");
     }
 }

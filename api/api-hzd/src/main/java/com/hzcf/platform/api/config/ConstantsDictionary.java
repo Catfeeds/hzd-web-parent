@@ -68,8 +68,10 @@ public class ConstantsDictionary {
 	public final static String SMSSSTATUS0="0";//失效
 	public static String CONTENTTEXT;
 	public static String imgUpload;
+
 	
 	public static String dispatchSelectLoadProgress;//调度的“查询借款进度”接口地址
 	
 	
 }
+

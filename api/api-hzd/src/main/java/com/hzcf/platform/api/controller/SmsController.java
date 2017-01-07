@@ -35,7 +35,6 @@ public class SmsController {
     
     /**
 	 * 用户注册
-	 * @param type
 	 * @return
 	 */
 	@RequestMapping(value="api/100/sms/register",method=RequestMethod.POST)
@@ -47,7 +46,7 @@ public class SmsController {
 	
 	/**
 	 * 找回密码
-	 * @param type
+	 * @param
 	 * @return
 	 */
 	@RequestMapping(value="api/100/sms/findpwd",method=RequestMethod.POST)
@@ -78,9 +77,7 @@ public class SmsController {
 	@ResponseBody
 	public BackResult smsCheck(@RequestBodyForm UserVO user,@PathVariable String type){
 		logger.i("进入SmsController====UserVO:"+user.toString());
-		if(ConfigSmsUtil.superSmsNum(user.getMobile(),type)){
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
-		}
+		
 		return smsService.smsCheck(user.getSmsCacheType(),user.getMobile(),type);
 	}
 	
