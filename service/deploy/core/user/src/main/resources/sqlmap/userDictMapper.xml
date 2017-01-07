@@ -30,8 +30,8 @@
   <select id="selectJkytList" resultMap="BaseResultMap"  >
     select
     <include refid="Base_Column_List" />
-    from user_dict where   pid  !='' or dict_type='LOANUSE'
-
+    from user_dict where   pid  !='' 
+	order by dict_id
   </select>
 
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
