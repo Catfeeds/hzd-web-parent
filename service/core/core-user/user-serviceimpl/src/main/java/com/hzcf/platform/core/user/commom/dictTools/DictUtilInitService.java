@@ -3,6 +3,7 @@ package com.hzcf.platform.core.user.commom.dictTools;
 import ch.qos.logback.core.net.SyslogOutputStream;
 import com.hzcf.platform.common.cache.ICache;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
+import com.hzcf.platform.core.user.dao.DistrictDao;
 import com.hzcf.platform.core.user.dao.UserDictDao;
 import com.hzcf.platform.core.user.data.UserDict;
 import com.hzcf.platform.core.user.data.UserDictJson;
@@ -22,6 +23,8 @@ public class DictUtilInitService {
     @Autowired
     private UserDictDao userDictDao; //受Spring 管理的Service 方法 调用Dao取数据
     @Autowired
+    private DistrictDao districtDao;
+    @Autowired
     private ICache cache;    /**
      * Spring 容器初始化时加载
      */
@@ -29,10 +32,9 @@ public class DictUtilInitService {
         //  KYE applyDictionaryJkyt 借款用途
         //  KYE applyDictionaryinfo 个人信息
         //  KYE applyDictionaryRegion 省市区
-        List<UserDict> userDicts = userDictDao.selectJkytList();
+       List<UserDict> userDicts = userDictDao.selectJkytList();
         Map<String, Object> stringObjectMap = initLoanuse(userDicts);
-        String applyDictionaryJkyt = JsonUtil.json2String(stringObjectMap);
-        cache.save("applyDictionaryJkyt",applyDictionaryJkyt);
+        cache.save("applyDictionaryJkyt",stringObjectMap);
 
 
     }

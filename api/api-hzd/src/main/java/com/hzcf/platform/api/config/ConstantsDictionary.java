@@ -67,4 +67,6 @@ public class ConstantsDictionary {
 	public final static String SMSSSTATUS0="0";//失效
 	public static String CONTENTTEXT;
 	public static String imgUpload;
+
+
 }

@@ -1,5 +1,6 @@
 package com.hzcf.platform.api.service.impl;
 
+import com.hzcf.platform.core.user.model.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -31,10 +32,11 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 	 * 查询未读数量
 	 */
 	@Override
-	public BackResult selectUnReadNum(MsgBoxVO msgBoxVO) {
+	public BackResult selectUnReadNum(UserVO user,MsgBoxVO msgBoxVO) {
 		Map<String,Object> map = new HashMap<String,Object>();
 
 		if(msgBoxVO != null){
+			msgBoxVO.setUserId(user.getId());
 			Result<Integer> result = this.msgBoxservice.selectUnReadNum(msgBoxVO);
 			map.put("number",result.getItems());
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
@@ -47,8 +49,9 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 	 * 查询站内信列表
 	 */
 	@Override
-	public BackResult selectAllByUser(MsgBoxVO msgBoxVO) {
+	public BackResult selectAllByUser(UserVO user, MsgBoxVO msgBoxVO) {
 		if(msgBoxVO != null){
+			msgBoxVO.setUserId(user.getId());
 			PaginatedResult<MsgBoxVO> result = this.msgBoxservice.selectAllByUser(msgBoxVO);
 			if(StatusCodes.OK==result.getStatus() ){
 				if(result.getItems().size()==0){
@@ -75,8 +78,9 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 	 * 修改已读状态
 	 */
 	@Override
-	public BackResult updateReadByUser(MsgBoxVO msgBoxVO) {
+	public BackResult updateReadByUser( UserVO user,MsgBoxVO msgBoxVO) {
 		if(msgBoxVO != null){
+			msgBoxVO.setUserId(user.getId());
 			Result<Boolean> result = this.msgBoxservice.updateReadByUser(msgBoxVO);
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), result.getItems());
 		}else{

@@ -1,11 +1,13 @@
 package com.hzcf.platform.core.user.data;
 
+import java.io.Serializable;
 import java.util.Map;
 
 /**
  * Created by leijiaming on 2017/1/3 0003.
  */
-public class UserDictJson {
+public class UserDictJson implements Serializable{
+    private static final long serialVersionUID = -4272715414866892350L;
     private  String dict_value;
     private  String dict_text;
     private Map<String,Object> map;
