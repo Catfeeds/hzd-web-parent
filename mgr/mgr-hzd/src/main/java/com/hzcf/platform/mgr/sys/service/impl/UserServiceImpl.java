@@ -77,9 +77,18 @@ public class UserServiceImpl implements IUserService {
 		Result<List<UserImageVO>> userImage = userImageService.selectUserImageByUserIdAndType(parmMap);
 		List<UserImageVO> userList = userImage.getItems();
 		if(userImage.getStatus()==200 && userList.size()>0){
-			se.setArtWorkA(this.geturl(userList.get(0).getArtWork()));
-			se.setArtWorkB(this.geturl(userList.get(1).getArtWork()));
-			se.setArtWorkC(this.geturl(userList.get(2).getArtWork()));
+			if(userList.size()==1){
+				se.setArtWorkA(this.geturl(userList.get(0).getArtWork()));
+			}
+			if(userList.size()==2){
+				se.setArtWorkA(this.geturl(userList.get(0).getArtWork()));
+				se.setArtWorkB(this.geturl(userList.get(1).getArtWork()));
+			}
+			if(userList.size()>=3){
+				se.setArtWorkA(this.geturl(userList.get(0).getArtWork()));
+				se.setArtWorkB(this.geturl(userList.get(1).getArtWork()));
+				se.setArtWorkC(this.geturl(userList.get(2).getArtWork()));
+			}
 			/*se.setSmallA(userList.get(0).getSmall());
 			se.setSmallB(userList.get(1).getSmall());
 			se.setSmallC(userList.get(2).getSmall());*/
@@ -161,10 +170,20 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public Result<Boolean> smsImgUpload(HttpServletRequest request,String mobile) {
+	public Result<Boolean> smsImgUpload(HttpServletRequest request,String mobile,String name,String idCard) {
+		UserVO user = new UserVO();
+		user.setMobile(mobile);
+		user.setName(name);
+		user.setIdCard(idCard);
+		Result<UserVO> userVO = userSerivce.getByMobile(mobile);
+		user.setId(userVO.getItems().getId());
+		Result<Boolean> bln = userSerivce.updateByPrimaryKeySelective(user);
+		if(bln.getStatus()!=200){
+			logger.e("-------------------用户信息更新失败---------------");
+			return new Result(StatusCodes.INTERNAL_SERVER_ERROR,false);
+		}
 		Map<String, String> parmMap = new HashMap<String, String>();
 		UserImageVO userImage = new UserImageVO();
-		Result<UserVO> userVO = userSerivce.getByMobile(mobile);
 		userImage.setUserId(userVO.getItems().getId());
 		parmMap.put("userId",userVO.getItems().getId());
 		parmMap.put("type", "4");

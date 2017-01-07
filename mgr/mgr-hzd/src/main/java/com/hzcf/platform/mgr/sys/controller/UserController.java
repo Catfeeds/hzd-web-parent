@@ -129,11 +129,11 @@ public class UserController {
 		return "users/edit";
 	}
 	
-	@RequestMapping(value="/users/check/update",method=RequestMethod.GET)
+	/*@RequestMapping(value="/users/check/update",method=RequestMethod.GET)
     public String update(String mobile,String name,String idCard){
 		sysUserService.update(mobile, name, idCard);
 		return "redirect:/users/check/list";
-    }	
+    }	*/
 	
 	@RequestMapping(value="/users/check/updateStatus",method=RequestMethod.GET)
 	public String updateStatus(String mobile,String checkStatus,String nopassCause){
@@ -158,13 +158,13 @@ public class UserController {
 		return "redirect:/users/list";
 	}	
 	
-	/**上传实名认证图片
+	/**上传实名认证更新用户信息
 	 * 
 	 * */
-    @RequestMapping(value="/users/check/smsImgUpload",method = RequestMethod.POST)
-    public String smsImgUpload(HttpServletRequest request,String mobile)  {
-        logger.i("保存借款人实名认证信息的图片");
-        sysUserService.smsImgUpload(request, mobile);
+    @RequestMapping(value="/users/check/updateUserAndImage",method = RequestMethod.POST)
+    public String smsImgUpload(HttpServletRequest request,String mobile,String name,String idCard)  {
+        logger.i("更新用户信息和实名认证信息的图片");
+        sysUserService.smsImgUpload(request, mobile,name,idCard);
         return "redirect:/users/check/list";
     }
 	
