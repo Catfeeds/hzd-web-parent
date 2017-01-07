@@ -23,7 +23,7 @@ public class UserVO extends BaseVO implements Serializable{
 
 	private String status;//0=正常    1=禁用
 
-	private String checkStatus;//审核状态  0通过 1不通过 2待审核
+	private String checkStatus;//审核状态  0:通过(已认证) 1:不通过(未认证) 2:待审核(审核中)
 
 	private String nopassCause;//不通过原因
 	private String submitTime;//实名认证提交时间

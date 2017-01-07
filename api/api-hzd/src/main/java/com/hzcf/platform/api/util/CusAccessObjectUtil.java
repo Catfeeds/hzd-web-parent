@@ -54,7 +54,7 @@ public class CusAccessObjectUtil {
 	    return ip; 
 	  } 
 	  
-	  public String getIpAddr(HttpServletRequest request){  
+	  public static String getIpAddr(HttpServletRequest request){  
 	        String ipAddress = request.getHeader("x-forwarded-for");  
 	            if(ipAddress == null || ipAddress.length() == 0 || "unknown".equalsIgnoreCase(ipAddress)) {  
 	                ipAddress = request.getHeader("Proxy-Client-IP");  

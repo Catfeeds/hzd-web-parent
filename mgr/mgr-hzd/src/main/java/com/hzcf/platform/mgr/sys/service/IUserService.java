@@ -1,5 +1,7 @@
 package com.hzcf.platform.mgr.sys.service;
 
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.web.multipart.MultipartFile;
 
 import com.hzcf.platform.common.util.rpc.result.Result;
@@ -27,6 +29,6 @@ public interface IUserService {
 	
 	public Result<Boolean> status(String mobile,String status);
 	
-	//public void smsImgUpload(String mobile,MultipartFile[] images);
+	public Result<Boolean> smsImgUpload(HttpServletRequest request,String mobile);
 	//public Result<Boolean> update(SmsUserInfo smsUserInfo);
 }

@@ -1,4 +1,4 @@
-package com.hzcf.platform.api.config;
+package com.hzcf.platform.mgr.sys.util;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
@@ -40,7 +40,6 @@ public class ConstantsDictionary {
 			SNSNUMFAILUREDATE = Integer.valueOf(props.getProperty("SNSNUMFAILUREDATE"));//短信失效时间
 			CONTENTTEXT = props.getProperty("CONTENTTEXT");
 			imgUpload  = props.getProperty("imgUpload");
-			dispatchSelectLoadProgress=props.getProperty("dispatch.selectLoadProgress");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -68,10 +67,4 @@ public class ConstantsDictionary {
 	public final static String SMSSSTATUS0="0";//失效
 	public static String CONTENTTEXT;
 	public static String imgUpload;
-
-	
-	public static String dispatchSelectLoadProgress;//调度的“查询借款进度”接口地址
-	
-	
 }
-

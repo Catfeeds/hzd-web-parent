@@ -14,13 +14,14 @@ public class ConfigSmsUtil {
 	/**
 	 * 超级验证码
 	 */
-    public static boolean superSmsNum(String mobile,  String smsNum){
+    public  boolean superSmsNum(String mobile,  String smsNum){
     	if(smsNum.equals(ConstantsDictionary.SMSNUM) && "TRUE".equals(ConstantsDictionary.SMSNUMSWITCH)){
 
     		logger.i("---------用户使用超级验证码:mobile:"+mobile);
-				cache.save(ConstantsToken.SMS_CACHE_REG_KEY+mobile, smsNum ,ConstantsToken.SMS_EXPIRES_MIN);
-				cache.save(ConstantsToken.SMS_CACHE_FINDPWD_KEY+mobile, smsNum ,ConstantsToken.SMS_EXPIRES_MIN);
-				cache.save(ConstantsToken.SMS_CACHE_UPDATEPWD_KEY+mobile, smsNum ,ConstantsToken.SMS_EXPIRES_MIN);
+    		System.out.println(cache.getClass());
+				cache.save("SMS_CACHE_REG_"+mobile, "666666" ,ConstantsToken.SMS_EXPIRES_MIN);
+				cache.save("SMS_CACHE_FINDPWD_"+mobile, "666666" ,ConstantsToken.SMS_EXPIRES_MIN);
+				cache.save("SMS_CACHE_UPDATEPWD_"+mobile, "666666" ,ConstantsToken.SMS_EXPIRES_MIN);
 
 			//缓存验证码
 

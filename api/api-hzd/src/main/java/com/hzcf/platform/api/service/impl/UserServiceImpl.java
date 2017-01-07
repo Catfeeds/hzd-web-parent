@@ -64,6 +64,7 @@ public class UserServiceImpl implements IUserService {
 			}
 
 			user.setId(UUIDGenerator.getUUID());
+			user.setUserName(user.getMobile());
 			user.setStatus(BaseConfig.status_0);
 			user.setCheckStatus(BaseConfig.card_status_1);
 			user.setCreateTime(new Date());

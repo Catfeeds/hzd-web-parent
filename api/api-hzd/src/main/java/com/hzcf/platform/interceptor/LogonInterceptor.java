@@ -40,7 +40,7 @@ public class LogonInterceptor extends HandlerInterceptorAdapter {
 				ra.setTerminal(agent);
 				ra.setVersion("-1");
 			}
-			ra.setIp(CusAccessObjectUtil.getIpAddress(request));
+			ra.setIp(CusAccessObjectUtil.getIpAddr(request));
 			request.setAttribute(BaseConfig.REQUEST_AGENT, ra);
 		}
 		return true;

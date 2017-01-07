@@ -28,10 +28,10 @@ public class LoadController {
 	/**借款人查询借款信息，状态，进度
 	 * 
 	 */
-	@RequestMapping(value="rest/selectload")
-    public BackResult selectload(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
+	@RequestMapping(value="rest/selectloadprogress")
+    public BackResult selectloadprogress(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
         logger.i("借款人查询借款信息，状态，进度");
         logger.i("入参"+ JsonUtil.json2String(user));
-        return loadService.selectload(user);
+        return loadService.selectLoadProgress(user);
     }
 }

@@ -8,13 +8,14 @@ pageEncoding="UTF-8"%>
 <%@include file="../common/include.jsp"%> 
 <script type="text/javascript">
 	function save(){
+		xm();
 		var name = $("#name").val();
 		var idCard = $("#idCard").val();
 		var mobile = $("#mobile").val();
 		var msg = $("#div").val();
 		if(msg==""){
 			window.location = '${path}/users/check/update?mobile='+mobile+"&name="+name+"&idCard="+idCard;
-			// document.getElementById("form2").submit();
+			document.getElementById("form2").submit();
 		}else{
 			$("#div").html("校验未通过不能提交");
 		}

@@ -6,6 +6,7 @@ import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.form.onlineLoanapplyInfoPreviewForm;
 import com.hzcf.platform.api.model.CheckApplyLoanStatus;
 import com.hzcf.platform.api.service.IOnlineApplyLoanService;
+import com.hzcf.platform.api.util.serialnumber;
 import com.hzcf.platform.common.exception.CheckException;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
@@ -108,7 +109,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
 			// ------------
 			DataVerifcation.checkUserApplyInfoVO(userApplyInfoVO, user);
-			String applyId = UUIDGenerator.getUUID();
+			String applyId = serialnumber.Getnum();
 			userApplyInfoVO.setApplyId(applyId);
 			userApplyInfoVO.setUserId(user.getId());
 			userApplyInfoVO.setStatus(BaseConfig.apply_loan_1);
@@ -303,7 +304,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 					String myFileName = file.getOriginalFilename();
 					try {
 						if(StringUtils.isNotBlank(myFileName)){
-							file_url = fastdfsClient.upload(file.getBytes(), getSuffix(myFileName), null);
+							file_url = fastdfsClient.upload(file.getBytes(), getSuffix(myFileName),null);
 						//	userImageService
 						}
 
@@ -311,6 +312,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 							return new BackResult(HzdStatusCodeEnum.MEF_CODE_4100.getCode(), HzdStatusCodeEnum.MEF_CODE_4100.getMsg());
 						}
 						userImageVO.setImageId(UUIDGenerator.getUUID());
+						userImageVO.setUserId(user.getId());
 						userImageVO.setApplyId(applyId);
 						userImageVO.setArtWork(file_url);
 						userImageVO.setCreateTime(new Date());

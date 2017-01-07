@@ -129,19 +129,19 @@
   <select id="selectUnReadNum" resultType="int" parameterType="MsgBox" >
     select count(1)
     from msg_box
-    where is_read = 0 and user_id = #{id,jdbcType=VARCHAR}
+    where is_read = 0 and user_id = #{userId,jdbcType=VARCHAR}
   </select>
 
   <select id="selectAllByUser" resultMap="BaseResultMap" parameterType="MsgBox" >
     select
     <include refid="Base_Column_List" />
     from msg_box
-    where user_id = #{id,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
   </select>
 
   <update id="updateReadByUser" parameterType="MsgBox" >
     update msg_box
     set is_read = 1
-    where user_id = #{id,jdbcType=VARCHAR}
+    where user_id = #{userId,jdbcType=VARCHAR}
   </update>
 </mapper>
