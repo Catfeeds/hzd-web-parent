@@ -11,6 +11,7 @@ import org.apache.log4j.Logger;
 
 import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.util.AESUtil;
+import com.hzcf.platform.api.util.HttpRequestUtil;
 import com.hzcf.platform.api.util.HttpTool;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.utils.Md5Util;
@@ -42,7 +43,8 @@ public class LoadService {
 		String systemId = "APP";//系统标示
 		String single="";//签名信息
 		String mobile="13211980914";//申请人手机号
-		String key=ConstantsDictionary.dispatchLoadKey;//调度的“查询借款进度”接口的密钥
+//		String key=ConstantsDictionary.dispatchLoadKey;//调度的“查询借款进度”接口的密钥
+		String key="01b503cf15f16f5e9c95938d09ef1219";//调度的“查询借款进度”接口的密钥
 		String result="";//返回结果
 		/**封装参数*/
 		applyDataMap.put("systemId",systemId);
@@ -129,7 +131,9 @@ public class LoadService {
 			logger.info("接口：进件。加密后的参数："+str);
 			str = "addHuiZhongApplyInfoParms="+str;
 			//发送Http请求，POST方式
-			result=HttpTool.sendPostJson(ConstantsDictionary.dispatchInsertLoadUrl,str);
+//			result=HttpRequestUtil.sendPost(ConstantsDictionary.dispatchInsertLoadUrl,str);
+			result=HttpRequestUtil.sendPost("http://10.10.16.131:8080/Dispatch/app/huizhong2/addHuiZhongApplyInfo.do",str);
+			logger.info("接口：进件。返回的结果："+result);
 		} catch (Exception e) {
 			logger.error("接口：进件。发生异常，异常信息："+e.getMessage());
 			e.printStackTrace();
