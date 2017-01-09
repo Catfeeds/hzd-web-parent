@@ -269,8 +269,11 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
 				}
 			}
+			
+			Map map = new HashMap();
+			map.put("applyId", applyId);
 			logger.i("进入  -----用户进件申请第四步,  成功 。。。。。。。。。。。。。 ");
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
 
 		} catch (CheckException e) {
 			logger.i("缺少必传参数:---" + e.getMessage());
