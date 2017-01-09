@@ -75,18 +75,27 @@ public class RealNameServiceImpl implements IRealNameService {
 	@Override
 	public BackResult selectRealName(UserVO user) {
 		/**初始化参数：根据借款人的手机号查询用户信息*/
-		Result<UserVO> byMobile=userSerivce.getByMobile(user.getMobile());
-        UserVO items=byMobile.getItems();
-        /**判断借款人的实名状态，设置返回结果*/
-        if(BaseConfig.card_status_0.equals(items.getCheckStatus())){//身份证有效，借款人已经实名认证
-        	Map<String,Object> result=new HashMap<String,Object>();
-        	result.put("name",items.getName());
-        	result.put("idCard",items.getIdCard());
-        	result.put("checkStatus",items.getCheckStatus());
-        	return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),result);//返回“查询成功”，借款人的实名认证信息
-        }else{//身份证无效，借款人未实名认证，对应的状态：BaseConfig.card_status_1.equals(items.getCheckStatus())
-        	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1030.getCode(),HzdStatusCodeEnum.MEF_CODE_1030.getMsg(),null);//返回“查询失败”，null
-        }
+		try {
+			Result<UserVO> byMobile=userSerivce.getByMobile(user.getMobile());
+			UserVO items=byMobile.getItems();
+			if(items ==null){
+				logger.i("查询实名认证信息失败,通过手机号未查询到任何信息");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),HzdStatusCodeEnum.MEF_CODE_0001.getMsg(),null);//返回“查询成功”，借款人的实名认证信息
+
+			}
+			Map<String,Object> result=new HashMap<String,Object>();
+			result.put("name",items.getName());
+			result.put("idCard",items.getIdCard());
+			result.put("checkStatus",items.getCheckStatus());
+
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),result);//返回“查询成功”，借款人的实名认证信息
+
+		}catch (Exception e){
+			logger.i("查询实名认证状态失败, 请检查");
+			e.printStackTrace();
+		}
+		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),HzdStatusCodeEnum.MEF_CODE_0001.getMsg(),null);//返回“查询成功”，借款人的实名认证信息
+
 	}
 	/**保存借款人的实名认证信息
 	 * 
@@ -97,9 +106,14 @@ public class RealNameServiceImpl implements IRealNameService {
 		Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
         UserVO items=byMobile.getItems();
         if(items==null){
+        	logger.i("用户未注册,不能进行实名认证");
         	//返回“保存失败”，"1011"，"用户未注册"
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1011.getCode(),HzdStatusCodeEnum.MEF_CODE_1011.getMsg(),null);
         }
+        if(StringUtils.isNotBlank(items.getName() )|| StringUtils.isNotBlank(items.getIdCard())){
+        	logger.i("用户已经提交实名认证信息,不能重复提交");
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_1088.getCode(),HzdStatusCodeEnum.MEF_CODE_1088.getMsg(),null);
+		}
         String realName=String.valueOf(map.get("name"));
         String idCard=String.valueOf(map.get("idCard"));
         /*第一步验证：验证实名认证信息是否符合要求
@@ -108,9 +122,11 @@ public class RealNameServiceImpl implements IRealNameService {
          */
         if(StringUtils.isBlank(realName) || !JudgeNumberLegal.isNameString(realName)){
         	//返回“保存失败”，用户的“真实姓名”不符合要求，null
+			logger.i("实名认证保存失败:用户传入姓名不合法,realName:"+realName);
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1031.getCode(),HzdStatusCodeEnum.MEF_CODE_1031.getMsg(),null);
         }
         if(StringUtils.isBlank(idCard) || !ServiceUtil.validateIdNo(idCard)){
+			logger.i("实名认证保存失败:用户传入身份证号码不合法,idCard:"+idCard);
         	//返回“保存失败”，用户的“身份证号码”不符合要求，null
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1032.getCode(),HzdStatusCodeEnum.MEF_CODE_1032.getMsg(),null);
         }
@@ -147,8 +163,10 @@ public class RealNameServiceImpl implements IRealNameService {
         Result<Boolean> updateResult=userSerivce.updateByPrimaryKeySelective(updateUserVO);
         /**判断更新操作结果，设置返回结果*/
         if(StatusCodes.OK==updateResult.getStatus()){//更新借款人实名认证信息成功
+			logger.i("实名认证成功,手机号:"+user.getMobile());
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),null);//返回“保存成功”，用户的实名认证信息
         }else{
+			logger.i("实名认证失败,请检查数据源,手机号:"+user.getMobile());
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1035.getCode(),HzdStatusCodeEnum.MEF_CODE_1035.getMsg(),null);//返回“保存失败”，null
         }
 	}
@@ -163,12 +181,14 @@ public class RealNameServiceImpl implements IRealNameService {
             Result<List<UserImageVO>> UserImageVOList = userImageService.getUserId(user.getId());
             items= UserImageVOList.getItems();
             if (items == null) {
+            	logger.i("查询身份认证图片失败,通过userId未查询到图片信息:"+user.getId());
                 return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(),
                         HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
             }
             for(UserImageVO u:items){
                 u.setArtWork(ImageUrlUtil.geturl(u.getArtWork()));
             }
+			logger.i("查询身份认证图片成功");
             return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
                     HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),items);
         }
@@ -210,6 +230,7 @@ public class RealNameServiceImpl implements IRealNameService {
 						}
 						//若file_url为空，即：上传图片失败
 						if(StringUtils.isBlank(file_url)){
+							logger.i("身份认证上传图片失败,原因:file_url为null");
 							//返回“4100”，“图片上传失败请重新上传”
 							return new BackResult(HzdStatusCodeEnum.MEF_CODE_4100.getCode(), HzdStatusCodeEnum.MEF_CODE_4100.getMsg());
 						}
@@ -220,6 +241,8 @@ public class RealNameServiceImpl implements IRealNameService {
 
 						Result<Boolean> booleanResult = userImageService.insertSelective(userImageVO);
 						if (StatusCodes.OK != (booleanResult.getStatus())) {
+							logger.i("身份认证上传图片失败,原因:存储失败");
+
 							return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
 									HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
 						}
@@ -229,7 +252,8 @@ public class RealNameServiceImpl implements IRealNameService {
 						map.put("type",userImageVO.getType());
 
 						logger.i("上传图片运行时间：" + String.valueOf(endTime - startTime) + "ms" +file_url);
-						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
+						logger.i("身份认证上传图片成功,file_url"+file_url);
+							return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
 
 					} catch (Exception e) {
 						logger.i("-----------系统异常,请检查数据源-------");

@@ -116,7 +116,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			userApplyInfoVO.setStatus(BaseConfig.apply_loan_1);
 			userApplyInfoVO.setApplySubmitTime(new Date());
 			Result<String> stringResult = userApplyInfoSerivce.create(userApplyInfoVO);
-			
+
 			if (StatusCodes.OK == (stringResult.getStatus())) {
 				logger.i("return  -----用户进件申请第一步 成功 。。。。。。。 ");
 				Map map = new HashMap();
@@ -292,6 +292,8 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	public BackResult onlineLoanapplyImgUpload(HttpServletRequest request, UserVO user, UserImageVO userImageVO,String applyId) {
 
 		//TODO 图片入参校验
+
+
 
 		Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
 		UserApplyInfoVO items = userApplyInfoVOResult.getItems();

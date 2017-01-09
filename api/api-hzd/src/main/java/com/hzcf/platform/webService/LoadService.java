@@ -32,7 +32,7 @@ public class LoadService {
 	 * @time: 2017年1月7日 下午6:58:46  
 	 * @return:String
 	 */
-	public static String insertLoad(UserVO user,Map map){		
+	public static String insertLoad(String applyId){
 		/**初始化参数*/
 		Map<String,Object> applyDataMap = new HashMap<String,Object>();//总的数据集合HuiZhongApplicationVo
 		List<Map<String,Object>> borrowRelationList = new ArrayList<Map<String,Object>>();//借款人关系List
@@ -41,7 +41,7 @@ public class LoadService {
 		Map<String,Object> imageMap = new HashMap<String,Object>();//图片Map
 		String systemId = "APP";//系统标示
 		String single="";//签名信息
-		String mobile=user.getMobile();//申请人手机号
+		String mobile="13211980914";//申请人手机号
 		String key=ConstantsDictionary.dispatchLoadKey;//调度的“查询借款进度”接口的密钥
 		String result="";//返回结果
 		/**封装参数*/
@@ -172,5 +172,8 @@ public class LoadService {
 			e.printStackTrace();
 		}
 		return result;
+	}
+	public static void main(String[] args) {
+		System.out.println(insertLoad("123"));
 	}
 }
