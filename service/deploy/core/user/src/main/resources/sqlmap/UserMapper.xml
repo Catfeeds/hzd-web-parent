@@ -15,10 +15,11 @@
         <result column="nopass_cause" property="nopassCause" jdbcType="VARCHAR" />
         <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
         <result column="submit_time" property="submitTime" jdbcType="TIMESTAMP" />
+        <result column="apply_status" property="applyStatus" jdbcType="VARCHAR" />
     </resultMap>
     <sql id="Base_Column_List" >
         id, mobile, name, user_name, password, id_card, status, check_status, nopass_cause,
-        create_time,submit_time
+        create_time,submit_time,apply_status
     </sql>
     <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select
@@ -61,11 +62,11 @@
         insert into users (id, mobile, name,
         user_name, password, id_card,
         status, check_status, nopass_cause,
-        create_time, submit_time)
+        create_time, submit_time,apply_status)
         values (#{id,jdbcType=VARCHAR}, #{mobile,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR},
         #{userName,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR},
         #{status,jdbcType=VARCHAR}, #{checkStatus,jdbcType=VARCHAR}, #{nopassCause,jdbcType=VARCHAR},
-        #{createTime,jdbcType=TIMESTAMP}, #{submitTime,jdbcType=TIMESTAMP})
+        #{createTime,jdbcType=TIMESTAMP}, #{submitTime,jdbcType=TIMESTAMP},#{applyStatus,jdbcType=VARCHAR})
     </insert>
     <insert id="insertSelective" parameterType="User" >
         insert into users
@@ -103,6 +104,9 @@
             <if test="submitTime != null" >
                 submit_time,
             </if>
+            <if test="applyStatus != null" >
+                apply_status
+            </if>
         </trim>
         <trim prefix="values (" suffix=")" suffixOverrides="," >
             <if test="id != null" >
@@ -138,6 +142,9 @@
             <if test="submitTime != null" >
                 #{submitTime,jdbcType=TIMESTAMP},
             </if>
+            <if test="applyStatus != null" >
+                #{applyStatus,jdbcType=VARCHAR}
+            </if>
         </trim>
     </insert>
     <update id="updateByPrimaryKeySelective" parameterType="User" >
@@ -170,7 +177,10 @@
             </if>
             <if test="submitTime != null" >
                 submit_time = #{submitTime,jdbcType=TIMESTAMP},
-            </if>            
+            </if>
+            <if test="applyStatus != null" >
+                apply_status = #{applyStatus,jdbcType=VARCHAR}
+            </if>
         </set>
         where id = #{id,jdbcType=VARCHAR}
     </update>
@@ -185,7 +195,8 @@
         check_status = #{checkStatus,jdbcType=VARCHAR},
         nopass_cause = #{nopassCause,jdbcType=VARCHAR},
         create_time = #{createTime,jdbcType=TIMESTAMP},
-        submit_time = #{submitTime,jdbcType=TIMESTAMP}
+        submit_time = #{submitTime,jdbcType=TIMESTAMP},
+        apply_status = #{applyStatus,jdbcType=VARCHAR}
         where id = #{id,jdbcType=VARCHAR}
     </update>
 
