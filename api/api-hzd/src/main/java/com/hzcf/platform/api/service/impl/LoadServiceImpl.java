@@ -1,5 +1,8 @@
 package com.hzcf.platform.api.service.impl;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -27,7 +30,7 @@ public class LoadServiceImpl implements ILoadService {
 	 */
 	@Override
 	public BackResult insertLoad(UserVO user, Map map) {
-		
+
 		
 		return null;
 	}
