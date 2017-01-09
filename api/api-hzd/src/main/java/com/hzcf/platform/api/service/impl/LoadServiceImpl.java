@@ -30,9 +30,14 @@ public class LoadServiceImpl implements ILoadService {
 	 */
 	@Override
 	public BackResult insertLoad(UserVO user, Map map) {
-
-		
-		return null;
+		String result=LoadService.insertLoad(user,map);
+		if (StringUtils.isNotBlank(result)) {
+			logger.i("接口：进件成功，结果："+result);
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
+		}else{
+			logger.e("接口：进件失败，结果："+result);
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_6100.getCode(), HzdStatusCodeEnum.MEF_CODE_6100.getMsg());
+		}
 	}
 	/**借款人查询借款进度
 	 * 
@@ -44,8 +49,8 @@ public class LoadServiceImpl implements ILoadService {
 			logger.i("接口：借款人查询借款进度成功，结果："+result);
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
 		}else{
-			logger.e("接口：借款人查询借款进度成功，结果："+result);
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_6100.getCode(), HzdStatusCodeEnum.MEF_CODE_6100.getMsg());
+			logger.e("接口：借款人查询借款进度失败，结果："+result);
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_6101.getCode(), HzdStatusCodeEnum.MEF_CODE_6101.getMsg());
 		}
 	}
 }
