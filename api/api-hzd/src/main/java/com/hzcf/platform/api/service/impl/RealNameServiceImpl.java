@@ -147,7 +147,7 @@ public class RealNameServiceImpl implements IRealNameService {
         Result<Boolean> updateResult=userSerivce.updateByPrimaryKeySelective(updateUserVO);
         /**判断更新操作结果，设置返回结果*/
         if(StatusCodes.OK==updateResult.getStatus()){//更新借款人实名认证信息成功
-        	return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),items);//返回“保存成功”，用户的实名认证信息
+        	return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),null);//返回“保存成功”，用户的实名认证信息
         }else{
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1035.getCode(),HzdStatusCodeEnum.MEF_CODE_1035.getMsg(),null);//返回“保存失败”，null
         }

@@ -1,5 +1,6 @@
 package com.hzcf.platform.api.service.impl;
 
+
 import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.service.IDeleteImgUrlService;
@@ -11,10 +12,12 @@ import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.UserImageService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 /**
  * Created by leijiaming on 2017/1/9 0009.
  */
+@Service
 public class DeleteImgUrlServiceImpl implements IDeleteImgUrlService {
 
     @Autowired
