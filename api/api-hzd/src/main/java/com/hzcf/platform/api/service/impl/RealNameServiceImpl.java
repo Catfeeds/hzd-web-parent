@@ -100,8 +100,8 @@ public class RealNameServiceImpl implements IRealNameService {
         	//返回“保存失败”，"1011"，"用户未注册"
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1011.getCode(),HzdStatusCodeEnum.MEF_CODE_1011.getMsg(),null);
         }
-        String realName = (String) map.get("name");
-        String idCard = (String) map.get("idCard");
+        String realName=String.valueOf(map.get("name"));
+        String idCard=String.valueOf(map.get("idCard"));
         /*第一步验证：验证实名认证信息是否符合要求
          *1、“姓名”“身份证号”是否符合正则表达式的要求
          *2、“姓名”“身份证号”是否真实存在，是否对应（第2点暂时不做）
