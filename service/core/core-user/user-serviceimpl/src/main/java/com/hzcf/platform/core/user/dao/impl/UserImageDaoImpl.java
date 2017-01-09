@@ -19,7 +19,7 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
     @Override
     public boolean deleteByPrimaryKey(UserImage record) {
         if (record.getArtWork().length() > 0 )  {
-            sqlSessionTemplate.delete(getSqlName("insertSelective"), record);
+            sqlSessionTemplate.delete(getSqlName("deleteByPrimaryKey"), record);
             return true;
         }
         return false;

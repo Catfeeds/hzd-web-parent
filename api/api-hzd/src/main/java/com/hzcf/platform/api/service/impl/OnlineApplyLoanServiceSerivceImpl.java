@@ -263,13 +263,14 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 				userRelation.setUserId(user.getId());
 				Result<String> stringResult = userRelationService.create(userRelation);
 				if (StatusCodes.OK != (stringResult.getStatus())) {
-					logger.i("进入  -----用户进件申请第四步,  成功 。。。。。。。。。。。。。 ");
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
-							HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
+					logger.i("进入  -----用户进件申请第四步,  失败 。。。。。。。。。。。。。 ");
+
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
 				}
 			}
-			logger.i("进入  -----用户进件申请第四步,  失败 。。。。。。。。。。。。。 ");
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+			logger.i("进入  -----用户进件申请第四步,  成功 。。。。。。。。。。。。。 ");
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
 
 		} catch (CheckException e) {
 			logger.i("缺少必传参数:---" + e.getMessage());
