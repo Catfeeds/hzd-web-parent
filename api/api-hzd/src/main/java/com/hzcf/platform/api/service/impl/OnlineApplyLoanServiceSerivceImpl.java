@@ -6,6 +6,7 @@ import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.form.onlineLoanapplyInfoPreviewForm;
 import com.hzcf.platform.api.model.CheckApplyLoanStatus;
 import com.hzcf.platform.api.service.IOnlineApplyLoanService;
+import com.hzcf.platform.api.util.DateUtil;
 import com.hzcf.platform.api.util.serialnumber;
 import com.hzcf.platform.common.exception.CheckException;
 import com.hzcf.platform.common.util.log.Log;
@@ -115,11 +116,15 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			userApplyInfoVO.setStatus(BaseConfig.apply_loan_1);
 			userApplyInfoVO.setApplySubmitTime(new Date());
 			Result<String> stringResult = userApplyInfoSerivce.create(userApplyInfoVO);
+			
 			if (StatusCodes.OK == (stringResult.getStatus())) {
+				logger.i("return  -----用户进件申请第一步 成功 。。。。。。。 ");
+				Map map = new HashMap();
+				map.put("applyId", applyId);
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
-						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), applyId);
+						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
 			}
-
+			
 		} catch (CheckException e) {
 			logger.i("缺少必传参数:---" + e.getMessage());
 			e.printStackTrace();
@@ -131,7 +136,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
 					null);
 		}
-
+		logger.i("return  -----用户进件申请第一步      失败    。。。。。。。 ");
 		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
 
 	}
@@ -141,8 +146,6 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
 		try {
 
-
-			
 			DataVerifcation.checkUserInfoVOTwo(userInfoVO, user);
 
 			Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
@@ -167,12 +170,18 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			userInfoVO.setReceiverLoginName("线上进件");//受理人
 			userInfoVO.setProductId("精英贷1.89");//贷款类型 TODO
 			userInfoVO.setIsExpress("0"); //是否加急,默认为0，就是默认为否
+			userInfoVO.setBirthday(DateUtil.getDate());  //生日: TODO
 
 
 			Result<String> stringResult = userInfoService.create(userInfoVO);
 			if (StatusCodes.OK == (stringResult.getStatus())) {
+				
+				Map map = new HashMap();
+				map.put("applyId", applyId);
+				
+				logger.i("return  -----用户进件申请第二步,  成功。。。。。。 ");
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
-						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), applyId);
+						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
 			}
 		} catch (CheckException e) {
 			logger.i("缺少必传参数:---" + e.getMessage());
@@ -185,6 +194,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
 					null);
 		}
+		logger.i("return  -----用户进件申请第二步,  失败。。。。。。 ");
 		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
 
 	}
@@ -193,7 +203,6 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	public BackResult onlineLoanapplyInfoThree(UserVO user, UserInfoVO userInfoVO, String applyId) {
 
 		try {
-
 
 			DataVerifcation.checkUserInfoVOThree(userInfoVO, user);
 
@@ -209,8 +218,13 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			userInfoVO.setCreateTime(new Date());
 			Result<Boolean> booleanResult = userInfoService.updateUserInfo(userInfoVO);
 			if (StatusCodes.OK == (booleanResult.getStatus())) {
+				
+				Map map = new HashMap();
+				map.put("applyId", applyId);
+				
+				logger.i("进入  -----用户进件申请第三步,  成功。。。。。。。。。");
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
-						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), applyId);
+						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
 			}
 		} catch (CheckException e) {
 			logger.i("缺少必传参数:---" + e.getMessage());
@@ -223,7 +237,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
 					null);
 		}
-
+		logger.i("进入  -----用户进件申请第三步,  失败。。。。。。。。。");
 		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
 
 	}
@@ -249,11 +263,13 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 				userRelation.setUserId(user.getId());
 				Result<String> stringResult = userRelationService.create(userRelation);
 				if (StatusCodes.OK != (stringResult.getStatus())) {
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+					logger.i("进入  -----用户进件申请第四步,  成功 。。。。。。。。。。。。。 ");
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
 				}
 			}
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
+			logger.i("进入  -----用户进件申请第四步,  失败 。。。。。。。。。。。。。 ");
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
 
 		} catch (CheckException e) {
 			logger.i("缺少必传参数:---" + e.getMessage());

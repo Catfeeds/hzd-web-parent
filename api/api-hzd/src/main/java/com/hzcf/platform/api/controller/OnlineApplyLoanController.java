@@ -1,5 +1,13 @@
 package com.hzcf.platform.api.controller;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RestController;
+
 import com.hzcf.platform.api.annotation.RequestAttribute;
 import com.hzcf.platform.api.annotation.RequestBodyForm;
 import com.hzcf.platform.api.common.BackResult;
@@ -8,18 +16,11 @@ import com.hzcf.platform.api.form.UserRelationForm;
 import com.hzcf.platform.api.service.IOnlineApplyLoanService;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
-import com.hzcf.platform.core.user.model.*;
+import com.hzcf.platform.core.user.model.UserApplyInfoVO;
+import com.hzcf.platform.core.user.model.UserImageVO;
+import com.hzcf.platform.core.user.model.UserInfoVO;
+import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.framework.fastdfs.FastDFSClient;
-import com.hzcf.platform.framework.fastdfs.common.FileCommon;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.servlet.ModelAndView;
-
-import javax.servlet.http.HttpServletRequest;
-import java.io.File;
-import java.util.ArrayDeque;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 线上申请进件
