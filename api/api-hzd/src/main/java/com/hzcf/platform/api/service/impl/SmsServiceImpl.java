@@ -20,6 +20,9 @@ import com.hzcf.platform.webService.SmsObtainService;
 
 import net.sf.json.JSONObject;
 
+import java.util.HashMap;
+import java.util.Map;
+
 @Service
 public class SmsServiceImpl implements ISmsService {
 	private static final Log logger = Log.getLogger(SmsServiceImpl.class);
@@ -83,9 +86,10 @@ public class SmsServiceImpl implements ISmsService {
 					if (StringUtils.isNotBlank(dataInfo) &&"0000".equals(JSONObject.fromObject(dataInfo.toString()).getString("retCode"))) {
 						//缓存验证码
 						cache.save(ConstantsToken.SMS_CACHE_FINDPWD_KEY+mobile, six ,ConstantsToken.SMS_EXPIRES_MIN);
-						
+						Map map = new HashMap<>();
+						map.put("sms",six);
 						logger.i("-------------获取短信验证码成功" + six + "phoneNum:"+ mobile);
-						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), six);
+						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
 					}else{
 						logger.i("获取验证码失败"+ mobile);
 						return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
@@ -119,7 +123,9 @@ public class SmsServiceImpl implements ISmsService {
 					cache.save(ConstantsToken.SMS_CACHE_UPDATEPWD_KEY+user.getMobile(), six ,ConstantsToken.SMS_EXPIRES_MIN);
 					
 					logger.i("-------------获取短信验证码成功" + six + "phoneNum:"+ user.getMobile());
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), six);
+					 Map map = new HashMap<>();
+					map.put("sms",six);
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
 				}else{
 					logger.i("获取验证码失败"+ user.getMobile());
 					return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());

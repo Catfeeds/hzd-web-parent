@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.core.user.model.UserInfoVO;
+import com.hzcf.platform.core.user.service.UserInfoService;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hzcf.platform.common.cache.ICache;
@@ -24,6 +27,8 @@ public class DictUtilInitService {
     @Autowired
     private DistrictDao districtDao;
     @Autowired
+    private UserInfoService userInfoService;
+    @Autowired
     private ICache cache;    /**
      * Spring 容器初始化时加载
      */
@@ -31,6 +36,8 @@ public class DictUtilInitService {
     public final static String CITY_CODE = "0000";	//市
     
     public void loadData() {
+        Result<UserInfoVO> userInfoVOResult = userInfoService.selectByApplyId("28a9d6b6-ceea-4eb3-8f78-9097081034b9");
+        userInfoVOResult.getItems();
         //  KYE applyDictionaryJkyt 借款用途
         //  KYE applyDictionaryinfo 个人信息
         //  KYE applyDictionaryRegionsheng 省

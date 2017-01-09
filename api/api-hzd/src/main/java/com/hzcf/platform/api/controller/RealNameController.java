@@ -35,7 +35,7 @@ public class RealNameController {
     /**查询实名认证信息
 	 * 
 	 * */
-    @RequestMapping(value="rest/selectRealName",method = RequestMethod.POST)
+    @RequestMapping(value="rest/api/100/user/selectRealName",method = RequestMethod.POST)
     public BackResult selectrealname(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
         logger.i("查询借款人实名认证信息");
         logger.i("入参"+ JsonUtil.json2String(user));
