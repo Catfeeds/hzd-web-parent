@@ -8,7 +8,7 @@
     <!--身份证信息-->
     <result column="id_type" property="idType" jdbcType="VARCHAR" />
     <result column="idcard_validity" property="idcardValidity" jdbcType="VARCHAR" />
-    <result column="birthday" property="birthday" jdbcType="Date" />
+    <result column="birthday" property="birthday" jdbcType="DATE" />
     <result column="gender" property="gender" jdbcType="VARCHAR" />
 	<!--家庭收入信息  -->    
     <result column="education" property="education" jdbcType="VARCHAR" />
