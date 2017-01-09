@@ -1,9 +1,9 @@
 package com.hzcf.platform.core.user.model;
 
-import com.hzcf.platform.common.model.BaseVO;
-
 import java.math.BigDecimal;
 import java.util.Date;
+
+import com.hzcf.platform.common.model.BaseVO;
 
 /**
  * @Description:
@@ -20,6 +20,7 @@ public class UserInfoVO extends BaseVO {
     /**身份证信息*/
     private String idType;//证件类型,默认值为“01”  (新增字段)
     private String idcardValidity; //证件有效期
+
     private Date birthday;//出生日期,从身份证号中截取   (新增字段)
     private String gender;//性别,根据身份证号倒数第二位设置值      (新增字段)
     

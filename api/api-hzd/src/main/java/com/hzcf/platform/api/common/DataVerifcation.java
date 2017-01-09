@@ -119,9 +119,9 @@ public class DataVerifcation {
 				throw new CheckException("信用卡最高额度不能为空");
 			}else if (StringUtils.isBlank(userInfoVO.getLiveTogether())){
 				throw new CheckException("共同居住者不能为空");
-			}else if (StringUtils.isBlank(userInfoVO.getStaffNo())){
+			}/*else if (StringUtils.isBlank(userInfoVO.getStaffNo())){
 				throw new CheckException("员工编号不能为空");
-			}
+			}*/
 
 
 		}
