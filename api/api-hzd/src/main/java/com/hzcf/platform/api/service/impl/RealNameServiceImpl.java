@@ -202,8 +202,10 @@ public class RealNameServiceImpl implements IRealNameService {
 					String myFileName = file.getOriginalFilename();//获取文件的名称
 					try {
 						if(StringUtils.isNotBlank(myFileName)){
-							//上传图片，上传操作完成后返回图片的路径地址：file_url
-							file_url=fastdfsClient.upload(file.getBytes(), getSuffix(myFileName), null);
+							synchronized (this) {
+								//上传图片，上传操作完成后返回图片的路径地址：file_url
+								file_url = fastdfsClient.upload(file.getBytes(), getSuffix(myFileName), null);
+							}
 						//	userImageService
 						}
 						//若file_url为空，即：上传图片失败

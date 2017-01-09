@@ -57,9 +57,19 @@
        where user_id=#{userId} and type=#{type}
   </select>
   
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+  <delete id="deleteByPrimaryKey" parameterType="UserImage" >
     delete from user_image
-    where image_id = #{imageId,jdbcType=VARCHAR}
+    where
+
+  <if test="userId!=null">
+
+    user_id=#{userId,jdbcType=VARCHAR}
+  </if>
+    <if test="applyId!=null">
+
+     AND apply_id=#{applyId,jdbcType=VARCHAR} AND
+    </if>
+     art_work=#{artWork,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="UserImage" >
     insert into user_image (image_id, user_id, apply_id, 
@@ -205,4 +215,6 @@
     </set>
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
+
+
         </mapper>

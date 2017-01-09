@@ -304,7 +304,9 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 					String myFileName = file.getOriginalFilename();
 					try {
 						if(StringUtils.isNotBlank(myFileName)){
-							file_url = fastdfsClient.upload(file.getBytes(), getSuffix(myFileName),null);
+							synchronized (this) {
+								file_url = fastdfsClient.upload(file.getBytes(), getSuffix(myFileName), null);
+							}
 						//	userImageService
 						}
 
