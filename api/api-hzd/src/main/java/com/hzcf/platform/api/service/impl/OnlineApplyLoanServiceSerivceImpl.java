@@ -115,6 +115,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			userApplyInfoVO.setStatus(BaseConfig.apply_loan_1);
 			userApplyInfoVO.setApplySubmitTime(new Date());
 			Result<String> stringResult = userApplyInfoSerivce.create(userApplyInfoVO);
+
 			if (StatusCodes.OK == (stringResult.getStatus())) {
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
 						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), applyId);
@@ -276,6 +277,8 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	public BackResult onlineLoanapplyImgUpload(HttpServletRequest request, UserVO user, UserImageVO userImageVO,String applyId) {
 
 		//TODO 图片入参校验
+
+
 
 		Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
 		UserApplyInfoVO items = userApplyInfoVOResult.getItems();
