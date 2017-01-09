@@ -13,7 +13,7 @@ import com.hzcf.platform.common.util.utils.Md5Util;
 import com.hzcf.platform.core.user.model.UserVO;
 
 /**
-  * @Description:对借款信息的操作，如：借款人查询借款进度
+  * @Description:对借款信息的操作，如：进件，借款人查询借款进度
   * 	该类专门负责线上和调度的对接	
   * @author 作者:裴高祥
   * @date 创建时间：2017年1月7日 下午6:37:17 
@@ -44,11 +44,11 @@ public class LoadService {
 			params.put("signature",signature);//签名信息
 			//Map转换成JSON类型的字符串
 			String paramsJson=JsonUtil.json2String(params);
-			logger.info("接口：进件。请求参数："+paramsJson);
+			logger.info("接口：进件，就是保存借款信息。请求参数："+paramsJson);
 			result = HttpTool.doPostJson(ConstantsDictionary.dispatchInsertLoadUrl,paramsJson);
-			logger.info("接口：进件。返回结果："+result);
+			logger.info("接口：进件，就是保存借款信息。返回结果："+result);
 		} catch (Exception e) {
-			logger.error("接口：进件。发生异常，异常信息："+e.getMessage());
+			logger.error("接口：进件，就是保存借款信息。发生异常，异常信息："+e.getMessage());
 			e.printStackTrace();
 		}
 		return result;
