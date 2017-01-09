@@ -64,8 +64,8 @@ public class HttpTool {
      * @param url
      * @return
      */
-    public static String doGet(String url) {
-        return doGet(url, new HashMap<String, Object>());
+    public static String sendGet(String url) {
+        return sendGet(url, new HashMap<String, Object>());
     }
     /**
      * 发送 GET 请求（HTTP），K-V形式
@@ -73,7 +73,7 @@ public class HttpTool {
      * @param params
      * @return
      */
-    public static String doGet(String url,Map<String, Object> params) {
+    public static String sendGet(String url,Map<String, Object> params) {
         String apiUrl = url;
         StringBuffer param = new StringBuffer();
         int i = 0;
@@ -109,8 +109,8 @@ public class HttpTool {
      * @param apiUrl
      * @return
      */
-    public static String doPost(String apiUrl) {
-        return doPost(apiUrl, new HashMap<String, Object>());
+    public static String sendPost(String apiUrl) {
+        return sendPost(apiUrl, new HashMap<String, Object>());
     }
     /**
      * 发送 POST 请求（HTTP），K-V形式
@@ -118,7 +118,7 @@ public class HttpTool {
      * @param params 参数map
      * @return
      */
-    public static String doPost(String apiUrl, Map<String, Object> params) {
+    public static String sendPost(String apiUrl, Map<String, Object> params) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         String httpStr = null;
         HttpPost httpPost = new HttpPost(apiUrl);
@@ -155,7 +155,7 @@ public class HttpTool {
      * @param json json对象
      * @return
      */
-    public static String doPostJson(String apiUrl, Object json) {
+    public static String sendPostJson(String apiUrl, Object json) {
         CloseableHttpClient httpClient = HttpClients.createDefault();
         String httpStr = null;
         HttpPost httpPost = new HttpPost(apiUrl);
@@ -185,7 +185,7 @@ public class HttpTool {
         return httpStr;
     }
 
-	public String doPut(String url, Object json) {
+	public String sendPut(String url, Object json) {
 		CloseableHttpClient httpClient = HttpClients.createDefault();
 		String httpStr = null;
         HttpPut httpPut = new HttpPut(url);
@@ -214,10 +214,10 @@ public class HttpTool {
 		}
 		return httpStr;
 	}
-	public String doDel(String url) {
-		return doDel(url,new HashMap<String,Object>());
+	public String sendDel(String url) {
+		return sendDel(url,new HashMap<String,Object>());
 	}
-	public String doDel(String url, Map<String, Object> params) {
+	public String sendDel(String url, Map<String, Object> params) {
 		String apiUrl = url;
 		if(params != null && params.size() > 0){
 			StringBuffer param = new StringBuffer();
