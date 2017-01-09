@@ -214,7 +214,7 @@ public class RealNameServiceImpl implements IRealNameService {
 							return new BackResult(HzdStatusCodeEnum.MEF_CODE_4100.getCode(), HzdStatusCodeEnum.MEF_CODE_4100.getMsg());
 						}
 						userImageVO.setImageId(UUIDGenerator.getUUID());//图片id
-
+						userImageVO.setUserId(user.getId());
 						userImageVO.setArtWork(file_url);//服务器存储的图片的地址
 						userImageVO.setCreateTime(new Date());//创建时间
 
