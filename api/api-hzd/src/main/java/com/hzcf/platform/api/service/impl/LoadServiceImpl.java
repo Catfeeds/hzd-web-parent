@@ -20,7 +20,7 @@ import com.hzcf.platform.webService.LoadService;
 @Service
 public class LoadServiceImpl implements ILoadService {
 	private static final Log logger = Log.getLogger(LoadServiceImpl.class);
-	/**借款人查询借款信息，状态，进度
+	/**借款人查询借款进度
 	 * 
 	 */
 	@Override
@@ -31,7 +31,7 @@ public class LoadServiceImpl implements ILoadService {
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
 		}else{
 			logger.e("接口：借款人查询借款进度成功，结果："+result);
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_6100.getCode(), HzdStatusCodeEnum.MEF_CODE_6100.getMsg());
 		}
 	}
 }

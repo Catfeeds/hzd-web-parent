@@ -44,11 +44,11 @@ public class LoadService {
 			params.put("signature",signature);//签名信息
 			//Map转换成JSON类型的字符串
 			String paramsJson=JsonUtil.json2String(params);
-			logger.info("接口：借款人查询借款状态。请求参数："+paramsJson);
+			logger.info("接口：借款人查询借款进度。请求参数："+paramsJson);
 			result = HttpTool.doPostJson(ConstantsDictionary.dispatchSelectLoadProgressUrl,paramsJson);
-			logger.info("接口：借款人查询借款状态。返回结果："+result);
+			logger.info("接口：借款人查询借款进度。返回结果："+result);
 		} catch (Exception e) {
-			logger.error("接口：借款人查询借款状态。发生异常，异常信息："+e.getMessage());
+			logger.error("接口：借款人查询借款进度。发生异常，异常信息："+e.getMessage());
 			e.printStackTrace();
 		}
 		return result;
