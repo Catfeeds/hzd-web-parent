@@ -2,8 +2,6 @@ package com.hzcf.platform.core.user.data;
 
 import com.hzcf.platform.common.model.AbstractEntity;
 
-import java.util.Date;
-
 public class User extends AbstractEntity {
 
 
@@ -24,7 +22,7 @@ public class User extends AbstractEntity {
     private String nopassCause;
 
     private String submitTime;
-
+    private String applyStatus;//借款状态
 
     public String getMobile() {
         return mobile;
@@ -96,6 +94,14 @@ public class User extends AbstractEntity {
 
 	public void setSubmitTime(String submitTime) {
 		this.submitTime = submitTime;
+	}
+
+	public String getApplyStatus() {
+		return applyStatus;
+	}
+
+	public void setApplyStatus(String applyStatus) {
+		this.applyStatus = applyStatus;
 	}
 
 

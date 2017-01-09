@@ -13,8 +13,8 @@ import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.util.AESUtil;
 import com.hzcf.platform.api.util.HttpRequestUtil;
 import com.hzcf.platform.api.util.HttpTool;
+import com.hzcf.platform.api.util.Md5Util;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
-import com.hzcf.platform.common.util.utils.Md5Util;
 import com.hzcf.platform.core.user.model.UserVO;
 
 /**

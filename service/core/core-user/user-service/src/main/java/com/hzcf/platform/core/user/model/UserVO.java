@@ -1,38 +1,26 @@
 package com.hzcf.platform.core.user.model;
 
+import java.io.Serializable;
+
 import com.hzcf.platform.common.model.BaseVO;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 
-import java.io.Serializable;
-import java.util.Date;
-
 public class UserVO extends BaseVO implements Serializable{
-
-
 	private static final long serialVersionUID = 7441953954948417770L;
 
 	private String mobile;//手机号
-
 	private String name;//借款人的真实姓名
-
 	private String userName;//用户账号
-
 	private String password;//密码
-
 	private String idCard;//身份证号码
-
 	private String status;//0=正常    1=禁用
-
 	private String checkStatus;//审核状态  0:通过(已认证) 1:不通过(未认证) 2:待审核(审核中)
-
 	private String nopassCause;//不通过原因
 	private String submitTime;//实名认证提交时间
-	
 	private String token;
-
+	private String applyStatus;//借款状态
 	//缓存验证码 类型
 	private String smsCacheType;
-	
 	private String ip;
 	
     //ext
@@ -221,7 +209,14 @@ public class UserVO extends BaseVO implements Serializable{
 	public void setSubEndDate(String subEndDate) {
 		this.subEndDate = subEndDate;
 	}
-	
+
+	public String getApplyStatus() {
+		return applyStatus;
+	}
+
+	public void setApplyStatus(String applyStatus) {
+		this.applyStatus = applyStatus;
+	}
 }
 
 
