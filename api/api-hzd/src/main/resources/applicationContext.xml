@@ -32,6 +32,5 @@
 		<!-- 设置编码格式 -->
 		<property name="fileEncoding" value="UTF-8"></property>
 	</bean>
-    
-    
-</beans>  
+
+</beans>

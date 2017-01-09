@@ -6,6 +6,7 @@ import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.api.service.IDeleteImgUrlService;
+import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.model.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +22,14 @@ import java.util.Map;
  */
 @RestController
 public class DeleteImgUrlController {
+    private static final Log logger = Log.getLogger(DeleteImgUrlController.class);
 
     @Autowired
     IDeleteImgUrlService deleteImgUrlService;
     @RequestMapping(value={"rest/api/100/delete/imgurl","api/100/delete/imgurl"},method= RequestMethod.POST)
     public BackResult applyDictionaryQu(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,
                                         @RequestBodyForm UserImageVO userImageVO){
-
+            logger.i("进入图片删除接口");
             return deleteImgUrlService.deleteImgUrl(user,userImageVO);
     }
 }
