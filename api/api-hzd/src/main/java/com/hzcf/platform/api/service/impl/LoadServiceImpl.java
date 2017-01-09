@@ -1,5 +1,7 @@
 package com.hzcf.platform.api.service.impl;
 
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,15 @@ import com.hzcf.platform.webService.LoadService;
 @Service
 public class LoadServiceImpl implements ILoadService {
 	private static final Log logger = Log.getLogger(LoadServiceImpl.class);
+	/**进件接口，就是保存借款申请
+	 * 
+	 */
+	@Override
+	public BackResult insertLoad(UserVO user, Map map) {
+		
+		
+		return null;
+	}
 	/**借款人查询借款进度
 	 * 
 	 */

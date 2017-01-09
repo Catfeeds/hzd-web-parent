@@ -1,6 +1,9 @@
 package com.hzcf.platform.api.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
@@ -25,13 +28,22 @@ import com.hzcf.platform.core.user.model.UserVO;
 public class LoadController {
 	private static final Log logger = Log.getLogger(LoadController.class);
 	@Autowired
-    private ILoadService loadService;//实名认证的service
-	/**借款人查询借款进度
+    private ILoadService loadService;//借款信息的service
+	/**进件接口,就是保存借款申请
+	 * 
+	 */
+	@RequestMapping(value="rest/insertload",method = RequestMethod.POST)
+    public BackResult insertload(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,@RequestBody Map map){
+        logger.i("进件接口,就是保存借款申请");
+        logger.i("入参"+ JsonUtil.json2String(user));
+        return loadService.insertLoad(user,map);
+    }
+	/**借款人查询借款进度接口
 	 * 
 	 */
 	@RequestMapping(value="rest/selectloadprogress",method = RequestMethod.POST)
     public BackResult selectloadprogress(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
-        logger.i("借款人查询借款进度");
+        logger.i("借款人查询借款进度接口");
         logger.i("入参"+ JsonUtil.json2String(user));
         return loadService.selectLoadProgress(user);
     }

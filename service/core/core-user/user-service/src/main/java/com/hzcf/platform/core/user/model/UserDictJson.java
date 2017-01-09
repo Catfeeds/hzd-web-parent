@@ -11,7 +11,7 @@ public class UserDictJson implements Serializable{
     private static final long serialVersionUID = -4272715414866892350L;
     private  String dict_value;
     private  String dict_text;
-    private Map<String,Object> map;
+    //private Map<String,Object> map;
     private List<UserDictJson> list;
 
     public String getDict_value() {
@@ -29,7 +29,7 @@ public class UserDictJson implements Serializable{
     public void setDict_text(String dict_text) {
         this.dict_text = dict_text;
     }
-
+/*
     public Map<String, Object> getMap() {
 		return map;
 	}
@@ -37,7 +37,7 @@ public class UserDictJson implements Serializable{
 	public void setMap(Map<String, Object> map) {
 		this.map = map;
 	}
-
+*/
 	public List<UserDictJson> getList() {
 		return list;
 	}

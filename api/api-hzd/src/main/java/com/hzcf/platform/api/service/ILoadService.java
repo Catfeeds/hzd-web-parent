@@ -1,5 +1,7 @@
 package com.hzcf.platform.api.service;
 
+import java.util.Map;
+
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.core.user.model.UserVO;
 
@@ -11,6 +13,8 @@ import com.hzcf.platform.core.user.model.UserVO;
   * @since  JDK1.7
   */
 public interface ILoadService {
+	//进件接口，就是保存借款申请
+	public BackResult insertLoad(UserVO user,Map map);
 	//查询实名认证状态，信息
 	public BackResult selectLoadProgress(UserVO user);
 }

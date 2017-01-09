@@ -40,8 +40,15 @@ public class ConstantsDictionary {
 			SNSNUMFAILUREDATE = Integer.valueOf(props.getProperty("SNSNUMFAILUREDATE"));//短信失效时间
 			CONTENTTEXT = props.getProperty("CONTENTTEXT");
 			imgUpload  = props.getProperty("imgUpload");
-			dispatchSelectLoadProgressUrl=props.getProperty("dispatch.selectLoadProgress.url");//调度的“查询借款进度”接口地址
-			dispatchSelectLoadProgressKey=props.getProperty("dispatch.selectLoadProgress.key");//调度的“查询借款进度”接口的密钥
+			
+			/**借款的配置信息*/
+			//线上和调度的所有接口的密钥
+			dispatchLoadKey=props.getProperty("dispatch.load.key");	
+			//调度的“查询借款进度”接口地址
+			dispatchInsertLoadUrl=props.getProperty("dispatch.insertLoad.url");
+			//调度的“查询借款进度”接口地址
+			dispatchSelectLoadProgressUrl=props.getProperty("dispatch.selectLoadProgress.url");
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -70,8 +77,14 @@ public class ConstantsDictionary {
 	public static String CONTENTTEXT;
 	public static String imgUpload;
 
-	public static String dispatchSelectLoadProgressUrl;//调度的“查询借款进度”接口地址
-	public static String dispatchSelectLoadProgressKey;//调度的“查询借款进度”接口的密钥
+	
+	/**借款的配置信息*/
+	//线上和调度的所有接口的密钥
+	public static String dispatchLoadKey;	
+	//进件，就是保存借款申请。调度的“进件”接口地址
+	public static String dispatchInsertLoadUrl;
+	//查询借款进度。调度的“查询借款进度”接口地址
+	public static String dispatchSelectLoadProgressUrl;
 	
 }
 
