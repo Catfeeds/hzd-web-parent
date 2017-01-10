@@ -1,9 +1,7 @@
 package com.hzcf.platform.core.user.model;
 
-import com.hzcf.platform.common.cache.utils.DateUtil;
 import com.hzcf.platform.common.model.BaseVO;
-
-import java.util.Date;
+import com.hzcf.platform.core.user.util.DateUtil;
 
 public class MsgBoxVO extends BaseVO {
     private String msgId;
@@ -85,7 +83,7 @@ public class MsgBoxVO extends BaseVO {
 	}
 
 	public String getCreateTimeDesc() {
-		return DateUtil.formatDate2(this.getCreateTime());
+		return DateUtil.formatDateTime(this.getCreateTime());
 	}
     
 	
