@@ -315,6 +315,15 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(),
 						HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
 			}
+			//清空关系数据
+			Result<Boolean> delResult = userRelationService.deleteByApplyId(applyId);
+			if (StatusCodes.OK != (delResult.getStatus())) {
+				logger.i("进入  -----用户进件申请第四步,  清空关系数据 失败 。。。。。。。。。。。。。 ");
+
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+			}
+			//插入关系数据
 			for (UserRelationVO userRelation : userRelationVO) {
 				userRelation.setRelationId(UUIDGenerator.getUUID());
 				userRelation.setApplyId(applyId);

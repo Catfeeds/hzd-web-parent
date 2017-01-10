@@ -26,4 +26,6 @@ public interface UserRelationDao extends IBaseDao<UserRelation> {
 
     int updateByPrimaryKey(UserRelation record);
 
+    
+    public int deleteByApplyId(String applyId);
 }
