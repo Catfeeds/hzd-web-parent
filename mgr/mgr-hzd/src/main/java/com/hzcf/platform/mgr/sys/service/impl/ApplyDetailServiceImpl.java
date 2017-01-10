@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.user.model.UserApplyInfoVO;
+import com.hzcf.platform.core.user.model.UserDictJson;
 import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.model.UserInfoVO;
 import com.hzcf.platform.core.user.model.UserRelationVO;
@@ -105,8 +106,13 @@ public class ApplyDetailServiceImpl implements IApplyDetailService {
 	@Override
 	public List<UserRelationVO> getUserRelationDetail(String applyId) {
 		
+		UserDictJson userDictJson = new UserDictJson();
+		
+		
 		Result<List<UserRelationVO>> userRelationList = userRelationService.selectByApplyId(applyId);
 		List<UserRelationVO> userRelationVOList = userRelationList.getItems();
+		
+		
 		return userRelationVOList;
 	}
 
