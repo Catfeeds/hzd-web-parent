@@ -147,7 +147,7 @@ public class UserServiceImpl implements IUserService {
 		MsgBoxVO msgBoxVO = new MsgBoxVO();
 		msgBoxVO.setMsgId(UUIDGenerator.getUUID());
 		msgBoxVO.setUserId(use1.getItems().getId());
-		msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_YES);
+		//msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_YES);
 		msgBoxVO.setMsgType(ConstantsParam.MSG_TYPE);
 		msgBoxVO.setIsRead(ConstantsParam.MSG_IS_READ_YES);
 		msgBoxVO.setCreateTime(new Date());
@@ -158,11 +158,12 @@ public class UserServiceImpl implements IUserService {
 		}
 		
 		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_N)){
+			msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_BTG);
 			msgBoxVO.setMsgContent("尊敬的用户，您在"+date+"提交的实名认证申请未通过，请重新申请。");
 			msgBoxservice.insertSelective(msgBoxVO);
 		}
 		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)){
-			
+			msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_TG);
 			msgBoxVO.setMsgContent("尊敬的用户，您在"+date+"提交的实名认证申请已通过。");
 			msgBoxservice.insertSelective(msgBoxVO);
 		}
@@ -237,11 +238,13 @@ public class UserServiceImpl implements IUserService {
 							continue;
 							//return new Result(StatusCodes.PIC_UPLOAD_FAILURE,false);
 						}
+						//该用户有图片信息
 						if(userVO.getStatus()== 200 && userList.size()>0){
 							userImage.setArtWork(file_url);
 							userImage.setUpdateTime(new Date());
 							booleanResult = userImageService.updateImage(userImage);
 						}
+						//该用户没有图片信息
 						if(userVO.getStatus()==200 && userList.isEmpty()){
 							userImage.setImageId(UUIDGenerator.getUUID());//图片id
 							userImage.setArtWork(file_url);//服务器存储的图片的地址
