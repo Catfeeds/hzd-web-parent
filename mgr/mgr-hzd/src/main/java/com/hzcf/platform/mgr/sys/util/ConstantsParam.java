@@ -2,7 +2,11 @@ package com.hzcf.platform.mgr.sys.util;
 
 public class ConstantsParam {
 
-	public final static String MSG_STATUS_YES = "0"; // 可用
+	public final static String MSG_STATUS_YES = "0"; // 有效
+	public final static String MSG_STATUS_WX = "1";// 无效
+	public final static String MSG_STATUS_TG = "2";//审核通过
+	public final static String MSG_STATUS_BTG = "3";//审核不通过
+	
 	public final static String MSG_TYPE = "0"; // 
 	public final static String MSG_IS_READ_YES = "0"; // 可读
 	public final static String MSG_IS_READ_NO = "1"; // 未读
