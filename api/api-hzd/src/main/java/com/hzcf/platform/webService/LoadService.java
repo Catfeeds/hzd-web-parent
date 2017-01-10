@@ -8,6 +8,7 @@ import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.util.AESUtil;
@@ -15,7 +16,20 @@ import com.hzcf.platform.api.util.HttpRequestUtil;
 import com.hzcf.platform.api.util.HttpTool;
 import com.hzcf.platform.api.util.Md5Util;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
+import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.core.user.model.UserApplyInfoVO;
+import com.hzcf.platform.core.user.model.UserImageVO;
+import com.hzcf.platform.core.user.model.UserInfoVO;
+import com.hzcf.platform.core.user.model.UserRelationVO;
 import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
+import com.hzcf.platform.core.user.service.UserImageService;
+import com.hzcf.platform.core.user.service.UserInfoService;
+import com.hzcf.platform.core.user.service.UserRelationService;
+import com.hzcf.platform.core.user.service.UserService;
+
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 /**
   * @Description:对借款信息的操作，如：进件，借款人查询借款进度
@@ -27,20 +41,31 @@ import com.hzcf.platform.core.user.model.UserVO;
   */
 public class LoadService {
 	private static Logger logger = Logger.getLogger(LoadService.class);
+	@Autowired
+	public UserService userSerivce;//用户service
+	@Autowired
+	public UserApplyInfoSerivce userApplyInfoSerivce;//用户申请信息service
+	@Autowired
+	public UserInfoService userInfoService;//用户信息service
+	@Autowired
+	public UserRelationService userRelationService;//用户关系service
+	@Autowired
+	public UserImageService userImageService;//用户图片service
+	
 	/**
 	 * @Title: insertLoad 
 	 * @Description:线下和调度对接，进件，就是保存借款信息
 	 * @time: 2017年1月7日 下午6:58:46  
 	 * @return:String
 	 */
-	public static String insertLoad(String applyId){
+	public String insertLoad(String applyId){
 		/**初始化参数*/
 		Map<String,Object> applyDataMap = new HashMap<String,Object>();//总的数据集合HuiZhongApplicationVo
 		List<Map<String,Object>> borrowRelationList = new ArrayList<Map<String,Object>>();//借款人关系List
 		Map<String,Object> borrowRelationMap = new HashMap<String,Object>();//借款人Map
 		List<Map<String,Object>> imageList = new ArrayList<Map<String,Object>>();//图片List
 		Map<String,Object> imageMap = new HashMap<String,Object>();//图片Map
-		String systemId = "APP";//系统标示
+		String systemId = "APP";//系统标识
 		String single="";//签名信息
 		String mobile="13211980914";//申请人手机号
 //		String key=ConstantsDictionary.dispatchLoadKey;//调度的“查询借款进度”接口的密钥
@@ -139,6 +164,71 @@ public class LoadService {
 			e.printStackTrace();
 		}
 		return result;
+		
+		
+		
+		
+		//方式2：读取数据库
+//		/**初始化参数*/
+//		String systemId = "APP";//系统标识
+//		String single="";//签名信息
+//		String mobile="";//申请人手机号
+//		String key=ConstantsDictionary.dispatchLoadKey;//调度的“查询借款进度”接口的密钥
+//		String result="";//返回结果
+//		//用户信息
+//		String userId="";
+//		/**查询数据库，获取参数*/
+//		//借款人详细信息
+//		Result<UserInfoVO> userInfoVOResult=userInfoService.selectByApplyId(applyId);
+//		UserInfoVO userInfoVO=userInfoVOResult.getItems();
+//		//借款人申请信息
+//		Result<UserApplyInfoVO> userApplyInfoResult=userApplyInfoSerivce.selectByApplyId(applyId);
+//		UserApplyInfoVO userApplyInfo=userApplyInfoResult.getItems();
+//		//用户id
+//		userId=userApplyInfo.getUserId();
+//		//借款人信息
+//		Result<UserVO> userVOResult=userSerivce.selectByPrimaryKey(userId);
+//		UserVO userVO=userVOResult.getItems();
+//		//借款人关系集合
+//		Result<List<UserRelationVO>> userRelationVOListResult=userRelationService.selectByApplyId(applyId);
+//		List<UserRelationVO> userRelationVOList=userRelationVOListResult.getItems();
+//		//借款人图片信息
+//		Result<List<UserImageVO>> userImageVOListResult=userImageService.getUserId(userId);
+//		List<UserImageVO> userImageVOList=userImageVOListResult.getItems();
+//		/**封装参数*/
+//		JSONObject applyDataMap = new JSONObject();//总的数据集合HuiZhongApplicationVo
+//		JSONObject userInfoVOJsonObject=JSONObject.fromObject(userInfoVO);
+//		JSONObject userApplyInfoJsonObject=JSONObject.fromObject(userApplyInfo);
+//		JSONObject userVOJsonObject=JSONObject.fromObject(userVO);
+//		JSONArray userRelationVOListJsonArrray=JSONArray.fromObject(userRelationVOList);
+//		JSONArray userImageVOListJsonArrray=JSONArray.fromObject(userImageVOList);
+//		applyDataMap.putAll(userInfoVOJsonObject);
+//		applyDataMap.putAll(userApplyInfoJsonObject);
+//		applyDataMap.putAll(userVOJsonObject);
+//		applyDataMap.put("borrowRelationList", userRelationVOListJsonArrray);
+//		applyDataMap.put("imageList", userImageVOListJsonArrray);
+//		/***/
+//		try {
+//			//MD5加密
+//			single=Md5Util.getMD5String(StringUtils.join(new String[]{systemId,mobile}, ","),key);
+//			applyDataMap.put("signature", single);
+//			applyDataMap.put("systemSourceId", systemId);
+//			//Map对象转换成Json字符串
+//			String str=JsonUtil.json2String(applyDataMap);
+//			logger.info("接口：进件。请求参数："+str);
+//			//AES加密
+//			str = AESUtil.enCrypt(str,key);
+//			logger.info("接口：进件。加密后的参数："+str);
+//			str = "addHuiZhongApplyInfoParms="+str;
+//			//发送Http请求，POST方式
+//	//		result=HttpRequestUtil.sendPost(ConstantsDictionary.dispatchInsertLoadUrl,str);
+//			result=HttpRequestUtil.sendPost("http://10.10.16.131:8080/Dispatch/app/huizhong2/addHuiZhongApplyInfo.do",str);
+//			logger.info("接口：进件。返回的结果："+result);
+//		} catch (Exception e) {
+//			logger.error("接口：进件。发生异常，异常信息："+e.getMessage());
+//			e.printStackTrace();
+//		}
+//		return result;
 	}
 	/**
 	 * @Title: selectLoadProgress 
@@ -178,6 +268,6 @@ public class LoadService {
 		return result;
 	}
 	public static void main(String[] args) {
-		System.out.println(insertLoad("123"));
+//		System.out.println(insertLoad("123"));
 	}
 }

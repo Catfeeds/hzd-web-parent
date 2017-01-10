@@ -27,7 +27,13 @@ public interface UserDao extends IBaseDao<User> {
 	 * @return
 	 */
 	User getByMobile(String mobile);
-
+	/**
+	 * @Title: selectByPrimaryKey 
+	 * @Description:根据id查询用户信息 
+	 * @time: 2017年1月9日 下午9:26:28  
+	 * @return:User
+	 */
+	public User selectByPrimaryKey(String id);
 
 	String insertSelective(User user);
 
