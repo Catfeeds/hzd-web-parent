@@ -1,6 +1,7 @@
 package com.hzcf.platform.api.service.impl;
 
 import com.hzcf.platform.api.common.BackResult;
+import com.hzcf.platform.api.common.DictBase;
 import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.form.onlineLoanapplyInfoPreviewForm;
@@ -16,11 +17,7 @@ import com.hzcf.platform.common.util.uuid.UUIDGenerator;
 import com.hzcf.platform.api.common.DataVerifcation;
 import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.*;
-import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
-import com.hzcf.platform.core.user.service.UserImageService;
-import com.hzcf.platform.core.user.service.UserInfoService;
-import com.hzcf.platform.core.user.service.UserRelationService;
-import com.hzcf.platform.core.user.service.UserService;
+import com.hzcf.platform.core.user.service.*;
 import com.hzcf.platform.framework.fastdfs.FastDFSClient;
 
 import org.apache.commons.collections.map.HashedMap;
@@ -52,6 +49,9 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	public UserImageService userImageService;
 	@Autowired
 	FastDFSClient fastdfsClient;
+	@Autowired
+	DictUtilService dictUtilService;
+
 
 	@Override
 	public BackResult isApplyLoanQuery(UserVO user) {
@@ -392,8 +392,13 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
 		Result<List<UserRelationVO>> listResult = userRelationService.selectByApplyId(applyId);
 		List<UserRelationVO> userRelationVOList = listResult.getItems();
+
 		if (userApplyInfoVO == null || userInfoVO == null || userRelationVOList.size() == 0) {
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(), HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
+		}
+
+		for(UserRelationVO u : userRelationVOList){
+			u.setRelationType(dictUtilService.convertDict(DictBase.RELATION_TO_APPLYER,u.getRelationType()));
 		}
 
 		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),
