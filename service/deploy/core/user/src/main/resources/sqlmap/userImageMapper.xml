@@ -215,6 +215,35 @@
     </set>
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
-
-
+	<!--  -->
+	<update id="updateByUserIdAndTypeAndUrl" parameterType="java.util.Map" >
+    update user_image
+    <set >
+      <if test="userId != null" >
+        user_id = #{userId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyId != null" >
+        apply_id = #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="userInfoId != null" >
+        user_info_id = #{userInfoId,jdbcType=VARCHAR},
+      </if>
+      <if test="artWork != null" >
+        art_work = #{artWork,jdbcType=VARCHAR},
+      </if>
+      <if test="small != null" >
+        small = #{small,jdbcType=VARCHAR},
+      </if>
+      <if test="imageType != null" >
+        image_type = #{imageType,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null" >
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_id = #{userId,jdbcType=VARCHAR} and art_work = #{artWork} and type = #{type}
+  </update>
         </mapper>

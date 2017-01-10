@@ -21,7 +21,7 @@ public interface IUserService {
 	
 	public SmsUserInfo getSmsUserDetail(String mobile);
 	
-	public void update(String mobile,String name,String idCard);
+	public Result<Boolean> update(String mobile,String name,String idCard);
 	
 	public Result<Boolean> updateStatus(String mobile,String checkStatus,String nopassCause);
 	
@@ -29,6 +29,6 @@ public interface IUserService {
 	
 	public Result<Boolean> status(String mobile,String status);
 	
-	public Result<Boolean> smsImgUpload(HttpServletRequest request,String mobile,String name,String idCard);
+	public Result<Boolean> smsImgUpload(HttpServletRequest request,String url,String mobile);
 	//public Result<Boolean> update(SmsUserInfo smsUserInfo);
 }

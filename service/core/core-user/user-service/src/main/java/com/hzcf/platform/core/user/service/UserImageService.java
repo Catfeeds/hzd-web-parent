@@ -24,4 +24,5 @@ public interface UserImageService extends IBaseService<UserImageVO> {
 	public Result<Boolean> insertSelective(UserImageVO userImageVO);
 	public Result<Boolean> deleteByPrimaryKey(UserImageVO userImageVO);
 	
+	public Result<Boolean> updateImageByUserIdAndTypeAndUrl(Map<String, String> parmMap);
 }

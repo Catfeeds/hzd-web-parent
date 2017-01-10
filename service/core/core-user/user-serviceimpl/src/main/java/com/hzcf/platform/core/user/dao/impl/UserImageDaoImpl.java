@@ -83,4 +83,10 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
 	public List<UserImageVO> selectUserImageByUserIdAndType(Map<String, String> paramsMap) {
 		return sqlSessionTemplate.selectList("selectUserImageByUserIdAndType",paramsMap);
 	}
+	
+	@Override
+	public boolean updateImageByUserIdAndTypeAndUrl(Map<String, String> parmMap) {
+		sqlSessionTemplate.update(getSqlName("updateByUserIdAndTypeAndUrl"), parmMap);
+		return true;
+	}
 }

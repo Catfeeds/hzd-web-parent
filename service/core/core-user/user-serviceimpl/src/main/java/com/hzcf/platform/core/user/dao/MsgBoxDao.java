@@ -15,6 +15,6 @@ public interface MsgBoxDao extends IBaseDao<MsgBox> {
     //修改成已读
     public boolean updateReadByUser(MsgBox msgBox);
 	
-	
+    public boolean insertSelective(MsgBox msgBox);
 
 }

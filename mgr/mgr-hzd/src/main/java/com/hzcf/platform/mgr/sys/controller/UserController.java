@@ -1,8 +1,10 @@
 package com.hzcf.platform.mgr.sys.controller;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -129,43 +131,58 @@ public class UserController {
 		return "users/edit";
 	}
 	
-	/*@RequestMapping(value="/users/check/update",method=RequestMethod.GET)
-    public String update(String mobile,String name,String idCard){
-		sysUserService.update(mobile, name, idCard);
+	@RequestMapping(value="/users/check/update",method=RequestMethod.POST)
+    public String update(String mobile,String name,String idCard ,HttpServletResponse response) throws IOException{
+		Result<Boolean> bool = sysUserService.update(mobile, name, idCard);
+		Boolean status = bool.getItems().booleanValue();
+		response.getWriter().print(status);
 		return "redirect:/users/check/list";
-    }	*/
+    }	
 	
-	@RequestMapping(value="/users/check/updateStatus",method=RequestMethod.GET)
-	public String updateStatus(String mobile,String checkStatus,String nopassCause){
-		sysUserService.updateStatus(mobile, checkStatus,nopassCause);
-		return "redirect:/users/check/list";
+	@RequestMapping(value="/users/check/updateStatus",method=RequestMethod.POST)
+	public String updateStatus(String mobile,String checkStatus,String nopassCause,HttpServletResponse response) throws IOException{
+		Result<Boolean> bool = sysUserService.updateStatus(mobile, checkStatus,nopassCause);
+		Boolean status = bool.getItems().booleanValue();
+		response.getWriter().print(status);
+		return "users/checklist";
 	}
 	
-	@RequestMapping(value="/users/check/updatePassword",method=RequestMethod.GET)
-	public String updatePassword(String mobile,String passWord){
-		sysUserService.updatePassWord(mobile, passWord);
-		return "redirect:/users/list";
+	@RequestMapping(value="/users/check/updatePassword",method=RequestMethod.POST)
+	public void updatePassword(String mobile,String passWord,HttpServletResponse response) throws IOException{
+		Result<Boolean> bool=sysUserService.updatePassWord(mobile, passWord);
+		Boolean status = bool.getItems().booleanValue();
+		response.getWriter().print(status);
 	}
 	/**
 	 * 修改状态
 	 * @param mobile
-	 * @param passWord
 	 * @return
+	 * @throws IOException 
 	 */
-	@RequestMapping(value="/users/check/status",method=RequestMethod.GET)
-	public String status(String mobile,String status){
-		sysUserService.status(mobile, status);
-		return "redirect:/users/list";
-	}	
+	@RequestMapping(value="/users/check/status",method=RequestMethod.POST)
+	public void status(String mobile,String status,HttpServletResponse response) throws IOException{
+		Result<Boolean> bool = sysUserService.status(mobile, status);
+		Boolean statu = bool.getItems().booleanValue();
+		response.getWriter().print(statu);
+	}
 	
-	/**上传实名认证更新用户信息
-	 * 
-	 * */
+	/*
     @RequestMapping(value="/users/check/updateUserAndImage",method = RequestMethod.POST)
     public String smsImgUpload(HttpServletRequest request,String mobile,String name,String idCard)  {
         logger.i("更新用户信息和实名认证信息的图片");
         sysUserService.smsImgUpload(request, mobile,name,idCard);
         return "redirect:/users/check/list";
-    }
+    }*/
 	
+    /**上传实名认证更新用户信息
+     * @throws IOException 
+     * 
+     * */
+	 @RequestMapping(value="/users/check/updateImage",method = RequestMethod.POST)
+	 public String smsImgUpload(HttpServletRequest request,String path,String mobile){
+        logger.i("更新用户信息和实名认证信息的图片");
+        Result<Boolean> bool = sysUserService.smsImgUpload(request, path,mobile);
+        Boolean statu = bool.getItems().booleanValue();
+        return "redirect:/users/check/edit";
+	 }
 }
