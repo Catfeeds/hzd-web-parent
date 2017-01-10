@@ -108,9 +108,27 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	@Override
 	public BackResult onlineLoanapplyOne(UserVO user, UserApplyInfoVO userApplyInfoVO) {
 		try {
-
-			// ------------
 			DataVerifcation.checkUserApplyInfoVO(userApplyInfoVO, user);
+			if(StringUtils.isNotBlank(userApplyInfoVO.getApplyId())){
+				logger.i("-用户进件申请第一步 >>更新信息");
+				Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(userApplyInfoVO.getApplyId());
+				if (userApplyInfoVOResult.getItems()!=null ){
+					userApplyInfoVO.setApplySubmitTime(new Date());
+					Result<Boolean> booleanResult = userApplyInfoSerivce.updateApplyId(userApplyInfoVO);
+					if (StatusCodes.OK == (booleanResult.getStatus())) {
+						logger.i("-用户进件申请第一步 >>更新信息成功");
+						Map map = new HashMap();
+						map.put("applyId", userApplyInfoVO.getApplyId());
+						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
+								HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
+					}
+				}
+				logger.i("-用户进件申请第一步 >>更新失败 为查询到申请信息>>applyId:"+userApplyInfoVO.getApplyId());
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0001.getMsg(), null);
+				}
+			// ------------
+			logger.i("-用户进件申请第一步 >保存个人信息");
 			String applyId = serialnumber.Getnum();
 			userApplyInfoVO.setApplyId(applyId);
 			userApplyInfoVO.setUserId(user.getId());
@@ -119,7 +137,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			Result<String> stringResult = userApplyInfoSerivce.create(userApplyInfoVO);
 
 			if (StatusCodes.OK == (stringResult.getStatus())) {
-				logger.i("return  -----用户进件申请第一步 成功 。。。。。。。 ");
+				logger.i("return  -----用户进件申请第一步 保存个人信息成功 。。。。。。。 ");
 				Map map = new HashMap();
 				map.put("applyId", applyId);
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
@@ -152,54 +170,92 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
 			UserApplyInfoVO items = userApplyInfoVOResult.getItems();
 			if (items == null) {
+				logger.i("用户进件申请第二步 无效的借款编号");
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(),
 						HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
 			}
 
-			userInfoVO.setUserInfoId(UUIDGenerator.getUUID());
-			userInfoVO.setUserId(user.getId());
-			userInfoVO.setApplyId(applyId);
-			userInfoVO.setCreateTime(new Date());
-			userInfoVO.setGender(CustomerUtils.calculateGender(user.getIdCard()));
-			userInfoVO.setIdType(DictBase.IDCARDTYPE_01); //身份证类型,默认01
-			userInfoVO.setDomicilePostCode("1111");//户籍邮政编码 TODO 户籍邮政编码
-			userInfoVO.setResidentPostCode("1111");//家庭邮政编码 TODO 家庭邮政编码
-			userInfoVO.setResidentTelAreaCode("区号"); //区号: TODO
-			// 	userInfoVO.setBorrowType("01");//借贷类型  不需要传递 ?
-			//userInfoVO.setOrgTeamId("所属团队"); //所属团队 // TODO 所属团队
-			//userInfoVO.setIsInside(dictUtilService.convertArea("11")); //内网外网 // TODO 内网外挂
-			userInfoVO.setReceiverLoginName(DictBase.SETRECEIVERLOGINNAME);//受理人
-			userInfoVO.setProductId(DictBase.SETPRODUCTID_01);//贷款类型 TODO
-			userInfoVO.setIsExpress(DictBase.SETISEXPRESS); //是否加急,默认为0，就是默认为否
-			userInfoVO.setBirthday(CustomerUtils.calculateBirthDate(user.getIdCard()));  //生日: TODO
+			Result<UserInfoVO> userInfoVOResult = userInfoService.selectByApplyId(applyId);
+			if (userInfoVOResult.getItems() != null) {
+				logger.i("用户进件申请第二步 更新借款信息");
+				userInfoVO.setCreateTime(new Date());
+				userInfoVO.setGender(CustomerUtils.calculateGender(user.getIdCard()));
 
+				//jiating
+				UserDictJson userDictJson = dictUtilService.convertCityBean(userInfoVO.getResidentProvince(), userInfoVO.getResidentCity());
+				//huji
+				UserDictJson userDictJson1 = dictUtilService.convertCityBean(userInfoVO.getDomicileProvince(), userInfoVO.getDomicileCity());
 
-			Result<String> stringResult = userInfoService.create(userInfoVO);
-			if (StatusCodes.OK == (stringResult.getStatus())) {
-				
-				Map map = new HashMap();
-				map.put("applyId", applyId);
-				
-				logger.i("return  -----用户进件申请第二步,  成功。。。。。。 ");
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
-						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
+				userInfoVO.setDomicilePostCode(userDictJson1.getPostcode());//户籍邮政编码 TODO 户籍邮政编码
+				userInfoVO.setResidentPostCode(userDictJson.getPostcode());//家庭邮政编码 TODO 家庭邮政编码
+				userInfoVO.setResidentTelAreaCode(userDictJson.getAreacode()); //区号: TODO
+				userInfoVO.setIsInside(userDictJson.getIsInside()); //内网外网 // TODO 内网外挂
+				userInfoVO.setBirthday(CustomerUtils.calculateBirthDate(user.getIdCard()));  //生日: TODO
+
+				Result<Boolean> booleanResult = userInfoService.updateUserInfo(userInfoVO);
+				if (StatusCodes.OK == (booleanResult.getStatus())) {
+					logger.i("用户进件申请第二步 更新借款信息成功");
+					Map map = new HashMap();
+					map.put("applyId", applyId);
+
+					logger.i("return  -----用户进件申请第二步,  成功。。。。。。 ");
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
+				}
+				logger.i("return  -----用户进件申请第二步,  失败。。。。。。 applyId :"+applyId);
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0001.getMsg(), null);
 			}
-		} catch (CheckException e) {
-			logger.i("缺少必传参数:---" + e.getMessage());
-			e.printStackTrace();
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(), e.getMessage(), null);
+				//jiating
+				UserDictJson userDictJson = dictUtilService.convertCityBean(userInfoVO.getResidentProvince(), userInfoVO.getResidentCity());
+				//huji
+				UserDictJson userDictJson1 = dictUtilService.convertCityBean(userInfoVO.getDomicileProvince(), userInfoVO.getDomicileCity());
 
-		} catch (Exception e) {
-			logger.i("-----------系统异常,请检查数据源-------");
-			e.printStackTrace();
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
-					null);
+				userInfoVO.setUserInfoId(UUIDGenerator.getUUID());
+				userInfoVO.setUserId(user.getId());
+				userInfoVO.setApplyId(applyId);
+				userInfoVO.setCreateTime(new Date());
+				userInfoVO.setGender(CustomerUtils.calculateGender(user.getIdCard()));
+				userInfoVO.setIdType(DictBase.IDCARDTYPE_01); //身份证类型,默认01
+				userInfoVO.setDomicilePostCode(userDictJson1.getPostcode());//户籍邮政编码 TODO 户籍邮政编码
+				userInfoVO.setResidentPostCode(userDictJson.getPostcode());//家庭邮政编码 TODO 家庭邮政编码
+				userInfoVO.setResidentTelAreaCode(userDictJson.getAreacode()); //区号: TODO
+				// 	userInfoVO.setBorrowType("01");//借贷类型  不需要传递 ?
+				//userInfoVO.setOrgTeamId("所属团队"); //所属团队 // TODO 所属团队
+				//家庭地址
+				userInfoVO.setIsInside(userDictJson.getIsInside()); //内网外网 // TODO 内网外挂
+				userInfoVO.setReceiverLoginName(DictBase.SETRECEIVERLOGINNAME);//受理人
+				userInfoVO.setProductId(DictBase.SETPRODUCTID_01);//贷款类型 TODO
+				userInfoVO.setIsExpress(DictBase.SETISEXPRESS); //是否加急,默认为0，就是默认为否
+				userInfoVO.setBirthday(CustomerUtils.calculateBirthDate(user.getIdCard()));  //生日: TODO
+
+
+				Result<String> stringResult = userInfoService.create(userInfoVO);
+				if (StatusCodes.OK == (stringResult.getStatus())) {
+					Map map = new HashMap();
+					map.put("applyId", applyId);
+
+					logger.i("return  -----用户进件申请第二步,  成功。。。。。。 ");
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
+				}
+
+
+			} catch(CheckException e){
+				logger.i("缺少必传参数:---" + e.getMessage());
+				e.printStackTrace();
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(), e.getMessage(), null);
+
+			} catch(Exception e){
+				logger.i("-----------系统异常,请检查数据源-------");
+				e.printStackTrace();
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
+						null);
+			}
+			logger.i("return  -----用户进件申请第二步,  失败。。。。。。 ");
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+
 		}
-		logger.i("return  -----用户进件申请第二步,  失败。。。。。。 ");
-		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
-
-	}
-
 	@Override
 	public BackResult onlineLoanapplyInfoThree(UserVO user, UserInfoVO userInfoVO, String applyId) {
 
@@ -214,8 +270,10 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 						HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
 			}
 			userInfoVO.setApplyId(applyId);
+
 			userInfoVO.setOrgPostCode("单位邮政编码");//TODO 单位邮政编码
 			userInfoVO.setOrgTelAreaCode("单位区号"); //TODO 单位区号
+
 			userInfoVO.setCreateTime(new Date());
 			Result<Boolean> booleanResult = userInfoService.updateUserInfo(userInfoVO);
 			if (StatusCodes.OK == (booleanResult.getStatus())) {
