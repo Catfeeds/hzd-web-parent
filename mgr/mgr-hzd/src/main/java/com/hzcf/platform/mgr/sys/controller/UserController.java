@@ -121,7 +121,12 @@ public class UserController {
 		m.addAttribute("smsUserInfo",smsUserInfo);
 		return "users/detail";
 	}
-	
+	/**
+	 * 实名认证修改页面
+	 * @param mobile
+	 * @param m
+	 * @return
+	 */
 	@RequestMapping(value="/users/check/edit",method=RequestMethod.GET)
 	public String edit(String mobile,Model m) {
 		
@@ -130,7 +135,15 @@ public class UserController {
 		m.addAttribute("smsUserInfo",smsUserInfo);
 		return "users/edit";
 	}
-	
+	/**
+	 * 根据手机号更新用户姓名和身份证号信息
+	 * @param mobile
+	 * @param name
+	 * @param idCard
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value="/users/check/update",method=RequestMethod.POST)
     public String update(String mobile,String name,String idCard ,HttpServletResponse response) throws IOException{
 		Result<Boolean> bool = sysUserService.update(mobile, name, idCard);
@@ -138,7 +151,15 @@ public class UserController {
 		response.getWriter().print(status);
 		return "redirect:/users/check/list";
     }	
-	
+	/**
+	 * 修改实名认证用户的审核状态
+	 * @param mobile
+	 * @param checkStatus
+	 * @param nopassCause
+	 * @param response
+	 * @return
+	 * @throws IOException
+	 */
 	@RequestMapping(value="/users/check/updateStatus",method=RequestMethod.POST)
 	public String updateStatus(String mobile,String checkStatus,String nopassCause,HttpServletResponse response) throws IOException{
 		Result<Boolean> bool = sysUserService.updateStatus(mobile, checkStatus,nopassCause);
@@ -146,7 +167,13 @@ public class UserController {
 		response.getWriter().print(status);
 		return "users/checklist";
 	}
-	
+	/**
+	 * 修改登录密码
+	 * @param mobile
+	 * @param passWord
+	 * @param response
+	 * @throws IOException
+	 */
 	@RequestMapping(value="/users/check/updatePassword",method=RequestMethod.POST)
 	public void updatePassword(String mobile,String passWord,HttpServletResponse response) throws IOException{
 		Result<Boolean> bool=sysUserService.updatePassWord(mobile, passWord);

@@ -254,7 +254,7 @@ public class RealNameServiceImpl implements IRealNameService {
 
 						logger.i("上传图片运行时间：" + String.valueOf(endTime - startTime) + "ms" +file_url);
 						logger.i("身份认证上传图片成功,file_url"+file_url);
-							return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
+						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
 
 					} catch (Exception e) {
 						logger.i("-----------系统异常,请检查数据源-------");

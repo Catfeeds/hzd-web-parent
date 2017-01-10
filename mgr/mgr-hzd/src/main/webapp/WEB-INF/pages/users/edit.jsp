@@ -12,7 +12,7 @@ pageEncoding="UTF-8"%>
 		sfz();
 		var msg = $("#div").val();
 		if(msg==""){
-			document.getElementById("form1").submit();
+			document.getElementById("form").submit();
 		}else{
 			$("#div").html("校验未通过不能提交");
 		}

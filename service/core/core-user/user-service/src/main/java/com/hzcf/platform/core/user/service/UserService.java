@@ -41,7 +41,11 @@ public interface UserService extends IBaseService<UserVO>{
 	public Result<UserVO> selectByPrimaryKey(String id);
 	
 	public Result<String> insertSelective(UserVO user);
-
+	/**
+	 * 根据主键更新用户信息
+	 * @param user
+	 * @return
+	 */
 	public Result<Boolean> updateByPrimaryKeySelective(UserVO user);
 	
 	public PaginatedResult<UserVO> getUserList(Map<String, Object> parmMap);

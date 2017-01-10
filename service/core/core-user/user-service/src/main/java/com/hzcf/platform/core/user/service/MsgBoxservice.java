@@ -25,7 +25,11 @@ public interface MsgBoxservice extends IBaseService<MsgBoxVO> {
      * 修改成已读
      */
 	public Result<Boolean> updateReadByUser(MsgBoxVO msgBoxVO);
-	
+	/**
+	 * 插入信息
+	 * @param msgBoxVO
+	 * @return
+	 */
 	public Result<Boolean> insertSelective(MsgBoxVO msgBoxVO);
 }
 
