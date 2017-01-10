@@ -179,10 +179,11 @@ public class UserController {
      * 
      * */
 	 @RequestMapping(value="/users/check/updateImage",method = RequestMethod.POST)
-	 public String smsImgUpload(HttpServletRequest request,String path,String mobile){
+	 @ResponseBody
+	 public String smsImgUpload(HttpServletRequest request,String imgId,String mobile){
         logger.i("更新用户信息和实名认证信息的图片");
-        Result<Boolean> bool = sysUserService.smsImgUpload(request, path,mobile);
-        Boolean statu = bool.getItems().booleanValue();
-        return "redirect:/users/check/edit";
+        Result<String> bool = sysUserService.smsImgUpload(request, imgId,mobile);
+        
+        return bool.getItems();
 	 }
 }

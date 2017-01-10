@@ -187,7 +187,7 @@
 	  </sql>
   	<!-- 分页查询 -->
 	<select id="FINDLIST" resultMap="queryForListMap" parameterType="java.util.Map">
-		SELECT u.mobile, u.name, u.id_card, a.user_id, a.loan_purpose_one, a.loan_purpose_two, 
+		SELECT u.mobile, u.name, u.id_card, a.apply_id, a.user_id, a.loan_purpose_one, a.loan_purpose_two, 
 		a.min_apply_amount, a.max_apply_amount, a.max_monthly_payment, a.apply_submit_time, a.status,a.period
 		FROM users u INNER JOIN user_apply_info a
 		ON u.id = a.user_id
