@@ -38,8 +38,28 @@ pageEncoding="UTF-8"%>
 			var checkStatus = $('input:radio[name=radioCheck]:checked').val();
 			var mobile = $("#hid1").val();
 			var nopassCause = $("#mytext").val();
-			// alert(nopassCause);
-			window.location = '${path}/users/check/updateStatus?mobile='+mobile+ "&checkStatus="+checkStatus+"&nopassCause="+nopassCause;
+			alert(nopassCause);
+			$.ajax({
+				type:"POST",
+				url: '${path}/users/check/updateStatus',
+				data:{
+					"mobile" : mobile,
+					"checkStatus" : checkStatus,
+					"nopassCause" : nopassCause,
+				},
+				success:function(result){
+					if(result){
+						alert("恭喜您,提交成功!");
+						window.location = '${path}/users/check/list';
+						return null;
+					}else{
+						alert("修改失败");
+						return false;
+					} 
+				}
+			});
+
+			//window.location = '${path}/users/check/updateStatus?mobile='+mobile+ "&checkStatus="+checkStatus+"&nopassCause="+nopassCause;
 		}
 		
 	}

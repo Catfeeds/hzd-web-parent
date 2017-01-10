@@ -23,9 +23,9 @@ $(function(){
 			   //return "<a href='#' onClick='edit(" + row.id + ")'>修改 </a> <a href='#' onClick='dele(" + row.id + ")'>下线</a> ";
 			   // return "<a href='#' onclick='updatePassWord(\""+row.mobile+"\,"+row.name+"\");' >重置密码 </a>&nbsp;<a href='#' onclick='status(\""+row.mobile+"\,"+row.status+"\");'> row.status==0?"禁用":"启用"</a>";   
 			   if(row.status==0){
-				   return "<a href='#' onclick='updatePassWord(\""+row.mobile+"\,"+row.name+"\");' >重置密码 </a>&nbsp;<a href='#' onclick='status(\""+row.mobile+"\,"+row.status+"\");'>禁用</a>";
+				   return "<a href='#' onclick='updatePassWord(\""+row.mobile+"\,"+row.name+"\");' >重置密码 </a>&nbsp;<a href='#' onclick='updateStatus(\""+row.mobile+"\,"+row.status+"\");'>禁用</a>";
 			   }else{
-				   return "<a href='#' onclick='updatePassWord(\""+row.mobile+"\,"+row.name+"\");' >重置密码 </a>&nbsp;<a href='#' onclick='status(\""+row.mobile+"\,"+row.status+"\");'>启用</a>";
+				   return "<a href='#' onclick='updatePassWord(\""+row.mobile+"\,"+row.name+"\");' >重置密码 </a>&nbsp;<a href='#' onclick='updateStatus(\""+row.mobile+"\,"+row.status+"\");'>启用</a>";
 			   }
 		   }}
 		  
@@ -43,29 +43,59 @@ $(function(){
 	});
 });
 
-function status(stu){
+function updateStatus(stu){
 	var arr=stu.split(",");
 	var mobile = arr[0];
 	var status = arr[1];
 	if(status==0){
 		if(window.confirm('确定禁用吗？')){
 			status = 1;
-			window.location = '${path}/users/check/status?mobile='+mobile+"&status="+status;
-			return true;
-	     }else{
-	        return false;
-	    }
+			$.ajax({
+				type:"POST",
+				url: '${path}/users/check/status',
+				data:{
+					"mobile" : mobile,
+					"status" : status,
+				},
+				success:function(result){
+					if(result){
+						alert("恭喜您,修改成功!");
+						window.location = '${path}/users/list';
+						return null;
+					}else{
+						alert("修改失败");
+						return false;
+					} 
+				}
+			});
+			return null;
+		}else{
+			return false;
+		}
 	}
 	if(status==1){
 		if(window.confirm('确定启用吗？')){
 			status = 0;
-			window.location = '${path}/users/check/status?mobile='+mobile+"&status="+status;
-			return true;
-	     }else{
-	        return false;
-	    }
+			$.ajax({
+				type:"POST",
+				url: '${path}/users/check/status',
+				data:{
+					"mobile" : mobile,
+					"status" : status,
+				},
+				success:function(result){
+					if(result){
+						alert("恭喜您,修改成功!");
+						window.location = '${path}/users/list';
+					}else{
+						alert("修改失败");
+					} 
+				}
+			});
+		}
 	}
 }
+
 function doSearch(){
 	$('#grid').datagrid('load',{
 		mobile: $('#mobile').val(),
@@ -94,16 +124,43 @@ function updatePassWord(canshu) {
 	 buttons: [//dialog右下角的按钮，以Json数组形式添加
 	    {
 	    text: "提交", //按钮名称
+	   
 	    handler: function () {//按钮点击之后出发的方
 	    	var passWord = $("#pw1").val();
 	    	var pw = $("#pw2").val();
-	    	if(passWord==pw){
-	    		$("#msg").html("");
-	    		window.location = '${path}/users/check/updatePassword?mobile='+mobile+"&passWord="+passWord;
+	    	if(passWord!=null&&passWord!=""&&pw!=""&&pw!=null){
+		    	if(passWord==pw){
+		    		$("#msg").html("");
+		    		$.ajax({
+		    			type:"POST",
+		    			url: '${path}/users/check/updatePassword',
+		    			data:{
+		    				"mobile" : mobile,
+		    				"passWord" : passWord,
+		    			},
+		    			success:function(result){
+		    				if(result){
+		    					alert("恭喜您,修改成功!");
+		    					window.location = '${path}/users/list';
+		    					return true;
+		    				}else{
+		    					alert("修改失败");
+		    					return false;
+		    				} 
+		    			}
+		    		});
+		    	}else{
+		    		$("#msg").html("俩次密码不一致");
+		    	}	
 	    	}else{
-	    		$("#msg").html("俩次密码不一致");
-	    	}	
+	    		$("#msg").html("新密码不能为空");
+	    	}
 	    }
+	},{
+		text:"取消",
+		 handler: function () {
+			 window.location = '${path}/users/list';
+		 }
 	}]
     });
 }
@@ -112,8 +169,7 @@ function updatePassWord(canshu) {
 </head>
 <body>
 
-<table id="grid" style="width: 520px;height: 550px"></table>
-
+<table id="grid" style="width: 520px;height: 550px" ></table>
 <div id="toolbar">
 	<!-- 查询条件 -->
 	<form id="searchForm" >
@@ -132,7 +188,6 @@ function updatePassWord(canshu) {
 		<option value="1">是</option>
 		<option value="0">否</option>  
 	</select> 	 -->
-	
 	<div class="btnDiv">
 		<span align="center"><a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search"  onclick="doSearch()">查询</a></span>
 		<!-- <span align="center"><a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-save"  onclick="doExport()">导出Excel</a></span> -->
