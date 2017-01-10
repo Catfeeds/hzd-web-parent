@@ -29,6 +29,6 @@ public interface IUserService {
 	
 	public Result<Boolean> status(String mobile,String status);
 	
-	public Result<Boolean> smsImgUpload(HttpServletRequest request,String url,String mobile);
+	public Result<String> smsImgUpload(HttpServletRequest request,String imgId,String mobile);
 	//public Result<Boolean> update(SmsUserInfo smsUserInfo);
 }

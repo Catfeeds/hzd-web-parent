@@ -33,6 +33,28 @@ public class SmsUserInfo {
 	private String smallC;
 	private String imageType;
 	private String type;
+	private String imgIdA;
+	private String imgIdB;
+	private String imgIdC;
+	
+	public String getImgIdA() {
+		return imgIdA;
+	}
+	public void setImgIdA(String imgIdA) {
+		this.imgIdA = imgIdA;
+	}
+	public String getImgIdB() {
+		return imgIdB;
+	}
+	public void setImgIdB(String imgIdB) {
+		this.imgIdB = imgIdB;
+	}
+	public String getImgIdC() {
+		return imgIdC;
+	}
+	public void setImgIdC(String imgIdC) {
+		this.imgIdC = imgIdC;
+	}
 	public String getMobile() {
 		return mobile;
 	}

@@ -21,7 +21,11 @@ $(function(){
 			{field:'nopassCause',title:'不通过原因',width:100},
 		   {field:'-',title:'操作',width:100,formatter:function(value,row,index){
 			   //return "<a href='#' onClick='edit(" + row.id + ")'>修改 </a> <a href='#' onClick='dele(" + row.id + ")'>下线</a> ";
-			   return "<a href='#' onclick='detail(\""+row.mobile+"\");' >查看详情 </a>&nbsp;<a href='#' onclick='edit(\""+row.mobile+"\");' >修改</a>";   
+			   if(row.checkStatus==0){
+				   	return "<a href='#' onclick='detail(\""+row.mobile+"\");' >查看详情 </a>&nbsp;<a href='#' onclick='edit(\""+row.mobile+"\");' >修改</a>";   
+				}else{
+					return "<a href='#' onclick='detail(\""+row.mobile+"\");' >查看详情</a>";
+				}   
 		   }}
 		  
 		]],
