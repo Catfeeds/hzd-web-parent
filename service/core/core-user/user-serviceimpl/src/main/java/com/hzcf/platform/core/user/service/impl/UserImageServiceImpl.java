@@ -27,6 +27,7 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
     @Autowired
     private UserImageDao purchaseOrderDao;
 
+    
     @Override
     protected UserImageVO getModel() {
         return new UserImageVO();
@@ -139,6 +140,17 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
 		} catch (Exception e) {
 			logger.error("an error occur in getByPK service : {}", e);
 			return new Result<List<UserImageVO>>(StatusCodes.INTERNAL_SERVER_ERROR,result);
+		}
+	}
+	
+	@Override
+	public Result<Boolean> updateImageByUserIdAndTypeAndUrl(Map<String, String> parmMap) {
+		try {
+			purchaseOrderDao.updateImageByUserIdAndTypeAndUrl(parmMap);
+			return new Result<Boolean>(StatusCodes.OK, true);
+		} catch (Exception e) {
+			logger.error("an error occur in update service : {}", e);
+			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
 		}
 	}
 }

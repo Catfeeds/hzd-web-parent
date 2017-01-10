@@ -93,4 +93,16 @@ public class MsgBoxserviceImpl  extends AbstractBaseServiceImpl<MsgBoxVO,MsgBox>
 		}
 	}
 
+	@Override
+	public Result<Boolean> insertSelective(MsgBoxVO msgBoxVO) {
+		try {
+			MsgBox msgBox = this.toDO(msgBoxVO);
+			msgBoxDao.insertSelective(msgBox);
+
+			return new Result<Boolean>(StatusCodes.OK, true);
+		} catch (Exception e) {
+			logger.error("an error occur in getByPK service : {}", e);
+			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
+		}
+	}
 }

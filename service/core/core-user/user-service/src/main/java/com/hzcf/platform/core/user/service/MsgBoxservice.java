@@ -26,7 +26,7 @@ public interface MsgBoxservice extends IBaseService<MsgBoxVO> {
      */
 	public Result<Boolean> updateReadByUser(MsgBoxVO msgBoxVO);
 	
-    
+	public Result<Boolean> insertSelective(MsgBoxVO msgBoxVO);
 }
 
 
