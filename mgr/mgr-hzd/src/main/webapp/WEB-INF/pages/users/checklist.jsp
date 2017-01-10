@@ -17,7 +17,17 @@ $(function(){
 			{field:'name',title:'姓名',width:150},
 			{field:'idCard',title:'身份证号',width:180},
 			{field:'submitTime',title:'提交时间',width:120},
-			{field:'checkStatus',title:'审核状态',width:100},
+			{field:'checkStatus',title:'审核状态',width:100,formatter:function(value){
+		    	if(value=="0"){
+		    		return "通过";
+		    	}
+		    	if(value=="1"){
+		    		return "不通过";
+		    	}
+		    	if(value=="2"){
+		    		return "待审核";
+		    	}
+			}},
 			{field:'nopassCause',title:'不通过原因',width:100},
 		   {field:'-',title:'操作',width:100,formatter:function(value,row,index){
 			   //return "<a href='#' onClick='edit(" + row.id + ")'>修改 </a> <a href='#' onClick='dele(" + row.id + ")'>下线</a> ";

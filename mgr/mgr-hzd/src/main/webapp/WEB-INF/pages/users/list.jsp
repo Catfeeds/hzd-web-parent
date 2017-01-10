@@ -16,12 +16,27 @@ $(function(){
 		   {field:'mobile',title:'手机号',width:150},
 			{field:'name',title:'姓名',width:150},
 			{field:'idCard',title:'身份证号',width:180},
-		    {field:'status',title:'用户状态',width:100},
+		    {field:'status',title:'用户状态',width:100,formatter:function(value){
+		    	if(value=="0"){
+		    		return "正常";
+		    	}
+		    	if(value=="1"){
+		    		return "禁用";
+		    	}
+		    }},
 			{field:'createTime',title:'注册时间',width:120},
-			{field:'checkStatus',title:'借款状态',width:100},
+			{field:'applyStatus',title:'进件状态',width:100,formatter:function(value){
+				if(value ==0){
+					return "未进件";
+				}
+				if(value=="1"){
+					return "已进件";
+				}
+			}},
 		   {field:'-',title:'操作',width:100,formatter:function(value,row,index){
 			   //return "<a href='#' onClick='edit(" + row.id + ")'>修改 </a> <a href='#' onClick='dele(" + row.id + ")'>下线</a> ";
 			   // return "<a href='#' onclick='updatePassWord(\""+row.mobile+"\,"+row.name+"\");' >重置密码 </a>&nbsp;<a href='#' onclick='status(\""+row.mobile+"\,"+row.status+"\");'> row.status==0?"禁用":"启用"</a>";   
+			  value
 			   if(row.status==0){
 				   return "<a href='#' onclick='updatePassWord(\""+row.mobile+"\,"+row.name+"\");' >重置密码 </a>&nbsp;<a href='#' onclick='updateStatus(\""+row.mobile+"\,"+row.status+"\");'>禁用</a>";
 			   }else{

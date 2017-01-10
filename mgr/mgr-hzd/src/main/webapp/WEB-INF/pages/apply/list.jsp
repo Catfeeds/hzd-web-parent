@@ -22,7 +22,14 @@ $(function(){
 			{field:'maxApplyAmount',title:'申请最高额度',width:100},
 			{field:'maxMonthlyPayment',title:'月还款最高额度',width:100},
 			{field:'applySubmitTime',title:'提交时间',width:100},
-			{field:'status',title:'进件状态',width:100},
+			{field:'status',title:'进件状态',width:100,formatter:function(value){
+				if(value ==0){
+					return "未进件";
+				}
+				if(value=="1"){
+					return "已进件";
+				}
+			}},
 		   {field:'-',title:'操作',width:100,formatter:function(value,row,index){
 			   return "<a href='#' onclick='detail(\""+row.applyId+"\,"+row.mobile+"\");' > 查看详情   </a>";   
 		   }}
