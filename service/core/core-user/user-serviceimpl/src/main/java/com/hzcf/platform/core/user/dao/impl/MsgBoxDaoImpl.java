@@ -44,6 +44,10 @@ public class MsgBoxDaoImpl  extends AbstractMysqlBaseDaoImpl<MsgBox> implements 
 		return true;
     }
 	
-	
+	@Override
+	public boolean insertSelective(MsgBox msgBox) {
+		sqlSessionTemplate.insert(this.getSqlName("insertSelective"), msgBox);
+		return true;
+	}
     
 }

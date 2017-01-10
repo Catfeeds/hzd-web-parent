@@ -77,6 +77,22 @@ public class UserServiceImpl extends AbstractBaseServiceImpl<UserVO,User> implem
 			return new Result<UserVO>(StatusCodes.INTERNAL_SERVER_ERROR, getModel());
 		}
 	}
+	/**根据id查询用户信息
+	 */
+	@Override
+	public Result<UserVO> selectByPrimaryKey(String id) {
+		try {
+			User t = purchaseOrderDao.selectByPrimaryKey(id);
+			if (null == t) {
+				logger.debug("data null.");
+				return new Result<UserVO>(StatusCodes.OK, null);
+			}
+			return new Result<UserVO>(StatusCodes.OK, toVO(t));
+		} catch (Exception e) {
+			logger.error("an error occur in selectByPrimaryKey service : {}", e);
+			return new Result<UserVO>(StatusCodes.INTERNAL_SERVER_ERROR, getModel());
+		}
+	}
 
 	@Override
 	public Result<String> insertSelective(UserVO userVo){

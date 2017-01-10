@@ -24,6 +24,14 @@ public class UserDaoImpl  extends AbstractMysqlBaseDaoImpl<User> implements User
 	public User getByMobile(String mobile) {
 		return sqlSessionTemplate.selectOne(getSqlName("selectByMobile"), mobile);
 	}
+	/**根据id查询用户信息 
+	 */
+	@Override
+	public User selectByPrimaryKey(String id) {
+		return sqlSessionTemplate.selectOne(getSqlName("selectByPrimaryKey"), id);
+	}
+
+
 	@Override
 	public String insertSelective(User user) {
 

@@ -9,9 +9,7 @@ pageEncoding="UTF-8"%>
 <script type="text/javascript">
 	function save(){
 		xm();
-		/* var name = $("#name").val();
-		var idCard = $("#idCard").val();
-		var mobile = $("#mobile").val(); */
+		sfz();
 		var msg = $("#div").val();
 		if(msg==""){
 			document.getElementById("form1").submit();
@@ -50,13 +48,16 @@ pageEncoding="UTF-8"%>
 		}
 	}
 	
+	function upload(){
+		
+		document.getElementById("form2").submit();
+	} 
 </script>
 </head>
 <body>
 <div id="div" style="line-height: 100px; font-size: 1rem; color: red;"></div>
-<form action="${path}/users/check/updateUserAndImage" method="post" id="form1" enctype="multipart/form-data">
-
-<table id="table" style="width: 800px;height: 600px"  >
+<form action="${path}/users/check/update" method="post" id="form1" >
+<table id="table" style="width: 800px;height: 400px"  >
 	<tr id="div" style="display: none "></tr>
 	<tr>
 		<h>用户信息</h>
@@ -79,26 +80,50 @@ pageEncoding="UTF-8"%>
 		<td>${smsUserInfo.createTime}</td>
 		
 	</tr>
-	<tr>
+	<!-- <tr>
 		<td>图片上传信息</td></tr>
 	<tr>
-		<td>重新上传<input type="file" name="images" /></td>
-		<td>重新上传<input type="file" name="images" /></td>
-		<td>重新上传<input type="file" name="images" /></td>
+		<td>重新上传<input type="file" name="image1"  /></td>
+		<td>重新上传<input type="file" name="image2" /></td>
+		<td>重新上传<input type="file" name="image3" /></td>
+	</tr> -->
+	<tr>
+		<td>
+		<input type="hidden" name="mobile" id="mobile" value=${smsUserInfo.mobile} /> 
+		<!-- <input type="button" value="保存" onclick="save()"/>  -->
+		</td>
+	</tr>
+</table>
+</form>
+<form action="${path}/users/check/updateImage" method="post" id="form2" enctype="multipart/form-data">
+	<table id="table" style="width: 800px;height: 300px">
+		<tr>
+		<td>图片上传信息</td></tr>
+	<tr>
+		
+		<td>
+			<img style="width: 200px;height: 100px" name="url" src="${smsUserInfo.artWorkA}" /><br />
+			<input type="file" name="image1"  />
+			<input type="button" value="重新上传" onclick="upload(this)"/>
+		</td>
+		<td>
+			<img style="width: 200px;height: 100px" name="url" src="${smsUserInfo.artWorkB}" /><br />
+			<input type="file" name="image2" />
+			<input type="button" value="重新上传" onclick="upload(this)"/>
+		</td>
+		<td>
+			<img style="width: 200px;height: 100px" name="url" src="${smsUserInfo.artWorkC}" /><br />
+			<input type="file" name="image3" />
+			<input type="button" value="重新上传" onclick="upload(this)"/>
+		</td>
 	</tr>
 	<tr>
 		<td>
 		<input type="hidden" name="mobile" id="mobile" value=${smsUserInfo.mobile} /> 
-		<input type="button" value="保存" onclick="save()"/> </td>
+		</td>
 	</tr>
-	
-</table>
-<%-- </form>
-
-<form action="${path}/users/check/smsImgUpload" method="post" id="form2" enctype="multipart/form-data">
-<table id="table" style="width: 800px;height: 350px">
-</table>
-
-</form> --%>
+	</table>
+</form>
+	<input type="button" value="保存" onclick="save()"/> 
 </body>
 </html>
