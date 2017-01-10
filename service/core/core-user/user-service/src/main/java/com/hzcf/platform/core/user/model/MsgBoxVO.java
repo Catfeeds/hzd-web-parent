@@ -1,5 +1,6 @@
 package com.hzcf.platform.core.user.model;
 
+import com.hzcf.platform.common.cache.utils.DateUtil;
 import com.hzcf.platform.common.model.BaseVO;
 
 import java.util.Date;
@@ -20,6 +21,10 @@ public class MsgBoxVO extends BaseVO {
     private String status;
     
     private String isRead;
+    
+    //ext
+    private String createTimeDesc;
+    
 
     public String getMsgId() {
         return msgId;
@@ -78,6 +83,11 @@ public class MsgBoxVO extends BaseVO {
 	public void setIsRead(String isRead) {
 		this.isRead = isRead;
 	}
+
+	public String getCreateTimeDesc() {
+		return DateUtil.formatDate2(this.getCreateTime());
+	}
     
+	
     
 }
