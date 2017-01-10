@@ -172,8 +172,6 @@ public class RealNameServiceImpl implements IRealNameService {
         }
 	}
 
-
-
     @Override
     public BackResult findImageInfo(UserVO user) {
         List<UserImageVO> items=null;

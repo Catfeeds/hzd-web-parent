@@ -190,7 +190,8 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 				userInfoVO.setResidentPostCode(userDictJson.getPostcode());//家庭邮政编码 TODO 家庭邮政编码
 				userInfoVO.setResidentTelAreaCode(userDictJson.getAreacode()); //区号: TODO
 				userInfoVO.setIsInside(userDictJson.getIsInside()); //内网外网 // TODO 内网外挂
-				userInfoVO.setBirthday(CustomerUtils.calculateBirthDate(user.getIdCard()));  //生日: TODO
+				Date BirthdayDate = CustomerUtils.calculateBirthDate(user.getIdCard());
+				userInfoVO.setBirthday(BirthdayDate);  //生日: TODO
 
 				Result<Boolean> booleanResult = userInfoService.updateUserInfo(userInfoVO);
 				if (StatusCodes.OK == (booleanResult.getStatus())) {
@@ -227,7 +228,8 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 				userInfoVO.setReceiverLoginName(DictBase.SETRECEIVERLOGINNAME);//受理人
 				userInfoVO.setProductId(DictBase.SETPRODUCTID_01);//贷款类型 TODO
 				userInfoVO.setIsExpress(DictBase.SETISEXPRESS); //是否加急,默认为0，就是默认为否
-				userInfoVO.setBirthday(CustomerUtils.calculateBirthDate(user.getIdCard()));  //生日: TODO
+			Date BirthdayDate = CustomerUtils.calculateBirthDate(user.getIdCard());
+			userInfoVO.setBirthday(BirthdayDate);  //生日: TODO
 
 
 				Result<String> stringResult = userInfoService.create(userInfoVO);
@@ -271,8 +273,10 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			}
 			userInfoVO.setApplyId(applyId);
 
-			userInfoVO.setOrgPostCode("单位邮政编码");//TODO 单位邮政编码
-			userInfoVO.setOrgTelAreaCode("单位区号"); //TODO 单位区号
+			UserDictJson userDictJson = dictUtilService.convertCityBean(userInfoVO.getOrgProvince(), userInfoVO.getOrgCity());
+
+			userInfoVO.setOrgPostCode(userDictJson.getAreacode());//TODO 单位邮政编码
+			userInfoVO.setOrgTelAreaCode(userDictJson.getAreacode()); //TODO 单位区号
 
 			userInfoVO.setCreateTime(new Date());
 			Result<Boolean> booleanResult = userInfoService.updateUserInfo(userInfoVO);
