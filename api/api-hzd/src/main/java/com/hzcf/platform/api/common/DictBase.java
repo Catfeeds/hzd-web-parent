@@ -18,4 +18,30 @@ public class DictBase {
     public final static String   PERIOD_NUM ="PERIOD_NUM";//		期数
     public final static String   RELATION_TO_APPLYER ="RELATION_TO_APPLYER";//		与申请人关系
     public final static String   RUN ="RUN";//	B	经营
+
+
+    /**
+     * 身份证类型
+     */
+    public final static String IDCARDTYPE_01 = "01";
+
+    /**
+     * 贷款类型-精英贷1.89
+     */
+    public final static String SETPRODUCTID_01 = "01";
+
+    /**
+     * 所属团队
+     */
+    public final static String setOrgTeamId = "";
+
+    /**
+     * 线上进件
+     */
+    public final static String SETRECEIVERLOGINNAME ="线上进件";
+
+    /**
+     * 是否加急
+     */
+    public final static String SETISEXPRESS = "0";
 }

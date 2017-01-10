@@ -7,6 +7,7 @@ import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.form.onlineLoanapplyInfoPreviewForm;
 import com.hzcf.platform.api.model.CheckApplyLoanStatus;
 import com.hzcf.platform.api.service.IOnlineApplyLoanService;
+import com.hzcf.platform.api.util.CustomerUtils;
 import com.hzcf.platform.api.util.DateUtil;
 import com.hzcf.platform.api.util.serialnumber;
 import com.hzcf.platform.common.exception.CheckException;
@@ -159,18 +160,18 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			userInfoVO.setUserId(user.getId());
 			userInfoVO.setApplyId(applyId);
 			userInfoVO.setCreateTime(new Date());
-
-			userInfoVO.setIdType("01");//身份证类型,默认01
+			userInfoVO.setGender(CustomerUtils.calculateGender(user.getIdCard()));
+			userInfoVO.setIdType(DictBase.IDCARDTYPE_01); //身份证类型,默认01
 			userInfoVO.setDomicilePostCode("1111");//户籍邮政编码 TODO 户籍邮政编码
 			userInfoVO.setResidentPostCode("1111");//家庭邮政编码 TODO 家庭邮政编码
 			userInfoVO.setResidentTelAreaCode("区号"); //区号: TODO
-			userInfoVO.setBorrowType("01");//借贷类型  TODO ?
-			userInfoVO.setOrgTeamId("所属团队"); //所属团队 // TODO 所属团队
-			userInfoVO.setIsInside("01"); //内网外网 // TODO 内网外挂
-			userInfoVO.setReceiverLoginName("线上进件");//受理人
-			userInfoVO.setProductId("精英贷1.89");//贷款类型 TODO
-			userInfoVO.setIsExpress("0"); //是否加急,默认为0，就是默认为否
-			userInfoVO.setBirthday(DateUtil.getDate());  //生日: TODO
+			// 	userInfoVO.setBorrowType("01");//借贷类型  不需要传递 ?
+			//userInfoVO.setOrgTeamId("所属团队"); //所属团队 // TODO 所属团队
+			//userInfoVO.setIsInside(dictUtilService.convertArea("11")); //内网外网 // TODO 内网外挂
+			userInfoVO.setReceiverLoginName(DictBase.SETRECEIVERLOGINNAME);//受理人
+			userInfoVO.setProductId(DictBase.SETPRODUCTID_01);//贷款类型 TODO
+			userInfoVO.setIsExpress(DictBase.SETISEXPRESS); //是否加急,默认为0，就是默认为否
+			userInfoVO.setBirthday(CustomerUtils.calculateBirthDate(user.getIdCard()));  //生日: TODO
 
 
 			Result<String> stringResult = userInfoService.create(userInfoVO);
@@ -383,7 +384,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
 	@Override
 	public BackResult onlineLoanapplyInfoPreview(UserVO user, String applyId) {
-
+		logger.i("---------------->>>>>>>个人信息预览接口");
 		Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
 		UserApplyInfoVO userApplyInfoVO = userApplyInfoVOResult.getItems();
 
@@ -394,13 +395,14 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 		List<UserRelationVO> userRelationVOList = listResult.getItems();
 
 		if (userApplyInfoVO == null || userInfoVO == null || userRelationVOList.size() == 0) {
+			logger.i("--------------查询个人信息失败");
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(), HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
 		}
 
 		for(UserRelationVO u : userRelationVOList){
 			u.setRelationType(dictUtilService.convertDict(DictBase.RELATION_TO_APPLYER,u.getRelationType()));
 		}
-
+		logger.i("--------------查询个人信息成功");
 		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),
 				new onlineLoanapplyInfoPreviewForm(userApplyInfoVO, userInfoVO, userRelationVOList));
 	}

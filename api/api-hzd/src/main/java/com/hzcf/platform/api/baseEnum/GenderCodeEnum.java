@@ -7,7 +7,9 @@ import org.apache.commons.lang.StringUtils;
  * @datetime 2017/1/5 18:56
  */
 public enum GenderCodeEnum {
-    M("M", "男"), F("F", "女"), O("O", "其他");
+    M("1", "男"),
+    F("0", "女"),
+    O("O", "其他");
     private String code;
     private String msg;
 
