@@ -43,7 +43,7 @@ import net.sf.json.JSONObject;
   * @version 1.0 
   * @since  JDK1.7
   */
-//@Component
+@Component
 public class LoadService {
 	private static Logger logger = Logger.getLogger(LoadService.class);
 	@Autowired
@@ -176,63 +176,68 @@ public class LoadService {
 		
 		
 		
-		
-		//方式2：读取数据库
 		/**初始化参数*/
-		String systemId = "APP";//系统标识
-		String single="";//签名信息
-		String mobile="";//申请人手机号
-//		String key=ConstantsDictionary.dispatchLoadKey;//调度的“查询借款进度”接口的密钥
-		String key="01b503cf15f16f5e9c95938d09ef1219";
 		String result="";//返回结果
-		//用户信息
-		String userId="";
-		/**查询数据库，获取参数*/
-		//借款人详细信息
-		Result<UserInfoVO> userInfoVOResult=userInfoService.selectByApplyId(applyId);
-		UserInfoVO userInfoVO=userInfoVOResult.getItems();
-		//借款人申请信息
-		Result<UserApplyInfoVO> userApplyInfoResult=userApplyInfoSerivce.selectByApplyId(applyId);
-		UserApplyInfoVO userApplyInfo=userApplyInfoResult.getItems();
-		//用户id
-		userId=userApplyInfo.getUserId();
-		//借款人信息
-		Result<UserVO> userVOResult=userSerivce.selectByPrimaryKey(userId);
-		UserVO userVO=userVOResult.getItems();
-		//借款人关系集合
-		Result<List<UserRelationVO>> userRelationVOListResult=userRelationService.selectByApplyId(applyId);
-		List<UserRelationVO> userRelationVOList=userRelationVOListResult.getItems();
-		//借款人图片信息
-		Result<List<UserImageVO>> userImageVOListResult=userImageService.getUserId(userId);
-		List<UserImageVO> userImageVOList=userImageVOListResult.getItems();
-		/**封装参数*/
-		JSONObject applyDataMap = new JSONObject();//总的数据集合HuiZhongApplicationVo
-		JSONObject userInfoVOJsonObject=JSONObject.fromObject(userInfoVO);
-		JSONObject userApplyInfoJsonObject=JSONObject.fromObject(userApplyInfo);
-		JSONObject userVOJsonObject=JSONObject.fromObject(userVO);
-		JSONArray userRelationVOListJsonArrray=JSONArray.fromObject(userRelationVOList);
-		JSONArray userImageVOListJsonArrray=JSONArray.fromObject(userImageVOList);
-		applyDataMap.putAll(userInfoVOJsonObject);
-		applyDataMap.putAll(userApplyInfoJsonObject);
-		applyDataMap.putAll(userVOJsonObject);
-		applyDataMap.put("borrowRelationList", userRelationVOListJsonArrray);
-		applyDataMap.put("imageList", userImageVOListJsonArrray);
-		/***/
+		//发送到调度的参数信息
+		String signature="";//签名信息
+		String systemSourceId=ConstantsDictionary.dispatchLoadSystemSourceId;//系统标识,就是“APP”
+		String systemId=ConstantsDictionary.dispatchLoadSystemId;//进件标识
+		String employeeId="";//员工编号
+		String operatorId="";//操作人ID
+		String mobile="";//申请人手机号
+		String key=ConstantsDictionary.dispatchLoadKey;//调度的“查询借款进度”接口的密钥
+		//用于查询的参数信息
+		String userId="";//用户id
 		try {
+			/**查询数据库，获取参数*/
+			//借款人详细信息
+			Result<UserInfoVO> userInfoVOResult=userInfoService.selectByApplyId(applyId);
+			UserInfoVO userInfoVO=userInfoVOResult.getItems();
+			//借款人申请信息
+			Result<UserApplyInfoVO> userApplyInfoResult=userApplyInfoSerivce.selectByApplyId(applyId);
+			UserApplyInfoVO userApplyInfo=userApplyInfoResult.getItems();
+			//用户id
+			userId=userApplyInfo.getUserId();
+			//借款人信息
+			Result<UserVO> userVOResult=userSerivce.selectByPrimaryKey(userId);
+			UserVO userVO=userVOResult.getItems();
+			//用户电话
+			mobile=userVO.getMobile();
+			//借款人关系集合
+			Result<List<UserRelationVO>> userRelationVOListResult=userRelationService.selectByApplyId(applyId);
+			List<UserRelationVO> userRelationVOList=userRelationVOListResult.getItems();
+			//借款人图片信息
+			Result<List<UserImageVO>> userImageVOListResult=userImageService.getUserId(userId);
+			List<UserImageVO> userImageVOList=userImageVOListResult.getItems();
+			/**封装参数*/
+			JSONObject applyDataMap = new JSONObject();//总的数据集合HuiZhongApplicationVo
+			JSONObject userInfoVOJsonObject=JSONObject.fromObject(userInfoVO);
+			JSONObject userApplyInfoJsonObject=JSONObject.fromObject(userApplyInfo);
+			JSONObject userVOJsonObject=JSONObject.fromObject(userVO);
+			JSONArray userRelationVOListJsonArrray=JSONArray.fromObject(userRelationVOList);
+			JSONArray userImageVOListJsonArrray=JSONArray.fromObject(userImageVOList);
+			applyDataMap.putAll(userInfoVOJsonObject);
+			applyDataMap.putAll(userApplyInfoJsonObject);
+			applyDataMap.putAll(userVOJsonObject);
+			applyDataMap.put("borrowRelationList", userRelationVOListJsonArrray);
+			applyDataMap.put("imageList", userImageVOListJsonArrray);
+			/**加密参数*/
 			//MD5加密
-			single=Md5Util.getMD5String(StringUtils.join(new String[]{systemId,mobile}, ","),key);
-			applyDataMap.put("signature", single);
-			applyDataMap.put("systemSourceId", systemId);
+			signature=Md5Util.getMD5String(StringUtils.join(new String[]{systemSourceId,mobile}, ","),key);
+			logger.info("接口：进件。生成的签名信息："+signature);
+			applyDataMap.put("signature", signature);
+			applyDataMap.put("systemSourceId", systemSourceId);
+			applyDataMap.put("systemId", systemId);
 			//Map对象转换成Json字符串
-			String str=JsonUtil.json2String(applyDataMap);
+//			String str=JsonUtil.json2String(applyDataMap);//此处这个方法不能正确的将对象转成字符串，故不用
+			String str=applyDataMap.toString();
 			logger.info("接口：进件。请求参数："+str);
 			//AES加密
 			str = AESUtil.enCrypt(str,key);
 			logger.info("接口：进件。加密后的参数："+str);
 			str = "addHuiZhongApplyInfoParms="+str;
-			//发送Http请求，POST方式
-	//		result=HttpRequestUtil.sendPost(ConstantsDictionary.dispatchInsertLoadUrl,str);
-			result=HttpRequestUtil.sendPost("http://10.10.16.131:8080/Dispatch/app/huizhong2/addHuiZhongApplyInfo.do",str);
+			/**发送Http请求，POST方式*/
+			result=HttpRequestUtil.sendPost(ConstantsDictionary.dispatchLoadInsertLoadUrl,str);
 			logger.info("接口：进件。返回的结果："+result);
 		} catch (Exception e) {
 			logger.error("接口：进件。发生异常，异常信息："+e.getMessage());
@@ -249,6 +254,7 @@ public class LoadService {
 	public static String selectLoadProgress(UserVO user){
 		/**初始化参数*/
 		String result="";//设置返回结果
+		//发送到调度的参数信息
 		String idcard =user.getIdCard();//身份证号
 		String systemId = "APP";//系统标识
 		String single="";//签名信息
@@ -269,7 +275,7 @@ public class LoadService {
 			logger.info("接口：借款人查询借款进度。加密后的参数："+str);
 			str = "weiXinQueryProgressParms="+str;
 			//发送Http请求，POST方式
-			result = HttpTool.sendPostJson(ConstantsDictionary.dispatchSelectLoadProgressUrl, str);
+			result = HttpTool.sendPostJson(ConstantsDictionary.dispatchLoadSelectLoadProgressUrl, str);
 			logger.info("接口：借款人查询借款进度。返回结果："+result);
 		} catch (Exception e) {
 			logger.error("接口：借款人查询借款进度。发生异常，异常信息："+e.getMessage());
@@ -277,7 +283,7 @@ public class LoadService {
 		}
 		return result;
 	}
+	//测试方法
 	public static void main(String[] args) throws Exception {
-		System.out.println(new LoadService().insertLoad("123"));
 	}
 }

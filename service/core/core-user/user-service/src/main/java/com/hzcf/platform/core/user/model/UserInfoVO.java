@@ -66,7 +66,7 @@ public class UserInfoVO extends BaseVO {
     private String productId;//贷款类型,默认为“精英贷1.89”,对应的productId的值为“01”  (新增字段)
     private String receiverLoginName;//受理人，默认为“线上进件”  (新增字段)
     private String isInside;//网内/网外  (新增字段)
-    private String orgTeamId;//所属团队，咨询师  (新增字段)
+    private String orgTeamId;//所属团队，咨询师  (新增字段)（不用传递）
     private String borrowType;//借款类型  (新增字段)
 	public UserInfoVO() {
 		super();

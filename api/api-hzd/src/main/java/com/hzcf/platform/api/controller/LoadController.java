@@ -29,6 +29,14 @@ public class LoadController {
 	private static final Log logger = Log.getLogger(LoadController.class);
 	@Autowired
     private ILoadService loadService;//借款信息的service
+	/**进件接口
+	 * 
+	 */
+	@RequestMapping(value="rest/insertload",method = RequestMethod.POST)
+    public void insertload(){
+        logger.i("进件接口");
+        loadService.insertLoad();
+    }	
 	/**借款人查询借款进度接口
 	 * 
 	 */
