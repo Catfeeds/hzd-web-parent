@@ -131,7 +131,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="UserApplyInfo" >
+  <update id="updateApplyId" parameterType="UserApplyInfo" >
     update user_apply_info
     <set >
       <if test="userId != null" >

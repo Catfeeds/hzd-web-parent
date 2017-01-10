@@ -42,4 +42,10 @@ public class UserApplyInfoDaoImpl  extends AbstractMysqlBaseDaoImpl<UserApplyInf
     public List<UserApplyInfoVO> getUserApplyForSearch(Map<String, Object> parmMap){
     	return sqlSessionTemplate.selectList(getSqlName("FINDLIST_SEARCH"), parmMap);
     }
+
+    @Override
+    public boolean updateApplyId(UserApplyInfo userApplyInfo) {
+        this.sqlSessionTemplate.update(this.getSqlName("updateByApplyId"), userApplyInfo);
+        return true;
+    }
 }

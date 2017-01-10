@@ -21,5 +21,6 @@ public interface UserApplyInfoSerivce extends IBaseService<UserApplyInfoVO> {
 	
 	//不分页
 	public PaginatedResult<UserApplyInfoVO> getUserApplyForSearch(Map<String, Object> parmMap);
-	
+
+	public Result<Boolean> updateApplyId(UserApplyInfoVO userApplyInfoVO);
 }
