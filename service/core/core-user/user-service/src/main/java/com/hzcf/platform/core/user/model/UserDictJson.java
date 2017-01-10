@@ -13,6 +13,13 @@ public class UserDictJson implements Serializable{
     private  String dict_text;
     //private Map<String,Object> map;
     private List<UserDictJson> list;
+    
+    //网内/网外
+    private String isInside;
+    //电话区号
+    private String areacode;
+    //邮编
+    private String postcode; 
 
     public String getDict_value() {
         return dict_value;
@@ -53,4 +60,30 @@ public class UserDictJson implements Serializable{
                 ", dict_text:'" + dict_text + '\'' +
                 '}';
     }
+
+	public String getIsInside() {
+		return isInside;
+	}
+
+	public void setIsInside(String isInside) {
+		this.isInside = isInside;
+	}
+
+	public String getAreacode() {
+		return areacode;
+	}
+
+	public void setAreacode(String areacode) {
+		this.areacode = areacode;
+	}
+
+	public String getPostcode() {
+		return postcode;
+	}
+
+	public void setPostcode(String postcode) {
+		this.postcode = postcode;
+	}
+	
+	
 }

@@ -140,6 +140,13 @@ public class DictUtilInitService {
 	                userDictJson = new UserDictJson();
 	                userDictJson.setDict_value(userDice.getValue());
 	                userDictJson.setDict_text(userDice.getName());
+	                //区号
+	                userDictJson.setAreacode(userDice.getAreacode());
+	                //0=网外  1=网内
+	                userDictJson.setIsInside(userDice.getIsInside());
+	                //邮编
+	                userDictJson.setPostcode(userDice.getPostcode());
+	                
 	                tempList.add(userDictJson);
 	                dictionaryInfoMap.put(key,tempList);
 	            }
