@@ -1,5 +1,10 @@
 package com.hzcf.platform.api.util;
 
+import com.hzcf.platform.common.util.utils.ServiceUtil;
+import org.apache.commons.collections.bag.SynchronizedSortedBag;
+
+import java.util.Date;
+
 /**
  * Created by leijiaming on 2017/1/9 0009.
  */
@@ -30,8 +35,12 @@ public class StringUtil {
 
     //主方法测试
     public static void main(String[] args) {
-        String m= "rest/api/100/delete/imgurl";
-        System.out.print(getSuffix(m));
+      /*  String m= "rest/api/100/delete/imgurl";
+        System.out.print(getSuffix(m));*/
+        Date BirthdayDate = CustomerUtils.calculateBirthDate("350301198002075153");
+        System.out.print(BirthdayDate);
+        boolean b = ServiceUtil.validateIdNo("350301198002075153");
+        System.out.println(b);
 
     }
 }
