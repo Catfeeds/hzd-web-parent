@@ -22,4 +22,7 @@
   	<dubbo:reference id="userImageService" interface="com.hzcf.platform.core.user.service.UserImageService" check="false" />
   	<dubbo:reference id="sysUsersService" interface="com.hzcf.platform.core.sys.service.SysUsersService" check="false" />
   	<dubbo:reference id="msgBoxservice" interface="com.hzcf.platform.core.user.service.MsgBoxservice" check="false" />
+  	<dubbo:reference id="userInfoService" interface="com.hzcf.platform.core.user.service.UserInfoService" check="false" />
+  	<dubbo:reference id="userRelationService" interface="com.hzcf.platform.core.user.service.UserRelationService" check="false" />
+  	
 </beans>

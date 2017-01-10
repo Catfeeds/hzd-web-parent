@@ -3,6 +3,7 @@
  */
 package com.hzcf.platform.mgr.sys.common.util;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,6 +21,33 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
 	private static String[] parsePatterns = { "yyyy-MM-dd", "yyyy-MM-dd HH:mm:ss", "yyyy-MM-dd HH:mm", 
 		"yyyy/MM/dd", "yyyy/MM/dd HH:mm:ss", "yyyy/MM/dd HH:mm" };
 
+	/**
+	 * 将日期型时间转换成yyyy-MM-dd HH:mm:ss
+	 * @param date
+	 * @return
+	 */
+	public static String getDateTimeString(Date date) {
+		String dateString =  formatCustomDate(date, "yyyy-MM-dd HH:mm:ss");
+		return dateString;
+	}
+	/**
+	 * 将时间格式转换成xx年xx月xx日
+	 * @param pattern
+	 * @return
+	 */
+	public static String getDateString(String pattern) {
+		//DateFormat format = new SimpleDateFormat("yyyy年MM月dd日");
+		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+		String date =null;
+		try {
+			Date date1 = format.parse(pattern);
+			date = formatCustomDate(date1, "yyyy年MM月dd日");
+		} catch (ParseException e) {
+			e.printStackTrace();
+		}
+		return date;
+	}
+	
 	/**
 	 * 得到当前日期字符串 格式（yyyy-MM-dd）
 	 */
@@ -124,6 +152,7 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
 //		System.out.println(getDate("yyyy年MM月dd日 E"));
 //		long time = new Date().getTime()-parseDate("2012-11-19").getTime();
 //		System.out.println(time/(24*60*60*1000));
+		//System.out.println(getDateString("2017-01-10 18:42:22"));
 	}
 	
 	/**
