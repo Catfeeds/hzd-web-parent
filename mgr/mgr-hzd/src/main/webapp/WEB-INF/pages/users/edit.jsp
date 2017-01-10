@@ -49,7 +49,6 @@ pageEncoding="UTF-8"%>
 	}
 	
 	function upload(id) {
-		alert(id);
         $("#form"+id).ajaxSubmit({
             type : 'POST',
             url:'${path}/users/check/updateImage',
