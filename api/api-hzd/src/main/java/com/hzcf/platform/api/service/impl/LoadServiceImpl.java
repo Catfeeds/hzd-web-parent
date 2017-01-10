@@ -1,6 +1,7 @@
 package com.hzcf.platform.api.service.impl;
 
 import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
@@ -22,6 +23,17 @@ import net.sf.json.JSONObject;
 @Service
 public class LoadServiceImpl implements ILoadService {
 	private static final Log logger = Log.getLogger(LoadServiceImpl.class);
+	@Autowired
+	public LoadService LoadService;
+	@Override
+	public void insertLoad() {
+		try {
+			String result=LoadService.insertLoad("APP20170110152844173");
+			logger.i("result:"+result);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
 	/**借款人查询借款进度
 	 * 
 	 */
