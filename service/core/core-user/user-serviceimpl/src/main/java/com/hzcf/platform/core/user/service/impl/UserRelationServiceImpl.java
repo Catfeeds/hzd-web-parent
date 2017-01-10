@@ -4,6 +4,7 @@ import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.core.user.dao.UserInfoDao;
 import com.hzcf.platform.core.user.dao.UserRelationDao;
+import com.hzcf.platform.core.user.data.UserApplyInfo;
 import com.hzcf.platform.core.user.data.UserRelation;
 import com.hzcf.platform.core.user.model.UserInfoVO;
 import com.hzcf.platform.core.user.model.UserRelationVO;
@@ -14,6 +15,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -43,6 +46,18 @@ public class UserRelationServiceImpl  extends AbstractBaseServiceImpl<UserRelati
         }
     }
 
+    @Override
+    @Transactional(propagation = Propagation.NESTED)
+    public Result<Boolean> updateRelationId(UserRelationVO userRelationVO) {
+        try {
+            UserRelation t = toDO(userRelationVO);
+            purchaseOrderDao.updateByPrimaryKeySelective(t);
+            return new Result<Boolean>(StatusCodes.OK, true);
+        } catch (Exception e) {
+            logger.error("an error occur in update service : {}", e);
+            return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
+        }
+    }
 
 
     @Override

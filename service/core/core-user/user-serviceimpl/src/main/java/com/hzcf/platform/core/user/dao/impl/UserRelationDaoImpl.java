@@ -36,8 +36,9 @@ public class UserRelationDaoImpl extends AbstractMysqlBaseDaoImpl<UserRelation> 
     }
 
     @Override
-    public int updateByPrimaryKeySelective(UserRelation record) {
-        return 0;
+    public boolean updateByPrimaryKeySelective(UserRelation record) {
+        this.sqlSessionTemplate.update(this.getSqlName("updateByPrimaryKeySelective"), record);
+        return true;
     }
 
     @Override

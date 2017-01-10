@@ -22,7 +22,7 @@ public interface UserRelationDao extends IBaseDao<UserRelation> {
      */
     List<UserRelation> selectByApplyId(String applyId);
 
-    int updateByPrimaryKeySelective(UserRelation record);
+    boolean updateByPrimaryKeySelective(UserRelation record);
 
     int updateByPrimaryKey(UserRelation record);
 

@@ -19,6 +19,8 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  * Created by leijiaming on 2016/12/29 0029.
@@ -123,6 +125,19 @@ public class UserApplyInfoSerivceImpl  extends AbstractBaseServiceImpl<UserApply
 			PaginatedResult<UserApplyInfoVO> resultVO = new PaginatedResult<UserApplyInfoVO>();
 			resultVO.setStatus(StatusCodes.INTERNAL_SERVER_ERROR);
 			return resultVO;
+		}
+	}
+
+	@Override
+	@Transactional(propagation = Propagation.NESTED)
+	public Result<Boolean> updateApplyId(UserApplyInfoVO userApplyInfoVO) {
+		try {
+			UserApplyInfo t = toDO(userApplyInfoVO);
+			purchaseOrderDao.updateApplyId(t);
+			return new Result<Boolean>(StatusCodes.OK, true);
+		} catch (Exception e) {
+			logger.error("an error occur in update service : {}", e);
+			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
 		}
 	}
 }
