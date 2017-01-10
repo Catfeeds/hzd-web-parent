@@ -5,6 +5,8 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
@@ -19,6 +21,8 @@ import com.hzcf.platform.framework.core.storage.IBaseDao;
 /**
  * Created by leijiaming on 2016/12/30 0030.
  */
+@Service
+//@Transactional
 public class MsgBoxserviceImpl  extends AbstractBaseServiceImpl<MsgBoxVO,MsgBox> implements MsgBoxservice {
     private Logger logger = LoggerFactory.getLogger(MsgBoxserviceImpl.class);
 

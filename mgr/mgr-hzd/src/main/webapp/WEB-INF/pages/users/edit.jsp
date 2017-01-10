@@ -12,7 +12,7 @@ pageEncoding="UTF-8"%>
 		sfz();
 		var msg = $("#div").val();
 		if(msg==""){
-			document.getElementById("form1").submit();
+			document.getElementById("form").submit();
 		}else{
 			$("#div").html("校验未通过不能提交");
 		}
@@ -48,15 +48,26 @@ pageEncoding="UTF-8"%>
 		}
 	}
 	
-	function upload(){
-		
-		document.getElementById("form2").submit();
-	} 
+	function upload(id) {
+        $("#form"+id).ajaxSubmit({
+            type : 'POST',
+            url:'${path}/users/check/updateImage',
+            success : function(data) {
+            	if(data == "false"){
+            		alert("上传失败");
+            		return null;
+            	}
+                $("#imgDiv"+id).attr("src",data);
+                alert("上传成功");
+            }
+        });
+
+    }
 </script>
 </head>
 <body>
 <div id="div" style="line-height: 100px; font-size: 1rem; color: red;"></div>
-<form action="${path}/users/check/update" method="post" id="form1" >
+<form action="${path}/users/check/update" method="post" id="form" >
 <table id="table" style="width: 800px;height: 400px"  >
 	<tr id="div" style="display: none "></tr>
 	<tr>
@@ -95,35 +106,59 @@ pageEncoding="UTF-8"%>
 	</tr>
 </table>
 </form>
-<form action="${path}/users/check/updateImage" method="post" id="form2" enctype="multipart/form-data">
+
+<form action="" id="form1" enctype="multipart/form-data">
 	<table id="table" style="width: 800px;height: 300px">
-		<tr>
-		<td>图片上传信息</td></tr>
 	<tr>
-		
 		<td>
-			<img style="width: 200px;height: 100px" name="url" src="${smsUserInfo.artWorkA}" /><br />
+			<img id="imgDiv1" style="width: 200px;height: 100px" name="url" src="${smsUserInfo.artWorkA}" /><br />
 			<input type="file" name="image1"  />
-			<input type="button" value="重新上传" onclick="upload(this)"/>
-		</td>
-		<td>
-			<img style="width: 200px;height: 100px" name="url" src="${smsUserInfo.artWorkB}" /><br />
-			<input type="file" name="image2" />
-			<input type="button" value="重新上传" onclick="upload(this)"/>
-		</td>
-		<td>
-			<img style="width: 200px;height: 100px" name="url" src="${smsUserInfo.artWorkC}" /><br />
-			<input type="file" name="image3" />
-			<input type="button" value="重新上传" onclick="upload(this)"/>
+			<input type="button" onclick="upload('1')"value="重新上传"/>
 		</td>
 	</tr>
-	<tr>
-		<td>
-		<input type="hidden" name="mobile" id="mobile" value=${smsUserInfo.mobile} /> 
+	<tr><td>
+		<input type="hidden" name="imgId" value=${smsUserInfo.imgIdA} />
+		<input type="hidden" name="mobile" id="mobile" value=${smsUserInfo.mobile} />
 		</td>
 	</tr>
 	</table>
 </form>
+
+<form action="" id="form2" enctype="multipart/form-data">
+	<table id="table" style="width: 800px;height: 300px">
+	<tr>
+		<td>
+			<img id="imgDiv2" style="width: 200px;height: 100px" name="url" src="${smsUserInfo.artWorkB}" /><br />
+        	<input type="file" id="image_input" name="file" />
+        	<input type="button" onclick="upload('2')"value="重新上传"/>
+		</td>
+	</tr>
+	<tr><td>
+		<input type="hidden" name="imgId" value=${smsUserInfo.imgIdB} />
+		<input type="hidden" name="mobile" id="mobile" value=${smsUserInfo.mobile} />
+		</td>
+	</tr>
+	</table>
+</form>
+
+<form action="" id="form3" enctype="multipart/form-data">
+	<table id="table" style="width: 800px;height: 300px">
+	<tr>
+		<td>
+			<img id="imgDiv3" style="width: 200px;height: 100px" name="url" src="${smsUserInfo.artWorkC}" /><br />
+        	<input type="file" id="image_input" name="file" />
+        	<input type="button" onclick="upload('3')" value="重新上传"/>
+		</td>
+	</tr>
+			
+	<tr><td>
+		<input type="hidden" name="imgId" value=${smsUserInfo.imgIdC} />
+		<input type="hidden" name="mobile" id="mobile" value=${smsUserInfo.mobile} />
+		</td>
+	</tr>
+	</table>
+</form>
+
 	<input type="button" value="保存" onclick="save()"/> 
 </body>
 </html>

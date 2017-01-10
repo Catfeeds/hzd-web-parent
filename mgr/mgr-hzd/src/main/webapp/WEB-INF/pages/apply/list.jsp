@@ -12,7 +12,7 @@ $(function(){
 	$('#grid').datagrid({
 		url:'${path}/apply/page',
 		columns:[[
-		   {field:'applyId',title:'applyId',width:30,hidden:true},
+		   {field:'applyId',title:'applyId',width:230},
 		   {field:'mobile',title:'手机号',width:150},
 			{field:'name',title:'姓名',width:150},
 			{field:'idCard',title:'身份证号',width:180},
@@ -24,7 +24,7 @@ $(function(){
 			{field:'applySubmitTime',title:'提交时间',width:100},
 			{field:'status',title:'进件状态',width:100},
 		   {field:'-',title:'操作',width:100,formatter:function(value,row,index){
-			   return "<a href='#' onclick='edit(\""+row.id+"\");' > 查看详情   </a>";   
+			   return "<a href='#' onclick='detail(\""+row.applyId+"\,"+row.mobile+"\");' > 查看详情   </a>";   
 		   }}
 		  
 		]],
@@ -58,6 +58,14 @@ function doExport(){
 	$("#searchForm").attr("action", "${path}/apply/excel");
 	 $("#searchForm").attr("method", "POST");
 	 $("#searchForm").submit();
+}
+
+function detail(det){
+	var arr=det.split(",");
+	var applyId = arr[0];
+	var mobile = arr[1];
+	window.location = '${path}/apply/check/detail?applyId='+applyId+"&mobile="+mobile;
+	
 }
 </script>
 

@@ -33,4 +33,6 @@ public interface UserImageDao extends IBaseDao<UserImage> {
     
     public boolean updateImageByUserIdAndTypeAndUrl(Map<String, String> parmMap);
 
+	List<UserImageVO> selectByApplyId(String applyId);
+
 }

@@ -1,6 +1,7 @@
 package com.hzcf.platform.core.user.model;
 
 import java.io.Serializable;
+import java.util.Date;
 
 import com.hzcf.platform.common.model.BaseVO;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
@@ -30,6 +31,25 @@ public class UserVO extends BaseVO implements Serializable{
     private String subStartDate;
     private String subEndDate;
     
+    private Date birthday;
+    private String gender;
+    
+	public Date getBirthday() {
+		return birthday;
+	}
+
+	public void setBirthday(Date birthday) {
+		this.birthday = birthday;
+	}
+
+	public String getGender() {
+		return gender;
+	}
+
+	public void setGender(String gender) {
+		this.gender = gender;
+	}
+
 	/**
 	 * 终端类型
 	 */

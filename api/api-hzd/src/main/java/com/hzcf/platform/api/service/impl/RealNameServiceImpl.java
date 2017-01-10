@@ -2,11 +2,14 @@ package com.hzcf.platform.api.service.impl;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
-import java.util.*;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import com.hzcf.platform.api.util.ImageUrlUtil;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,19 +18,17 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
+import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.api.common.BackResult;
-import com.hzcf.platform.api.config.BaseConfig;
-import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.service.IRealNameService;
+import com.hzcf.platform.api.util.ImageUrlUtil;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.common.util.utils.JudgeNumberLegal;
 import com.hzcf.platform.common.util.utils.ServiceUtil;
 import com.hzcf.platform.common.util.uuid.UUIDGenerator;
-import com.hzcf.platform.core.user.model.UserApplyInfoVO;
 import com.hzcf.platform.core.user.model.UserImageVO;
-import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
 import com.hzcf.platform.core.user.service.UserImageService;
@@ -44,7 +45,7 @@ import com.hzcf.platform.framework.fastdfs.FastDFSClient;
 @Service
 public class RealNameServiceImpl implements IRealNameService {
 	private static final Log logger = Log.getLogger(RealNameServiceImpl.class);
-	DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+	public DateFormat sdf = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");//日期操作类
     @Autowired
     public UserService userSerivce;//借款人service
 	@Autowired

@@ -60,6 +60,13 @@ public interface DictUtilService {
      */
     public String convertCity(String provinceValue, String value) ;
     /**
+     * 市 /区号、邮编
+     * @param provinceValue 省份value
+     * @param value
+     * @return
+     */
+    public UserDictJson convertCityBean(String provinceValue, String value) ;
+    /**
      * 区、县
      * @param cityValue 市value
      * @param value

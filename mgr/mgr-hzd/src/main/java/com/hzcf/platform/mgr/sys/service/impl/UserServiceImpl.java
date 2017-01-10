@@ -1,9 +1,6 @@
 package com.hzcf.platform.mgr.sys.service.impl;
 
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -12,7 +9,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.fileupload.servlet.ServletRequestContext;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -60,7 +57,7 @@ public class UserServiceImpl implements IUserService {
 	public DataGrid getUserPage(PageHelper pageHelper, UserVO userVO){
 		pageHelper.setStart((pageHelper.getPage()-1)*pageHelper.getRows());
 		pageHelper.setEnd(pageHelper.getRows());
-		Map<String, Object> parmMap = new HashMap();
+		Map<String, Object> parmMap = new HashMap<String, Object>();
 		parmMap.put("user", userVO);
 		parmMap.put("page", pageHelper);
 		
@@ -84,15 +81,21 @@ public class UserServiceImpl implements IUserService {
 		if(userImage.getStatus()==200 && userList.size()>0){
 			if(userList.size()==1){
 				se.setArtWorkA(this.geturl(userList.get(0).getArtWork()));
+				se.setImgIdA(userList.get(0).getImageId());
 			}
 			if(userList.size()==2){
 				se.setArtWorkA(this.geturl(userList.get(0).getArtWork()));
 				se.setArtWorkB(this.geturl(userList.get(1).getArtWork()));
+				se.setImgIdA(userList.get(0).getImageId());
+				se.setImgIdA(userList.get(1).getImageId());
 			}
 			if(userList.size()>=3){
 				se.setArtWorkA(this.geturl(userList.get(0).getArtWork()));
 				se.setArtWorkB(this.geturl(userList.get(1).getArtWork()));
 				se.setArtWorkC(this.geturl(userList.get(2).getArtWork()));
+				se.setImgIdA(userList.get(0).getImageId());
+				se.setImgIdA(userList.get(1).getImageId());
+				se.setImgIdA(userList.get(2).getImageId());
 			}
 		}
 		
@@ -142,7 +145,7 @@ public class UserServiceImpl implements IUserService {
 		Result<UserVO> use1 = userSerivce.getByMobile(mobile);
 		
 		MsgBoxVO msgBoxVO = new MsgBoxVO();
-		msgBoxVO.setId(UUIDGenerator.getUUID());
+		msgBoxVO.setMsgId(UUIDGenerator.getUUID());
 		msgBoxVO.setUserId(use1.getItems().getId());
 		msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_YES);
 		msgBoxVO.setMsgType(ConstantsParam.MSG_TYPE);
@@ -191,30 +194,18 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public Result<Boolean> smsImgUpload(HttpServletRequest request,String path,String mobile) {
+	public Result<String> smsImgUpload(HttpServletRequest request,String imgId,String mobile) {
 		UserVO user = new UserVO();
 		user.setMobile(mobile);
 		Result<UserVO> userVO = userSerivce.getByMobile(mobile);
 		user.setId(userVO.getItems().getId());
 		Map<String, String> parmMap = new HashMap<String, String>();
 		UserImageVO userImage = new UserImageVO();
+		userImage.setImageId(imgId);
 		userImage.setUserId(userVO.getItems().getId());
 		userImage.setType(ConstantsParam.IMG_TYPE_RZ);
 		parmMap.put("userId",userVO.getItems().getId());
 		parmMap.put("type", ConstantsParam.IMG_TYPE_RZ);
-		StringBuffer imgUrl = new StringBuffer();
-		if(path!=null&&path!=""){
-			String[] img = path.split("/");
-			for (int i = 0; i < img.length; i++) {
-				if(i>2){
-					if(i==img.length-1){
-						imgUrl.append(img[i]);
-					}else{
-						imgUrl.append(img[i]).append("/");
-					}
-				}
-			}
-		}
 		
 		Result<List<UserImageVO>> uImage = userImageService.selectUserImageByUserIdAndType(parmMap);
 		List<UserImageVO> userList = uImage.getItems();
@@ -225,6 +216,7 @@ public class UserServiceImpl implements IUserService {
 				request.getSession().getServletContext());
 		// 检查form中是否有enctype="multipart/form-data"
 		String file_url = "";
+		
 		if (multipartResolver.isMultipart(request)){
 			// 将request变成多部分request
 			MultipartHttpServletRequest multiRequest = (MultipartHttpServletRequest) request;
@@ -246,10 +238,9 @@ public class UserServiceImpl implements IUserService {
 							//return new Result(StatusCodes.PIC_UPLOAD_FAILURE,false);
 						}
 						if(userVO.getStatus()== 200 && userList.size()>0){
-							parmMap.put("artWork", imgUrl.toString());
 							userImage.setArtWork(file_url);
 							userImage.setUpdateTime(new Date());
-							booleanResult = userImageService.updateImageByUserIdAndTypeAndUrl(parmMap);
+							booleanResult = userImageService.updateImage(userImage);
 						}
 						if(userVO.getStatus()==200 && userList.isEmpty()){
 							userImage.setImageId(UUIDGenerator.getUUID());//图片id
@@ -259,12 +250,12 @@ public class UserServiceImpl implements IUserService {
 						}
 						if (StatusCodes.OK != (booleanResult.getStatus())) {
 							logger.e("图片上传失败!");
-							return new Result(StatusCodes.PIC_UPLOAD_FAILURE,false);
+							return new Result<String>(StatusCodes.PIC_UPLOAD_FAILURE,"false");
 						}
 						long endTime = System.currentTimeMillis();
 						String url =ConstantsDictionary.imgUpload+"/"+file_url;
 						logger.i("上传图片运行时间：" + String.valueOf(endTime - startTime) + "ms" +url);
-						return new Result(StatusCodes.OK,true);
+						return new Result<String>(StatusCodes.OK,url);
 					} catch (Exception e) {
 						logger.i("-----------系统异常,请检查数据源-------");
 						e.printStackTrace();
@@ -272,7 +263,7 @@ public class UserServiceImpl implements IUserService {
 				}
 			}
 		}
-		return new Result(StatusCodes.PIC_UPLOAD_FAILURE,false);
+		return new Result<String>(StatusCodes.PIC_UPLOAD_FAILURE,"false");
 	}
 	private static String getSuffix(String url) {
 		if (url != null) {
