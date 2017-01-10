@@ -116,8 +116,8 @@ public class UserServiceImpl implements IUserService {
 			se.setStatusInfo("待审核");
 			se.setButt("提交");
 		}
-		if(user.getItems().getSubmitTime()!=""&&user.getItems().getSubmitTime()!=null){
-			se.setCreateTime(DateUtils.getDate(user.getItems().getSubmitTime()));
+		if(user.getItems().getSubmitTime()!=""&&user.getItems().getCreateTime()!=null){
+			se.setCreateTime(DateUtils.getDateTimeString(user.getItems().getCreateTime()));
 		}
 		return se;
 	}
@@ -154,7 +154,7 @@ public class UserServiceImpl implements IUserService {
 		msgBoxVO.setMsgTitle("实名认证用户审核情况");
 		String date ="";
 		if(use1.getItems().getSubmitTime()!=""&&use1.getItems().getSubmitTime()!=null){
-			date = DateUtils.getDate(use1.getItems().getSubmitTime());
+			date = DateUtils.getDateString(use1.getItems().getSubmitTime());
 		}
 		
 		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_N)){
