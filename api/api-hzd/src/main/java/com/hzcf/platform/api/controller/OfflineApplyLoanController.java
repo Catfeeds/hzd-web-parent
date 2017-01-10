@@ -38,8 +38,8 @@ public class OfflineApplyLoanController {
 	@RequestMapping(value="rest/api/100/offlineLoan/apply",method=RequestMethod.POST)
 	@ResponseBody
 	public BackResult onlineLoanApply(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user ,@RequestBodyForm OnlineLoanInfo onlineLoanInfo ){
-		logger.i("进入用户借贷申请 ====入参====UserVO:"+user.toString());
-		logger.i("进入用户借贷申请====入参====onlineLoanInfo:"+onlineLoanInfo.toString());
+		logger.i("进入外访协助接口 ====入参====UserVO:"+user.toString());
+		logger.i("进入外访协助接口====入参====onlineLoanInfo:"+onlineLoanInfo.toString());
 		return onlineLoanService.offlineLoanApply(user, onlineLoanInfo);
 	}
 	

@@ -32,7 +32,7 @@ public class LoadController {
 	/**借款人查询借款进度接口
 	 * 
 	 */
-	@RequestMapping(value="rest/selectloadprogress",method = RequestMethod.POST)
+	@RequestMapping(value="rest/api/100/user/selectloadprogress",method = RequestMethod.POST)
     public BackResult selectloadprogress(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
         logger.i("借款人查询借款进度接口");
         logger.i("入参"+ JsonUtil.json2String(user));
