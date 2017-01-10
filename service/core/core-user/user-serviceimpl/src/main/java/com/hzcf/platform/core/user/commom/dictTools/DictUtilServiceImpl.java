@@ -19,7 +19,7 @@ import com.hzcf.platform.core.user.service.DictUtilService;
 public class DictUtilServiceImpl  implements DictUtilService {
 	
 	public enum Side {
-		INSIDE ("0", "网外"), OUTSIDE ("1", "网外");
+		INSIDE ("网外", "0"), OUTSIDE ("网外", "1");
 	    private String nCode ;
 	    private String nTxt;
 	    private Side( String _nCode, String _nTxt){
