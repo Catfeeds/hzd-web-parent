@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -114,10 +115,10 @@ public class LoadService {
 			huiZhongApplicationVo.setIdType("01");//线上只有身份证号
 			huiZhongApplicationVo.setIdNum(userVO.getIdCard());//设置身份证号
 			//设置证件的有效期
-			String idValidityDate=userInfoVO.getIdcardValidity();
-			idValidityDate=idValidityDate.replace("-","");
-			huiZhongApplicationVo.setIdValidityDate(idValidityDate);//证件有效期
-			huiZhongApplicationVo.setBirthday(userInfoVO.getBirthday());
+			Date date1=DateExtendUtils.parseDate(userInfoVO.getIdcardValidity());
+			huiZhongApplicationVo.setIdValidityDate(date1.getTime());//证件有效期
+			//设置“出生日期”
+			huiZhongApplicationVo.setBirthday((userInfoVO.getBirthday()).getTime());
 			huiZhongApplicationVo.setGender(userInfoVO.getGender());
 			huiZhongApplicationVo.setMarriageStatus(userInfoVO.getMarriageStatus());
 			huiZhongApplicationVo.setChildrenStatus(userInfoVO.getChildrenStatus());
@@ -133,7 +134,18 @@ public class LoadService {
 			huiZhongApplicationVo.setAnnualIncome(userInfoVO.getAnnualIncome());
 			huiZhongApplicationVo.setCreditCardLimit(userInfoVO.getCreditCardLimit());
 			huiZhongApplicationVo.setLiveTogether(userInfoVO.getLiveTogether());
-			huiZhongApplicationVo.setLoanPurposeOne(userApplyInfo.getLoanPurposeOne());
+			//
+			String temp = "";
+			if("A".equals(userApplyInfo.getLoanPurposeOne())){
+				temp = "CONSUMPTION";
+			}else if("B".equals(userApplyInfo.getLoanPurposeOne())){
+				temp ="RUN";
+			}else if("C".equals(userApplyInfo.getLoanPurposeOne())){
+				temp ="EMERGENCY";
+			}else if("D".equals(userApplyInfo.getLoanPurposeOne())){
+				temp ="OTHER";
+			}
+			huiZhongApplicationVo.setLoanPurposeOne(temp);
 			huiZhongApplicationVo.setLoanPurposeTwo(userApplyInfo.getLoanPurposeTwo());
 			huiZhongApplicationVo.setMinApplyAmount(userApplyInfo.getMinApplyAmount());
 			huiZhongApplicationVo.setMaxApplyAmount(userApplyInfo.getMaxApplyAmount());
@@ -178,27 +190,6 @@ public class LoadService {
 				imageList.add(imageVo);
 			}
 			huiZhongApplicationVo.setImageList(imageList);			
-			
-//			JSONObject applyDataMap = new JSONObject();//总的数据集合HuiZhongApplicationVo
-//			JSONObject userVOJsonObject=JSONObject.fromObject(userVO);
-//			userVOJsonObject.remove("regTime");
-//			userVOJsonObject.remove("startDate");
-//			userVOJsonObject.remove("endDate");
-//			userVOJsonObject.remove("subStartDate");
-//			userVOJsonObject.remove("subEndDate");
-//			userVOJsonObject.remove("birthday");
-//			userVOJsonObject.remove("gender");
-//			JSONObject userInfoVOJsonObject=JSONObject.fromObject(userInfoVO);
-//			JSONObject userApplyInfoJsonObject=JSONObject.fromObject(userApplyInfo);
-//			JSONArray userRelationVOListJsonArrray=JSONArray.fromObject(userRelationVOList);
-//			JSONArray userImageVOListJsonArrray=JSONArray.fromObject(userImageVOList);
-//			//封装参数
-//			applyDataMap.putAll(userVOJsonObject);
-//			applyDataMap.putAll(userInfoVOJsonObject);
-//			applyDataMap.putAll(userApplyInfoJsonObject);
-//			applyDataMap.put("borrowRelationList", userRelationVOListJsonArrray);
-//			applyDataMap.put("imageList", userImageVOListJsonArrray);
-			
 			//对一些参数进行补充完善，
 			JSONObject applyDataMap=JSONObject.fromObject(huiZhongApplicationVo);
 			applyDataMap.put("employeeId",userInfoVO.getStaffNo());//员工编号

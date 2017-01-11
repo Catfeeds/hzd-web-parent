@@ -12,7 +12,7 @@ import com.hzcf.platform.core.user.model.UserVO;
   */
 public interface ILoadService {
 	//进件
-	public void insertLoad();
+	public BackResult insertLoad();
 	//查询借款进度
 	public BackResult selectLoadProgress(UserVO user);
 }

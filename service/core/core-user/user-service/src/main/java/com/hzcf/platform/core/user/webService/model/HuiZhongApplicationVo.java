@@ -30,8 +30,8 @@ public class HuiZhongApplicationVo {
 	//证件信息
 	private	String	idType	;	//	证件类型
 	private	String	idNum	;	//	证件号码
-	private	String	idValidityDate	;	//	证件有效期
-	private	Date	birthday	;	//	出生日期
+	private	long	idValidityDate	;	//	证件有效期
+	private	long	birthday	;	//	出生日期
 	private	String	gender	;	//	性别
 	
 	//婚姻家庭状况
@@ -91,7 +91,7 @@ public class HuiZhongApplicationVo {
 	}
 	public HuiZhongApplicationVo(String signature, String systemSourceId, String systemId, String employeeId,
 			String operatorId, String name, String education, String domicileProvince, String domicileCity,
-			String domicilePostCode, String idType, String idNum, String idValidityDate, Date birthday, String gender,
+			String domicilePostCode, String idType, String idNum, long idValidityDate, long birthday, String gender,
 			String marriageStatus, String childrenStatus, String houseStatus, String residentProvince,
 			String residentCity, String residentAddress, String residentTelAreaCode, String residentTelCode,
 			String residentPostCode, String mobile1, String email, BigDecimal annualIncome, BigDecimal creditCardLimit,
@@ -233,16 +233,16 @@ public class HuiZhongApplicationVo {
 	public void setIdNum(String idNum) {
 		this.idNum = idNum;
 	}
-	public String getIdValidityDate() {
+	public long getIdValidityDate() {
 		return idValidityDate;
 	}
-	public void setIdValidityDate(String idValidityDate) {
+	public void setIdValidityDate(long idValidityDate) {
 		this.idValidityDate = idValidityDate;
 	}
-	public Date getBirthday() {
+	public long getBirthday() {
 		return birthday;
 	}
-	public void setBirthday(Date birthday) {
+	public void setBirthday(long birthday) {
 		this.birthday = birthday;
 	}
 	public String getGender() {
@@ -527,4 +527,5 @@ public class HuiZhongApplicationVo {
 				+ ", borrowType=" + borrowType + ", borrowRelationList=" + borrowRelationList + ", imageList="
 				+ imageList + "]";
 	}
+
 }

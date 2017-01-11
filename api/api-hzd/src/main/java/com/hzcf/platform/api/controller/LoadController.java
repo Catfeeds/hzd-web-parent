@@ -32,7 +32,7 @@ public class LoadController {
 	/**进件接口
 	 * 
 	 */
-	@RequestMapping(value="rest/insertload",method = RequestMethod.POST)
+	@RequestMapping(value="insertload",method = RequestMethod.POST)
     public void insertload(){
         logger.i("进件接口");
         loadService.insertLoad();
