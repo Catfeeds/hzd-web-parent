@@ -117,7 +117,7 @@ public class OnlineApplyLoanController {
     }
 
     /**
-     * 用户进件申请  提交进件信息  第气步
+     * 用户进件申请  提交进件信息  第七步
      */
     @RequestMapping(value = {"rest/api/100/onlineLoanapply/submit/{applyId}","api/100/onlineLoanapply/info/Preview/{applyId}"},method = RequestMethod.POST)
     public BackResult onlineLoanapplyInfoSubmit(@RequestAttribute(BaseConfig.USER_TYPE)  UserVO user,
@@ -125,7 +125,7 @@ public class OnlineApplyLoanController {
         logger.i("进入  -----用户进件申请第七步,提交进件 ");
         logger.i("入参user:"+ JsonUtil.json2String(user));
         logger.i("applyId:"+ applyId);
-        return onlineApplyLoanService.onlineLoanapplyInfoPreview(user,applyId);
+        return onlineApplyLoanService.onlineLoanapplyInfoSubmit(user,applyId);
     }
 
 

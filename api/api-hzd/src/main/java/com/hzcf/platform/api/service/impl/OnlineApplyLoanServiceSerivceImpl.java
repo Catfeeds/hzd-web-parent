@@ -52,15 +52,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	FastDFSClient fastdfsClient;
 	@Autowired
 	DictUtilService dictUtilService;
-	private ThreadLocal<FastDFSClient> context = new ThreadLocal<FastDFSClient>();
-	public FastDFSClient getThreadSafeFastDFSClient(){
-		if(context.get() == null){
-			context.set(fastdfsClient);
-			return fastdfsClient;
-		}else{
-			return context.get();
-		}
-	}
+
 
 	@Override
 	public BackResult isApplyLoanQuery(UserVO user) {
@@ -438,7 +430,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 					try {
 						if(StringUtils.isNotBlank(myFileName)){
 							//synchronized (this) {
-								file_url = getThreadSafeFastDFSClient().upload(file.getBytes(), getSuffix(myFileName), null);
+								file_url = fastdfsClient.upload(file.getBytes(), getSuffix(myFileName), null);
 							//}
 						//	userImageService
 						}
@@ -549,14 +541,31 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			if (BaseConfig.card_status_0.equals(items.getCheckStatus())) {
 				logger.i("------------用户已经通过实名认证,直接提交进件信息");
 				// 如果用于已经实名认证,直接进件    TODO 提交进件
-
-
+				UserVO updateUserVO=new UserVO();
+				updateUserVO.setId(items.getId());//用户id
+				updateUserVO.setApplyStatus(BaseConfig.apply_loan_0);
+				Result<Boolean> booleanResult = userSerivce.updateByPrimaryKeySelective(updateUserVO);
+				if (StatusCodes.OK == booleanResult.getStatus()) {
+					logger.i("------------用户已经通过实名认证,直接提交进件信息成功");
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+				}
 				checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
 				checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_0);
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
 						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), checkApplyLoanStatus);
 			}
 		  logger.i("------------用户实名认证待审核,进件信息提交到后台");
+
+		UserVO updateUserVO=new UserVO();
+		updateUserVO.setId(items.getId());//用户id
+		updateUserVO.setApplyStatus(BaseConfig.apply_loan_2);
+		Result<Boolean> booleanResult = userSerivce.updateByPrimaryKeySelective(updateUserVO);
+		if (StatusCodes.OK == booleanResult.getStatus()) {
+			logger.i("------------用户实名认证在审核中,直接提交进件到后台");
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+					HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+		}
 		   checkApplyLoanStatus.setIdentityStatus(items.getCheckStatus());
 		   checkApplyLoanStatus.setApplyLoanStatus(items.getApplyStatus());
 
