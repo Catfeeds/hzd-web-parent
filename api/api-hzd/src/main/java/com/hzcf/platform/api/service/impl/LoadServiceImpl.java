@@ -34,7 +34,7 @@ public class LoadServiceImpl implements ILoadService {
 	@Override
 	public void insertLoad() {
 		try {
-			String result=LoadService.insertLoad("APP20170110152844173");
+			String result=LoadService.insertLoad("APP20170110205038496");
 			logger.i("result:"+result);
 		} catch (Exception e) {
 			e.printStackTrace();

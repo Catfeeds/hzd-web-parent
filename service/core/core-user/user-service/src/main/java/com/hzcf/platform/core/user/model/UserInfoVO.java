@@ -18,9 +18,8 @@ public class UserInfoVO extends BaseVO {
     private String applyId;//用户申请ID
 
     /**身份证信息*/
-    private String idType;//证件类型,默认值为“01”  (新增字段)
+    private String idType;//证件类型,（线上只有身份证号，所以传递默认值“01”）  (新增字段)
     private String idcardValidity; //证件有效期
-
     private Date birthday;//出生日期,从身份证号中截取   (新增字段)
     private String gender;//性别,根据身份证号倒数第二位设置值      (新增字段)
     
