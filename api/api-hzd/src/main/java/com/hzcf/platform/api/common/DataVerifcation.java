@@ -78,6 +78,8 @@ public class DataVerifcation {
 				throw new CheckException("申请最高额度输入为空");
 			}else if (userApplyInfoVO.getMaxMonthlyPayment()==null ){
 				throw new CheckException("可接受最高月还款额输入为空");
+			}else if (StringUtils.isBlank(userApplyInfoVO.getPeriod()) ){
+				throw new CheckException("期数输入为空");
 			}
 
 
