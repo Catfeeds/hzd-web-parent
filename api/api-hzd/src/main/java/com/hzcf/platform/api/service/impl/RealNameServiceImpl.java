@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.hzcf.platform.api.config.BaseConfig;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -160,6 +161,7 @@ public class RealNameServiceImpl implements IRealNameService {
         updateUserVO.setId(items.getId());//用户id
         updateUserVO.setName(realName);//姓名
         updateUserVO.setIdCard(idCard);//身份证号
+		updateUserVO.setCheckStatus(BaseConfig.card_status_2);
         updateUserVO.setSubmitTime(sdf.format(new Date()));//提交实名认证时间
         Result<Boolean> updateResult=userSerivce.updateByPrimaryKeySelective(updateUserVO);
         /**判断更新操作结果，设置返回结果*/

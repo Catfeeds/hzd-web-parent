@@ -47,9 +47,10 @@ public class BaseConfig {
 	//用户有效状态 1无效 0有效
 	public static final String status_1="1";
 	public static final String status_0="0";
-	//实名认证有效状态 1无效 0有
+	//实名认证有效状态 1无效 0有 2待审核
 	public static final String card_status_1="1";
 	public static final String card_status_0="0";
+	public static final String card_status_2="2";
 	//进件申请状态 0-未进件 1-已进件
 	public static final String apply_loan_1="1";
 	public static final String apply_loan_0="0";
