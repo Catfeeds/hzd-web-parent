@@ -1,20 +1,17 @@
 package com.hzcf.platform.core.user.webService.model;
-
-
 /**
-  * @Description:
-  * 	ImageVo：表示图片信息，用于线上和线下对接
-  * @author 作者:裴高祥 E-mail:pgx19890112@163.com Tel:13241706779
-  * @date 创建时间：2017年1月3日 下午5:02:27 
+  * @Description:TODO
+  * @author 作者:裴高祥
+  * @date 创建时间：2017年1月11日 下午3:06:21 
   * @version 1.0 
   * @since  JDK1.7
   */
 public class ImageVo {
-	private	String	imageType;//图片类型
-	private	String	artWork;//原图路径
-	private	String	mid;//中缩略图路径
-	private	String	small;//小缩略图路径
-	private	String	displayName;//显示名
+	private	String	imageType	;	//	图片类型
+	private	String	artWork	;	//	原图路径
+	private	String	mid	;	//	中缩略图路径
+	private	String	small	;	//	小缩略图路径
+	private	String	displayName	;	//	显示名
 	public ImageVo() {
 		super();
 	}
