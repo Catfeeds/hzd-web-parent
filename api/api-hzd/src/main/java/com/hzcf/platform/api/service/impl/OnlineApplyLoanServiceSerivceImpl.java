@@ -52,7 +52,15 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	FastDFSClient fastdfsClient;
 	@Autowired
 	DictUtilService dictUtilService;
-
+	private ThreadLocal<FastDFSClient> context = new ThreadLocal<FastDFSClient>();
+	public FastDFSClient getThreadSafeFastDFSClient(){
+		if(context.get() == null){
+			context.set(fastdfsClient);
+			return fastdfsClient;
+		}else{
+			return context.get();
+		}
+	}
 
 	@Override
 	public BackResult isApplyLoanQuery(UserVO user) {
@@ -71,10 +79,9 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), checkApplyLoanStatus);
 			}
 
-			// TODO 进件申请,查询进件信息未实现
-			String ApplyLoanInfoStatus = "0";
 
-			if (BaseConfig.apply_loan_1.equals(ApplyLoanInfoStatus)) {
+
+			if (BaseConfig.apply_loan_1.equals(items.getApplyStatus())) {
 				logger.i("------------------不能重复提交进件信息");
 				checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
 				checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_1);
@@ -398,9 +405,9 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 					String myFileName = file.getOriginalFilename();
 					try {
 						if(StringUtils.isNotBlank(myFileName)){
-							synchronized (this) {
-								file_url = fastdfsClient.upload(file.getBytes(), getSuffix(myFileName), null);
-							}
+							//synchronized (this) {
+								file_url = getThreadSafeFastDFSClient().upload(file.getBytes(), getSuffix(myFileName), null);
+							//}
 						//	userImageService
 						}
 

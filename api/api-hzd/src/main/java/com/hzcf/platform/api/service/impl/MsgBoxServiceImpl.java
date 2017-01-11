@@ -56,7 +56,6 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 			if(StatusCodes.OK==result.getStatus() ){
 				if(result.getItems().size()==0){
 					return new BackResult(HzdStatusCodeEnum.MEF_CODE_5100.getCode(), HzdStatusCodeEnum.MEF_CODE_5100.getMsg(), result.getItems());
-
 				}
 				Result<Boolean> update_result = this.msgBoxservice.updateReadByUser(msgBoxVO);
 				if(StatusCodes.OK==update_result.getStatus()){

@@ -37,10 +37,11 @@ public class StringUtil {
     public static void main(String[] args) {
       /*  String m= "rest/api/100/delete/imgurl";
         System.out.print(getSuffix(m));*/
-        Date BirthdayDate = CustomerUtils.calculateBirthDate("350301198002075153");
+       /* Date BirthdayDate = CustomerUtils.calculateBirthDate("350301198002075153");
         System.out.print(BirthdayDate);
         boolean b = ServiceUtil.validateIdNo("350301198002075153");
-        System.out.println(b);
-
+        System.out.println(b);*/
+        Date date = DateExtendUtils.parseDate("2012-01-18");
+        System.out.print(date);
     }
 }

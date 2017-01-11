@@ -5,7 +5,6 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -38,10 +37,10 @@ import net.sf.json.JSONObject;
 
 /**
   * @Description:对借款信息的操作，如：进件，借款人查询借款进度
-  * 	该类专门负责线上和调度的对接	
+  * 	该类专门负责线上和调度的对接
   * @author 作者:裴高祥
-  * @date 创建时间：2017年1月7日 下午6:37:17 
-  * @version 1.0 
+  * @date 创建时间：2017年1月7日 下午6:37:17
+  * @version 1.0
   * @since  JDK1.7
   */
 @Component
@@ -58,13 +57,13 @@ public class LoadService {
 	@Autowired
 	public UserImageService userImageService;//用户图片service
 	public SimpleDateFormat sdf = new SimpleDateFormat();//日期操作类,"yyyy-MM-dd HH:mm:ss"
-	
+
 	/**
-	 * @Title: insertLoad 
+	 * @Title: insertLoad
 	 * @Description:线下和调度对接，进件，就是保存借款信息
-	 * @time: 2017年1月7日 下午6:58:46  
+	 * @time: 2017年1月7日 下午6:58:46
 	 * @return:String
-	 * @throws Exception 
+	 * @throws Exception
 	 */
 	public String insertLoad(String applyId) throws Exception{
 //		/**初始化参数*/
@@ -134,7 +133,7 @@ public class LoadService {
 //		applyDataMap.put("isInside","1");
 //		applyDataMap.put("orgTeamId","12");
 //		applyDataMap.put("borrowType","3");
-//		
+//
 //		//图片文件
 //		imageMap.put("imageType","1");
 //		imageMap.put("artWork","567");
@@ -143,7 +142,7 @@ public class LoadService {
 //		imageMap.put("displayName","33335454");
 //		imageList.add(imageMap);
 //		applyDataMap.put("imageList", imageList);
-//		
+//
 //		//借款人关系
 //		borrowRelationMap.put("name","赵信");
 //		borrowRelationMap.put("relationType","2");
@@ -151,7 +150,7 @@ public class LoadService {
 //		borrowRelationMap.put("type","0");
 //		borrowRelationList.add(borrowRelationMap);
 //		applyDataMap.put("borrowRelationList",borrowRelationList);
-//		
+//
 //		try {
 //			//MD5加密
 //			single=Md5Util.getMD5String(StringUtils.join(new String[]{systemId,mobile}, ","),key);
@@ -174,9 +173,9 @@ public class LoadService {
 //			e.printStackTrace();
 //		}
 //		return result;
-		
-		
-		
+
+
+
 		/**初始化参数*/
 		String result="";//返回结果
 		//发送到调度的参数信息
@@ -231,8 +230,7 @@ public class LoadService {
 			applyDataMap.put("idNum",userVO.getIdCard());//身份证号
 			applyDataMap.remove("idCard");
 			sdf.applyPattern("yyyy-MM-dd");
-			Date date=sdf.parse(userInfoVO.getIdcardValidity());
-			applyDataMap.put("idValidityDate",date);//证件有效期
+			applyDataMap.put("idValidityDate",sdf.parse(userInfoVO.getIdcardValidity()));//证件有效期
 			applyDataMap.remove("idcardValidity");
 			applyDataMap.put("mobile1",mobile);//电话
 			/**加密参数*/

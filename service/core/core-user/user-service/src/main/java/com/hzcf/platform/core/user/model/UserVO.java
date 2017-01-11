@@ -6,8 +6,7 @@ import java.util.Date;
 import com.hzcf.platform.common.model.BaseVO;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 
-public class UserVO extends BaseVO implements Serializable{
-	private static final long serialVersionUID = 7441953954948417770L;
+public class UserVO extends BaseVO {
 
 	private String mobile;//手机号
 	private String name;//借款人的真实姓名
