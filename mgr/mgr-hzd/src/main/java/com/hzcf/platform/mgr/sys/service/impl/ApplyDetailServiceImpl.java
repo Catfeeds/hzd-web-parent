@@ -1,7 +1,5 @@
 package com.hzcf.platform.mgr.sys.service.impl;
 
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -16,12 +14,14 @@ import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.model.UserInfoVO;
 import com.hzcf.platform.core.user.model.UserRelationVO;
 import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.core.user.service.DictUtilService;
 import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
 import com.hzcf.platform.core.user.service.UserImageService;
 import com.hzcf.platform.core.user.service.UserInfoService;
 import com.hzcf.platform.core.user.service.UserRelationService;
 import com.hzcf.platform.core.user.service.UserService;
 import com.hzcf.platform.mgr.sys.service.IApplyDetailService;
+import com.hzcf.platform.mgr.sys.util.DateUtil;
 
 @Service
 public class ApplyDetailServiceImpl implements IApplyDetailService {
@@ -43,13 +43,20 @@ public class ApplyDetailServiceImpl implements IApplyDetailService {
 	@Autowired
 	public UserImageService userImageService;
 	
+	@Autowired
+    DictUtilService dictUtilService;
+	
 	/**
-	 * 通过applyId获取用户申请表中的信息，即借款需求信息
+	 * 通过applyId获取用户申请表中的信息，即借款需求信息（大类、小类）
 	 */
 	@Override
 	public UserApplyInfoVO getUserApplyInfoDetail(String applyId) {
 		
 		Result<UserApplyInfoVO> userApplyInfoVO = userApplyInfoService.selectByApplyId(applyId);
+		String loanPurposeOne = userApplyInfoVO.getItems().getLoanPurposeOne();
+		String loanPurposeTwo = userApplyInfoVO.getItems().getLoanPurposeTwo();
+		userApplyInfoVO.getItems().setLoanPurposeOne(dictUtilService.convertLoanPurposeOne(loanPurposeOne));
+		userApplyInfoVO.getItems().setLoanPurposeTwo(dictUtilService.convertLoanPurposeTwo(loanPurposeOne,loanPurposeTwo));
 		return userApplyInfoVO.getItems();
 	}
 
@@ -70,23 +77,18 @@ public class ApplyDetailServiceImpl implements IApplyDetailService {
 //			userVO.getItems().setGender("女");
 //		}
 //		return userVO.getItems();
-		
-		try {
-			String idcard = userVO.getItems().getIdCard();
-			//根据idcard获取出生日期
-			String birthdate = idcard.substring(6,14);
-			Date birthday = new SimpleDateFormat("yyyyMMdd").parse(birthdate);
-			userVO.getItems().setBirthday(birthday);
-		 	//根据idcard获取性别
-			String gendercode = idcard.substring(16,17);
-			if(Integer.parseInt(gendercode) % 2 != 0){
-				userVO.getItems().setGender("男");
-			} else {
-				userVO.getItems().setGender("女");
-			}
-			
-		} catch (ParseException e) {
-			e.printStackTrace();
+
+		String idcard = userVO.getItems().getIdCard();
+		//根据idcard获取出生日期
+		String birthdate = idcard.substring(6,14);
+		Date birthday = DateUtil.parseDate(birthdate);
+		userVO.getItems().setBirthday(birthday);
+	 	//根据idcard获取性别
+		String gendercode = idcard.substring(16,17);
+		if(Integer.parseInt(gendercode) % 2 != 0){
+			userVO.getItems().setGender("男");
+		} else {
+			userVO.getItems().setGender("女");
 		}
 		return userVO.getItems();
 		

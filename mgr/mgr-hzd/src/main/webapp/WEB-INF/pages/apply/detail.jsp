@@ -64,7 +64,7 @@ pageEncoding="UTF-8"%>
 				<td align="left">个人年收入：${userInfo.annualIncome}</td>
 				<td align="left">信用卡最高额度：${userInfo.creditCardLimit}</td>
 				<td align="left">共同居住者：${userInfo.liveTogether}</td>
-				<td align="left">家庭邮政编码${userInfo.residentPostCode}</td>
+				<td align="left">家庭邮政编码:${userInfo.residentPostCode}</td>
 			</tr>
 			<tr>
 				<td align="left">员工编号：${userInfo.staffNo}</td>
