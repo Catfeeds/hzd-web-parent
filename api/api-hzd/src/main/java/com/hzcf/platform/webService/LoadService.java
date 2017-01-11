@@ -209,25 +209,34 @@ public class LoadService {
 			//借款人图片信息
 			Result<List<UserImageVO>> userImageVOListResult=userImageService.getUserId(userId);
 			List<UserImageVO> userImageVOList=userImageVOListResult.getItems();
-			/**封装参数*/
+			/**组装参数，封装成要发送的数据*/
 			JSONObject applyDataMap = new JSONObject();//总的数据集合HuiZhongApplicationVo
 			JSONObject userInfoVOJsonObject=JSONObject.fromObject(userInfoVO);
 			JSONObject userApplyInfoJsonObject=JSONObject.fromObject(userApplyInfo);
 			JSONObject userVOJsonObject=JSONObject.fromObject(userVO);
 			JSONArray userRelationVOListJsonArrray=JSONArray.fromObject(userRelationVOList);
 			JSONArray userImageVOListJsonArrray=JSONArray.fromObject(userImageVOList);
+			//对一些参数进行补充完善，
+			
+			
+			
+			//封装参数
 			applyDataMap.putAll(userInfoVOJsonObject);
 			applyDataMap.putAll(userApplyInfoJsonObject);
 			applyDataMap.putAll(userVOJsonObject);
 			applyDataMap.put("borrowRelationList", userRelationVOListJsonArrray);
 			applyDataMap.put("imageList", userImageVOListJsonArrray);
+			
+			
+			
+			
 			/**加密参数*/
 			//MD5加密
 			signature=Md5Util.getMD5String(StringUtils.join(new String[]{systemSourceId,mobile}, ","),key);
 			logger.info("接口：进件。生成的签名信息："+signature);
-			applyDataMap.put("signature", signature);
-			applyDataMap.put("systemSourceId", systemSourceId);
-			applyDataMap.put("systemId", systemId);
+			applyDataMap.put("signature", signature);//签名信息
+			applyDataMap.put("systemSourceId", systemSourceId);//系统标识
+			applyDataMap.put("systemId", systemId);//进件标识
 			//Map对象转换成Json字符串
 //			String str=JsonUtil.json2String(applyDataMap);//此处这个方法不能正确的将对象转成字符串，故不用
 			String str=applyDataMap.toString();
@@ -251,22 +260,23 @@ public class LoadService {
 	 * @time: 2017年1月7日 下午6:58:46  
 	 * @return:String
 	 */
-	public static String selectLoadProgress(UserVO user){
+	public static String selectLoadProgress(String idCard){
 		/**初始化参数*/
 		String result="";//设置返回结果
 		//发送到调度的参数信息
-		String idcard =user.getIdCard();//身份证号
-		String systemId = "APP";//系统标识
-		String single="";//签名信息
+//		String idcard =idCard;//身份证号
+		String systemSourceId=ConstantsDictionary.dispatchLoadSystemSourceId;//系统标识,就是“APP”
+		String signature="";//签名信息
 		String key = ConstantsDictionary.dispatchLoadKey;//调度的“查询借款进度”接口的密钥
 		//发送数据的Map
 		Map<String,Object> weiXinQueryProgressParms = new HashMap<String,Object>();
-		weiXinQueryProgressParms.put("idcard",idcard);//身份证号
-		weiXinQueryProgressParms.put("systemSourceId", systemId);//系统标识
+		weiXinQueryProgressParms.put("idcard",idCard);//身份证号
+		weiXinQueryProgressParms.put("systemSourceId", systemSourceId);//系统标识
 		try {
 			//MD5加密
-			single=Md5Util.getMD5String(StringUtils.join(new String[]{systemId,idcard}, ","),key);
-			weiXinQueryProgressParms.put("signature", single);
+			signature=Md5Util.getMD5String(StringUtils.join(new String[]{systemSourceId,idCard}, ","),key);
+			weiXinQueryProgressParms.put("signature", signature);
+			logger.info("接口：借款人查询借款进度。signature："+signature);
 			//将Map对象转换成JSON类型字符串
 			String str=JsonUtil.json2String(weiXinQueryProgressParms);
 			logger.info("接口：借款人查询借款进度。请求参数："+str);
@@ -275,7 +285,7 @@ public class LoadService {
 			logger.info("接口：借款人查询借款进度。加密后的参数："+str);
 			str = "weiXinQueryProgressParms="+str;
 			//发送Http请求，POST方式
-			result = HttpTool.sendPostJson(ConstantsDictionary.dispatchLoadSelectLoadProgressUrl, str);
+			result = HttpRequestUtil.sendPost(ConstantsDictionary.dispatchLoadSelectLoadProgressUrl, str);
 			logger.info("接口：借款人查询借款进度。返回结果："+result);
 		} catch (Exception e) {
 			logger.error("接口：借款人查询借款进度。发生异常，异常信息："+e.getMessage());
