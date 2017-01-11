@@ -15,6 +15,7 @@
     <result column="domicile_province" property="domicileProvince" jdbcType="VARCHAR" />
     <result column="domicile_city" property="domicileCity" jdbcType="VARCHAR" />
     <result column="domicile_address" property="domicileAddress" jdbcType="VARCHAR" />
+    <result column="domicile_post_code" property="domicilePostCode" jdbcType="VARCHAR" />
     <result column="marriage_status" property="marriageStatus" jdbcType="VARCHAR" />
     <result column="children_status" property="childrenStatus" jdbcType="VARCHAR" />
     <result column="house_status" property="houseStatus" jdbcType="VARCHAR" />
@@ -49,7 +50,7 @@
   </resultMap>
   <sql id="Base_Column_List" >
     user_info_id,user_id,apply_id,id_type,idcard_validity,birthday,gender,education,domicile_province,domicile_city,
-    domicile_address,marriage_status,children_status,house_status,resident_province,resident_city,resident_address,
+    domicile_address,domicile_post_code,marriage_status,children_status,house_status,resident_province,resident_city,resident_address,
     resident_tel_code,resident_post_code,email,annual_income,credit_card_limit,live_together,
     staff_no,create_time,org_name,org_type,org_province,org_city,org_address,org_post_code,org_tel_code,
 	is_express,product_id,receiver_login_name,is_inside,org_team_id,borrow_type
@@ -76,14 +77,14 @@
   </delete>
   <insert id="insert" parameterType="UserInfo" >
     insert into user_info (user_info_id,user_id,apply_id,id_type,idcard_validity,birthday,gender,education,domicile_province,domicile_city,
-    domicile_address,marriage_status,children_status,house_status,resident_province,resident_city,resident_address,
+    domicile_address,domicile_post_code,marriage_status,children_status,house_status,resident_province,resident_city,resident_address,
     resident_tel_code,resident_post_code,email,annual_income,credit_card_limit,live_together,
     staff_no,create_time,org_name,org_type,org_province,org_city,org_address,org_post_code,org_tel_code,
 	is_express,product_id,receiver_login_name,is_inside,org_team_id,borrow_type
       )
     values (#{userInfoId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{applyId,jdbcType=VARCHAR}, #{idType,jdbcType=VARCHAR},
       #{idcardValidity,jdbcType=VARCHAR},#{birthday,jdbcType=TIMESTAMP}, #{gender,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{domicileProvince,jdbcType=VARCHAR}, 
-      #{domicileCity,jdbcType=VARCHAR}, #{domicileAddress,jdbcType=VARCHAR}, #{marriageStatus,jdbcType=VARCHAR}, 
+      #{domicileCity,jdbcType=VARCHAR}, #{domicileAddress,jdbcType=VARCHAR},#{domicilePostCode,jdbcType=VARCHAR}, #{marriageStatus,jdbcType=VARCHAR}, 
       #{childrenStatus,jdbcType=VARCHAR}, #{houseStatus,jdbcType=VARCHAR}, #{residentProvince,jdbcType=VARCHAR}, 
       #{residentCity,jdbcType=VARCHAR}, #{residentAddress,jdbcType=VARCHAR}, #{residentTelCode,jdbcType=VARCHAR},#{residentPostCode,jdbcType=VARCHAR},  
       #{email,jdbcType=VARCHAR}, #{annualIncome,jdbcType=DECIMAL}, #{creditCardLimit,jdbcType=DECIMAL}, 
@@ -128,6 +129,9 @@
       </if>
       <if test="domicileAddress != null" >
         domicile_address,
+      </if>
+      <if test="domicilePostCode != null" >
+        domicile_post_code,
       </if>
       <if test="marriageStatus != null" >
         marriage_status,
@@ -245,6 +249,9 @@
       <if test="domicileAddress != null" >
         #{domicileAddress,jdbcType=VARCHAR},
       </if>
+      <if test="domicilePostCode != null" >
+        #{domicile_post_code,jdbcType=VARCHAR},
+      </if>
       <if test="marriageStatus != null" >
         #{marriageStatus,jdbcType=VARCHAR},
       </if>
@@ -355,6 +362,9 @@
       <if test="domicileAddress != null" >
         domicile_address = #{domicileAddress,jdbcType=VARCHAR},
       </if>
+      <if test="domicilePostCode != null" >
+        domicile_post_code = #{domicilePostCode,jdbcType=VARCHAR},
+      </if>
       <if test="marriageStatus != null" >
         marriage_status = #{marriageStatus,jdbcType=VARCHAR},
       </if>
@@ -452,6 +462,7 @@
       domicile_province = #{domicileProvince,jdbcType=VARCHAR},
       domicile_city = #{domicileCity,jdbcType=VARCHAR},
       domicile_address = #{domicileAddress,jdbcType=VARCHAR},
+      domicile_post_code = #{domicilePostCode,jdbcType=VARCHAR},
       marriage_status = #{marriageStatus,jdbcType=VARCHAR},
       children_status = #{childrenStatus,jdbcType=VARCHAR},
       house_status = #{houseStatus,jdbcType=VARCHAR},

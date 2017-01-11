@@ -229,7 +229,8 @@ public class LoadService {
 			applyDataMap.put("idType","01");//线上只有身份证号，传递"01"
 			applyDataMap.put("idNum",userVO.getIdCard());//身份证号
 			applyDataMap.remove("idCard");
-			applyDataMap.put("idValidityDate",userInfoVO.getIdcardValidity());//证件有效期
+			sdf.applyPattern("yyyy-MM-dd");
+			applyDataMap.put("idValidityDate",sdf.parse(userInfoVO.getIdcardValidity()));//证件有效期
 			applyDataMap.remove("idcardValidity");
 			applyDataMap.put("mobile1",mobile);//电话
 			/**加密参数*/
