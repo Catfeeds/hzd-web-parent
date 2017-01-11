@@ -181,9 +181,9 @@ public class LoadService {
 		//发送到调度的参数信息
 		String signature="";//签名信息
 		String systemSourceId=ConstantsDictionary.dispatchLoadSystemSourceId;//系统标识,就是“APP”
-		String systemId=ConstantsDictionary.dispatchLoadSystemId;//进件标识
+		String systemId=ConstantsDictionary.dispatchLoadSystemId;//进件标识,就是“APP”
 		String employeeId="";//员工编号
-		String operatorId="";//操作人ID
+		String operatorId=ConstantsDictionary.dispatchLoadSystemId;//操作人ID,就是“APP”
 		String mobile="";//申请人手机号
 		String key=ConstantsDictionary.dispatchLoadKey;//调度的“查询借款进度”接口的密钥
 		//用于查询的参数信息
@@ -216,20 +216,22 @@ public class LoadService {
 			JSONObject userVOJsonObject=JSONObject.fromObject(userVO);
 			JSONArray userRelationVOListJsonArrray=JSONArray.fromObject(userRelationVOList);
 			JSONArray userImageVOListJsonArrray=JSONArray.fromObject(userImageVOList);
-			//对一些参数进行补充完善，
-			
-			
-			
 			//封装参数
 			applyDataMap.putAll(userInfoVOJsonObject);
 			applyDataMap.putAll(userApplyInfoJsonObject);
 			applyDataMap.putAll(userVOJsonObject);
 			applyDataMap.put("borrowRelationList", userRelationVOListJsonArrray);
 			applyDataMap.put("imageList", userImageVOListJsonArrray);
-			
-			
-			
-			
+			//对一些参数进行补充完善，
+			applyDataMap.put("employeeId",userInfoVO.getStaffNo());//员工编号
+			applyDataMap.remove("staffNo");
+			applyDataMap.put("operatorId",operatorId);//操作人ID
+			applyDataMap.put("idType","01");//线上只有身份证号，传递"01"
+			applyDataMap.put("idNum",userVO.getIdCard());//身份证号
+			applyDataMap.remove("idCard");
+			applyDataMap.put("idValidityDate",userInfoVO.getIdcardValidity());//证件有效期
+			applyDataMap.remove("idcardValidity");
+			applyDataMap.put("mobile1",mobile);//电话
 			/**加密参数*/
 			//MD5加密
 			signature=Md5Util.getMD5String(StringUtils.join(new String[]{systemSourceId,mobile}, ","),key);
