@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.hzcf.platform.core.user.data.User;
+import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.framework.core.storage.IBaseDao;
 
 public interface UserDao extends IBaseDao<User> {
@@ -50,4 +51,6 @@ public interface UserDao extends IBaseDao<User> {
 			参数：realnamerepeat（真实姓名重复的数量），idcardrepeat（身份证号码重复的数量）,allrepeat（真实姓名和身份证号码总共的重复数量）
 	 */
 	public Map selectNameAndIdCardRepeat(Map<String, Object> parmMap);
+	
+	public List<User> getCheckUserForSearch(Map<String, Object> parmMap);
 }

@@ -60,7 +60,7 @@ function detail(mobile){
 	window.location = '${path}/users/check/detail?mobile='+mobile;
 }
 
- function edit(mobile){
+function edit(mobile){
 	 window.location = '${path}/users/check/edit?mobile='+mobile;
 }
 function doSearch(){
@@ -73,6 +73,13 @@ function doSearch(){
 		subEndDate: $('#subEndDate').datebox('getValue'),
 		checkStatus: $('#checkStatus').datebox('getValue')
 	});
+}
+
+function doExport(){
+	//window.location="${path}/member/excel";
+	$("#searchForm").attr("action", "${path}/checkuser/excel");
+	 $("#searchForm").attr("method", "POST");
+	 $("#searchForm").submit();
 }
 </script>
 

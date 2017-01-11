@@ -158,5 +158,27 @@ public class UserServiceImpl extends AbstractBaseServiceImpl<UserVO,User> implem
 	public Map selectNameAndIdCardRepeat(Map<String, Object> parmMap) {
 		return purchaseOrderDao.selectNameAndIdCardRepeat(parmMap);
 	}
+
+	@Override
+	public PaginatedResult<UserVO> getCheckUserForSearch(Map<String, Object> parmMap){
+		try {
+			List<User> result = purchaseOrderDao.getCheckUserForSearch(parmMap);
+			if (null == result) {
+				logger.debug("data null.");
+				PaginatedResult<UserVO> resultVO = new PaginatedResult<UserVO>();
+				resultVO.setStatus(StatusCodes.OK);
+				return resultVO;
+			}
+			PaginatedResult<UserVO> resultVO = new PaginatedResult<UserVO>();
+			resultVO.setItems(toVO(result));
+			resultVO.setStatus(StatusCodes.OK);
+			return resultVO;
+		} catch (Exception e) {
+			logger.error("an error occur in UserServiceImpl service : {getCheckUserForSearch}", e);
+			PaginatedResult<UserVO> resultVO = new PaginatedResult<UserVO>();
+			resultVO.setStatus(StatusCodes.INTERNAL_SERVER_ERROR);
+			return resultVO;
+		}
+	}
 	
 }

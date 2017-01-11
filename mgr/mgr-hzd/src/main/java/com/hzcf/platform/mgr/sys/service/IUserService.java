@@ -1,8 +1,8 @@
 package com.hzcf.platform.mgr.sys.service;
 
-import javax.servlet.http.HttpServletRequest;
+import java.util.List;
 
-import org.springframework.web.multipart.MultipartFile;
+import javax.servlet.http.HttpServletRequest;
 
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.user.model.UserVO;
@@ -31,4 +31,6 @@ public interface IUserService {
 	
 	public Result<String> smsImgUpload(HttpServletRequest request,String imgId,String mobile);
 	//public Result<Boolean> update(SmsUserInfo smsUserInfo);
+	
+	public List<UserVO> getCheckUserForSearch(UserVO user);
 }

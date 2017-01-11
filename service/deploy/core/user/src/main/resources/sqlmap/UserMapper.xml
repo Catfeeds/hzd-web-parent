@@ -231,4 +231,16 @@
 	      <include refid="Base_Where_Clause"/>
 	    </where>
 	</select>	
+	
+	<select id="getCheckUserForSearch" resultMap="BaseResultMap" parameterType="java.util.Map">
+		SELECT <include refid="Base_Column_List" /> FROM
+        users 
+	    <where>
+	      <include refid="Base_Where_Clause"/>
+	    </where>
+		ORDER BY create_time DESC
+	</select>
+	
+	
+	
 </mapper>

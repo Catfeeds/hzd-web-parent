@@ -59,4 +59,7 @@ public interface UserService extends IBaseService<UserVO>{
 			参数：realnamerepeat（真实姓名重复的数量），idcardrepeat（身份证号码重复的数量）,allrepeat（真实姓名和身份证号码总共的重复数量）
 	 */
 	public Map selectNameAndIdCardRepeat(Map<String, Object> parmMap);
+	
+	//导出查询
+	public PaginatedResult<UserVO> getCheckUserForSearch(Map<String, Object> parmMap);
 }

@@ -2,6 +2,8 @@ package com.hzcf.platform.mgr.sys.controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -17,6 +19,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.core.user.model.UserApplyInfoVO;
 import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.framework.fastdfs.FastDFSClient;
@@ -24,6 +27,8 @@ import com.hzcf.platform.framework.fastdfs.common.FileCommon;
 import com.hzcf.platform.mgr.sys.common.pageModel.DataGrid;
 import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
 import com.hzcf.platform.mgr.sys.common.pageModel.SmsUserInfo;
+import com.hzcf.platform.mgr.sys.common.util.DateUtils;
+import com.hzcf.platform.mgr.sys.common.util.ExportExcel;
 import com.hzcf.platform.mgr.sys.service.IUserService;
 /**
  * @description:后台用户管理
@@ -213,4 +218,34 @@ public class UserController {
         
         return bool.getItems();
 	 }
+	 
+	 /**
+	 * 导出Excel
+	 * @return
+	 */
+	@RequestMapping(value = "/checkuser/excel",method = RequestMethod.POST)
+    public void exportCheckUser(HttpServletResponse response, UserVO user){
+		String title = "smrz"+DateUtils.getDate();
+        String[] rowsName = new String[]{"序号","手机号","姓名","身份证号","提交时间","审核状态","不通过原因"};
+        List<UserVO> result = sysUserService.getCheckUserForSearch(user);
+        List<Object[]>  dataList = new ArrayList<Object[]>();
+        Object[] objs = null;
+        UserVO vo = null;
+        for (int i = 0; i < result.size(); i++) {
+        	vo = result.get(i);
+            objs = new Object[rowsName.length];
+            objs[0] = i+1;
+            objs[1] = vo.getMobile();
+            objs[2] = vo.getName();
+            objs[3] = vo.getIdCard();
+            //objs[4] = DateUtils.formatDate(vo.getSubmitTime(), "yyyy-MM-dd HH:mm:ss");
+            objs[4] = vo.getSubmitTime();
+            objs[5] = vo.getApplyStatus();
+            objs[6] = vo.getNopassCause();
+            
+            dataList.add(objs);
+        }
+        ExportExcel ex = new ExportExcel(title, rowsName, dataList);
+        ex.export(response);
+   }	 
 }

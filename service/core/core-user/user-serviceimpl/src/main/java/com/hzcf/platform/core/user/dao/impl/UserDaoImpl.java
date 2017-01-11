@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.hzcf.platform.core.user.dao.UserDao;
 import com.hzcf.platform.core.user.data.User;
+import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.framework.core.storage.mysql.AbstractMysqlBaseDaoImpl;
 
 @Repository
@@ -74,5 +75,11 @@ public class UserDaoImpl  extends AbstractMysqlBaseDaoImpl<User> implements User
 	@Override
 	public Map selectNameAndIdCardRepeat(Map<String, Object> paramMap) {
 		return sqlSessionTemplate.selectOne(getSqlName("selectNameAndIdCardRepeat"), paramMap);
+	}
+
+
+	@Override
+	public List<User> getCheckUserForSearch(Map<String, Object> parmMap) {
+		return sqlSessionTemplate.selectList(getSqlName("getCheckUserForSearch"), parmMap);
 	}
 }

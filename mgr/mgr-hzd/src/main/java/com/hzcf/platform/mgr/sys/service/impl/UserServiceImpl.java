@@ -9,7 +9,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.apache.commons.fileupload.servlet.ServletRequestContext;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -280,6 +279,15 @@ public class UserServiceImpl implements IUserService {
 	
 	public String geturl(String url){
 		return ConstantsDictionary.imgUpload+"/"+url;
+	}
+
+
+	@Override
+	public List<UserVO> getCheckUserForSearch(UserVO user) {
+		Map<String, Object> parmMap = new HashMap();
+		parmMap.put("user", user);
+		PaginatedResult result =  userSerivce.getCheckUserForSearch(parmMap);
+		return result.getItems();
 	}
 	
 	
