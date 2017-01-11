@@ -55,6 +55,7 @@ public class RealNameServiceImpl implements IRealNameService {
 	public FastDFSClient fastdfsClient;//底层上传组件类
 	@Autowired
 	public UserImageService userImageService;//借款人图片信息service
+
 	/**
 	 * @Title: getSuffix 截取图片的后缀
 	 * @Description: 返回“.”以后的内容，用于截取“.”以后的内容
@@ -111,7 +112,7 @@ public class RealNameServiceImpl implements IRealNameService {
 	public BackResult saveRealName(UserVO user,Map map) {
 		/**初始化参数：根据借款人的手机号查询借款人信息,该信息包含“实名认证信息”*/
 		Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
-		if (StatusCodes.OK != (byMobile.getStatus())) {
+		if (StatusCodes.OK != byMobile.getStatus()) {
 			logger.i("数据查询失败 。byMobile   >>>>500。。。。。。。。。。。 ");
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
 					HzdStatusCodeEnum.MEF_CODE_0001.getMsg());

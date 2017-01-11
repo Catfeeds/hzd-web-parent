@@ -39,9 +39,9 @@ public class StringUtil {
         System.out.print(getSuffix(m));*/
        /* Date BirthdayDate = CustomerUtils.calculateBirthDate("350301198002075153");
         System.out.print(BirthdayDate);
-        boolean b = ServiceUtil.validateIdNo("350301198002075153");
-        System.out.println(b);*/
-        Date date = DateExtendUtils.parseDate("2012-01-18");
-        System.out.print(date);
+       */ boolean b = ServiceUtil.validateIdNo("330726196507040016");
+        System.out.println(b);
+       /* Date date = DateExtendUtils.parseDate("2012-01-18");
+        System.out.print(date);*/
     }
 }
