@@ -5,6 +5,7 @@ import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -230,7 +231,8 @@ public class LoadService {
 			applyDataMap.put("idNum",userVO.getIdCard());//身份证号
 			applyDataMap.remove("idCard");
 			sdf.applyPattern("yyyy-MM-dd");
-			applyDataMap.put("idValidityDate",sdf.parse(userInfoVO.getIdcardValidity()));//证件有效期
+			Date date=sdf.parse(userInfoVO.getIdcardValidity());
+			applyDataMap.put("idValidityDate",date);//证件有效期
 			applyDataMap.remove("idcardValidity");
 			applyDataMap.put("mobile1",mobile);//电话
 			/**加密参数*/
