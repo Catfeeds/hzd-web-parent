@@ -68,10 +68,19 @@ public interface IOnlineApplyLoanService {
 
 
     /**
-         * 进件申请第刘步 个人信息预览
+         * 进件申请第六步 个人信息预览
          * @param user
          * @param
          * @return
          */
     public BackResult onlineLoanapplyInfoPreview(UserVO user, String applyId);
+
+    /**
+     * 进件申请第七步 提交进件
+     * @param user
+     * @param
+     * @return
+     */
+    public BackResult onlineLoanapplyInfoSubmit(UserVO user, String applyId);
+
 }

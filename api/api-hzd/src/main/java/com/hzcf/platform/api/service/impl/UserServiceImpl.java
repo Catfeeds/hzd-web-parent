@@ -67,6 +67,7 @@ public class UserServiceImpl implements IUserService {
 			user.setUserName(user.getMobile());
 			user.setStatus(BaseConfig.status_0);
 			user.setCheckStatus(BaseConfig.card_status_1);
+			user.setApplyStatus(BaseConfig.apply_loan_0);
 			user.setCreateTime(new Date());
 			Result<String> create = userSerivce.insertSelective(user);
 			if(StatusCodes.OK==create.getStatus()){

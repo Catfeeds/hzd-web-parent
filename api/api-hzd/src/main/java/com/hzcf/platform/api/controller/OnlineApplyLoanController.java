@@ -115,6 +115,20 @@ public class OnlineApplyLoanController {
         logger.i("applyId:"+ applyId);
         return onlineApplyLoanService.onlineLoanapplyInfoPreview(user,applyId);
     }
+
+    /**
+     * 用户进件申请  提交进件信息  第气步
+     */
+    @RequestMapping(value = {"rest/api/100/onlineLoanapply/submit/{applyId}","api/100/onlineLoanapply/info/Preview/{applyId}"},method = RequestMethod.POST)
+    public BackResult onlineLoanapplyInfoSubmit(@RequestAttribute(BaseConfig.USER_TYPE)  UserVO user,
+                                                 @PathVariable String applyId){
+        logger.i("进入  -----用户进件申请第七步,提交进件 ");
+        logger.i("入参user:"+ JsonUtil.json2String(user));
+        logger.i("applyId:"+ applyId);
+        return onlineApplyLoanService.onlineLoanapplyInfoPreview(user,applyId);
+    }
+
+
     private static String getSuffix(String url) {
         if (url != null) {
             int index = url.lastIndexOf(".");
