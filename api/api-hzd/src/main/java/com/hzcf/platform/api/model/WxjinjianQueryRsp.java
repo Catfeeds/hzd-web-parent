@@ -41,12 +41,23 @@ public class WxjinjianQueryRsp extends ServiceStatus implements Serializable{
 		 */
 		
 		private String weiXinApplicationStatus;
+		private String idcard;
 		private String createTime;
+
+
+
 		public String getWeiXinApplicationStatus() {
 			return weiXinApplicationStatus;
 		}
 		public void setWeiXinApplicationStatus(String weiXinApplicationStatus) {
 			this.weiXinApplicationStatus = weiXinApplicationStatus;
+		}
+		public String getIdcard() {
+			return idcard;
+		}
+
+		public void setIdcard(String idcard) {
+			this.idcard = idcard;
 		}
 		public String getCreateTime() {
 			return createTime;

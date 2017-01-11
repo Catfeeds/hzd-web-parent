@@ -8,7 +8,7 @@ import java.io.Serializable;
 public class CheckApplyLoanStatus implements Serializable{
     /**
      * 身份状态
-     * 实名认证有效状态 1无效 0有效
+     * 实名认证有效状态 1无效 0有效 2待审核
      */
     private String identityStatus;
     /**

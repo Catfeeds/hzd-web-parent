@@ -478,6 +478,52 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 				new onlineLoanapplyInfoPreviewForm(userApplyInfoVO, userInfoVO, userRelationVOList));
 	}
 
+	@Override
+	public BackResult onlineLoanapplyInfoSubmit(UserVO user, String applyId) {
+
+		Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
+		UserApplyInfoVO userApplyInfoVOResultitems = userApplyInfoVOResult.getItems();
+		if (userApplyInfoVOResultitems == null) {
+			logger.i("用户进件申请第七步 无效的借款编号");
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(),
+					HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
+		}
+
+		CheckApplyLoanStatus checkApplyLoanStatus = new CheckApplyLoanStatus();
+			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
+			UserVO items = byMobile.getItems();
+			if(items==null){
+				logger.i("用户进件申请第七步,未查询到用户信息");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_1045.getCode(),HzdStatusCodeEnum.MEF_CODE_1045.getMsg(),null);
+			}
+
+		if (BaseConfig.apply_loan_1.equals(items.getApplyStatus())) {
+			logger.i("------------------不能重复提交进件信息");
+			checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
+			checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_1);
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_2333.getCode(),
+					HzdStatusCodeEnum.MEF_CODE_2333.getMsg(), checkApplyLoanStatus);
+
+		}
+
+			if (BaseConfig.card_status_0.equals(items.getCheckStatus())) {
+				logger.i("------------用户已经通过实名认证,直接提交进件信息");
+				// 如果用于已经实名认证,直接进件    TODO 提交进件
+
+
+				checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
+				checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_0);
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), checkApplyLoanStatus);
+			}
+		  logger.i("------------用户实名认证待审核,进件信息提交到后台");
+		   checkApplyLoanStatus.setIdentityStatus(items.getCheckStatus());
+		   checkApplyLoanStatus.setApplyLoanStatus(items.getApplyStatus());
+
+			 return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
+				HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), checkApplyLoanStatus);
+	}
+
 	private static String getSuffix(String url) {
 		if (url != null) {
 			int index = url.lastIndexOf(".");

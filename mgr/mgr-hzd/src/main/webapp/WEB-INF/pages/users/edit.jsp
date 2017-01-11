@@ -21,11 +21,11 @@ pageEncoding="UTF-8"%>
 		//alert(1111);
 		var name = $("#name").val();
 		if(name==null||name==""){
-			$("#div").html("姓名不能为空");
+			$("#div").html("请输入姓名!");
 		}else{
-			var reg = /^[\u4E00-\u9FA5]{2,8}$/;
+			var reg = /^[\u4E00-\u9FA5]{2,6}$/;
 			if(!reg.test(name)){
-				$("#div").html("输入的姓名在2~8个汉字");
+				$("#div").html("姓名限2~6位汉字！");
 				return  false; 
 			}
 			$("#div").html("");
@@ -36,11 +36,11 @@ pageEncoding="UTF-8"%>
 	function sfz(){
 		var idCard = $("#idCard").val();
 		if(idCard==null || idCard==""){
-			$("#div").html("身份证号不能为空");
+			$("#div").html("请输入身份证号！");
 		}else{
 			 var reg = /(^\d{15}$)|(^\d{18}$)|(^\d{17}(\d|X|x)$)/;  
 			 if(reg.test(idCard) === false){    
-				 $("#div").html("身份证号不合法"); 
+				 $("#div").html("请输入正确的身份证号"); 
 			    return  false; 
 			 }
 
@@ -49,20 +49,27 @@ pageEncoding="UTF-8"%>
 	}
 	
 	function upload(id) {
+		var multipart = $("#image_input"+id).val();
+		//alert(multipart);
+		if(multipart==""||multipart==null){
+			return ;
+		}
+		if(imgId){};
         $("#form"+id).ajaxSubmit({
             type : 'POST',
             url:'${path}/users/check/updateImage',
             success : function(data) {
             	if(data == "false"){
-            		alert("上传失败");
+            		alert("上传失败!");
             		return null;
             	}
                 $("#imgDiv"+id).attr("src",data);
-                alert("上传成功");
+                alert("恭喜您,上传成功");
             }
         });
 
     }
+	
 </script>
 </head>
 <body>
@@ -111,8 +118,8 @@ pageEncoding="UTF-8"%>
 	<table id="table" style="width: 800px;height: 300px">
 	<tr>
 		<td>
-			<img id="imgDiv1" style="width: 200px;height: 100px" name="url" src="${smsUserInfo.artWorkA}" /><br />
-			<input type="file" name="image1"  />
+			<img id="imgDiv1" style="width: 200px;height: 100px" src="${smsUserInfo.artWorkA}" /><br />
+			<input type="file" id="image_input1"  name="file" />
 			<input type="button" onclick="upload('1')"value="重新上传"/>
 		</td>
 	</tr>
@@ -128,8 +135,8 @@ pageEncoding="UTF-8"%>
 	<table id="table" style="width: 800px;height: 300px">
 	<tr>
 		<td>
-			<img id="imgDiv2" style="width: 200px;height: 100px" name="url" src="${smsUserInfo.artWorkB}" /><br />
-        	<input type="file" id="image_input" name="file" />
+			<img id="imgDiv2" style="width: 200px;height: 100px" src="${smsUserInfo.artWorkB}" /><br />
+        	<input type="file" id="image_input2" name="file" />
         	<input type="button" onclick="upload('2')"value="重新上传"/>
 		</td>
 	</tr>
@@ -145,8 +152,8 @@ pageEncoding="UTF-8"%>
 	<table id="table" style="width: 800px;height: 300px">
 	<tr>
 		<td>
-			<img id="imgDiv3" style="width: 200px;height: 100px" name="url" src="${smsUserInfo.artWorkC}" /><br />
-        	<input type="file" id="image_input" name="file" />
+			<img id="imgDiv3" style="width: 200px;height: 100px" src="${smsUserInfo.artWorkC}" /><br />
+        	<input type="file" id="image_input3" name="file" />
         	<input type="button" onclick="upload('3')" value="重新上传"/>
 		</td>
 	</tr>
