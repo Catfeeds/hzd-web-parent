@@ -14,4 +14,6 @@ public interface UserRelationService extends IBaseService<UserRelationVO> {
 
     Result<List<UserRelationVO>> selectByApplyId(String applyId);
     public Result<Boolean> updateRelationId(UserRelationVO userRelationVO);
+    
+    public Result<Boolean> deleteByApplyId(String applyId);
 }

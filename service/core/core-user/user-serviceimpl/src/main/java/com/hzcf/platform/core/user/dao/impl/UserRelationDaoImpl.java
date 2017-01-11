@@ -45,4 +45,11 @@ public class UserRelationDaoImpl extends AbstractMysqlBaseDaoImpl<UserRelation> 
     public int updateByPrimaryKey(UserRelation record) {
         return 0;
     }
+
+
+
+	@Override
+	public int deleteByApplyId(String applyId) {
+		return this.sqlSessionTemplate.delete("deleteByApplyId");
+	}
 }
