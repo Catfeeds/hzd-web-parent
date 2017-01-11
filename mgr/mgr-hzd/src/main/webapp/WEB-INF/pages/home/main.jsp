@@ -8,8 +8,16 @@
 
 <script>
 	function addTab(title, url){
+		var centerTabsObj = $('#mainTabs');
 		if ($('#mainTabs').tabs('exists', title)){
 			$('#mainTabs').tabs('select', title);
+			var tab = centerTabsObj.tabs('getSelected');
+			centerTabsObj.tabs('update',{
+				tab:tab,
+				options:{
+					content:'<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>'
+				}
+			});
 		} else {
 			var content = '<iframe scrolling="auto" frameborder="0"  src="'+url+'" style="width:100%;height:100%;"></iframe>';
 			$('#mainTabs').tabs('add',{

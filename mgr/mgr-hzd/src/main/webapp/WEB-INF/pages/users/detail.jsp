@@ -38,7 +38,7 @@ pageEncoding="UTF-8"%>
 			var checkStatus = $('input:radio[name=radioCheck]:checked').val();
 			var mobile = $("#hid1").val();
 			var nopassCause = $("#mytext").val();
-			alert(nopassCause);
+			//alert(nopassCause);
 			$.ajax({
 				type:"POST",
 				url: '${path}/users/check/updateStatus',

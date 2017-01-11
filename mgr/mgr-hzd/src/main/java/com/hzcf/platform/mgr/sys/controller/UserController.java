@@ -150,11 +150,10 @@ public class UserController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value="/users/check/update",method=RequestMethod.POST)
-    public String update(String mobile,String name,String idCard ,HttpServletResponse response) throws IOException{
+    public void update(String mobile,String name,String idCard ,HttpServletResponse response) throws IOException{
 		Result<Boolean> bool = sysUserService.update(mobile, name, idCard);
 		Boolean status = bool.getItems().booleanValue();
 		response.getWriter().print(status);
-		return "redirect:/users/check/list";
     }	
 	/**
 	 * 修改实名认证用户的审核状态
