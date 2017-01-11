@@ -9,12 +9,10 @@ pageEncoding="UTF-8"%>
 <%@include file="../common/include.jsp"%> 
 <script type="text/javascript">
 	$(function(){
-		//alert("1111")
 		var status = $("#hid").val();
-		//alert(status);
 		if(status==2){
 			$("#statu").show();
-			$("#sh").show();
+			//$("#sh").show();
 		}
 			
 	});
@@ -28,9 +26,7 @@ pageEncoding="UTF-8"%>
 		
 	}
 	function butt(){
-		//alert(1111)
 		var status = $("#hid").val();
-		
 		if(status==1||status==0){
 			window.location = '${path}/users/check/list';
 		}  
@@ -38,7 +34,6 @@ pageEncoding="UTF-8"%>
 			var checkStatus = $('input:radio[name=radioCheck]:checked').val();
 			var mobile = $("#hid1").val();
 			var nopassCause = $("#mytext").val();
-			//alert(nopassCause);
 			$.ajax({
 				type:"POST",
 				url: '${path}/users/check/updateStatus',
@@ -58,28 +53,70 @@ pageEncoding="UTF-8"%>
 					} 
 				}
 			});
-
-			//window.location = '${path}/users/check/updateStatus?mobile='+mobile+ "&checkStatus="+checkStatus+"&nopassCause="+nopassCause;
 		}
-		
 	}
-	
 </script>
 </head>
 <body>
-<form action="${path}/users/check/updateStatus" method="post" id="form">
-<table id="grid" style="width: 800px;height: 550px">
+    <div class="content2">
+        <div class="userInfo">
+            <h1>用户信息</h1>
+            <table cellpadding="0" cellspacing="0">
+                <tr>
+                    <td>手机号：<span>${smsUserInfo.mobile}</span></td>
+                    <td>姓名：<span>${smsUserInfo.name}</span></td>
+                    <td>身份证号：<span>${smsUserInfo.idCard }</span></td>
+                </tr>
+                <tr>
+                    <td>审核状态：<span>${smsUserInfo.statusInfo}</span></td>
+                    <td>注册时间：<span>${smsUserInfo.createTime}</span></td>
+                </tr>
+            </table>
+        </div>
+        <div class="uploadPic">
+            <h1>图片上传信息</h1>
+            <div class="gallery">
+                <div class="showImage2">
+                    <div><img src="${smsUserInfo.artWorkA}" /></div>
+                </div>
+                <div class="showImage2">
+                    <div><img src= "${smsUserInfo.artWorkB}" /></div>
+                </div>
+                <div class="showImage2">
+                    <div><img src= "${smsUserInfo.artWorkC}" /></div>
+                </div>
+            </div>
+            <div class="clear"></div>
+            <hr />
+            <div class="radioBox" id="statu" style="display: none ">
+                <h1>审核意见</h1>
+                <div class="selectBox" >
+                    <div class="lL One"><input type="radio" name="radioCheck" id="yes" value="0" checked onclick="rad(this)"/>通过</div>
+                    <div class="lL Two"><input type="radio" name="radioCheck" id="no" value="1" onclick="rad(this)"/>不通过 </div>
+                </div>
+                <div class="clear"></div>
+                <div class="center" id="center">
+                    <textarea name="" placeholder="请填写不通过原因" id="" cols="30" rows="10"></textarea>
+                </div>
+            </div>
+            <br />
+            <div class="ui-button" style="text-align: left;margin: 20px 0 0" >
+            	<input type="hidden"  value="${smsUserInfo.checkStatus}" id="hid"/>
+				<input type="hidden"  value="${smsUserInfo.mobile}" id="hid1"/>
+                <input type="button" value="${smsUserInfo.butt}" class="submitBtn" id="button" onclick="butt()" />
+            </div>
+        </div>
+    </div>
+
+<%-- <table style="height:200px;width:100%;border=0;background:#e2e2e2">
 	<tr>
-		<td>用户信息</td>
+		<td style="font-size: 18px;font-weight:bolder">用户信息</td>
 	</tr>
 	<tr>	
 		<td>手机号:</td>
 		<td>${smsUserInfo.mobile}</td>
 		<td>姓名:</td>
 		<td>${smsUserInfo.name}</td>
-		
-	</tr>
-	<tr>
 		<td>身份证号:</td>
 		<td>${smsUserInfo.idCard }</td>
 	</tr>
@@ -89,33 +126,34 @@ pageEncoding="UTF-8"%>
 		<td>注册时间:</td>
 		<td>${smsUserInfo.createTime}</td>
 	</tr>
+	</table>
+<table style="height: 500px ;width:100%;margin-top:15px;background:#e2e2e2">	
+	<tr><td style="font-size: 18px;font-weight:bolder">图片上传信息</td></tr>
 	<tr>
-		<td>图片上传信息</td>
-		<td><img style="width: 200px;height: 100px" src="${smsUserInfo.artWorkA}"></td> 
+		<td><img style="width: 200px;height: 120px" src="${smsUserInfo.artWorkA}" /></td> 
 		<!-- <td><img style="width: 200px;height: 100px"  src= "http://10.10.10.64/group1/M00/00/01/CgoKQFhwiAeAbdESAAMVBy88HO4296.JPG"/></td> -->
-		<td><img style="width: 200px;height: 100px"  src= "${smsUserInfo.artWorkB}"></td>
-		<td><img style="width: 200px;height: 100px"  src= "${smsUserInfo.artWorkC}"></td>
+		<td><img style="width: 200px;height: 120px"  src= "${smsUserInfo.artWorkB}" /></td>
+		<td><img style="width: 200px;height: 120px"  src= "${smsUserInfo.artWorkC}" /></td>
 	</tr>
 	<tr style="display: none " id="sh">
-		<td>审核意见</td>
+		<td style="font-size: 18px;font-weight:bolder">审核意见</td>
 	</tr>
 	<tr id="statu" style="display: none ">
 		<td><input type="radio" name="radioCheck" id="yes" value="0" checked onclick="rad(this)"/>通过 </td>
 		<td><input type="radio" name="radioCheck" id="no" value="1" onclick="rad(this)"/>不通过 </td>
 		<td style="display: none " id="text">
-			<textarea id="mytext">
+			<textarea cols="50" rows="5" id="mytext" >请填写不通过原因
 			</textarea>
 		</td>
 	</tr>
 	
 	<tr>
 		<td>
-			<input type="hidden"  value=${smsUserInfo.checkStatus} id="hid"/>
-			<input type="hidden"  value=${smsUserInfo.mobile} id="hid1"/>
-			<input type="button" value=${smsUserInfo.butt} id="button" onclick="butt()"/>
+			<input type="hidden"  value="${smsUserInfo.checkStatus}" id="hid"/>
+			<input type="hidden"  value="${smsUserInfo.mobile}" id="hid1"/>
+			<input type="button" value="${smsUserInfo.butt}" id="button" onclick="butt()" />
 		</td>
 	</tr>
-</table>
-</form>
+</table> --%>
 </body>
 </html>
