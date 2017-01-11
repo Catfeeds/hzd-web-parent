@@ -1,6 +1,6 @@
 package com.hzcf.platform.mgr.sys.service;
 
-import com.hzcf.platform.mgr.sys.common.pageModel.SysUsersInfo;
+import com.hzcf.platform.core.sys.model.SysUsersVO;
 /**
  *
  * @author 李强
@@ -8,6 +8,6 @@ import com.hzcf.platform.mgr.sys.common.pageModel.SysUsersInfo;
  */
 public interface ISysUsersService {
 	
-	public SysUsersInfo getSysUsersInfo(String username);
+	public SysUsersVO getSysUsersInfo(String username);
 	
 }

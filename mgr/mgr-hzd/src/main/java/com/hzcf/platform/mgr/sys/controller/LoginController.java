@@ -13,7 +13,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzcf.platform.core.sys.model.SysUsersVO;
-import com.hzcf.platform.mgr.sys.common.pageModel.SysUsersInfo;
 import com.hzcf.platform.mgr.sys.service.ISysUsersService;
 /**
  * 
@@ -52,8 +51,7 @@ public class LoginController {
 		}*/
 		String result = "";
 		String rand = (String) request.getSession().getAttribute("rand");
-		SysUsersInfo sysUsersInfo = sysUsersService.getSysUsersInfo(username);
-		String passwordDB = sysUsersInfo.getPassword();
+		String passwordDB = sysUsersService.getSysUsersInfo(username).getPassword();
 		LoginJsonResult loginJsonResult = new LoginJsonResult();
 		if(!irand.equalsIgnoreCase(rand)){
 			result = "验证码错误!";

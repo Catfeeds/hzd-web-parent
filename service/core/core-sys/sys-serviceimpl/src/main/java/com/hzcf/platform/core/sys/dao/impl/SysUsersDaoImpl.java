@@ -15,7 +15,7 @@ public class SysUsersDaoImpl  extends AbstractMysqlBaseDaoImpl<SysUsers> impleme
 	 */
 	@Override
 	public SysUsers getBySysUsersName(String userName) {
-		return sqlSessionTemplate.selectOne(getSqlName("selectBySysUsersName"),userName);
+		return this.sqlSessionTemplate.selectOne(this.getSqlName("selectBySysUsersName"),userName);
 	}
 	
 }
