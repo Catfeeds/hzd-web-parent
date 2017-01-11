@@ -39,35 +39,36 @@ public class OfflineLoanServiceImpl implements IOfflineLoanService {
 	public BackResult offlineLoanApply(UserVO user, OnlineLoanInfo onlineLoanInfo) {
 		try {
 			DataVerifcation.datavVerification(onlineLoanInfo.getMobile(), onlineLoanInfo.getIdCard().toUpperCase(), onlineLoanInfo.getArea(), onlineLoanInfo.getName());
-			
 
+			onlineLoanInfo.setMobile(user.getMobile());
+			onlineLoanInfo.setIdCard(user.getId());
 			String sendRsp = onlineLoanWebServic.OnlineLoanApply(onlineLoanInfo);
 			JSONObject json = JSONObject.fromObject(sendRsp);
 			String retCode = json.getString("retCode");
 			String retInfo = json.getString("retInfo");
-			logger.i("返回参数：" + sendRsp);
+			logger.i("外访协助申请返回参数：" + sendRsp);
 			
 			if (retCode.equals("0000")) {
-				logger.i("进入微信进件提交方法:提交成功"+retInfo+"手机号:"+onlineLoanInfo.getMobile());
-				new BackResult(
+				logger.i("外访协助申请成功"+retInfo+"手机号:"+onlineLoanInfo.getMobile());
+				return	new BackResult(
 						HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
 						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),retInfo);
 			} else if(retCode.equals("4000")) {
-				new BackResult(
+				logger.i("外访协助申请失败"+retInfo+"手机号:"+onlineLoanInfo.getMobile());
+				return	new BackResult(
 						HzdStatusCodeEnum.MEF_CODE_2200.getCode(), retInfo);
 			}else{
 				logger.i("进入微信进件提交方法:提交失败:"+retInfo+"手机号:"+onlineLoanInfo.getMobile());
-				new BackResult(
+				return	new BackResult(
 						HzdStatusCodeEnum.MEF_CODE_2200.getCode(), retInfo);
 
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			new BackResult(
+			return	new BackResult(
 					HzdStatusCodeEnum.MEF_CODE_2211.getCode(),
 					e.getMessage());
 		}
-		return null;
 	}
 
 	@Override

@@ -54,13 +54,13 @@ public class OnlineLoanWebService {
 			jsonMap.put("phoneNumber", onlineLoanInfo.getMobile());
 			jsonMap.put("name", onlineLoanInfo.getName());
 			jsonMap.put("idcard", onlineLoanInfo.getIdCard());
-			jsonMap.put("area", onlineLoanInfo.getOpenId());
+			jsonMap.put("area", onlineLoanInfo.getArea());
 			jsonMap.put("openid", onlineLoanInfo.getOpenId());
 			jsonMap.put("systemSourceId", ConstantsDictionary.APP);
 			jsonMap.put("signature", single);
 
 			String ReqJson = JsonUtil.json2String(jsonMap);
-			logger.i("请求的JSON数据：" + ReqJson);
+			logger.i("外访协助请求的JSON数据：" + ReqJson);
 			String billParms;
 
 			billParms = AESUtil.enCrypt(ReqJson, ConstantsDictionary.KEY);
@@ -70,7 +70,7 @@ public class OnlineLoanWebService {
 			String sendRsp = HttpRequest.sendGet(ConstantsDictionary.WXSUBMIT, paramsData);
 			return sendRsp;
 		} catch (Exception e) {
-			throw new Exception("借款申请接口服务异常");
+			throw new Exception("外访协助接口服务异常");
 		}
 
 	}
