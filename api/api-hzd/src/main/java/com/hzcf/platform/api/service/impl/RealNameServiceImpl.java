@@ -79,6 +79,11 @@ public class RealNameServiceImpl implements IRealNameService {
 		/**初始化参数：根据借款人的手机号查询用户信息*/
 		try {
 			Result<UserVO> byMobile=userSerivce.getByMobile(user.getMobile());
+			if (StatusCodes.OK != (byMobile.getStatus())) {
+				logger.i("数据查询失败 。byMobile   >>>>500。。。。。。。。。。。 ");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+			}
 			UserVO items=byMobile.getItems();
 			if(items ==null){
 				logger.i("查询实名认证信息失败,通过手机号未查询到任何信息");
@@ -106,6 +111,11 @@ public class RealNameServiceImpl implements IRealNameService {
 	public BackResult saveRealName(UserVO user,Map map) {
 		/**初始化参数：根据借款人的手机号查询借款人信息,该信息包含“实名认证信息”*/
 		Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
+		if (StatusCodes.OK != (byMobile.getStatus())) {
+			logger.i("数据查询失败 。byMobile   >>>>500。。。。。。。。。。。 ");
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+					HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+		}
         UserVO items=byMobile.getItems();
         if(items==null){
         	logger.i("用户未注册,不能进行实名认证");

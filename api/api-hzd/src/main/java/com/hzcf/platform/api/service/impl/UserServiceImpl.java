@@ -56,6 +56,11 @@ public class UserServiceImpl implements IUserService {
 			}
 
 			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
+			if (StatusCodes.OK != (byMobile.getStatus())) {
+				logger.i("查询数据失败 。byMobile   >>>>500。。。。。。。。。。。 ");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+			}
 			UserVO items = byMobile.getItems();
 
 			if(items!=null){
@@ -98,6 +103,11 @@ public class UserServiceImpl implements IUserService {
 		try {
 
 			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
+			if (StatusCodes.OK != (byMobile.getStatus())) {
+				logger.i("查询数据失败 。byMobile   >>>>500。。。。。。。。。。。 ");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+			}
 			UserVO items = byMobile.getItems();
 			Map<String,Object> map = new HashMap<String,Object>();
 			if(items!=null){
@@ -121,7 +131,7 @@ public class UserServiceImpl implements IUserService {
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_1022.getCode(), HzdStatusCodeEnum.MEF_CODE_1022.getMsg());
 
 			}else{
-				logger.i("用户未注册,请先注册.手机号:)"+user.getMobile());
+				logger.i("用户未注册,请先注册.手机号:"+user.getMobile());
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_1011.getCode(), HzdStatusCodeEnum.MEF_CODE_1011.getMsg());
 			}
 		}  catch (Exception e) {

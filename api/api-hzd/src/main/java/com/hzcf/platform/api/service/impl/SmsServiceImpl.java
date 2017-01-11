@@ -1,6 +1,7 @@
 package com.hzcf.platform.api.service.impl;
 
 
+import com.hzcf.platform.common.util.status.StatusCodes;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -39,8 +40,13 @@ public class SmsServiceImpl implements ISmsService {
 		if (StringUtils.isNotBlank(mobile)) {
 			try {
 				Result<UserVO> byMobile = userSerivce.getByMobile(mobile);
+				if (StatusCodes.OK != (byMobile.getStatus())) {
+					logger.i("数据查询失败 。byMobile   >>>>500。。。。。。。。。。。 ");
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+				}
 				UserVO items = byMobile.getItems();
-				if (items != null) {
+				if (items != null ) {
 					logger.i("获取短信码失败，用户已注册"+mobile);
 					return new BackResult(HzdStatusCodeEnum.MEF_CODE_1010.getCode(), HzdStatusCodeEnum.MEF_CODE_1010.getMsg());
 				} else {
@@ -81,6 +87,11 @@ public class SmsServiceImpl implements ISmsService {
 		if (StringUtils.isNotBlank(mobile)) {
 			try {
 				Result<UserVO> byMobile = userSerivce.getByMobile(mobile);
+				if (StatusCodes.OK != (byMobile.getStatus())) {
+					logger.i("数据查询失败 。byMobile   >>>>500。。。。。。。。。。。 ");
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+				}
 				UserVO items = byMobile.getItems();
 				if (items != null) {
 					String six = Serialnumber.getSix();

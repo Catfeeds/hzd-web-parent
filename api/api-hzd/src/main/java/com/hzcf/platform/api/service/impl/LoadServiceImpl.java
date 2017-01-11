@@ -2,6 +2,7 @@ package com.hzcf.platform.api.service.impl;
 
 import com.hzcf.platform.api.model.WxjinjianQueryRsp;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
+import com.hzcf.platform.common.util.status.StatusCodes;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -55,6 +56,11 @@ public class LoadServiceImpl implements ILoadService {
 
 		Result<UserVO> byMobile=userSerivce.getByMobile(mobile);
 		UserVO items=byMobile.getItems();
+			if (StatusCodes.OK != (byMobile.getStatus())) {
+				logger.i("数据查询失败 - 500,  失败 。。。。。。。。。。。。。 ");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+			}
 		if(items ==null){
 			logger.i("接口：借款人查询借款进度失败，未查询到用户信息");
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_6103.getCode(),HzdStatusCodeEnum.MEF_CODE_6103.getMsg());

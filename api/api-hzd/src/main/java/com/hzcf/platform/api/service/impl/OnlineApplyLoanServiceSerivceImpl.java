@@ -70,6 +70,11 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 		try {
 			DataVerifcation.datavVerification(user.getMobile());
 			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
+			if (StatusCodes.OK != (byMobile.getStatus()) && byMobile!=null) {
+				logger.i("数据查询失败 。。。。。。。。。。。。。 ");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+			}
 			UserVO items = byMobile.getItems();
 			if (BaseConfig.card_status_1.equals(items.getCheckStatus())) {
 				logger.i("------------用户未通过实名认证");
@@ -130,7 +135,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 								HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
 					}
 				}
-				logger.i("-用户进件申请第一步 >>更新失败 为查询到申请信息>>applyId:"+userApplyInfoVO.getApplyId());
+				logger.i("-用户进件申请第一步 >>更新失败 未查询到申请信息>>applyId:"+userApplyInfoVO.getApplyId());
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
 						HzdStatusCodeEnum.MEF_CODE_0001.getMsg(), null);
 				}
@@ -175,6 +180,11 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			DataVerifcation.checkUserInfoVOTwo(userInfoVO, user);
 
 			Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
+			if (StatusCodes.OK != (userApplyInfoVOResult.getStatus())) {
+				logger.i("数据查询失败 。。500。。。。。。。。。。。 ");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+			}
 			UserApplyInfoVO items = userApplyInfoVOResult.getItems();
 			if (items == null) {
 				logger.i("用户进件申请第二步 无效的借款编号");
@@ -183,6 +193,13 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			}
 
 			Result<UserInfoVO> userInfoVOResult = userInfoService.selectByApplyId(applyId);
+
+			if (StatusCodes.OK != (userInfoVOResult.getStatus())) {
+				logger.i("数据查询失败 。userInfoVOResult   >>>>500。。。。。。。。。。。 ");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+			}
+
 			if (userInfoVOResult.getItems() != null) {
 				logger.i("用户进件申请第二步 更新借款信息");
 				userInfoVO.setCreateTime(new Date());
@@ -273,6 +290,11 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			DataVerifcation.checkUserInfoVOThree(userInfoVO, user);
 
 			Result<UserInfoVO> userInfoVOResult = userInfoService.selectByApplyId(applyId);
+			if (StatusCodes.OK != (userInfoVOResult.getStatus())) {
+				logger.i("数据查询失败 。userInfoVOResult   >>>>500。。。。。。。。。。。 ");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+			}
 			UserInfoVO items = userInfoVOResult.getItems();
 			if (items == null) {
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(),
@@ -321,6 +343,11 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			DataVerifcation.checkUserRelationVO(user, userRelationVO);
 
 			Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
+			if (StatusCodes.OK != (userApplyInfoVOResult.getStatus())) {
+				logger.i("数据查询失败 。userApplyInfoVOResult   >>>>500。。。。。。。。。。。 ");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+			}
 			UserApplyInfoVO items = userApplyInfoVOResult.getItems();
 			if (items == null) {
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(),
@@ -343,7 +370,6 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 				Result<String> stringResult = userRelationService.create(userRelation);
 				if (StatusCodes.OK != (stringResult.getStatus())) {
 					logger.i("进入  -----用户进件申请第四步,  失败 。。。。。。。。。。。。。 ");
-
 					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
 							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
 				}
@@ -379,6 +405,12 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
 
 		Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
+
+		if (StatusCodes.OK != (userApplyInfoVOResult.getStatus())) {
+			logger.i("数据查询失败 。userApplyInfoVOResult   >>>>500。。。。。。。。。。。 ");
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+					HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+		}
 		UserApplyInfoVO items = userApplyInfoVOResult.getItems();
 		if (items == null) {
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(),
@@ -464,6 +496,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	public BackResult onlineLoanapplyInfoPreview(UserVO user, String applyId) {
 		logger.i("---------------->>>>>>>个人信息预览接口");
 		Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
+
 		UserApplyInfoVO userApplyInfoVO = userApplyInfoVOResult.getItems();
 
 		Result<UserInfoVO> userInfoVOResult = userInfoService.selectByApplyId(applyId);

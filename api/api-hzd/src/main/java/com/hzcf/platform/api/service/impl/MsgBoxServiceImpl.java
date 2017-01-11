@@ -38,6 +38,11 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 		if(msgBoxVO != null){
 			msgBoxVO.setUserId(user.getId());
 			Result<Integer> result = this.msgBoxservice.selectUnReadNum(msgBoxVO);
+			if (StatusCodes.OK != (result.getStatus())) {
+				logger.i("数据查询失败 - 500,  失败 。。。。。。。。。。。。。 ");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+			}
 			map.put("number",result.getItems());
 			logger.i("用户  查询未读数量 。。。。。。 成功。。。。。 ");
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
@@ -69,11 +74,11 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 					return new BackResult(HzdStatusCodeEnum.MEF_CODE_2200.getCode(), HzdStatusCodeEnum.MEF_CODE_2200.getMsg(), null);
 				}
 			}else{
-				logger.i("用户 查询站内信列表 。。。。。。 。。。。。查询 失败。。。。。。。。 ");
+				logger.i("用户 查询站内信列表 。。。。。。 。。。。。查询 失败 。读取数据异常 500。。。。。。。 ");
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_2100.getCode(), HzdStatusCodeEnum.MEF_CODE_2100.getMsg(), null);
 			}
 		}else{
-			logger.i("用户 查询站内信列表 。。。。。。 。。。。。查询 失败。。。。。。。。 ");
+			logger.i("用户 查询站内信列表 。。。。。。 。。。。。查询 失败。。。传入参数为空。。。。。 ");
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_2100.getCode(), HzdStatusCodeEnum.MEF_CODE_2100.getMsg(), null);
 		}
 		

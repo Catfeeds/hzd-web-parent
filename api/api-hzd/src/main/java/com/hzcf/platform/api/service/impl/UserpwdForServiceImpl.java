@@ -1,6 +1,7 @@
 package com.hzcf.platform.api.service.impl;
 
 import com.hzcf.platform.api.common.ConstantsToken;
+import com.hzcf.platform.common.util.status.StatusCodes;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -57,6 +58,11 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 
 
 				Result<Boolean> updateMobile = userSerivce.updateMobile(user);
+				if (StatusCodes.OK != (updateMobile.getStatus())) {
+					logger.i("修改密码失败 。byMobile   >>>>500。。。。。。。。。。。 ");
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+				}
 					if(updateMobile.getItems()){
 						logger.i("修改密码成功-手机号:"+user.getMobile());
 						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
@@ -98,6 +104,11 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 		if(StringUtils.isNotBlank(user.getMobile())&&StringUtils.isNotBlank(user.getPassword())){
 			try {
 				Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
+				if (StatusCodes.OK != (byMobile.getStatus())) {
+					logger.i("查询数据失败 。byMobile   >>>>500。。。。。。。。。。。 ");
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+				}
 				UserVO items = byMobile.getItems();
 				if(StringUtils.isBlank( items.getId())){
 					return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(),"未查询到用户信息");
