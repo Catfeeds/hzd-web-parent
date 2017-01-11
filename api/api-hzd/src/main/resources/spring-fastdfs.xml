@@ -22,7 +22,7 @@
                     <list>
                         <!-- <value>up.img-pc.exiao.me:22122</value> -->
                         <!--<value>10.20.200.47:22122</value>-->
-                        <value>10.10.10.63:22122</value>
+                        <value>"${fastdfs.host}"</value>
                     </list>
                 </property>
             </bean>
