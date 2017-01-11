@@ -1,5 +1,7 @@
 package com.hzcf.platform.api.service.impl;
 
+import com.hzcf.platform.api.model.WxjinjianQueryRsp;
+import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -48,6 +50,9 @@ public class LoadServiceImpl implements ILoadService {
 			logger.i("接口：借款人查询借款进度失败，手机号不存在，mobile参数值："+mobile);
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_6102.getCode(), HzdStatusCodeEnum.MEF_CODE_6102.getMsg());
 		}
+		try {
+
+
 		Result<UserVO> byMobile=userSerivce.getByMobile(mobile);
 		UserVO items=byMobile.getItems();
 		if(items ==null){
@@ -56,12 +61,25 @@ public class LoadServiceImpl implements ILoadService {
 		}
 		String idCard=items.getIdCard();//用户身份证信息
 		String result=LoadService.selectLoadProgress(idCard);
-		if (StringUtils.isNotBlank(result) && "0000".equals(JSONObject.fromObject(result).getString("retCode"))) {
+		JSONObject  json = JSONObject.fromObject(result);
+		//WxjinjianQueryRsp wxrsp =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
+		String retCode = json.getString("retCode");
+		String retInfo = json.getString("retInfo");
+		if(retCode.equals("0000")){
 			logger.i("接口：借款人查询借款进度成功，结果："+result);
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),result);
+
+			WxjinjianQueryRsp wr= JsonUtil.jsonNote2Object(result, WxjinjianQueryRsp.class);
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),retInfo,wr!=null?wr.getWeiXinApplyList():null);
 		}else{
 			logger.e("接口：借款人查询借款进度失败，结果："+result);
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_6101.getCode(), HzdStatusCodeEnum.MEF_CODE_6101.getMsg());
+		}
+
+		}catch (Exception e){
+			e.printStackTrace();
+			logger.e("接口：借款人查询借款进度异常");
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+
 		}
 	}
 }
