@@ -514,10 +514,40 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			logger.i("--------------查询个人信息失败");
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(), HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
 		}
-
+		
+		//借款类型
+		userApplyInfoVO.setLoanPurposeTwo(dictUtilService.convertLoanPurposeTwo(userApplyInfoVO.getLoanPurposeOne(), userApplyInfoVO.getLoanPurposeTwo()));
+		userApplyInfoVO.setLoanPurposeOne(dictUtilService.convertLoanPurposeOne(userApplyInfoVO.getLoanPurposeOne()));
+		//期数
+		userApplyInfoVO.setPeriod(dictUtilService.convertDict(DictBase.PERIOD_NUM, userApplyInfoVO.getPeriod()));
+		//学历
+		userInfoVO.setEducation(dictUtilService.convertDict(DictBase.EDUCATION, userInfoVO.getEducation()));
+		//户籍省市
+		userInfoVO.setDomicileCity(dictUtilService.convertCity(userInfoVO.getDomicileProvince(), userInfoVO.getDomicileCity()));
+		userInfoVO.setDomicileProvince(dictUtilService.convertProvince(userInfoVO.getDomicileProvince()));
+		//家庭省市
+		userInfoVO.setResidentProvince(dictUtilService.convertCity(userInfoVO.getResidentProvince(), userInfoVO.getResidentCity()));
+		userInfoVO.setResidentProvince(dictUtilService.convertProvince(userInfoVO.getResidentProvince()));		
+		//婚姻
+		userInfoVO.setMarriageStatus(dictUtilService.convertDict(DictBase.MARRIAGE_STATUS, userInfoVO.getMarriageStatus()));
+		//有无子女
+		userInfoVO.setChildrenStatus(dictUtilService.convertDict(DictBase.CHILDRE_STATUS, userInfoVO.getChildrenStatus()));
+		//房产情况
+		userInfoVO.setHouseStatus(dictUtilService.convertDict(DictBase.HOUSE_STATUS, userInfoVO.getHouseStatus()));
+		//共同居住者
+		userInfoVO.setLiveTogether(dictUtilService.convertDict(DictBase.LIVE_TOGETHER, userInfoVO.getLiveTogether()));
+		//单位性质
+		userInfoVO.setOrgType(dictUtilService.convertDict(DictBase.ORG_TYPE, userInfoVO.getOrgType()));
+		//单位省市
+		userInfoVO.setOrgCity(dictUtilService.convertCity(userInfoVO.getOrgProvince(), userInfoVO.getOrgCity()));
+		userInfoVO.setOrgProvince(dictUtilService.convertProvince(userInfoVO.getOrgProvince()));
+		
+		//关系
 		for(UserRelationVO u : userRelationVOList){
-			u.setRelationType(dictUtilService.convertDict(DictBase.RELATION_TO_APPLYER,u.getRelationType()));
+			u.setRelationType(dictUtilService.convertRelationTwo(u.getType(), u.getRelationType()));
+			u.setType(dictUtilService.convertRelationOne(u.getType()));
 		}
+		
 		logger.i("--------------查询个人信息成功");
 		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),
 				new onlineLoanapplyInfoPreviewForm(userApplyInfoVO, userInfoVO, userRelationVOList));

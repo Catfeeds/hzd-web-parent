@@ -103,6 +103,46 @@ public class DictUtilServiceImpl  implements DictUtilService {
     }
     
     /**
+     * 与借款人关系 大类
+     * @param value
+     * @return
+     */
+    @Override
+    public String convertRelationOne(String value) {
+    	if(StringUtils.isBlank(value)) return "";
+    	List<UserDictJson> result = (List<UserDictJson>) cache.load("applyDictionaryRelation");
+    	for(UserDictJson dict : result){
+    		if(value.equals(dict.getDict_value())){
+    			return dict.getDict_text();
+    		}
+    	}
+    	return "";
+    }
+    
+    /**
+     * 与借款人关系 小类
+     * @param parentVale
+     * @param value
+     * @return
+     */
+    @Override
+    public String convertRelationTwo(String parentVale, String value) {
+    	if(StringUtils.isBlank(parentVale) || StringUtils.isBlank(value)) return "";
+    	List<UserDictJson> result = (List<UserDictJson>) cache.load("applyDictionaryRelation");
+    	List<UserDictJson> tempList = null;
+    	for(UserDictJson dict : result){
+    		if(parentVale.equals(dict.getDict_value())){
+    			tempList = dict.getList();
+    			for(UserDictJson temp : tempList){
+    				if(value.equals(temp.getDict_value()))
+    				return temp.getDict_text();
+    			}
+    		}
+    	}
+    	return "";
+    }
+    
+    /**
      * 其他字典   - 房产状况等等
      * @param type    类型  “HOUSE_STATUS/LIVE_TOGETHER/CHILDRE_STATUS” 
      * @param value   值

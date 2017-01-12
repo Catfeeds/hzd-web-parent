@@ -1,9 +1,9 @@
 package com.hzcf.platform.core.user.service;
 
-import com.hzcf.platform.core.user.model.UserDictJson;
-
 import java.util.List;
 import java.util.Map;
+
+import com.hzcf.platform.core.user.model.UserDictJson;
 
 /**
  * Created by leijiaming on 2016/12/30 0030.
@@ -26,7 +26,7 @@ public interface DictUtilService {
     public Map<String,Object> applyDictionaryRegionshi();
     public Map<String,Object> applyDictionaryRegionqu();
     public List<UserDictJson> applyDictionaryRelation() ;
-    
+
     
     /**
      * 借款用途 大类
@@ -40,6 +40,23 @@ public interface DictUtilService {
      * @return
      */
     public String convertLoanPurposeTwo(String parentVale, String value);
+    
+    
+    /**
+     * 与借款人关系 大类
+     * @param value
+     * @return
+     */
+    public String convertRelationOne(String value);
+    
+    /**
+     * 与借款人关系 小类
+     * @param parentVale
+     * @param value
+     * @return
+     */
+    public String convertRelationTwo(String parentVale, String value) ;    
+    
     /**
      * 其他字典   - 房产状况等等
      * @param type    类型  “HOUSE_STATUS/LIVE_TOGETHER/CHILDRE_STATUS” 
