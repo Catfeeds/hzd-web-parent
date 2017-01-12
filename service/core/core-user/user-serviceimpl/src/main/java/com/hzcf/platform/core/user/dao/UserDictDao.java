@@ -21,4 +21,5 @@ public interface UserDictDao extends IBaseDao<UserDict> {
 
     List<UserDict> selectList();
     List<UserDict> selectJkytList();
+    List<UserDict> selectRelationList() ;
 }

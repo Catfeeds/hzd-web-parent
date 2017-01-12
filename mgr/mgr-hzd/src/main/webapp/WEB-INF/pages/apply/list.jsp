@@ -23,11 +23,14 @@ $(function(){
 			{field:'maxMonthlyPayment',title:'月还款最高额度',width:100},
 			{field:'applySubmitTime',title:'提交时间',width:100},
 			{field:'status',title:'进件状态',width:100,formatter:function(value){
-				if(value ==0){
+				if(value =="0"){
 					return "未进件";
 				}
 				if(value=="1"){
 					return "已进件";
+				}
+				if(value=="2"){
+					return "待审核";
 				}
 			}},
 		   {field:'-',title:'操作',width:100,formatter:function(value,row,index){
@@ -85,14 +88,14 @@ function detail(det){
 	<!-- 查询条件 -->
 	<form id="searchForm" >
 	<span>用户手机号:</span>
-	<input id="mobile" name="mobile" class="easyui-textbox"  style="width:120px;">
+	<input id="mobile" name="mobile" class="easyui-textbox"  style="width:120px;"/>
 	<span>用户姓名:</span>
-	<input id="name" name="name" class="easyui-textbox"  style="width:120px;">
+	<input id="name" name="name" class="easyui-textbox"  style="width:120px;"/>
 	<!-- <span>身份证号:</span>
 	<input id="idCard" name="idCard" class="easyui-textbox"  style="width:120px;"> -->
 	<span>提交时间:</span>
-	<input id="startDate" name="startDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc">至
-	<input id="endDate" name="endDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc">
+	<input id="startDate" name="startDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc"/>至
+	<input id="endDate" name="endDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc"/>
 	<span>借款状态:</span>
 	<select  class="easyui-combobox" style="width:120px;">
 		<option value="">请选择</option>

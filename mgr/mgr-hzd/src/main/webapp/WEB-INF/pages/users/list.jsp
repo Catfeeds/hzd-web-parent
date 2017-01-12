@@ -26,7 +26,7 @@ $(function(){
 		    }},
 			{field:'createTime',title:'注册时间',width:120},
 			{field:'applyStatus',title:'进件状态',width:100,formatter:function(value){
-				if(value ==0){
+				if(value =="0"){
 					return "未进件";
 				}
 				if(value=="1"){
@@ -189,14 +189,14 @@ function updatePassWord(canshu) {
 	<!-- 查询条件 -->
 	<form id="searchForm" >
 	<span>用户手机号:</span>
-	<input id="mobile" name="mobile" class="easyui-textbox"  style="width:120px;">
+	<input id="mobile" name="mobile" class="easyui-textbox"  style="width:120px;"/>
 	<span>用户姓名:</span>
-	<input id="name" name="name" class="easyui-textbox"  style="width:120px;">
+	<input id="name" name="name" class="easyui-textbox"  style="width:120px;"/>
 	<span>身份证号:</span>
-	<input id="idCard" name="idCard" class="easyui-textbox"  style="width:120px;">
+	<input id="idCard" name="idCard" class="easyui-textbox"  style="width:120px;"/>
 	<span>注册日期:</span>
-	<input id="startDate" name="startDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc">至
-	<input id="endDate" name="endDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc">
+	<input id="startDate" name="startDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc"/>至
+	<input id="endDate" name="endDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc"/>
 <!-- 	<span>借款状态:</span>
 	<select  class="easyui-combobox" style="width:120px;">
 		<option value="">请选择</option>

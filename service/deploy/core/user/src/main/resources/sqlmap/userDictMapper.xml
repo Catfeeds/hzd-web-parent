@@ -30,7 +30,15 @@
   <select id="selectJkytList" resultMap="BaseResultMap"  >
     select
     <include refid="Base_Column_List" />
-    from user_dict where   pid  !='' 
+    <!-- from user_dict where   pid  !='' --> 
+    from user_dict where dict_path='LOANUSE' 
+	order by dict_id
+  </select>
+  
+  <select id="selectRelationList" resultMap="BaseResultMap"  >
+    select
+    <include refid="Base_Column_List" />
+    from user_dict where dict_path='RELATION' 
 	order by dict_id
   </select>
 
