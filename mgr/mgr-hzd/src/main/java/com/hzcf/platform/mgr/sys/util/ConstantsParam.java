@@ -19,4 +19,10 @@ public class ConstantsParam {
 	public final static String USER_CKECKSTATUS_N = "1"; // 审核状态不通过
 	public final static String USER_CKECKSTATUS = "2"; // 审核状态待审核
 	public final static String USE_APPLY_STASUE_N = "1";//进件状态 为未进件
+	
+	public final static String USER_APPLYINFO_STATU_WJ="0";// user_apply_info 表中的进件状态 未进件
+	public final static String USER_APPLYINFO_STATU_JJ="1";//已进件
+	public final static String USER_APPLYINFO_STATU_DSH="2";//待审核
+	
+	
 }

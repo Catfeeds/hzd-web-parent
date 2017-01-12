@@ -84,14 +84,12 @@ pageEncoding="UTF-8"%>
 			    return  false; 
 			 }
 			$("#div").html("");
-
 		}
-		
 	}
 	
 	function upload(id) {
 		var multipart = $("#image_input"+id).val();
-		//alert(multipart);
+		// alert(111111111);
 		if(multipart==""||multipart==null){
 			alert("请先选择图片!");
 			return ;
@@ -108,94 +106,82 @@ pageEncoding="UTF-8"%>
                 alert("恭喜您,上传成功!");
             }
         });
-
     }
 	
 </script>
 </head>
 <body>
 <div id="div" style="line-height: 100px; font-size: 1rem; color: red;"></div>
-<table id="table" style="width:800px; height:100px;">
 
-	<tr id="div" style="display: none "></tr>
-	<tr>
-		<td>用户信息</td>
-	</tr>
-	<tr>	
-		<td>手机号:</td>
-		<td>${smsUserInfo.mobile}</td>
-		<td>姓名:</td>
-		<td><input type="text" id="name" name="name" onblur="xm()" value=${smsUserInfo.name} /> </td>
-		<td>身份证号:</td>
-		<td><input type="text" id="idCard" name="idCard" onblur="xm()" value=${smsUserInfo.idCard} /> </td>
-	</tr>
-	
-	<tr style="background:#cccccc;">
-		<td>审核状态:</td>
-		<td>${smsUserInfo.statusInfo}</td>
-		<td>注册时间:</td>
-		<td>${smsUserInfo.createTime}</td>
-		
-	</tr>
-	<tr>
-		<td>
-		<input type="hidden" name="mobile" id="mobile1" value=${smsUserInfo.mobile} /> 
-		</td>
-	</tr>
-</table>
+<div class="content2">
+    <div class="userInfo">
+        <h1>用户信息</h1>
+        <table cellpadding="0" cellspacing="0">
+            <tr>
+                <td>手机号：<span>${smsUserInfo.mobile}</span></td>
+                <td>姓名:</td>
+				<td><input type="text" id="name" name="name" onblur="xm()" value="${smsUserInfo.name}" /> </td>
+				<td>身份证号:</td>
+				<td><input type="text" id="idCard" name="idCard" onblur="xm()" value="${smsUserInfo.idCard}" /> </td>
+            </tr>
+            <tr>
+                <td>审核状态:</td>
+				<td>${smsUserInfo.statusInfo}</td>
+				<td>注册时间:</td>
+				<td>${smsUserInfo.createTime}</td>
+            </tr>
+        </table>
+    </div>
+    <div class="uploadPic">
+        <h1>图片上传信息</h1>
+        <ul>
+            <li>
+                <form action="" id="form1" enctype="multipart/form-data">
+                	<div id="imgdiv" class="showImage"><img id="imgDiv1" src="${smsUserInfo.artWorkA}" alt="身份证正面（人像面）"/></div>
+	                <a href="javascript:;" class="file"><span>选择图片</span>
+	                    <input type="file" class="selector_file fl" id="image_input1" />
+	                </a>
+	                <a href="javascript:;" class="file"  onclick="upload('1')" ><span>上传</span>
+	                    <input type="button" class="selector_file fl"/>
+	                </a>
+	                <input type="hidden" name="imgId" value="${smsUserInfo.imgIdA}" />
+					<input type="hidden" name="mobile" id="mobile" value="${smsUserInfo.mobile}" />
+                </form>
+            </li>
+            <li>
+                <form action="" id="form2" enctype="multipart/form-data">
+                	<div id="imgdiv1" class="showImage"><img id="imgDiv2" src="${smsUserInfo.artWorkB}" alt="身份证反面（国徽面）"/></div>
+                	<a href="javascript:;" class="file"><span>选择图片</span>
+	                    <input type="file" class="selector_file fl" id="image_input2" />
+	                </a>
+	                <a href="javascript:;" class="file"  onclick="upload('2')"><span>上传</span>
+	                    <input type="button" class="selector_file fl" />
+	                </a>
+	                <input type="hidden" name="imgId" value="${smsUserInfo.imgIdB}" />
+					<input type="hidden" name="mobile" id="mobile" value="${smsUserInfo.mobile}" />
+                </form>
+            </li>
+            <li>
+                <form action="" id="form3" enctype="multipart/form-data">
+                	<div id="imgdiv2" class="showImage"><img id="imgDiv3" src="${smsUserInfo.artWorkC}" alt="个人近照"/></div>
+	                <a href="javascript:;" class="file"><span>选择图片</span>
+	                    <input type="file" class="selector_file fl" id="image_input3" />
+	                </a>
+	                <a href="javascript:;" class="file" onclick="upload('3')"><span>上传</span>
+	                    <input type="button" class="selector_file fl"/>
+	                </a>
+	                <input type="hidden" name="imgId" value="${smsUserInfo.imgIdC}" />
+					<input type="hidden" name="mobile" id="mobile" value="${smsUserInfo.mobile}" />
+                </form>
+            </li>
+        </ul>
+        <div class="clear"></div>
+        <div class="ui-button">
+            <!-- <a href="RealNameAuthentication.html" class="submitBtn" onclick="save()">保存</a> -->
+            <input type="button" id="submitBtn" class="submitBtn" onclick="save()" value="保存"/>
+        </div>
+    </div>
+</div>
 
-<form action="" id="form1" enctype="multipart/form-data">
-	<table id="table" style="width: 800px;">
-	<tr>
-		<td>
-			<img id="imgDiv1" style="width: 200px;height: 100px" src="${smsUserInfo.artWorkA}" /><br />
-			<input type="file" id="image_input1"  name="file" />
-			<input type="button" onclick="upload('1')"value="重新上传"/>
-		</td>
-	</tr>
-	<tr><td>
-		<input type="hidden" name="imgId" value=${smsUserInfo.imgIdA} />
-		<input type="hidden" name="mobile" id="mobile" value=${smsUserInfo.mobile} />
-		</td>
-	</tr>
-	</table>
-</form>
-
-<form action="" id="form2" enctype="multipart/form-data">
-	<table id="table" style="width: 800px;">
-	<tr>
-		<td>
-			<img id="imgDiv2" style="width: 200px;height: 100px" src="${smsUserInfo.artWorkB}" /><br />
-        	<input type="file" id="image_input2" name="file" />
-        	<input type="button" onclick="upload('2')"value="重新上传"/>
-		</td>
-	</tr>
-	<tr><td>
-		<input type="hidden" name="imgId" value=${smsUserInfo.imgIdB} />
-		<input type="hidden" name="mobile" id="mobile" value=${smsUserInfo.mobile} />
-		</td>
-	</tr>
-	</table>
-</form>
-
-<form action="" id="form3" enctype="multipart/form-data">
-	<table id="table" style="width: 800px;">
-	<tr>
-		<td>
-			<img id="imgDiv3" style="width: 200px;height: 100px" src="${smsUserInfo.artWorkC}" /><br />
-        	<input type="file" id="image_input3" name="file" />
-        	<input type="button" onclick="upload('3')" value="重新上传"/>
-		</td>
-	</tr>
-			
-	<tr><td>
-		<input type="hidden" name="imgId" value=${smsUserInfo.imgIdC} />
-		<input type="hidden" name="mobile" id="mobile" value=${smsUserInfo.mobile} />
-		</td>
-	</tr>
-	</table>
-</form>
-
-	<input type="button" value="保存" onclick="save()"/> 
 </body>
 </html>

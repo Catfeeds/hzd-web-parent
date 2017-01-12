@@ -109,7 +109,7 @@ public class SmsServiceImpl implements ISmsService {
 					}
 				} else {
 					logger.i("获取短信码失败，用户未注册"+mobile);
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_1012.getCode(), HzdStatusCodeEnum.MEF_CODE_1012.getMsg());
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_1011.getCode(), HzdStatusCodeEnum.MEF_CODE_1011.getMsg());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();

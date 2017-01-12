@@ -44,7 +44,6 @@ public class SmsObtainService {
 		String dataInfo="";
 		if("TRUE".equals(ConstantsDictionary.SMSNUMSWITCH)){
 			Map<String,Object> map =new HashMap<String,Object>();
-			
 			map.put("retCode", "'0000'");
 			return map.toString();
 		}

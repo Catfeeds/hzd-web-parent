@@ -75,7 +75,10 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter {
 				response.setStatus(HttpServletResponse.SC_NOT_FOUND);
 				return false;
 			}
+
+
 			UserVO uesr = (UserVO) cache.load(ConstantsToken.USER_CACHE_KEY + token);
+
 			if (uesr != null && logonExamine(uesr, ra, request,token)) {
 				
 				uesr.setToken(token);

@@ -20,6 +20,7 @@ import com.hzcf.platform.mgr.sys.common.util.DateUtils;
 import com.hzcf.platform.mgr.sys.common.util.ExportExcel;
 import com.hzcf.platform.mgr.sys.service.IApplyService;
 import com.hzcf.platform.mgr.sys.service.IUserService;
+import com.hzcf.platform.mgr.sys.util.ConstantsParam;
 /**
  * @description:后台进件管理Controller
  * @author zhangmx
@@ -70,7 +71,16 @@ public class ApplyController {
             
             objs[7] = vo.getMaxMonthlyPayment();
             objs[8] = DateUtils.formatDate(vo.getApplySubmitTime(), "yyyy-MM-dd HH:mm:ss");
-            objs[9] = vo.getStatus();
+            String status = vo.getStatus();
+            if(status.equals(ConstantsParam.USER_APPLYINFO_STATU_WJ)){
+            	objs[9] = "未进件";
+            }
+            if(status.equals(ConstantsParam.USER_APPLYINFO_STATU_JJ)){
+            	objs[9] = "已进件";
+            }
+            if(status.equals(ConstantsParam.USER_APPLYINFO_STATU_DSH)){
+            	objs[9] = "待审核";
+            }
             dataList.add(objs);
         }
         ExportExcel ex = new ExportExcel(title, rowsName, dataList);
