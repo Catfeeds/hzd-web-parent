@@ -14,13 +14,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
-import com.hzcf.platform.core.user.model.UserApplyInfoVO;
-import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.framework.fastdfs.FastDFSClient;
 import com.hzcf.platform.framework.fastdfs.common.FileCommon;
@@ -30,6 +25,7 @@ import com.hzcf.platform.mgr.sys.common.pageModel.SmsUserInfo;
 import com.hzcf.platform.mgr.sys.common.util.DateUtils;
 import com.hzcf.platform.mgr.sys.common.util.ExportExcel;
 import com.hzcf.platform.mgr.sys.service.IUserService;
+import com.hzcf.platform.mgr.sys.util.ConstantsParam;
 /**
  * @description:后台用户管理
  * @author zhangmx
@@ -239,7 +235,17 @@ public class UserController {
             objs[3] = vo.getIdCard();
             //objs[4] = DateUtils.formatDate(vo.getSubmitTime(), "yyyy-MM-dd HH:mm:ss");
             objs[4] = vo.getSubmitTime();
-            objs[5] = vo.getApplyStatus();
+            String checkStatus = vo.getCheckStatus();
+            if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)){
+            	 objs[5] = "通过";
+            }
+            if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_N)){
+            	objs[5] = "不通过";
+            }
+            if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS)){
+            	objs[5] = "待审核";
+            }
+            //objs[5] = vo.getApplyStatus();
             objs[6] = vo.getNopassCause();
             
             dataList.add(objs);

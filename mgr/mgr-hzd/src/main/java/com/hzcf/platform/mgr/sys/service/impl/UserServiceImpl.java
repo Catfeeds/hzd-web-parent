@@ -86,15 +86,15 @@ public class UserServiceImpl implements IUserService {
 				se.setArtWorkA(this.geturl(userList.get(0).getArtWork()));
 				se.setArtWorkB(this.geturl(userList.get(1).getArtWork()));
 				se.setImgIdA(userList.get(0).getImageId());
-				se.setImgIdA(userList.get(1).getImageId());
+				se.setImgIdB(userList.get(1).getImageId());
 			}
 			if(userList.size()>=3){
 				se.setArtWorkA(this.geturl(userList.get(0).getArtWork()));
 				se.setArtWorkB(this.geturl(userList.get(1).getArtWork()));
 				se.setArtWorkC(this.geturl(userList.get(2).getArtWork()));
 				se.setImgIdA(userList.get(0).getImageId());
-				se.setImgIdA(userList.get(1).getImageId());
-				se.setImgIdA(userList.get(2).getImageId());
+				se.setImgIdB(userList.get(1).getImageId());
+				se.setImgIdC(userList.get(2).getImageId());
 			}
 		}
 		
@@ -141,19 +141,19 @@ public class UserServiceImpl implements IUserService {
 		if(nopassCause!=null&&nopassCause!=""){
 			user.setNopassCause(nopassCause);
 		}
-		Result<UserVO> use1 = userSerivce.getByMobile(mobile);
+		Result<UserVO> result = userSerivce.getByMobile(mobile);
 		
 		MsgBoxVO msgBoxVO = new MsgBoxVO();
 		msgBoxVO.setMsgId(UUIDGenerator.getUUID());
-		msgBoxVO.setUserId(use1.getItems().getId());
+		msgBoxVO.setUserId(result.getItems().getId());
 		//msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_YES);
 		msgBoxVO.setMsgType(ConstantsParam.MSG_TYPE);
 		msgBoxVO.setIsRead(ConstantsParam.MSG_IS_READ_YES);
 		msgBoxVO.setCreateTime(new Date());
 		msgBoxVO.setMsgTitle("实名认证用户审核情况");
 		String date ="";
-		if(use1.getItems().getSubmitTime()!=""&&use1.getItems().getSubmitTime()!=null){
-			date = DateUtils.getDateString(use1.getItems().getSubmitTime());
+		if(result.getItems().getSubmitTime()!=""&&result.getItems().getSubmitTime()!=null){
+			date = DateUtils.getDateString(result.getItems().getSubmitTime());
 		}
 		
 		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_N)){
@@ -166,8 +166,8 @@ public class UserServiceImpl implements IUserService {
 			msgBoxVO.setMsgContent("尊敬的用户，您在"+date+"提交的实名认证申请已通过。");
 			msgBoxservice.insertSelective(msgBoxVO);
 		}
-		user.setId(use1.getItems().getId());
-		user.setIdCard(use1.getItems().getIdCard());
+		user.setId(result.getItems().getId());
+		user.setIdCard(result.getItems().getIdCard());
 		user.setApplyStatus(ConstantsParam.USE_APPLY_STASUE_N);
 		return userSerivce.updateByPrimaryKeySelective(user);
 	}
@@ -284,7 +284,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public List<UserVO> getCheckUserForSearch(UserVO user) {
-		Map<String, Object> parmMap = new HashMap();
+		Map<String, Object> parmMap = new HashMap<String, Object>();
 		parmMap.put("user", user);
 		PaginatedResult result =  userSerivce.getCheckUserForSearch(parmMap);
 		return result.getItems();
