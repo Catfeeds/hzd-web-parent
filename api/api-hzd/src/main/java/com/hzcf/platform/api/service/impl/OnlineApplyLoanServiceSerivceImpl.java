@@ -183,7 +183,14 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_2400.getCode(),
 						HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
 			}
-
+			//获取用户身份证号
+			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
+			if (StatusCodes.OK != (userApplyInfoVOResult.getStatus())) {
+				logger.i("用户信息查询失败 。。500。。。。。。。。。。。 ");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+			}
+			user.setIdCard(byMobile.getItems().getIdCard());
 			Result<UserInfoVO> userInfoVOResult = userInfoService.selectByApplyId(applyId);
 
 			if (StatusCodes.OK != (userInfoVOResult.getStatus())) {

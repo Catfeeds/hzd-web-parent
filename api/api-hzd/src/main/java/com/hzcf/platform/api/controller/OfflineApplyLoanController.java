@@ -42,7 +42,7 @@ public class OfflineApplyLoanController {
 		logger.i("进入外访协助接口====入参====onlineLoanInfo:"+onlineLoanInfo.toString());
 		return onlineLoanService.offlineLoanApply(user, onlineLoanInfo);
 	}
-	
+	//作废
 	@RequestMapping(value="rest/api/100/offlineLoan/query/{mobile}",method=RequestMethod.GET)
 	@ResponseBody
 	public BackResult onlineLoanQuery(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,@PathVariable String mobile){

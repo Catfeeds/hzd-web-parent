@@ -55,6 +55,7 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 	/**
 	 * 查询站内信列表
 	 */
+
 	@Override
 	public BackResult selectAllByUser(UserVO user, MsgBoxVO msgBoxVO) {
 		if(msgBoxVO != null){

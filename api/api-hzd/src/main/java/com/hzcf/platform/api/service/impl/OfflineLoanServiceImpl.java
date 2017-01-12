@@ -38,10 +38,10 @@ public class OfflineLoanServiceImpl implements IOfflineLoanService {
 	@Override
 	public BackResult offlineLoanApply(UserVO user, OnlineLoanInfo onlineLoanInfo) {
 		try {
-			DataVerifcation.datavVerification(onlineLoanInfo.getMobile(), onlineLoanInfo.getIdCard().toUpperCase(), onlineLoanInfo.getArea(), onlineLoanInfo.getName());
+			DataVerifcation.datavVerification(user.getMobile(), onlineLoanInfo.getIdCard().toUpperCase(), onlineLoanInfo.getArea(), onlineLoanInfo.getName());
 
 			onlineLoanInfo.setMobile(user.getMobile());
-			onlineLoanInfo.setIdCard(user.getId());
+			onlineLoanInfo.setOpenId(user.getId());
 			String sendRsp = onlineLoanWebServic.OnlineLoanApply(onlineLoanInfo);
 			JSONObject json = JSONObject.fromObject(sendRsp);
 			String retCode = json.getString("retCode");
