@@ -19,9 +19,9 @@ pageEncoding="UTF-8"%>
 	
 	function rad(obj){
 		if(obj.value==1){
-			$("#text").show();
+			$("#center").show();
 		}else{
-			$("#text").hide();
+			$("#center").hide();
 		}
 		
 	}
@@ -95,7 +95,7 @@ pageEncoding="UTF-8"%>
                     <div class="lL Two"><input type="radio" name="radioCheck" id="no" value="1" onclick="rad(this)"/>不通过 </div>
                 </div>
                 <div class="clear"></div>
-                <div class="center" id="center">
+                <div class="center" id="center" style="display: none ">
                     <textarea name="" placeholder="请填写不通过原因" id="" cols="30" rows="10"></textarea>
                 </div>
             </div>
@@ -107,53 +107,5 @@ pageEncoding="UTF-8"%>
             </div>
         </div>
     </div>
-
-<%-- <table style="height:200px;width:100%;border=0;background:#e2e2e2">
-	<tr>
-		<td style="font-size: 18px;font-weight:bolder">用户信息</td>
-	</tr>
-	<tr>	
-		<td>手机号:</td>
-		<td>${smsUserInfo.mobile}</td>
-		<td>姓名:</td>
-		<td>${smsUserInfo.name}</td>
-		<td>身份证号:</td>
-		<td>${smsUserInfo.idCard }</td>
-	</tr>
-	<tr>
-		<td>审核状态:</td>
-		<td>${smsUserInfo.statusInfo}</td>
-		<td>注册时间:</td>
-		<td>${smsUserInfo.createTime}</td>
-	</tr>
-	</table>
-<table style="height: 500px ;width:100%;margin-top:15px;background:#e2e2e2">	
-	<tr><td style="font-size: 18px;font-weight:bolder">图片上传信息</td></tr>
-	<tr>
-		<td><img style="width: 200px;height: 120px" src="${smsUserInfo.artWorkA}" /></td> 
-		<!-- <td><img style="width: 200px;height: 100px"  src= "http://10.10.10.64/group1/M00/00/01/CgoKQFhwiAeAbdESAAMVBy88HO4296.JPG"/></td> -->
-		<td><img style="width: 200px;height: 120px"  src= "${smsUserInfo.artWorkB}" /></td>
-		<td><img style="width: 200px;height: 120px"  src= "${smsUserInfo.artWorkC}" /></td>
-	</tr>
-	<tr style="display: none " id="sh">
-		<td style="font-size: 18px;font-weight:bolder">审核意见</td>
-	</tr>
-	<tr id="statu" style="display: none ">
-		<td><input type="radio" name="radioCheck" id="yes" value="0" checked onclick="rad(this)"/>通过 </td>
-		<td><input type="radio" name="radioCheck" id="no" value="1" onclick="rad(this)"/>不通过 </td>
-		<td style="display: none " id="text">
-			<textarea cols="50" rows="5" id="mytext" >请填写不通过原因
-			</textarea>
-		</td>
-	</tr>
-	
-	<tr>
-		<td>
-			<input type="hidden"  value="${smsUserInfo.checkStatus}" id="hid"/>
-			<input type="hidden"  value="${smsUserInfo.mobile}" id="hid1"/>
-			<input type="button" value="${smsUserInfo.butt}" id="button" onclick="butt()" />
-		</td>
-	</tr>
-</table> --%>
 </body>
 </html>
