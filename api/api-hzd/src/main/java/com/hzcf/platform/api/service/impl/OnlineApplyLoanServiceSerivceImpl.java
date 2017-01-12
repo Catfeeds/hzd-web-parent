@@ -466,7 +466,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 						Map   map = new HashedMap();
 						map.put("url",url);
 						map.put("type",userImageVO.getType());
-
+						logger.i("-----------------------上传图片成功");
 						logger.i("上传图片运行时间：" + String.valueOf(endTime - startTime) + "ms" +url);
 						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
 
