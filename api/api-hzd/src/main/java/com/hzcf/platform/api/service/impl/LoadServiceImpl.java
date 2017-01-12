@@ -33,13 +33,15 @@ public class LoadServiceImpl implements ILoadService {
     @Autowired
     public UserService userSerivce;//借款人service
 	@Override
-	public void insertLoad() {
+	public BackResult insertLoad() {
+		String result="";
 		try {
-			String result=LoadService.insertLoad("APP20170110210312492");
+			result=LoadService.insertLoad("APP20170111165822642");
 			logger.i("result:"+result);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),result);
 	}
 	/**借款人查询借款进度
 	 * 

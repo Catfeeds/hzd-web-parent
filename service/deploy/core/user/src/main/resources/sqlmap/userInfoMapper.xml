@@ -51,8 +51,8 @@
   <sql id="Base_Column_List" >
     user_info_id,user_id,apply_id,id_type,idcard_validity,birthday,gender,education,domicile_province,domicile_city,
     domicile_address,domicile_post_code,marriage_status,children_status,house_status,resident_province,resident_city,resident_address,
-    resident_tel_code,resident_post_code,email,annual_income,credit_card_limit,live_together,
-    staff_no,create_time,org_name,org_type,org_province,org_city,org_address,org_post_code,org_tel_code,
+    resident_tel_code,resident_tel_area_code,resident_post_code,email,annual_income,credit_card_limit,live_together,
+    staff_no,create_time,org_name,org_type,org_province,org_city,org_address,org_post_code,org_tel_area_code,org_tel_code,
 	is_express,product_id,receiver_login_name,is_inside,org_team_id,borrow_type
   </sql>
 
@@ -78,7 +78,7 @@
   <insert id="insert" parameterType="UserInfo" >
     insert into user_info (user_info_id,user_id,apply_id,id_type,idcard_validity,birthday,gender,education,domicile_province,domicile_city,
     domicile_address,domicile_post_code,marriage_status,children_status,house_status,resident_province,resident_city,resident_address,
-    resident_tel_code,resident_post_code,email,annual_income,credit_card_limit,live_together,
+    resident_tel_code,resident_tel_area_code,resident_post_code,email,annual_income,credit_card_limit,live_together,
     staff_no,create_time,org_name,org_type,org_province,org_city,org_address,org_post_code,org_tel_code,
 	is_express,product_id,receiver_login_name,is_inside,org_team_id,borrow_type
       )
@@ -86,7 +86,7 @@
       #{idcardValidity,jdbcType=VARCHAR},#{birthday,jdbcType=TIMESTAMP}, #{gender,jdbcType=VARCHAR}, #{education,jdbcType=VARCHAR}, #{domicileProvince,jdbcType=VARCHAR}, 
       #{domicileCity,jdbcType=VARCHAR}, #{domicileAddress,jdbcType=VARCHAR},#{domicilePostCode,jdbcType=VARCHAR}, #{marriageStatus,jdbcType=VARCHAR}, 
       #{childrenStatus,jdbcType=VARCHAR}, #{houseStatus,jdbcType=VARCHAR}, #{residentProvince,jdbcType=VARCHAR}, 
-      #{residentCity,jdbcType=VARCHAR}, #{residentAddress,jdbcType=VARCHAR}, #{residentTelCode,jdbcType=VARCHAR},#{residentPostCode,jdbcType=VARCHAR},  
+      #{residentCity,jdbcType=VARCHAR}, #{residentAddress,jdbcType=VARCHAR},#{residentTelCode,jdbcType=VARCHAR},#{residentTelAreaCode,jdbcType=VARCHAR},#{residentPostCode,jdbcType=VARCHAR},  
       #{email,jdbcType=VARCHAR}, #{annualIncome,jdbcType=DECIMAL}, #{creditCardLimit,jdbcType=DECIMAL}, 
       #{liveTogether,jdbcType=VARCHAR}, #{staffNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
       #{orgName,jdbcType=VARCHAR},#{orgType,jdbcType=VARCHAR},#{orgProvince,jdbcType=VARCHAR},#{orgCity,jdbcType=VARCHAR},#{orgAddress,jdbcType=VARCHAR},
@@ -153,6 +153,9 @@
       </if>
       <if test="residentTelCode != null" >
         resident_tel_code,
+      </if>
+      <if test="residentTelAreaCode != null" >
+        resident_tel_area_code,
       </if>
       <if test="residentPostCode != null" >
         resident_post_code,
@@ -273,6 +276,9 @@
       <if test="residentTelCode != null" >
         #{residentTelCode,jdbcType=VARCHAR},
       </if>
+      <if test="residentTelAreaCode != null" >
+        #{residentTelAreaCode,jdbcType=VARCHAR},
+      </if>
       <if test="residentPostCode != null" >
         #{residentPostCode,jdbcType=VARCHAR},
       </if>
@@ -386,6 +392,9 @@
       <if test="residentTelCode != null" >
         resident_tel_code = #{residentTelCode,jdbcType=VARCHAR},
       </if>
+      <if test="residentTelAreaCode != null" >
+        resident_tel_area_code = #{residentTelAreaCode,jdbcType=VARCHAR},
+      </if>
       <if test="residentPostCode != null" >
         resident_post_code = #{residentPostCode,jdbcType=VARCHAR},
       </if>
@@ -470,6 +479,7 @@
       resident_city = #{residentCity,jdbcType=VARCHAR},
       resident_address = #{residentAddress,jdbcType=VARCHAR},
       resident_tel_code = #{residentTelCode,jdbcType=VARCHAR},
+      resident_tel_area_code = #{residentTelAreaCode,jdbcType=VARCHAR},
       resident_post_code = #{residentPostCode,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       annual_income = #{annualIncome,jdbcType=DECIMAL},
