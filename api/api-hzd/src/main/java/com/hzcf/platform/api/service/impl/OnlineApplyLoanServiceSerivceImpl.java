@@ -19,10 +19,10 @@ import com.hzcf.platform.api.common.DataVerifcation;
 import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.*;
 import com.hzcf.platform.core.user.service.*;
-import com.hzcf.platform.framework.fastdfs.FastDFSClient;
+//import com.hzcf.platform.framework.fastdfs.FastDFSClient;
 
 
-import com.hzcf.platform.framework.fastdfs.pool.ImageServer;
+import com.imageserver.ImageServer;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +50,6 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	public UserRelationService userRelationService;
 	@Autowired
 	public UserImageService userImageService;
-	@Autowired
-	FastDFSClient fastdfsClient;
 	@Autowired
 	private ImageServer imageServer;
 	@Autowired

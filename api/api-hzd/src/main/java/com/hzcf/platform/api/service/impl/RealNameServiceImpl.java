@@ -11,8 +11,8 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.hzcf.platform.api.config.BaseConfig;
-
-import com.hzcf.platform.framework.fastdfs.pool.ImageServer;
+import com.imageserver.ImageServer;
+//import com.hzcf.platform.framework.fastdfs.pool.ImageServer;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,7 +36,6 @@ import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
 import com.hzcf.platform.core.user.service.UserImageService;
 import com.hzcf.platform.core.user.service.UserService;
-import com.hzcf.platform.framework.fastdfs.FastDFSClient;
 
 /**
   * @Description:实名认证的操作
@@ -53,8 +52,6 @@ public class RealNameServiceImpl implements IRealNameService {
     public UserService userSerivce;//借款人service
 	@Autowired
 	public UserApplyInfoSerivce userApplyInfoSerivce;//用户申请信息service
-	@Autowired
-	public FastDFSClient fastdfsClient;//底层上传组件类
 
 	@Autowired
 	private ImageServer imageServer;

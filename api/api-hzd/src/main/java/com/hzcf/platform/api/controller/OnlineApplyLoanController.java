@@ -17,10 +17,7 @@ import com.hzcf.platform.api.form.UserRelationForm;
 import com.hzcf.platform.api.service.IOnlineApplyLoanService;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
-import com.hzcf.platform.framework.fastdfs.FastDFSClient;
 
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 线上申请进件
@@ -31,8 +28,7 @@ public class OnlineApplyLoanController {
     private static final Log logger = Log.getLogger(OnlineApplyLoanController.class);
     @Autowired
     private IOnlineApplyLoanService onlineApplyLoanService;
-    @Autowired
-    FastDFSClient fastdfsClient;    /**
+    /**
      * 查询是否可以进件
      * @param user
      * @return
