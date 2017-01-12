@@ -39,7 +39,11 @@ public class DictUtilServiceImpl  implements DictUtilService {
     public List<UserDictJson> applyDictionaryJkyt() {
         return (List<UserDictJson>) cache.load("applyDictionaryJkyt");
     }
-
+    @Override
+    public List<UserDictJson> applyDictionaryRelation() {
+        return (List<UserDictJson>) cache.load("applyDictionaryRelation");
+    }
+    
     @Override
     public Map<String, Object> applyDictionaryinfo() {
         return (Map<String, Object>) cache.load("applyDictionaryinfo");

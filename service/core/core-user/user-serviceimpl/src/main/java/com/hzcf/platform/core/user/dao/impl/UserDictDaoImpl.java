@@ -53,4 +53,9 @@ public class UserDictDaoImpl extends AbstractMysqlBaseDaoImpl<UserDict> implemen
     public List<UserDict> selectJkytList() {
         return sqlSessionTemplate.selectList("selectJkytList");
     }
+    
+    @Override
+    public List<UserDict> selectRelationList() {
+        return sqlSessionTemplate.selectList("selectRelationList");
+    }
 }

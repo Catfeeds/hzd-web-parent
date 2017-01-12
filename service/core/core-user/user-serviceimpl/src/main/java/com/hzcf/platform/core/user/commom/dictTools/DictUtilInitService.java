@@ -46,7 +46,11 @@ public class DictUtilInitService {
         cache.save("applyDictionaryJkyt",applyDictionaryJkyt);
         System.out.println("applyDictionaryJkyt"+applyDictionaryJkyt);
 
-
+    	//与联系人关系
+    	List<UserDict> userDicts5 = userDictDao.selectRelationList();
+        List<UserDictJson> applyDictionaryRelation = initRelation(userDicts5);
+        cache.save("applyDictionaryRelation",applyDictionaryRelation);
+        System.out.println("applyDictionaryRelation"+applyDictionaryRelation);
 
 
         List<UserDict> userDicts1 = userDictDao.selectList();
@@ -180,8 +184,6 @@ public class DictUtilInitService {
     //借款用途
     public  List<UserDictJson> initLoanuse(List<UserDict> userDictList){
     	Map<String,Object> dictionaryInfoMap = new HashMap<String, Object>(); 
-        String key = "";
-        String pid = "";
         List<UserDictJson> tempList=new ArrayList();;
         List<UserDictJson> neiList = null;
         UserDictJson userDictJson = null;
@@ -203,6 +205,42 @@ public class DictUtilInitService {
         	//父类
         	}else{
         		userDictJson = new UserDictJson();
+                userDictJson.setDict_value(userDice.getDictValue());
+                userDictJson.setDict_text(userDice.getDictText());
+                neiList = new ArrayList();
+                userDictJson.setList(neiList);
+                tempList.add(userDictJson);
+        	}
+        }
+    	return tempList;
+    }
+    
+    //与联系人关系
+    public  List<UserDictJson> initRelation (List<UserDict> userDictList){
+    	Map<String,Object> dictionaryInfoMap = new HashMap<String, Object>(); 
+        List<UserDictJson> tempList=new ArrayList();
+        List<UserDictJson> neiList = null;
+        UserDictJson userDictJson = null;
+        for(UserDict userDice:userDictList){
+            //子类
+        	if(userDice.getDictValue().length() > 1){
+        		for(int i=0;i<tempList.size();i++){
+        			UserDictJson json = (UserDictJson)tempList.get(i);
+        			//找到父类
+        			if(json.getAreacode().equals(userDice.getPid().toString())){
+        				neiList = json.getList();
+        				userDictJson = new UserDictJson();
+        				userDictJson.setDict_value(userDice.getDictValue());
+        				userDictJson.setDict_text(userDice.getDictText());
+        				neiList.add(userDictJson);
+        				tempList.set(i, json);
+        			}
+        		}
+        	//父类
+        	}else{
+        		userDictJson = new UserDictJson();
+        		//暂用做PID
+        		userDictJson.setAreacode(userDice.getDictId());
                 userDictJson.setDict_value(userDice.getDictValue());
                 userDictJson.setDict_text(userDice.getDictText());
                 neiList = new ArrayList();

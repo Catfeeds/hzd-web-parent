@@ -25,6 +25,7 @@ public interface DictUtilService {
     public List<UserDictJson> applyDictionaryRegionsheng();
     public Map<String,Object> applyDictionaryRegionshi();
     public Map<String,Object> applyDictionaryRegionqu();
+    public List<UserDictJson> applyDictionaryRelation() ;
     
     
     /**

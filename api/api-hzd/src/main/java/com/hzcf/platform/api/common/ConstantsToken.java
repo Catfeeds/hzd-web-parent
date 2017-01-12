@@ -46,4 +46,8 @@ public class ConstantsToken  implements Serializable{
     public static final String SMS_CACHE_FINDPWD_KEY = "SMS_CACHE_FINDPWD_";
     
     public static final int TOKENLOSESTATUS = 110;
+    
+    public static final String RELATION_TO_HOME = "3";		//家庭联系人
+    public static final String RELATION_TO_URGE = "4";		//紧急联系人
+    public static final String RELATION_TO_WORK = "5";		//工作联系人
 }
