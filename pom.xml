@@ -92,10 +92,10 @@
 				<artifactId>framework-webmvc</artifactId>  
 				<version>${hzcf.framework.webmvc}</version>  
 			</dependency>
-			<dependency>  
-				<groupId>com.hzcf.framework</groupId>  
-				<artifactId>framework-fastdfs</artifactId>  
-				<version>${hzcf.framework.fastdfs}</version>  
+			<dependency>
+				<groupId>com.hzcf.framework</groupId>
+				<artifactId>framework-fastdfs</artifactId>
+				<version>${hzcf.framework.fastdfs}</version>
 			</dependency>
 			<dependency>  
 				<groupId>com.hzcf.framework</groupId>  

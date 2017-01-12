@@ -22,19 +22,20 @@
             </bean>
 		</mvc:argument-resolvers>
     </mvc:annotation-driven>
-     
+
+    <!-- 视图解析器 -->
     <bean id="viewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
         <property name="viewClass"
-            value="org.springframework.web.servlet.view.JstlView" />
+                  value="org.springframework.web.servlet.view.JstlView" />
         <property name="prefix" value="/WEB-INF/protocol/" />
         <property name="suffix" value=".html" />
     </bean>
   	      <!-- 通过mvc:resources设置静态资源，这样servlet就会处理这些静态资源，而不通过控制器 -->  
     <!-- 设置不过滤内容，比如:css,jquery,img 等资源文件 -->  
-    <mvc:resources location="/static/protocol/" mapping="/static/protocol/**" />  
-    <mvc:resources location="/static/protocol/css/" mapping="/static/protocol/css/**" />  
-
-    <mvc:resources location="/static/protocol/images/" mapping="/static/protocol/images/**" />  
+    <mvc:resources location="/WEB-INF/protocol/" mapping="/WEB-INF/protocol/**" />
+    <mvc:resources location="/WEB-INF/protocol/css/" mapping="/WEB-INF/protocol/css/**" />
+    <mvc:resources location="/WEB-INF/protocol/images/" mapping="/WEB-INF/protocol/images/**" />
+    <mvc:resources location="/static/protocol/images/" mapping="/static/protocol/images/**" />
  	 <mvc:resources location="/static/versions/" mapping="/static/versions/**" />
        <bean id="multipartResolver" class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
             <property name="defaultEncoding" value="utf-8"></property>

@@ -212,6 +212,10 @@ public class LoadService {
 			/**发送Http请求，POST方式*/
 			result=HttpRequestUtil.sendPost(ConstantsDictionary.dispatchLoadInsertLoadUrl,str);
 			logger.info("接口：进件。返回的结果："+result);
+
+
+
+
 		} catch (Exception e) {
 			logger.error("接口：进件。发生异常，异常信息："+e.getMessage());
 			e.printStackTrace();
@@ -260,4 +264,9 @@ public class LoadService {
 	//测试方法
 	public static void main(String[] args) throws Exception {
 	}
+
+
+
+
+
 }

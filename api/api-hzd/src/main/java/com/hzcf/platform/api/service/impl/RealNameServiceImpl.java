@@ -11,6 +11,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import com.hzcf.platform.api.config.BaseConfig;
+import com.hzcf.platform.framework.fastdfs.pool.ImageServer;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +54,8 @@ public class RealNameServiceImpl implements IRealNameService {
 	public UserApplyInfoSerivce userApplyInfoSerivce;//用户申请信息service
 	@Autowired
 	public FastDFSClient fastdfsClient;//底层上传组件类
+
+
 	@Autowired
 	public UserImageService userImageService;//借款人图片信息service
 
@@ -236,7 +239,7 @@ public class RealNameServiceImpl implements IRealNameService {
 						if(StringUtils.isNotBlank(myFileName)){
 							synchronized (this) {
 								//上传图片，上传操作完成后返回图片的路径地址：file_url
-								file_url = fastdfsClient.upload(file.getBytes(), getSuffix(myFileName), null);
+								file_url = fastdfsClient.upload(file.getBytes(), getSuffix(myFileName),null);
 							}
 						//	userImageService
 						}

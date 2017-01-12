@@ -31,5 +31,8 @@
 	</bean>
     <!--(3)此处获取对象的方式是从工厂类中获取静态方法-->  
     <!-- <bean name="fastdfsClient" class="com.exiao.platform.framework.fastdfs.FastDFSClientFactory" factory-method="getFastdfsClient"></bean>  -->
+
 	<bean name="fastdfsClient" class="com.hzcf.platform.framework.fastdfs.FastDFSClientImpl" scope="prototype"></bean>
+
+
 </beans>

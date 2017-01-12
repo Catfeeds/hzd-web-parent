@@ -83,6 +83,7 @@ public class LoadServiceImpl implements ILoadService {
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_6101.getCode(), HzdStatusCodeEnum.MEF_CODE_6101.getMsg());
 		}
 
+
 		}catch (Exception e){
 			e.printStackTrace();
 			logger.e("接口：借款人查询借款进度异常");

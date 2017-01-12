@@ -11,11 +11,11 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class ProtocolController {
 	
-	@RequestMapping(value="api/100/register/protocol")
+		@RequestMapping(value="api/100/register/protocol" )
 	public ModelAndView showAutoDebitProtocol(HttpServletRequest request, HttpServletResponse response, Model model
 			) {
-		ModelAndView mv = new ModelAndView("/about");
-		return mv;
+
+		return new ModelAndView("about");
 	}
 
 }
