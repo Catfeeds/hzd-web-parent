@@ -21,6 +21,8 @@ import com.hzcf.platform.core.user.model.*;
 import com.hzcf.platform.core.user.service.*;
 import com.hzcf.platform.framework.fastdfs.FastDFSClient;
 
+
+import com.hzcf.platform.framework.fastdfs.pool.ImageServer;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,6 +52,8 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	public UserImageService userImageService;
 	@Autowired
 	FastDFSClient fastdfsClient;
+	@Autowired
+	private ImageServer imageServer;
 	@Autowired
 	DictUtilService dictUtilService;
 
@@ -437,12 +441,13 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 					try {
 						if(StringUtils.isNotBlank(myFileName)){
 							//synchronized (this) {
-								file_url = fastdfsClient.upload(file.getBytes(), getSuffix(myFileName), null);
+								file_url = imageServer.uploadFile(file.getBytes(), getSuffix(myFileName));
 							//}
 						//	userImageService
 						}
 
 						if(StringUtils.isBlank(file_url)){
+							logger.i("上传图片失败----------------------："+file_url);
 							return new BackResult(HzdStatusCodeEnum.MEF_CODE_4100.getCode(), HzdStatusCodeEnum.MEF_CODE_4100.getMsg());
 						}
 						userImageVO.setImageId(UUIDGenerator.getUUID());
@@ -452,6 +457,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 						userImageVO.setCreateTime(new Date());
 						Result<Boolean> booleanResult = userImageService.insertSelective(userImageVO);
 						if (StatusCodes.OK != (booleanResult.getStatus())) {
+							logger.i("保存图片失败----------------------："+file_url);
 							return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
 									HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
 						}

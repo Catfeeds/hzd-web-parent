@@ -90,6 +90,10 @@
 			<artifactId>framework-fastdfs</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>com.hzcf.framework</groupId>
+			<artifactId>framework-fastdfs2</artifactId>
+		</dependency>
+		<dependency>
     <groupId>net.sf.json-lib</groupId>
     <artifactId>json-lib</artifactId>
     <version>2.4</version>

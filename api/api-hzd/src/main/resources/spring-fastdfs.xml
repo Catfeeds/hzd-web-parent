@@ -34,5 +34,9 @@
 
 	<bean name="fastdfsClient" class="com.hzcf.platform.framework.fastdfs.FastDFSClientImpl" scope="prototype"></bean>
 
-
+    <bean name="imageServer" class="com.hzcf.platform.framework.fastdfs.pool.ImageServerImpl" scope="prototype">
+        <constructor-arg name="serverIp" value="10.10.10.63"></constructor-arg>
+        <constructor-arg name="port" value="22122"></constructor-arg>
+        <constructor-arg name="size" value="10"></constructor-arg>
+    </bean>
 </beans>

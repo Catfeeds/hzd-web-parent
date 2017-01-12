@@ -97,6 +97,11 @@
 				<artifactId>framework-fastdfs</artifactId>
 				<version>${hzcf.framework.fastdfs}</version>
 			</dependency>
+			<dependency>
+				<groupId>com.hzcf.framework</groupId>
+				<artifactId>framework-fastdfs2</artifactId>
+				<version>${hzcf.framework.fastdfs}</version>
+			</dependency>
 			<dependency>  
 				<groupId>com.hzcf.framework</groupId>  
 				<artifactId>framework-shiro</artifactId>  
