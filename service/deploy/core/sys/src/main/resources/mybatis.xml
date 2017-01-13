@@ -8,7 +8,7 @@
 
 	<!-- 指定映射文件 -->
 	<mappers>
-		<mapper resource="sqlmap/SysUsersmapper.xml" />
+		<mapper resource="sqlmap/SysUsersMapper.xml" />
 	</mappers>
 </configuration>
 
