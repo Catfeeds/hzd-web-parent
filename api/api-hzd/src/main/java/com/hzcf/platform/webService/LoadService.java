@@ -1,9 +1,5 @@
 package com.hzcf.platform.webService;
 
-import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
@@ -14,12 +10,12 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.util.AESUtil;
 import com.hzcf.platform.api.util.DateExtendUtils;
 import com.hzcf.platform.api.util.HttpRequestUtil;
-import com.hzcf.platform.api.util.HttpTool;
 import com.hzcf.platform.api.util.Md5Util;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.rpc.result.Result;
@@ -37,9 +33,7 @@ import com.hzcf.platform.core.user.webService.model.BorrowRelationVo;
 import com.hzcf.platform.core.user.webService.model.HuiZhongApplicationVo;
 import com.hzcf.platform.core.user.webService.model.ImageVo;
 
-import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-import org.springframework.transaction.annotation.Transactional;
 
 /**
   * @Description:对借款信息的操作，如：进件，借款人查询借款进度
