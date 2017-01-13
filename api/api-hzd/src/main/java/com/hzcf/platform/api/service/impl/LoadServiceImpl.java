@@ -48,15 +48,10 @@ public class LoadServiceImpl implements ILoadService {
 		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),result);
 	}
 	@Override
-	public BackResult operateLoad(String params) {
+	public BackResult operateLoad(String params) throws Exception {
 		JSONObject json=JSONObject.fromObject(params);
 		String applyId=json.getString("applyId");
-		Map<String,Object> result=null;
-		try {
-			result=LoadService.operateLoad(applyId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		boolean result=LoadService.operateLoad(applyId);
 		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),result);
 	}
 	/**借款人查询借款进度

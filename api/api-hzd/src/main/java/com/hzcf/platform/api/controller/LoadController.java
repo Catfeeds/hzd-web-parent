@@ -41,7 +41,7 @@ public class LoadController {
 	 * 
 	 */
 	@RequestMapping(value="operateload",method = RequestMethod.POST)
-    public void operateload(@RequestBody String params){
+    public void operateload(@RequestBody String params) throws Exception {
         logger.i("进件接口");
         loadService.operateLoad(params);
     }
