@@ -54,4 +54,5 @@ public class LoadController {
         logger.i("入参"+ JsonUtil.json2String(user));
         return loadService.selectLoadProgress(user);
     }
+
 }
