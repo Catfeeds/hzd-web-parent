@@ -39,7 +39,7 @@
        select
        <include refid="Base_Column_List" />
        from user_image
-       where type='4' and user_id=#{id,jdbcType=VARCHAR}
+       where image_type='B1' and user_id=#{id,jdbcType=VARCHAR}
   </select>
   
   <select id="selectByApplyId" resultMap="BaseResultMapVO" parameterType="java.lang.String" >
@@ -57,12 +57,12 @@
        where apply_id=#{applyId,jdbcType=VARCHAR} and type=#{type,jdbcType=VARCHAR}
   </select>
   
-  <!-- 根据用户ID号（user_id），图片类型（type），查询图片集合 -->
+  <!-- 根据用户ID号（user_id），图片类型（imageType），查询图片集合 -->
   <select id="selectUserImageByUserIdAndType" resultMap="BaseResultMapVO" parameterType="java.util.Map">
        select
        <include refid="Base_Column_List" />
        from user_image
-       where user_id=#{userId} and type=#{type}
+       where user_id=#{userId} and image_type=#{imageType}
   </select>
   
   <delete id="deleteByPrimaryKey" parameterType="UserImage" >

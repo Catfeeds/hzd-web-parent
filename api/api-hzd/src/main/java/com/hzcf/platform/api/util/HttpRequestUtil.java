@@ -9,6 +9,8 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
+import com.hzcf.platform.api.config.ConstantsDictionary;
+
 /**
  * 
  * @ClassName: HttpRequestUtil 
@@ -38,6 +40,8 @@ public class HttpRequestUtil {
 	            connection.setRequestProperty("connection", "Keep-Alive");
 	            connection.setRequestProperty("user-agent",
 	                    "Mozilla/4.0 (compatible; MSIE 6.0; Windows NT 5.1;SV1)");
+	            connection.setConnectTimeout(ConstantsDictionary.CONNECTTIMEOUT);//设置连接主机超时时间（单位：毫秒）
+	            connection.setReadTimeout(ConstantsDictionary.READTIMEOUT);//设置从主机读取数据超时时间（单位：毫秒）
 	            // 建立实际的连接
 	            connection.connect();
 	            // 获取所有响应头字段

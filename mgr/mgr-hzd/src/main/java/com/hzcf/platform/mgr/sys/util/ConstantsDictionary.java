@@ -4,6 +4,7 @@ import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.util.Properties;
+
 /**
  * 
  * @description:读取配置信息
@@ -18,7 +19,6 @@ import java.util.Properties;
  * </pre>
  */
 public class ConstantsDictionary {
-	
 	static {
 
 		Properties props = new Properties();
@@ -36,10 +36,20 @@ public class ConstantsDictionary {
 			SMS = props.getProperty("SMS");
 			SMSNUM = props.getProperty("SMSNUM");
 			SMSNUMSWITCH = props.getProperty("SMSNUMSWITCH");
-			CONNECTTIMEOUT = Integer.valueOf(props.getProperty("CONNECTTIMEOUT"));
+			CONNECTTIMEOUT = Integer.valueOf(props.getProperty("CONNECTTIMEOUT"));//设置连接主机超时时间（单位：毫秒）
+			READTIMEOUT = Integer.valueOf(props.getProperty("READTIMEOUT"));//设置从主机读取数据超时时间（单位：毫秒）
 			SNSNUMFAILUREDATE = Integer.valueOf(props.getProperty("SNSNUMFAILUREDATE"));//短信失效时间
 			CONTENTTEXT = props.getProperty("CONTENTTEXT");
 			imgUpload  = props.getProperty("imgUpload");
+			
+			/**借款的配置信息
+			 * 线上和调度的所有接口的配置信息
+			 * */
+			//调度的“查询借款进度”接口地址
+			dispatchLoadInsertLoadUrl=props.getProperty("dispatch.load.insertLoad.url");
+			//调度的“查询借款进度”接口地址
+			dispatchLoadSelectLoadProgressUrl=props.getProperty("dispatch.load.selectLoadProgress.url");
+			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -61,10 +71,21 @@ public class ConstantsDictionary {
 	public static String APP="APP";//系统标示
 	public static String SMSNUMSWITCH;//超级验证码开关
 	public static String SMSCONTENT ="汇中融资咨询手机号绑定验证码：【】。请勿将验证码告知他人并确认该申请是您本人操作！";
-	public static int CONNECTTIMEOUT;
+	public static int CONNECTTIMEOUT;//设置连接主机超时（单位：毫秒）
+	public static int READTIMEOUT;//设置从主机读取数据超时（单位：毫秒）
 	public static int SNSNUMFAILUREDATE;
 	public final static String SMSSSTATUS1="1";
 	public final static String SMSSSTATUS0="0";//失效
 	public static String CONTENTTEXT;
 	public static String imgUpload;
+
+	
+	/**借款的配置信息
+	 * 线上和调度的所有接口的配置信息
+	 * */
+	//进件，就是保存借款申请。调度的“进件”接口地址
+	public static String dispatchLoadInsertLoadUrl;
+	//查询借款进度。调度的“查询借款进度”接口地址
+	public static String dispatchLoadSelectLoadProgressUrl;
 }
+
