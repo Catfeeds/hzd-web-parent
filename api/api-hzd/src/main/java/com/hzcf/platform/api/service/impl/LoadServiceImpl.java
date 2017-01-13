@@ -3,6 +3,9 @@ package com.hzcf.platform.api.service.impl;
 import com.hzcf.platform.api.model.WxjinjianQueryRsp;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.status.StatusCodes;
+
+import java.util.Map;
+
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -33,15 +36,28 @@ public class LoadServiceImpl implements ILoadService {
     @Autowired
     public UserService userSerivce;//借款人service
 	@Override
-	public BackResult insertLoad() {
+	public BackResult insertLoad(String params) {
+		JSONObject json=JSONObject.fromObject(params);
+		String applyId=json.getString("applyId");
 		String result="";
 		try {
-			result=LoadService.insertLoad("APP20170111165822642");
-			logger.i("result:"+result);
+			result=LoadService.insertLoad(applyId);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),result);
+	}
+	@Override
+	public BackResult operateLoad(String params) {
+		JSONObject json=JSONObject.fromObject(params);
+		String applyId=json.getString("applyId");
+		Map<String,Object> result=null;
+		try {
+			result=LoadService.operateLoad(applyId);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),result);
 	}
 	/**借款人查询借款进度
 	 * 
@@ -54,41 +70,37 @@ public class LoadServiceImpl implements ILoadService {
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_6102.getCode(), HzdStatusCodeEnum.MEF_CODE_6102.getMsg());
 		}
 		try {
-
-
-		Result<UserVO> byMobile=userSerivce.getByMobile(mobile);
-		UserVO items=byMobile.getItems();
-			if (StatusCodes.OK != (byMobile.getStatus())) {
-				logger.i("数据查询失败 - 500,  失败 。。。。。。。。。。。。。 ");
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+			Result<UserVO> byMobile=userSerivce.getByMobile(mobile);
+			UserVO items=byMobile.getItems();
+				if (StatusCodes.OK != (byMobile.getStatus())) {
+					logger.i("数据查询失败 - 500,  失败 。。。。。。。。。。。。。 ");
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+				}
+			if(items ==null){
+				logger.i("接口：借款人查询借款进度失败，未查询到用户信息");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_6103.getCode(),HzdStatusCodeEnum.MEF_CODE_6103.getMsg());
 			}
-		if(items ==null){
-			logger.i("接口：借款人查询借款进度失败，未查询到用户信息");
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_6103.getCode(),HzdStatusCodeEnum.MEF_CODE_6103.getMsg());
-		}
-		String idCard=items.getIdCard();//用户身份证信息
-		String result=LoadService.selectLoadProgress(idCard);
-		JSONObject  json = JSONObject.fromObject(result);
-		//WxjinjianQueryRsp wxrsp =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
-		String retCode = json.getString("retCode");
-		String retInfo = json.getString("retInfo");
-		if(retCode.equals("0000")){
-			logger.i("接口：借款人查询借款进度成功，结果："+result);
-
-			WxjinjianQueryRsp wr= JsonUtil.jsonNote2Object(result, WxjinjianQueryRsp.class);
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),retInfo,wr!=null?wr.getWeiXinApplyList():null);
-		}else{
-			logger.e("接口：借款人查询借款进度失败，结果："+result);
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_6101.getCode(), HzdStatusCodeEnum.MEF_CODE_6101.getMsg());
-		}
-
+			String idCard=items.getIdCard();//用户身份证信息
+			String result=LoadService.selectLoadProgress(idCard);
+			JSONObject  json = JSONObject.fromObject(result);
+			//WxjinjianQueryRsp wxrsp =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
+			String retCode = json.getString("retCode");
+			String retInfo = json.getString("retInfo");
+			if(retCode.equals("0000")){
+				logger.i("接口：借款人查询借款进度成功，结果："+result);
+	
+				WxjinjianQueryRsp wr= JsonUtil.jsonNote2Object(result, WxjinjianQueryRsp.class);
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),retInfo,wr!=null?wr.getWeiXinApplyList():null);
+			}else{
+				logger.e("接口：借款人查询借款进度失败，结果："+result);
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_6101.getCode(), HzdStatusCodeEnum.MEF_CODE_6101.getMsg());
+			}
 
 		}catch (Exception e){
 			e.printStackTrace();
 			logger.e("接口：借款人查询借款进度异常");
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
-
 		}
 	}
 }

@@ -11,8 +11,10 @@ import com.hzcf.platform.core.user.model.UserVO;
   * @since  JDK1.7
   */
 public interface ILoadService {
-	//进件
-	public BackResult insertLoad();
+	//进件,仅仅保存借款信息
+	public BackResult insertLoad(String params);
+	//进件,保存借款信息，同时修改数据库中的“借款状态”
+	public BackResult operateLoad(String params);
 	//查询借款进度
 	public BackResult selectLoadProgress(UserVO user);
 }

@@ -33,10 +33,18 @@ public class LoadController {
 	 * 
 	 */
 	@RequestMapping(value="insertload",method = RequestMethod.POST)
-    public void insertload(){
+    public void insertload(@RequestBody String params){
         logger.i("进件接口");
-        loadService.insertLoad();
-    }	
+        loadService.insertLoad(params);
+    }
+	/**进件接口
+	 * 
+	 */
+	@RequestMapping(value="operateload",method = RequestMethod.POST)
+    public void operateload(@RequestBody String params){
+        logger.i("进件接口");
+        loadService.operateLoad(params);
+    }
 	/**借款人查询借款进度接口
 	 * 
 	 */
