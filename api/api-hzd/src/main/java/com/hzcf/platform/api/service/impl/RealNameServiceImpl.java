@@ -222,7 +222,8 @@ public class RealNameServiceImpl implements IRealNameService {
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
 					"图片类型不能为空",null);
 		}
-		long startTime = System.currentTimeMillis();//获取当前时间戳
+
+			long startTime = System.currentTimeMillis();//获取当前时间戳
 		//将当前上下文初始化给 CommonsMutipartResolver （多部分解析器）
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
 				request.getSession().getServletContext());
@@ -267,7 +268,7 @@ public class RealNameServiceImpl implements IRealNameService {
 						long endTime = System.currentTimeMillis();
 						Map   map = new HashedMap();
 						map.put("url", ImageUrlUtil.geturl(file_url));
-						map.put("type",userImageVO.getType());
+						map.put("imageType",userImageVO.getImageType());
 
 						logger.i("上传图片运行时间：" + String.valueOf(endTime - startTime) + "ms" +file_url);
 						logger.i("身份认证上传图片成功,file_url"+file_url);

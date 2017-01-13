@@ -469,7 +469,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 						String url =ConstantsDictionary.imgUpload+"/"+file_url;
 						Map   map = new HashedMap();
 						map.put("url",url);
-						map.put("type",userImageVO.getType());
+						map.put("imageType",userImageVO.getImageType());
 						logger.i("-----------------------上传图片成功");
 						logger.i("上传图片运行时间：" + String.valueOf(endTime - startTime) + "ms" +url);
 						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
