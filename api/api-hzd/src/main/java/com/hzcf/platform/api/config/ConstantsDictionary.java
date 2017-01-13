@@ -64,10 +64,10 @@ public class ConstantsDictionary {
 
 		}
 	}	  
-	public static String KEY ;
-	public static String WXSUBMIT;
-	public static String WXQUERY;
-	public static String SMS;
+	public static String KEY ;//密钥
+	public static String WXSUBMIT;//外访协助
+	public static String WXQUERY;//查询借款状态（方法不再使用）
+	public static String SMS;//短信
 	public static String SMSNUM; //超级验证码
 	public static String APP="APP";//系统标示
 	public static String SMSNUMSWITCH;//超级验证码开关
