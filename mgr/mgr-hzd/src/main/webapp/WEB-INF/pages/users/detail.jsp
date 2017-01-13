@@ -87,7 +87,6 @@ pageEncoding="UTF-8"%>
                 </div>
             </div>
             <div class="clear"></div>
-            <hr />
             <div class="radioBox" id="statu" style="display: none ">
                 <h1>审核意见</h1>
                 <div class="selectBox" >
