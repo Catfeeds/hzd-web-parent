@@ -39,7 +39,7 @@
        select
        <include refid="Base_Column_List" />
        from user_image
-       where type='4' and user_id=#{id,jdbcType=VARCHAR}
+       where image_type='B1' and user_id=#{id,jdbcType=VARCHAR}
   </select>
   
   <select id="selectByApplyId" resultMap="BaseResultMapVO" parameterType="java.lang.String" >
