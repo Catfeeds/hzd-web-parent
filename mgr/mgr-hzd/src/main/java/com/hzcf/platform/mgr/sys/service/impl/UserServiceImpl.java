@@ -27,7 +27,6 @@ import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.MsgBoxservice;
 import com.hzcf.platform.core.user.service.UserImageService;
 import com.hzcf.platform.core.user.service.UserService;
-import com.hzcf.platform.framework.fastdfs.FastDFSClient;
 import com.hzcf.platform.mgr.sys.common.pageModel.DataGrid;
 import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
 import com.hzcf.platform.mgr.sys.common.pageModel.SmsUserInfo;
@@ -35,6 +34,7 @@ import com.hzcf.platform.mgr.sys.common.util.DateUtils;
 import com.hzcf.platform.mgr.sys.service.IUserService;
 import com.hzcf.platform.mgr.sys.util.ConstantsDictionary;
 import com.hzcf.platform.mgr.sys.util.ConstantsParam;
+import com.imageserver.ImageServer;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -49,8 +49,9 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private MsgBoxservice msgBoxservice;
 	
+
 	@Autowired
-	FastDFSClient fastdfsClient;
+	private ImageServer imageServer;
 	
 	@Override
 	public DataGrid getUserPage(PageHelper pageHelper, UserVO userVO){
@@ -230,7 +231,7 @@ public class UserServiceImpl implements IUserService {
 					Result<Boolean> booleanResult = null;
 					try {
 						if(StringUtils.isNotBlank(myFileName)){
-							file_url = fastdfsClient.upload(file.getBytes(), getSuffix(myFileName), null);
+							file_url = imageServer.uploadFile(file.getBytes(), getSuffix(myFileName));
 						}
 						if(StringUtils.isBlank(file_url)){
 							logger.e("本次上传失败");
