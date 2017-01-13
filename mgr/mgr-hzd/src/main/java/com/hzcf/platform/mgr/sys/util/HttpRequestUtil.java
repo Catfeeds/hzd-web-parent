@@ -1,4 +1,4 @@
-package com.hzcf.platform.api.util;
+package com.hzcf.platform.mgr.sys.util;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -9,7 +9,6 @@ import java.net.URLConnection;
 import java.util.List;
 import java.util.Map;
 
-import com.hzcf.platform.api.config.ConstantsDictionary;
 
 /**
  * 

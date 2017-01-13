@@ -120,16 +120,14 @@ pageEncoding="UTF-8"%>
         <table cellpadding="0" cellspacing="0">
             <tr>
                 <td>手机号：<span>${smsUserInfo.mobile}</span></td>
-                <td>姓名:</td>
-				<td><input type="text" id="name" name="name" onblur="xm()" value="${smsUserInfo.name}" /> </td>
-				<td>身份证号:</td>
-				<td><input type="text" id="idCard" name="idCard" onblur="xm()" value="${smsUserInfo.idCard}" /> </td>
+                
+                <td>姓名 : <span><input type="text" id="name" name="name" onblur="xm()" value="${smsUserInfo.name}" /> </span></td>
+                
+				<td>身份证号 : <span><input type="text" id="idCard" name="idCard" onblur="xm()" value="${smsUserInfo.idCard}" /> </span></td>
             </tr>
             <tr>
-                <td>审核状态:</td>
-				<td>${smsUserInfo.statusInfo}</td>
-				<td>注册时间:</td>
-				<td>${smsUserInfo.createTime}</td>
+                <td>审核状态 : <span>${smsUserInfo.statusInfo}</span></td>
+				<td>注册时间 : <span>${smsUserInfo.createTime}</span></td>
             </tr>
         </table>
     </div>

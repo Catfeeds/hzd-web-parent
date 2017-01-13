@@ -1,4 +1,4 @@
-package com.hzcf.platform.webService;
+package com.hzcf.platform.mgr.sys.webService;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -12,11 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hzcf.platform.api.config.ConstantsDictionary;
-import com.hzcf.platform.api.util.AESUtil;
-import com.hzcf.platform.api.util.DateExtendUtils;
-import com.hzcf.platform.api.util.HttpRequestUtil;
-import com.hzcf.platform.api.util.Md5Util;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.user.model.UserApplyInfoVO;
@@ -32,6 +27,11 @@ import com.hzcf.platform.core.user.service.UserService;
 import com.hzcf.platform.core.user.webService.model.BorrowRelationVo;
 import com.hzcf.platform.core.user.webService.model.HuiZhongApplicationVo;
 import com.hzcf.platform.core.user.webService.model.ImageVo;
+import com.hzcf.platform.mgr.sys.util.AESUtil;
+import com.hzcf.platform.mgr.sys.util.ConstantsDictionary;
+import com.hzcf.platform.mgr.sys.util.DateExtendUtils;
+import com.hzcf.platform.mgr.sys.util.HttpRequestUtil;
+import com.hzcf.platform.mgr.sys.util.Md5Util;
 
 import net.sf.json.JSONObject;
 
