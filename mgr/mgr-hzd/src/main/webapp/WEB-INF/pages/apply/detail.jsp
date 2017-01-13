@@ -16,7 +16,7 @@ pageEncoding="UTF-8"%>
 </head>
 <body>
 	<div class="content2">
-	    <div class="user">
+	    <div class="userInfo">
 	        <h1>借款需求信息</h1>
 	        <table cellpadding="0" cellspacing="0">
 				<tr>	
@@ -31,7 +31,7 @@ pageEncoding="UTF-8"%>
 				</tr>
 			</table>
 		</div>
-		<div class="user">
+		<div class="userInfo">
 	        <h1>个人资料信息 </h1>
 	        <table cellpadding="0" cellspacing="0">
 				<tr>
@@ -72,7 +72,7 @@ pageEncoding="UTF-8"%>
 				</tr>
 			</table>
 		</div>
-        <div class="user">
+        <div class="userInfo">
             <h1>工作信息</h1>
             <table cellpadding="0" cellspacing="0">
 				<tr>
@@ -89,7 +89,7 @@ pageEncoding="UTF-8"%>
 				</tr>
 			</table>
 		</div>
-        <div class="user">
+        <div class="userInfo">
             <h1>联系人信息</h1>
             <table cellpadding="0" cellspacing="0">
 				<c:forEach items="${userRelationVOList }" var="userRelation" varStatus="s">
@@ -112,7 +112,7 @@ pageEncoding="UTF-8"%>
 				</c:forEach>
 			</table>
 		</div>
-		<div class="user">
+		<div class="userInfo">
             <h1>其他</h1>
             <table cellpadding="0" cellspacing="0">
 				<tr>
@@ -130,13 +130,13 @@ pageEncoding="UTF-8"%>
 				</tr>
 			</table>
 		</div>
-		<div class="uploadPic">
+		<div class="userInfoBox">
            	<h1>上传图片展示</h1>
            	<h3>身份证</h3>
 			<c:forEach items="${userImageVOList}" var="userImage" varStatus="s">
 				<c:if test = "${userImage.imageType == 'B1'}">
 					<div class="gallery">
-						<div class="showImage2">
+						<div class="imgBox">
 	                    	<div><img src="${userImage.artWork}" /></div>
 		                </div>
 					</div>
@@ -144,7 +144,7 @@ pageEncoding="UTF-8"%>
 			</c:forEach>
 			</div>
 			
-			<div class="uploadPic">
+			<div class="userInfoBox">
 			<h3>征信报告</h3>
 			<c:forEach items="${userImageVOList}" var="userImage" varStatus="s">
 				<c:if test = "${userImage.imageType == 'E1'}">
@@ -156,7 +156,7 @@ pageEncoding="UTF-8"%>
 				</c:if>
 			</c:forEach>
 			</div>
-			<div class="uploadPic">
+			<div class="userInfoBox">
 			<h3>个人住址证明</h3>
 			<c:forEach items="${userImageVOList}" var="userImage" varStatus="s">
 				<c:if test = "${userImage.imageType == 'F7'}">
@@ -168,7 +168,7 @@ pageEncoding="UTF-8"%>
 				</c:if>
 			</c:forEach>
 			</div>
-			<div class="uploadPic">
+			<div class="userInfoBox">
 			<h3>收入证明/社保/公积金</h3>
 			<c:forEach items="${userImageVOList}" var="userImage" varStatus="s">
 				<c:if test = "${userImage.imageType == 'C8'}">
@@ -180,7 +180,7 @@ pageEncoding="UTF-8"%>
 				</c:if>
 			</c:forEach>
 			</div>
-			<div class="uploadPic">
+			<div class="userInfoBox">
 			<h3>工作证明</h3>
 			<c:forEach items="${userImageVOList}" var="userImage" varStatus="s">
 				<c:if test = "${userImage.imageType == 'D8'}">
@@ -192,7 +192,7 @@ pageEncoding="UTF-8"%>
 				</c:if>
 			</c:forEach>	
 			</div>
-			<div class="uploadPic">
+			<div class="userInfoBox">
 			<h3>其它证明</h3>
 			<c:forEach items="${userImageVOList}" var="userImage" varStatus="s">
 				<c:if test = "${userImage.imageType == 'L5'}">
