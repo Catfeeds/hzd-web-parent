@@ -629,15 +629,16 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 		updateUserVO.setApplyStatus(BaseConfig.apply_loan_2);
 		Result<Boolean> booleanResult = userSerivce.updateByPrimaryKeySelective(updateUserVO);
 		if (StatusCodes.OK == booleanResult.getStatus()) {
+			 checkApplyLoanStatus.setIdentityStatus(items.getCheckStatus());
+			   checkApplyLoanStatus.setApplyLoanStatus(items.getApplyStatus());
 			logger.i("------------用户实名认证在审核中,直接提交进件到后台");
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-					HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
+					HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
 		}
-		   checkApplyLoanStatus.setIdentityStatus(items.getCheckStatus());
-		   checkApplyLoanStatus.setApplyLoanStatus(items.getApplyStatus());
-
-			 return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
-				HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), checkApplyLoanStatus);
+		  
+		logger.i("-------更新实名认证状态失败-----");
+		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+                HzdStatusCodeEnum.MEF_CODE_0001.getMsg(), null);
 	}
 
 	private static String getSuffix(String url) {
