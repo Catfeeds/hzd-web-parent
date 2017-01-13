@@ -70,7 +70,7 @@ public class OfflineLoanServiceImpl implements IOfflineLoanService {
 					e.getMessage());
 		}
 	}
-
+	//作废  LoadService
 	@Override
 	public BackResult offlineLoanQuery(String mobile) {
 		try {
