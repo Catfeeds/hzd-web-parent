@@ -96,8 +96,11 @@ public class LoadService {
 			Result<List<UserRelationVO>> userRelationVOListResult=userRelationService.selectByApplyId(applyId);
 			List<UserRelationVO> userRelationVOList=userRelationVOListResult.getItems();
 			//借款人图片信息
-			Result<List<UserImageVO>> userImageVOListResult=userImageService.selectByApplyId(applyId);
-			List<UserImageVO> userImageVOList=userImageVOListResult.getItems();
+			Result<List<UserImageVO>> userImageVOListResult1=userImageService.selectByApplyId(applyId);
+			Result<List<UserImageVO>> userImageVOList=userImageService.getUserId(userId);
+			List<UserImageVO> userImage1=userImageVOListResult1.getItems();
+			List<UserImageVO> userImageVO2=userImageVOList.getItems();
+			userImage1.addAll(userImageVO2);
 			/**组装参数，封装成要发送的数据*/
 			//借款人基本数据
 			HuiZhongApplicationVo huiZhongApplicationVo=new HuiZhongApplicationVo();
@@ -172,10 +175,10 @@ public class LoadService {
 				borrowRelationList.add(borrowRelationVo);
 			}
 			huiZhongApplicationVo.setBorrowRelationList(borrowRelationList);
-			//借款人的图片集合
+			//借款人的图片集合 TODO
 			List<ImageVo> imageList=new ArrayList<ImageVo>();
-			for(int i=0;i<userImageVOList.size();i++){
-				UserImageVO userImageVO=userImageVOList.get(i);
+			for(int i=0;i<userImage1.size();i++){
+				UserImageVO userImageVO=userImage1.get(i);
 				ImageVo imageVo=new ImageVo();
 				imageVo.setImageType(userImageVO.getImageType());
 				String artWork=userImageVO.getArtWork();

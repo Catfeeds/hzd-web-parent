@@ -576,7 +576,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_1045.getCode(),HzdStatusCodeEnum.MEF_CODE_1045.getMsg(),null);
 			}
 
-		if (BaseConfig.apply_loan_1.equals(items.getApplyStatus())) {
+		if (BaseConfig.apply_loan_1.equals(items.getApplyStatus()) || BaseConfig.apply_loan_2.equals(items.getApplyStatus())) {
 			logger.i("------------------不能重复提交进件信息");
 			checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
 			checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_1);
@@ -589,7 +589,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 				logger.i("------用户进件申请第七步------用户已经通过实名认证,直接提交进件信息");
 				// 如果用于已经实名认证,直接进件    TODO 提交进件
 				try {
-
+						
                     if (loadService.operateLoad(applyId)) {
                         logger.i("用户进件申请第七步--------线上进件申请成功申请单号:" + applyId);
                         UserVO updateUserVO=new UserVO();
@@ -633,7 +633,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			   checkApplyLoanStatus.setApplyLoanStatus(items.getApplyStatus());
 			logger.i("------------用户实名认证在审核中,直接提交进件到后台");
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
-					HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
+					HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),checkApplyLoanStatus);
 		}
 		  
 		logger.i("-------更新实名认证状态失败-----");
