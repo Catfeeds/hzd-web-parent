@@ -31,8 +31,6 @@ public class ConstantsDictionary {
 			props.load(in);
 
 			KEY = props.getProperty("KEY");
-			WXSUBMIT = props.getProperty("WXSUBMIT");
-			WXQUERY = props.getProperty("WXQUERY");
 			SMS = props.getProperty("SMS");
 			SMSNUM = props.getProperty("SMSNUM");
 			SMSNUMSWITCH = props.getProperty("SMSNUMSWITCH");
@@ -66,8 +64,6 @@ public class ConstantsDictionary {
 		}
 	}	  
 	public static String KEY ;
-	public static String WXSUBMIT;
-	public static String WXQUERY;
 	public static String SMS;
 	public static String SMSNUM; //超级验证码
 	public static String APP="APP";//系统标示
@@ -80,6 +76,7 @@ public class ConstantsDictionary {
 	public final static String SMSSSTATUS0="0";//失效
 	public static String CONTENTTEXT;
 	public static String imgUpload;
+	//外访协助
 	public static String offlineInsertLoad;
 
 	
@@ -88,8 +85,5 @@ public class ConstantsDictionary {
 	 * */
 	//进件，就是保存借款申请。调度的“进件”接口地址
 	public static String dispatchLoadInsertLoadUrl;
-	//查询借款进度。调度的“查询借款进度”接口地址
 	public static String dispatchLoadSelectLoadProgressUrl;
-	
 }
-

@@ -81,7 +81,7 @@ public class OnlineLoanWebService {
 	/**
 	 * @return
 	 * 
-	 * @Description: 查询 @User: 雷佳明 @FileName: WipeRecordMgr.java @param
+	 * @Description: 此方法作废
 	 * 参数 @return 返回类型 @date 2016年12月7日 @throws
 	 */
 	public String OnlineLoanQuery(String mobile) throws Exception {
@@ -103,7 +103,7 @@ public class OnlineLoanWebService {
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("weiXinQueryProgressParms", billParms));
 			String paramsData = URLEncodedUtils.format(params, "UTF-8");
-			String sendRsp = HttpRequest.sendGet(ConstantsDictionary.WXQUERY, paramsData);
+			String sendRsp = HttpRequest.sendGet(ConstantsDictionary.APP, paramsData);
 			logger.i("返回参数：" + sendRsp);
 			// WxjinjianQueryRsp wxrsp
 			// =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);

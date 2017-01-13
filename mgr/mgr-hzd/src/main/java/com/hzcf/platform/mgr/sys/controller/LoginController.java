@@ -50,15 +50,15 @@ public class LoginController {
 					+ "\'}";
 		}*/
 		String result = "";
+		LoginJsonResult loginJsonResult = new LoginJsonResult();
 		String rand = (String) request.getSession().getAttribute("rand");
 		String passwordDB = sysUsersService.getSysUsersInfo(username).getPassword();
-		LoginJsonResult loginJsonResult = new LoginJsonResult();
-		if(!irand.equalsIgnoreCase(rand)){
+		if (!irand.equalsIgnoreCase(rand)) {
 			result = "验证码错误!";
 			loginJsonResult.setMsg("error");
 			loginJsonResult.setSuccess(true);
 			loginJsonResult.setResultContents(result);
-		} else if(password.equals(passwordDB)){
+		} else if (password.equals(passwordDB)) {
 			result = "登录成功!";
 			loginJsonResult.setMsg("ok");
 			loginJsonResult.setSuccess(true);
