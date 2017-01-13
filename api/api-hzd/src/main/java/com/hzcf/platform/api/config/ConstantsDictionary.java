@@ -49,7 +49,8 @@ public class ConstantsDictionary {
 			dispatchLoadInsertLoadUrl=props.getProperty("dispatch.load.insertLoad.url");
 			//调度的“查询借款进度”接口地址
 			dispatchLoadSelectLoadProgressUrl=props.getProperty("dispatch.load.selectLoadProgress.url");
-			
+			//外访协助
+			dispatchLoadOfflineInsertLoadUrl=props.getProperty("dispatch.load.offlineInsertLoad.url");
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -87,6 +88,8 @@ public class ConstantsDictionary {
 	public static String dispatchLoadInsertLoadUrl;
 	//查询借款进度。调度的“查询借款进度”接口地址
 	public static String dispatchLoadSelectLoadProgressUrl;
+	//外访协助
+	public static String dispatchLoadOfflineInsertLoadUrl;
 	
 }
 
