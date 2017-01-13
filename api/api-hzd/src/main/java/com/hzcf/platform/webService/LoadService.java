@@ -102,7 +102,7 @@ public class LoadService {
 			Result<List<UserRelationVO>> userRelationVOListResult=userRelationService.selectByApplyId(applyId);
 			List<UserRelationVO> userRelationVOList=userRelationVOListResult.getItems();
 			//借款人图片信息
-			Result<List<UserImageVO>> userImageVOListResult=userImageService.getUserId(userId);
+			Result<List<UserImageVO>> userImageVOListResult=userImageService.selectByApplyId(applyId);
 			List<UserImageVO> userImageVOList=userImageVOListResult.getItems();
 			/**组装参数，封装成要发送的数据*/
 			//借款人基本数据

@@ -42,7 +42,7 @@
        where type='4' and user_id=#{id,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectByApplyId" resultMap="BaseResultMap" parameterType="java.lang.String" >
+  <select id="selectByApplyId" resultMap="BaseResultMapVO" parameterType="java.lang.String" >
         select
         <include refid="Base_Column_List" />
         from user_image
