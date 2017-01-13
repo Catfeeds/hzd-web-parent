@@ -39,6 +39,7 @@ import com.hzcf.platform.core.user.webService.model.ImageVo;
 
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
   * @Description:对借款信息的操作，如：进件，借款人查询借款进度
@@ -231,7 +232,8 @@ public class LoadService {
 	 * @return:String
 	 * @throws Exception
 	 */
-	public Map<String,Object> operateLoad(String applyId) throws Exception{
+	@Transactional
+	public boolean operateLoad(String applyId) throws Exception{
 		/**初始化参数*/
 		Map<String,Object> operateResult=new HashMap<String,Object>();
 		String result="";//线下返回的结果
@@ -244,7 +246,7 @@ public class LoadService {
 		String key=ConstantsDictionary.KEY;//调度的“查询借款进度”接口的密钥
 		//用于查询的参数信息
 		String userId="";//用户id
-		try {
+
 			/**查询数据库，获取参数*/
 			//借款人详细信息
 			Result<UserInfoVO> userInfoVOResult=userInfoService.selectByApplyId(applyId);
@@ -389,20 +391,24 @@ public class LoadService {
 					updateUserVO.setId(userId);
 					updateUserVO.setApplyStatus("1");
 					Result<Boolean> updateUserVOResult=userSerivce.updateByPrimaryKeySelective(updateUserVO);
-					operateResult.put("updateUserVOResult",updateUserVOResult.getItems());
+
+
+
+
 					//修改UserApplyInfo中的“借款状态”
 					UserApplyInfoVO updateUserApplyInfoVO=new UserApplyInfoVO();
 					updateUserApplyInfoVO.setApplyId(applyId);
 					updateUserApplyInfoVO.setStatus("1");
 					Result<Boolean> updateUserApplyInfoVOResult=userApplyInfoSerivce.updateApplyId(updateUserApplyInfoVO);
-					operateResult.put("updateUserApplyInfoVOResult",updateUserApplyInfoVOResult.getItems());
+
+					if(updateUserVOResult.getItems()==false || updateUserApplyInfoVOResult.getItems()==false){
+						return false;
+					}
+
 				}
 			}
-		} catch (Exception e) {
-			logger.error("接口：进件。发生异常，异常信息："+e.getMessage());
-			e.printStackTrace();
-		}
-		return operateResult;
+
+		return true;
 	}
 	/**
 	 * @Title: selectLoadProgress 

@@ -22,7 +22,9 @@ import com.hzcf.platform.core.user.service.*;
 //import com.hzcf.platform.framework.fastdfs.FastDFSClient;
 
 
+import com.hzcf.platform.webService.LoadService;
 import com.imageserver.ImageServer;
+import net.sf.json.JSONObject;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -54,8 +56,8 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	private ImageServer imageServer;
 	@Autowired
 	DictUtilService dictUtilService;
-
-
+	@Autowired
+	LoadService loadService;
 	@Override
 	public BackResult isApplyLoanQuery(UserVO user) {
 		logger.i("----------------进入校验是否可以进件");
@@ -580,21 +582,41 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 		}
 
 			if (BaseConfig.card_status_0.equals(items.getCheckStatus())) {
-				logger.i("------------用户已经通过实名认证,直接提交进件信息");
+				logger.i("------用户进件申请第七步------用户已经通过实名认证,直接提交进件信息");
 				// 如果用于已经实名认证,直接进件    TODO 提交进件
-				UserVO updateUserVO=new UserVO();
-				updateUserVO.setId(items.getId());//用户id
-				updateUserVO.setApplyStatus(BaseConfig.apply_loan_0);
-				Result<Boolean> booleanResult = userSerivce.updateByPrimaryKeySelective(updateUserVO);
-				if (StatusCodes.OK == booleanResult.getStatus()) {
-					logger.i("------------用户已经通过实名认证,直接提交进件信息成功");
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+				try {
+
+                    if (loadService.operateLoad(applyId)) {
+                        logger.i("用户进件申请第七步--------线上进件申请成功申请单号:" + applyId);
+                        UserVO updateUserVO=new UserVO();
+                        updateUserVO.setId(items.getId());//用户id
+                        updateUserVO.setApplyStatus(BaseConfig.apply_loan_1);
+                        Result<Boolean> booleanResult = userSerivce.updateByPrimaryKeySelective(updateUserVO);
+                        if (StatusCodes.OK == booleanResult.getStatus()) {
+
+                            logger.i("-----用户进件申请第七步---------------用户已经通过实名认证,更新用户信息成功");
+                            checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
+                            checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_0);
+                            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
+                                    HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),checkApplyLoanStatus);
+                        }
+                        logger.i("-----用户进件申请第七步---------------保存用户信息失败");
+                        return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+                                HzdStatusCodeEnum.MEF_CODE_0001.getMsg(), null);
+
+                    }
+                    return new BackResult(HzdStatusCodeEnum.MEF_CODE_2200.getCode(),
+                            HzdStatusCodeEnum.MEF_CODE_2200.getMsg(), null);
+
+
+				} catch (Exception e) {
+					e.printStackTrace();
+					logger.i("------------线下进件提交数据异常");
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_9999.getMsg(), null);
 				}
-				checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
-				checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_0);
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
-						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), checkApplyLoanStatus);
+
+
 			}
 		  logger.i("------------用户实名认证待审核,进件信息提交到后台");
 
