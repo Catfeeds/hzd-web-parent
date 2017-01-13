@@ -42,7 +42,8 @@ public class OfflineApplyLoanController {
 		logger.i("进入外访协助接口====入参====onlineLoanInfo:"+onlineLoanInfo.toString());
 		return onlineLoanService.offlineLoanApply(user, onlineLoanInfo);
 	}
-	//作废
+	//“查询借款进度”，该方法不再使用，请使用com.hzcf.platform.webService.LoadService.selectLoadProgress(String)该方法
+	@Deprecated
 	@RequestMapping(value="rest/api/100/offlineLoan/query/{mobile}",method=RequestMethod.GET)
 	@ResponseBody
 	public BackResult onlineLoanQuery(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,@PathVariable String mobile){
