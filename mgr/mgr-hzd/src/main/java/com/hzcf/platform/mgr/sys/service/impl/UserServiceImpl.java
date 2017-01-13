@@ -22,9 +22,11 @@ import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.common.util.uuid.UUIDGenerator;
 import com.hzcf.platform.core.user.model.MsgBoxVO;
+import com.hzcf.platform.core.user.model.UserApplyInfoVO;
 import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.MsgBoxservice;
+import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
 import com.hzcf.platform.core.user.service.UserImageService;
 import com.hzcf.platform.core.user.service.UserService;
 import com.hzcf.platform.mgr.sys.common.pageModel.DataGrid;
@@ -34,6 +36,7 @@ import com.hzcf.platform.mgr.sys.common.util.DateUtils;
 import com.hzcf.platform.mgr.sys.service.IUserService;
 import com.hzcf.platform.mgr.sys.util.ConstantsDictionary;
 import com.hzcf.platform.mgr.sys.util.ConstantsParam;
+import com.hzcf.platform.mgr.sys.webService.LoadService;
 import com.imageserver.ImageServer;
 
 @Service
@@ -49,9 +52,14 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private MsgBoxservice msgBoxservice;
 	
+	@Autowired
+	private UserApplyInfoSerivce userApplyInfoSerivce;
 
 	@Autowired
 	private ImageServer imageServer;
+	
+	@Autowired
+	private LoadService loadService;
 	
 	@Override
 	public DataGrid getUserPage(PageHelper pageHelper, UserVO userVO){
@@ -75,7 +83,7 @@ public class UserServiceImpl implements IUserService {
 		Map<String, String> parmMap = new HashMap<String, String>();
 		Result<UserVO> user = userSerivce.getByMobile(mobile);
 		parmMap.put("userId",user.getItems().getId());
-		parmMap.put("type", ConstantsParam.IMG_TYPE_RZ);
+		parmMap.put("imageType", "B1");
 		Result<List<UserImageVO>> userImage = userImageService.selectUserImageByUserIdAndType(parmMap);
 		List<UserImageVO> userList = userImage.getItems();
 		if(userImage.getStatus()==200 && userList.size()>0){
@@ -136,6 +144,7 @@ public class UserServiceImpl implements IUserService {
 
 	@Override
 	public Result<Boolean> updateStatus(String mobile, String checkStatus,String nopassCause) {
+		String applyId = "";
 		UserVO user = new UserVO();
 		user.setCheckStatus(checkStatus);
 		user.setMobile(mobile);
@@ -143,6 +152,25 @@ public class UserServiceImpl implements IUserService {
 			user.setNopassCause(nopassCause);
 		}
 		Result<UserVO> result = userSerivce.getByMobile(mobile);
+		
+		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)&&result.getStatus()==200){
+			//TODO  查询applyId
+			Result<UserApplyInfoVO> resultApply = userApplyInfoSerivce.selectByUserId(result.getItems().getId());
+			if(resultApply.getStatus()==200){
+				applyId = resultApply.getItems().getApplyId();
+				if(!applyId.equals("")){
+					// TODO 调裴高翔接口把applyId传过去
+					try {
+						loadService.operateLoad(applyId);
+					} catch (Exception e) {
+						logger.e("进件接口调用失败!");
+						e.printStackTrace();
+					}
+				}
+			}else{
+				logger.e("UserApplyInfoVO数据查询失败");
+			}
+		}
 		
 		MsgBoxVO msgBoxVO = new MsgBoxVO();
 		msgBoxVO.setMsgId(UUIDGenerator.getUUID());
@@ -204,9 +232,9 @@ public class UserServiceImpl implements IUserService {
 		UserImageVO userImage = new UserImageVO();
 		userImage.setImageId(imgId);
 		userImage.setUserId(userVO.getItems().getId());
-		userImage.setType(ConstantsParam.IMG_TYPE_RZ);
+		userImage.setImageType("B1");
 		parmMap.put("userId",userVO.getItems().getId());
-		parmMap.put("type", ConstantsParam.IMG_TYPE_RZ);
+		parmMap.put("imageType", "B1");
 		
 		Result<List<UserImageVO>> uImage = userImageService.selectUserImageByUserIdAndType(parmMap);
 		List<UserImageVO> userList = uImage.getItems();
