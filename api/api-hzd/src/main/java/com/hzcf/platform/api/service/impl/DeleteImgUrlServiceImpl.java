@@ -12,6 +12,7 @@ import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.UserImageService;
+import com.imageserver.ImageServer;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -25,6 +26,8 @@ public class DeleteImgUrlServiceImpl implements IDeleteImgUrlService {
 
     @Autowired
     UserImageService userImageService;
+    @Autowired
+    private ImageServer imageServer;
 
     @Override
     public BackResult deleteImgUrl(UserVO userVO ,UserImageVO userImageVO) {
@@ -34,13 +37,29 @@ public class DeleteImgUrlServiceImpl implements IDeleteImgUrlService {
             return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(),
                     "artWork为空",null);
         }
+        try {
         userImageVO.setUserId(userVO.getId());
-        userImageVO.setArtWork(StringUtil.getSufFirst(userImageVO.getArtWork()));
+        String sufFirst = StringUtil.getSufFirst(userImageVO.getArtWork());
+        userImageVO.setArtWork(sufFirst);
         Result<Boolean> booleanResult = userImageService.deleteByPrimaryKey(userImageVO);
         if (StatusCodes.OK == (booleanResult.getStatus())) {
+
+            boolean b = imageServer.deleteFile(sufFirst);
+            if(!b){
+                logger.i("删除图片失败  图片服务器异常");
+                return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(),
+                        HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),null);
+            }
+
             logger.i("删除图片成功");
             return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
                     HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),null);
+        }
+        } catch (Exception e) {
+            e.printStackTrace();
+            logger.i("删除图片失败  服务器异常");
+            return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(),
+                    HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),null);
         }
         logger.i("删除图片失败");
         return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
