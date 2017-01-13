@@ -41,9 +41,9 @@ public class LoadController {
 	 * 
 	 */
 	@RequestMapping(value="operateload",method = RequestMethod.POST)
-    public void operateload(@RequestBody String params) throws Exception {
+    public BackResult operateload(@RequestBody String params) throws Exception {
         logger.i("进件接口");
-        loadService.operateLoad(params);
+        return loadService.operateLoad(params);
     }
 	/**借款人查询借款进度接口
 	 * 
