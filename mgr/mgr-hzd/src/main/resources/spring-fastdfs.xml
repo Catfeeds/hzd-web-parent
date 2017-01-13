@@ -5,7 +5,8 @@
         http://www.springframework.org/schema/beans
 	    http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-    <bean id="fastdfsConfig" class="com.hzcf.platform.framework.fastdfs.client.FastDFSConfig">
+    <!--<bean id="fastdfsConfig" class="com.hzcf.platform.framework.fastdfs.client.FastDFSConfig">-->
+    <bean id="fastdfsConfig" class="com.hzcf.common.FastDFSConfig">
 		<property name="connectTimeout" value="6000" />
 		<property name="networkTimeout" value="30000" />
 		<property name="charset" value="UTF-8" />
@@ -22,7 +23,7 @@
                     <list>
                         <!-- <value>up.img-pc.exiao.me:22122</value> -->
                         <!--<value>10.20.200.47:22122</value>-->
-                        <value>10.10.10.64:22122</value>
+                        <value>10.10.10.63:22122</value>
                     </list>
                 </property>
             </bean>
@@ -31,5 +32,17 @@
 	</bean>
     <!--(3)此处获取对象的方式是从工厂类中获取静态方法-->  
     <!-- <bean name="fastdfsClient" class="com.exiao.platform.framework.fastdfs.FastDFSClientFactory" factory-method="getFastdfsClient"></bean>  -->
-	<bean name="fastdfsClient" class="com.hzcf.platform.framework.fastdfs.FastDFSClientImpl" scope="prototype"></bean>
+
+	<!--<bean name="fastdfsClient" class="com.hzcf.platform.framework.fastdfs.FastDFSClientImpl" scope="prototype"></bean>-->
+<!--
+    <bean name="imageServer" class="com.hzcf.platform.framework.fastdfs.pool.ImageServerImpl" scope="prototype">
+        <constructor-arg name="serverIp" value="10.10.10.63"></constructor-arg>
+        <constructor-arg name="port" value="22122"></constructor-arg>
+        <constructor-arg name="size" value="10"></constructor-arg>
+    </bean>-->
+    <bean name="imageServer" class="com.imageserver.ImageServerImpl" scope="prototype">
+        <constructor-arg name="connnectString" value="10.10.10.63"></constructor-arg>
+        <constructor-arg name="port" value="22122"></constructor-arg>
+        <constructor-arg name="size" value="10"></constructor-arg>
+    </bean>
 </beans>

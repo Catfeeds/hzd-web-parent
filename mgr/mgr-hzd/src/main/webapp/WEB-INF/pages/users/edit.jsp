@@ -104,6 +104,7 @@ pageEncoding="UTF-8"%>
             	}
                 $("#imgDiv"+id).attr("src",data);
                 alert("恭喜您,上传成功!");
+                multipart.attr("value","");
             }
         });
     }
@@ -139,7 +140,7 @@ pageEncoding="UTF-8"%>
                 <form action="" id="form1" enctype="multipart/form-data">
                 	<div id="imgdiv" class="showImage"><img id="imgDiv1" src="${smsUserInfo.artWorkA}" alt="身份证正面（人像面）"/></div>
 	                <a href="javascript:;" class="file"><span>选择图片</span>
-	                    <input type="file" class="selector_file fl" id="image_input1" />
+	                    <input type="file" class="selector_file fl" name="file" id="image_input1" />
 	                </a>
 	                <a href="javascript:;" class="file"  onclick="upload('1')" ><span>上传</span>
 	                    <input type="button" class="selector_file fl"/>
@@ -152,7 +153,7 @@ pageEncoding="UTF-8"%>
                 <form action="" id="form2" enctype="multipart/form-data">
                 	<div id="imgdiv1" class="showImage"><img id="imgDiv2" src="${smsUserInfo.artWorkB}" alt="身份证反面（国徽面）"/></div>
                 	<a href="javascript:;" class="file"><span>选择图片</span>
-	                    <input type="file" class="selector_file fl" id="image_input2" />
+	                    <input type="file" class="selector_file fl" name="file" id="image_input2" />
 	                </a>
 	                <a href="javascript:;" class="file"  onclick="upload('2')"><span>上传</span>
 	                    <input type="button" class="selector_file fl" />
@@ -165,7 +166,7 @@ pageEncoding="UTF-8"%>
                 <form action="" id="form3" enctype="multipart/form-data">
                 	<div id="imgdiv2" class="showImage"><img id="imgDiv3" src="${smsUserInfo.artWorkC}" alt="个人近照"/></div>
 	                <a href="javascript:;" class="file"><span>选择图片</span>
-	                    <input type="file" class="selector_file fl" id="image_input3" />
+	                    <input type="file" class="selector_file fl" name="file" id="image_input3" />
 	                </a>
 	                <a href="javascript:;" class="file" onclick="upload('3')"><span>上传</span>
 	                    <input type="button" class="selector_file fl"/>

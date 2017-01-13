@@ -26,6 +26,7 @@ import com.hzcf.platform.mgr.sys.common.util.DateUtils;
 import com.hzcf.platform.mgr.sys.common.util.ExportExcel;
 import com.hzcf.platform.mgr.sys.service.IUserService;
 import com.hzcf.platform.mgr.sys.util.ConstantsParam;
+import com.imageserver.ImageServer;
 /**
  * @description:后台用户管理
  * @author zhangmx
@@ -40,7 +41,7 @@ public class UserController {
 	IUserService sysUserService;
 	
 	@Autowired
-	FastDFSClient fastdfsClient;
+	private ImageServer imageServer;
 	
 	@RequestMapping(value = "/users/fast",method = RequestMethod.GET)
 	public String fast() throws Exception {
@@ -51,7 +52,7 @@ public class UserController {
 			File[] files = folder.listFiles();
 			for (File file : files) {
 				if (file.exists() && file.isFile()) {
-					String file_url = fastdfsClient.upload(FileCommon.File2byte(file), getSuffix(file.getName()), null);
+					String file_url = imageServer.uploadFile(FileCommon.File2byte(file), getSuffix(file.getName()));
 					System.out.println(file.getName() + " : " + file_url);
 				}
 			}
