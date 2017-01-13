@@ -79,7 +79,7 @@
     insert into user_info (user_info_id,user_id,apply_id,id_type,idcard_validity,birthday,gender,education,domicile_province,domicile_city,
     domicile_address,domicile_post_code,marriage_status,children_status,house_status,resident_province,resident_city,resident_address,
     resident_tel_code,resident_tel_area_code,resident_post_code,email,annual_income,credit_card_limit,live_together,
-    staff_no,create_time,org_name,org_type,org_province,org_city,org_address,org_post_code,org_tel_code,
+    staff_no,create_time,org_name,org_type,org_province,org_city,org_address,org_post_code,org_tel_area_code,org_tel_code,
 	is_express,product_id,receiver_login_name,is_inside,org_team_id,borrow_type
       )
     values (#{userInfoId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{applyId,jdbcType=VARCHAR}, #{idType,jdbcType=VARCHAR},
@@ -90,7 +90,7 @@
       #{email,jdbcType=VARCHAR}, #{annualIncome,jdbcType=DECIMAL}, #{creditCardLimit,jdbcType=DECIMAL}, 
       #{liveTogether,jdbcType=VARCHAR}, #{staffNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
       #{orgName,jdbcType=VARCHAR},#{orgType,jdbcType=VARCHAR},#{orgProvince,jdbcType=VARCHAR},#{orgCity,jdbcType=VARCHAR},#{orgAddress,jdbcType=VARCHAR},
-      #{orgPostCode,jdbcType=VARCHAR},#{orgTelCode,jdbcType=VARCHAR},#{isExpress,jdbcType=VARCHAR},#{productId,jdbcType=VARCHAR},
+      #{orgPostCode,jdbcType=VARCHAR},#{orgTelAreaCode,jdbcType=VARCHAR},#{orgTelCode,jdbcType=VARCHAR},#{isExpress,jdbcType=VARCHAR},#{productId,jdbcType=VARCHAR},
       #{receiverLoginName,jdbcType=VARCHAR},#{isInside,jdbcType=VARCHAR},#{orgTeamId,jdbcType=VARCHAR},#{borrowType,jdbcType=VARCHAR}
       )
   </insert>
@@ -195,6 +195,9 @@
       </if>
       <if test="orgPostCode != null" >
         org_post_code,
+      </if>
+      <if test="orgTelAreaCode != null" >
+        org_tel_area_code,
       </if>
       <if test="orgTelCode != null" >
         org_tel_code,
@@ -318,6 +321,9 @@
       <if test="orgPostCode != null" >
         #{orgPostCode,jdbcType=VARCHAR},
       </if>
+      <if test="orgTelAreaCode != null" >
+        #{orgTelAreaCode,jdbcType=VARCHAR},
+      </if>
       <if test="orgTelCode != null" >
         #{orgTelCode,jdbcType=VARCHAR},
       </if>
@@ -434,6 +440,9 @@
       <if test="orgPostCode != null" >
         org_post_code = #{orgPostCode,jdbcType=VARCHAR},
       </if>
+      <if test="orgTelAreaCode != null" >
+        org_tel_area_code = #{orgTelAreaCode,jdbcType=VARCHAR},
+      </if>
       <if test="orgTelCode != null" >
         org_tel_code = #{orgTelCode,jdbcType=VARCHAR},
       </if>
@@ -493,6 +502,7 @@
       org_city = #{orgCity,jdbcType=VARCHAR},
       org_address = #{orgAddress,jdbcType=VARCHAR},
       org_post_code = #{orgPostCode,jdbcType=VARCHAR},
+      org_tel_area_code = #{orgTelAreaCode,jdbcType=VARCHAR},
       org_tel_code = #{orgTelCode,jdbcType=VARCHAR},
       is_express = #{isExpress,jdbcType=VARCHAR},
       product_id = #{productId,jdbcType=VARCHAR},

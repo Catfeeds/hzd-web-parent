@@ -21,6 +21,11 @@ public interface UserApplyInfoSerivce extends IBaseService<UserApplyInfoVO> {
 	
 	//不分页
 	public PaginatedResult<UserApplyInfoVO> getUserApplyForSearch(Map<String, Object> parmMap);
-
+	/**
+	 * @Title: updateApplyId 
+	 * @Description:根据applyId有选择的修改UserApplyInfo中的用户申请信息
+	 * @time: 2017年1月12日 下午4:50:57  
+	 * @return:Result<Boolean>
+	 */
 	public Result<Boolean> updateApplyId(UserApplyInfoVO userApplyInfoVO);
 }

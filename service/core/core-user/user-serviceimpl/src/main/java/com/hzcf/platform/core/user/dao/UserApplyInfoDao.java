@@ -19,6 +19,12 @@ public interface UserApplyInfoDao  extends IBaseDao<UserApplyInfo> {
     UserApplyInfo selectByApplyId(String applyId);
 
     public List<UserApplyInfoVO> getUserApplyForSearch(Map<String, Object> parmMap);
+    /**
+     * @Title: updateApplyId 
+     * @Description:根据applyId有选择的修改UserApplyInfo中的用户申请信息
+     * @time: 2017年1月12日 下午4:48:14  
+     * @return:boolean
+     */
     public boolean updateApplyId(UserApplyInfo userApplyInfo);
     
 }

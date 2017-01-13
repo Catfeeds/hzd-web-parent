@@ -44,12 +44,6 @@ public class ConstantsDictionary {
 			/**借款的配置信息
 			 * 线上和调度的所有接口的配置信息
 			 * */
-			//密钥
-			dispatchLoadKey=props.getProperty("dispatch.load.key");
-			//系统标识
-			dispatchLoadSystemSourceId=props.getProperty("dispatch.load.systemSourceId");
-			//进件标识
-			dispatchLoadSystemId=props.getProperty("dispatch.load.systemId");
 			//调度的“查询借款进度”接口地址
 			dispatchLoadInsertLoadUrl=props.getProperty("dispatch.load.insertLoad.url");
 			//调度的“查询借款进度”接口地址
@@ -87,12 +81,6 @@ public class ConstantsDictionary {
 	/**借款的配置信息
 	 * 线上和调度的所有接口的配置信息
 	 * */
-	//密钥
-	public static String dispatchLoadKey;
-	//系统标识
-	public static String dispatchLoadSystemSourceId;
-	//进件标识
-	public static String dispatchLoadSystemId;
 	//进件，就是保存借款申请。调度的“进件”接口地址
 	public static String dispatchLoadInsertLoadUrl;
 	//查询借款进度。调度的“查询借款进度”接口地址

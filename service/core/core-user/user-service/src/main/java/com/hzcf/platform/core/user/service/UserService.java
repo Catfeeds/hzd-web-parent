@@ -41,10 +41,12 @@ public interface UserService extends IBaseService<UserVO>{
 	public Result<UserVO> selectByPrimaryKey(String id);
 	
 	public Result<String> insertSelective(UserVO user);
+
 	/**
-	 * 根据主键更新用户信息
-	 * @param user
-	 * @return
+	 * @Title: updateByPrimaryKeySelective 
+	 * @Description:根据主键更新用户信息
+	 * @time: 2017年1月12日 下午4:50:27  
+	 * @return:Result<Boolean>
 	 */
 	public Result<Boolean> updateByPrimaryKeySelective(UserVO user);
 	

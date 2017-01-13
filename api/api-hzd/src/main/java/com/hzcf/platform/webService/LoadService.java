@@ -76,12 +76,12 @@ public class LoadService {
 		String result="";//返回结果
 		//发送到调度的参数信息
 		String signature="";//签名信息
-		String systemSourceId=ConstantsDictionary.dispatchLoadSystemSourceId;//系统标识,就是“APP”
-		String systemId=ConstantsDictionary.dispatchLoadSystemId;//进件标识,就是“APP”
+		String systemSourceId=ConstantsDictionary.APP;//系统标识,就是“APP”
+		String systemId=ConstantsDictionary.APP;//进件标识,就是“APP”
 		String employeeId="";//员工编号
-		String operatorId=ConstantsDictionary.dispatchLoadSystemId;//操作人ID,就是“APP”
+		String operatorId=ConstantsDictionary.APP;//操作人ID,就是“APP”
 		String mobile="";//申请人手机号
-		String key=ConstantsDictionary.dispatchLoadKey;//调度的“查询借款进度”接口的密钥
+		String key=ConstantsDictionary.KEY;//调度的“查询借款进度”接口的密钥
 		//用于查询的参数信息
 		String userId="";//用户id
 		try {
@@ -237,11 +237,11 @@ public class LoadService {
 		String result="";//线下返回的结果
 		//发送到调度的参数信息
 		String signature="";//签名信息
-		String systemSourceId=ConstantsDictionary.dispatchLoadSystemSourceId;//系统标识,就是“APP”
-		String systemId=ConstantsDictionary.dispatchLoadSystemId;//进件标识,就是“APP”
-		String operatorId=ConstantsDictionary.dispatchLoadSystemId;//操作人ID,就是“APP”
+		String systemSourceId=ConstantsDictionary.APP;//系统标识,就是“APP”
+		String systemId=ConstantsDictionary.APP;//进件标识,就是“APP”
+		String operatorId=ConstantsDictionary.APP;//操作人ID,就是“APP”
 		String mobile="";//申请人手机号
-		String key=ConstantsDictionary.dispatchLoadKey;//调度的“查询借款进度”接口的密钥
+		String key=ConstantsDictionary.KEY;//调度的“查询借款进度”接口的密钥
 		//用于查询的参数信息
 		String userId="";//用户id
 		try {
@@ -415,9 +415,9 @@ public class LoadService {
 		String result="";//设置返回结果
 		//发送到调度的参数信息
 //		String idcard =idCard;//身份证号
-		String systemSourceId=ConstantsDictionary.dispatchLoadSystemSourceId;//系统标识,就是“APP”
+		String systemSourceId=ConstantsDictionary.APP;//系统标识,就是“APP”
 		String signature="";//签名信息
-		String key = ConstantsDictionary.dispatchLoadKey;//调度的“查询借款进度”接口的密钥
+		String key = ConstantsDictionary.KEY;//调度的“查询借款进度”接口的密钥
 		//发送数据的Map
 		Map<String,Object> weiXinQueryProgressParms = new HashMap<String,Object>();
 		weiXinQueryProgressParms.put("idcard",idCard);//身份证号

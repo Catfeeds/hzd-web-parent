@@ -37,7 +37,13 @@ public interface UserDao extends IBaseDao<User> {
 	public User selectByPrimaryKey(String id);
 
 	String insertSelective(User user);
-
+	
+	/***
+	 * @Title: updateByPrimaryKeySelective 
+	 * @Description:根据id有选择的修改User中的字段 
+	 * @time: 2017年1月12日 下午4:42:54  
+	 * @return:boolean
+	 */
 	boolean updateByPrimaryKeySelective(User user);
 	
 	public List<User> getUserList(Map<String, Object> parmMap);

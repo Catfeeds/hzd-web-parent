@@ -1,6 +1,7 @@
 package com.hzcf.platform.core.user.webService.model;
+
 /**
-  * @Description:TODO
+  * @Description:线上和线下对接的“进件接口”，对应的线下的实体类
   * @author 作者:裴高祥
   * @date 创建时间：2017年1月11日 下午3:06:21 
   * @version 1.0 
