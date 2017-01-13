@@ -12,6 +12,7 @@ import org.apache.http.message.BasicNameValuePair;
 import org.springframework.stereotype.Component;
 
 import com.hzcf.platform.api.model.OnlineLoanInfo;
+import com.hzcf.platform.api.util.HttpRequestUtil;
 import com.hzcf.platform.common.util.http.HttpRequest;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
@@ -48,7 +49,7 @@ public class OnlineLoanWebService {
 		try {
 			// 借款参数拼接
 			String single = Md5Util.getMD5String(
-					StringUtils.join(new String[] { ConstantsDictionary.APP, onlineLoanInfo.getMobile() }, ","),
+					StringUtils.join(new String[] { ConstantsDictionary.APP, onlineLoanInfo.getOpenId() }, ","),
 					ConstantsDictionary.KEY);
 
 			jsonMap.put("phoneNumber", onlineLoanInfo.getMobile());
@@ -67,8 +68,10 @@ public class OnlineLoanWebService {
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
 			params.add(new BasicNameValuePair("weiXinSubmitApplicationParms", billParms));
 			String paramsData = URLEncodedUtils.format(params, "UTF-8");
-			String sendRsp = HttpRequest.sendGet(ConstantsDictionary.WXSUBMIT, paramsData);
-			return sendRsp;
+			//String sendRsp = HttpRequest.sendGet(ConstantsDictionary.offlineInsertLoad, paramsData);
+			String result=HttpRequestUtil.sendPost(ConstantsDictionary.offlineInsertLoad,paramsData);
+
+			return result;
 		} catch (Exception e) {
 			throw new Exception("外访协助接口服务异常");
 		}

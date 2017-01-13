@@ -49,7 +49,9 @@ public class ConstantsDictionary {
 			dispatchLoadInsertLoadUrl=props.getProperty("dispatch.load.insertLoad.url");
 			//调度的“查询借款进度”接口地址
 			dispatchLoadSelectLoadProgressUrl=props.getProperty("dispatch.load.selectLoadProgress.url");
-			
+			//外放协助
+			offlineInsertLoad=props.getProperty("dispatch.load.offlineInsertLoad.url");
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -78,6 +80,7 @@ public class ConstantsDictionary {
 	public final static String SMSSSTATUS0="0";//失效
 	public static String CONTENTTEXT;
 	public static String imgUpload;
+	public static String offlineInsertLoad;
 
 	
 	/**借款的配置信息
