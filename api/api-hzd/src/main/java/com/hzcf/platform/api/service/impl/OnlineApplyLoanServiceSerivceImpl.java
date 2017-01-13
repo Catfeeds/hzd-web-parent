@@ -307,7 +307,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
 			UserDictJson userDictJson = dictUtilService.convertCityBean(userInfoVO.getOrgProvince(), userInfoVO.getOrgCity());
 
-			userInfoVO.setOrgPostCode(userDictJson.getAreacode());//TODO 单位邮政编码
+			userInfoVO.setOrgPostCode(userDictJson.getPostcode());//TODO 单位邮政编码
 			userInfoVO.setOrgTelAreaCode(userDictJson.getAreacode()); //TODO 单位区号
 
 			userInfoVO.setCreateTime(new Date());
@@ -526,7 +526,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 		userInfoVO.setDomicileCity(dictUtilService.convertCity(userInfoVO.getDomicileProvince(), userInfoVO.getDomicileCity()));
 		userInfoVO.setDomicileProvince(dictUtilService.convertProvince(userInfoVO.getDomicileProvince()));
 		//家庭省市
-		userInfoVO.setResidentProvince(dictUtilService.convertCity(userInfoVO.getResidentProvince(), userInfoVO.getResidentCity()));
+		userInfoVO.setResidentCity(dictUtilService.convertCity(userInfoVO.getResidentProvince(), userInfoVO.getResidentCity()));
 		userInfoVO.setResidentProvince(dictUtilService.convertProvince(userInfoVO.getResidentProvince()));		
 		//婚姻
 		userInfoVO.setMarriageStatus(dictUtilService.convertDict(DictBase.MARRIAGE_STATUS, userInfoVO.getMarriageStatus()));
