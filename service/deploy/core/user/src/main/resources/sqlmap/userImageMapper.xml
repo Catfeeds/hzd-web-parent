@@ -68,16 +68,13 @@
   <delete id="deleteByPrimaryKey" parameterType="UserImage" >
     delete from user_image
     where
-
-  <if test="userId!=null">
-
     user_id=#{userId,jdbcType=VARCHAR}
-  </if>
+
     <if test="applyId!=null">
 
-     AND apply_id=#{applyId,jdbcType=VARCHAR} AND
+     AND apply_id=#{applyId,jdbcType=VARCHAR}
     </if>
-     art_work=#{artWork,jdbcType=VARCHAR}
+     AND art_work=#{artWork,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="UserImage" >
     insert into user_image (image_id, user_id, apply_id, 
