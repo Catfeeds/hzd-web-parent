@@ -9,6 +9,7 @@ import com.hzcf.platform.api.model.CheckApplyLoanStatus;
 import com.hzcf.platform.api.service.IOnlineApplyLoanService;
 import com.hzcf.platform.api.util.CustomerUtils;
 import com.hzcf.platform.api.util.DateUtil;
+import com.hzcf.platform.api.util.StringUtil;
 import com.hzcf.platform.api.util.serialnumber;
 import com.hzcf.platform.common.exception.CheckException;
 import com.hzcf.platform.common.util.log.Log;
@@ -307,7 +308,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
 			UserDictJson userDictJson = dictUtilService.convertCityBean(userInfoVO.getOrgProvince(), userInfoVO.getOrgCity());
 
-			userInfoVO.setOrgPostCode(userDictJson.getAreacode());//TODO 单位邮政编码
+			userInfoVO.setOrgPostCode(userDictJson.getPostcode());//TODO 单位邮政编码
 			userInfoVO.setOrgTelAreaCode(userDictJson.getAreacode()); //TODO 单位区号
 
 			userInfoVO.setCreateTime(new Date());
@@ -405,7 +406,10 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
 		//TODO 图片入参校验
 
-
+        if(StringUtils.isBlank(userImageVO.getImageType())){
+            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+                    "图片类型不能为空",null);
+        }
 
 		Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
 
@@ -465,7 +469,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 						String url =ConstantsDictionary.imgUpload+"/"+file_url;
 						Map   map = new HashedMap();
 						map.put("url",url);
-						map.put("type",userImageVO.getType());
+						map.put("imageType",userImageVO.getImageType());
 						logger.i("-----------------------上传图片成功");
 						logger.i("上传图片运行时间：" + String.valueOf(endTime - startTime) + "ms" +url);
 						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
@@ -526,7 +530,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 		userInfoVO.setDomicileCity(dictUtilService.convertCity(userInfoVO.getDomicileProvince(), userInfoVO.getDomicileCity()));
 		userInfoVO.setDomicileProvince(dictUtilService.convertProvince(userInfoVO.getDomicileProvince()));
 		//家庭省市
-		userInfoVO.setResidentProvince(dictUtilService.convertCity(userInfoVO.getResidentProvince(), userInfoVO.getResidentCity()));
+		userInfoVO.setResidentCity(dictUtilService.convertCity(userInfoVO.getResidentProvince(), userInfoVO.getResidentCity()));
 		userInfoVO.setResidentProvince(dictUtilService.convertProvince(userInfoVO.getResidentProvince()));		
 		//婚姻
 		userInfoVO.setMarriageStatus(dictUtilService.convertDict(DictBase.MARRIAGE_STATUS, userInfoVO.getMarriageStatus()));
