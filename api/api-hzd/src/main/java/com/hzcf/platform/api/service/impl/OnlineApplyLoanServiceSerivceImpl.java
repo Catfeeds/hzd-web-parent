@@ -9,6 +9,7 @@ import com.hzcf.platform.api.model.CheckApplyLoanStatus;
 import com.hzcf.platform.api.service.IOnlineApplyLoanService;
 import com.hzcf.platform.api.util.CustomerUtils;
 import com.hzcf.platform.api.util.DateUtil;
+import com.hzcf.platform.api.util.StringUtil;
 import com.hzcf.platform.api.util.serialnumber;
 import com.hzcf.platform.common.exception.CheckException;
 import com.hzcf.platform.common.util.log.Log;
@@ -405,7 +406,10 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
 		//TODO 图片入参校验
 
-
+        if(StringUtils.isBlank(userImageVO.getImageType())){
+            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+                    "图片类型不能为空",null);
+        }
 
 		Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
 
@@ -465,7 +469,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 						String url =ConstantsDictionary.imgUpload+"/"+file_url;
 						Map   map = new HashedMap();
 						map.put("url",url);
-						map.put("type",userImageVO.getType());
+						map.put("imageType",userImageVO.getImageType());
 						logger.i("-----------------------上传图片成功");
 						logger.i("上传图片运行时间：" + String.valueOf(endTime - startTime) + "ms" +url);
 						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);

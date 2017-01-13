@@ -1,0 +1,1 @@
+$(function(){var t=$(".ui-form-item select");t.each(function(){$(this)[0].selectedIndex=-1}),t.on("change",function(){var t=$(this).find("option:selected").text();"点击选择"!=t&&$(this).siblings(".textDiv").html(t)})});
