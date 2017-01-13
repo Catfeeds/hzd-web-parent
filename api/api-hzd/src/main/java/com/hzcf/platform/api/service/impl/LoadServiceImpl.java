@@ -51,7 +51,7 @@ public class LoadServiceImpl implements ILoadService {
 	public BackResult operateLoad(String params) {
 		JSONObject json=JSONObject.fromObject(params);
 		String applyId=json.getString("applyId");
-		Map<String,Object> result=null;
+		boolean result=false;
 		try {
 			result=LoadService.operateLoad(applyId);
 		} catch (Exception e) {
