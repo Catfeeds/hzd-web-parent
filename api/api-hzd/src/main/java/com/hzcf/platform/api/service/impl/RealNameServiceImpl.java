@@ -218,7 +218,10 @@ public class RealNameServiceImpl implements IRealNameService {
 	 */
 	@Override
 	public BackResult saveRealNamePic(HttpServletRequest request, UserVO user, UserImageVO userImageVO) {
-
+		if(StringUtils.isBlank(userImageVO.getImageType())){
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+					"图片类型不能为空",null);
+		}
 		long startTime = System.currentTimeMillis();//获取当前时间戳
 		//将当前上下文初始化给 CommonsMutipartResolver （多部分解析器）
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
