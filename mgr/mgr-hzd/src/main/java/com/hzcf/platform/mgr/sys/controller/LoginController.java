@@ -52,26 +52,25 @@ public class LoginController {
 		String result = "";
 		LoginJsonResult loginJsonResult = new LoginJsonResult();
 		String rand = (String) request.getSession().getAttribute("rand");
-		String passwordDB = sysUsersService.getSysUsersInfo(username).getPassword();
+		boolean login = sysUsersService.CheckLogin(username,password);
 		if (!irand.equalsIgnoreCase(rand)) {
 			result = "验证码错误!";
 			loginJsonResult.setMsg("error");
 			loginJsonResult.setSuccess(true);
 			loginJsonResult.setResultContents(result);
-		} else if (password.equals(passwordDB)) {
+		} else  if (login == true) {
 			result = "登录成功!";
 			loginJsonResult.setMsg("ok");
 			loginJsonResult.setSuccess(true);
 			loginJsonResult.setInteractiveUrl("home/main.jsp");
 			loginJsonResult.setSysType("redpack");
 			loginJsonResult.setResultContents(result);
-		}else {
+		} else {
 			result = "用户名或密码错误!";
 			loginJsonResult.setMsg("error");
 			loginJsonResult.setSuccess(true);
 			loginJsonResult.setResultContents(result);
 		}
-		
 		return loginJsonResult;
 	}
 

@@ -8,6 +8,6 @@ import com.hzcf.platform.core.sys.model.SysUsersVO;
  */
 public interface ISysUsersService {
 	
-	public SysUsersVO getSysUsersInfo(String username);
+	public boolean CheckLogin(String username,String password);
 	
 }

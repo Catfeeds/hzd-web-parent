@@ -22,9 +22,19 @@ public class SysUsersServiceImpl implements ISysUsersService {
 	public SysUsersService sysUsersSerivce;
 
 	@Override
-	public SysUsersVO getSysUsersInfo(String username) {
+	public boolean CheckLogin(String username,String password) {
+		boolean login = false;
 		Result<SysUsersVO> sysUsersVO = sysUsersSerivce.getBySysUsersName(username);
-		return sysUsersVO.getItems();
+		SysUsersVO sysUsers = sysUsersVO.getItems();
+		if (sysUsers != null){
+			String passwordDB = sysUsersVO.getItems().getPassword();
+			if (passwordDB.equals(password)){
+				login = true;
+			}
+		} else {
+			login = false;
+		}
+		return login;
 	}
 
 }
