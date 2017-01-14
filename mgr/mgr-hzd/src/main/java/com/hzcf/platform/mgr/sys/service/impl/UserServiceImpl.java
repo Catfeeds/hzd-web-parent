@@ -153,7 +153,8 @@ public class UserServiceImpl implements IUserService {
 		}
 		Result<UserVO> result = userSerivce.getByMobile(mobile);
 		
-		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)&&result.getStatus()==200){
+		//提交线下系统
+/*		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)&&result.getStatus()==200){
 			//TODO  查询applyId
 			Result<UserApplyInfoVO> resultApply = userApplyInfoSerivce.selectByUserId(result.getItems().getId());
 			if(resultApply.getStatus()==200){
@@ -170,7 +171,7 @@ public class UserServiceImpl implements IUserService {
 			}else{
 				logger.e("UserApplyInfoVO数据查询失败");
 			}
-		}
+		}*/
 		
 		MsgBoxVO msgBoxVO = new MsgBoxVO();
 		msgBoxVO.setMsgId(UUIDGenerator.getUUID());
