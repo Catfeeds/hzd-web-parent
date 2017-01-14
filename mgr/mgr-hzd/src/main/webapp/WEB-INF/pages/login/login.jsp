@@ -18,23 +18,9 @@
 		<script type="text/javascript">
 			var root = "<%=basePath%>";
 			$(document).ready(function() {
-				$("#username").focus();
-				/*
-				$("#username").keydown(function(event){
-					if(event.keyCode==13){
-						$("#password").focus();
-					}
-				});
-				
-				$("#password").keydown(function(event){
-					if(event.keyCode==13){
-						$("#submit").focus();
-					}
-				}); */
-				
 				$("body").keydown(function(event){
 					if(event.keyCode==13){
-						$("#submit").click();  
+						$("#submit").click();
 					}
 				});
 				
@@ -61,7 +47,6 @@
 										console.log(sysType);
 										if(sysType == null ||sysType == "redpack" || sysType == ""){
 									 		var pageurl=dataObj.interactiveUrl+"?user_id="+username+"";
-									    	//window.open(pageurl,"_blank","height=0,width=0,top=0,left=0,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no,status=no",true);
 										}
 									}catch(e){}
 									// 2.系统功能列表界面
