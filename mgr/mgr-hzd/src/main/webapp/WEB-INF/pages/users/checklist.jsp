@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>实名认证管理</title>
 <%@include file="../common/include.jsp"%> 
-
+<script src="${path}/script/common/dateUtil.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){
 	$('#grid').datagrid({
@@ -16,7 +16,7 @@ $(function(){
 		   {field:'mobile',title:'手机号',width:150},
 			{field:'name',title:'姓名',width:150},
 			{field:'idCard',title:'身份证号',width:180},
-			{field:'submitTime',title:'提交时间',width:120},
+			{field:'submitTime',title:'提交时间',width:120,formatter:formatDateBoxFull},
 			{field:'checkStatus',title:'审核状态',width:100,formatter:function(value){
 		    	if(value=="0"){
 		    		return "通过";

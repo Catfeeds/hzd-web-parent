@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>用户管理</title>
 <%@include file="../common/include.jsp"%> 
-
+<script src="${path}/script/common/dateUtil.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){
 	$('#grid').datagrid({
@@ -24,7 +24,7 @@ $(function(){
 		    		return "禁用";
 		    	}
 		    }},
-			{field:'createTime',title:'注册时间',width:120},
+			{field:'createTime',title:'注册时间',width:120,formatter:formatDateBoxFull},
 			{field:'applyStatus',title:'进件状态',width:100,formatter:function(value){
 				if(value =="0"){
 					return "未进件";
