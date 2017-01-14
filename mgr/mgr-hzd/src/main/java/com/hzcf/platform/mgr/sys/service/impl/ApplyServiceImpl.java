@@ -11,6 +11,7 @@ import org.springframework.stereotype.Service;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.core.user.model.UserApplyInfoVO;
+import com.hzcf.platform.core.user.service.DictUtilService;
 import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
 import com.hzcf.platform.mgr.sys.common.pageModel.DataGrid;
 import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
@@ -23,6 +24,8 @@ public class ApplyServiceImpl implements IApplyService {
 	@Autowired
 	public UserApplyInfoSerivce userApplyInfoSerivce;
 	
+	@Autowired
+    DictUtilService dictUtilService;
 	
 	@Override
 	public DataGrid getApplyPage(PageHelper pageHelper, UserApplyInfoVO apply){
@@ -35,6 +38,22 @@ public class ApplyServiceImpl implements IApplyService {
 		DataGrid dataGrid = new DataGrid();
 		dataGrid.setTotal(userApplyInfoSerivce.getUserApplyInfoTotal(parmMap));
 		PaginatedResult result = userApplyInfoSerivce.getUserApplyInfoList(parmMap);
+		
+		//借款用途-转码
+		List<UserApplyInfoVO> applyList = result.getItems();
+		for(UserApplyInfoVO userApplyInfoVO : applyList){
+			String loanPurposeOne = userApplyInfoVO.getLoanPurposeOne();
+			String loanPurposeOneValue = dictUtilService.convertLoanPurposeOne(loanPurposeOne);
+			userApplyInfoVO.setLoanPurposeOne(loanPurposeOneValue);
+			System.out.println(loanPurposeOneValue);
+			String loanPurposeTwo = userApplyInfoVO.getLoanPurposeTwo();
+			String loanPurposeTwoValue = dictUtilService.convertLoanPurposeTwo(loanPurposeOne,loanPurposeTwo);
+			userApplyInfoVO.setLoanPurposeTwo(loanPurposeTwoValue);
+			System.out.println(loanPurposeTwoValue);
+//			apply.setLoanPurposeOne(dictUtilService.convertLoanPurposeOne(apply.getLoanPurposeOne()));
+//			apply.setLoanPurposeTwo(dictUtilService.convertLoanPurposeTwo(apply.getLoanPurposeOne(), apply.getLoanPurposeTwo()));
+		}
+		result.setItems(applyList);
 		dataGrid.setRows(result.getItems());
 		return dataGrid;
 	}
