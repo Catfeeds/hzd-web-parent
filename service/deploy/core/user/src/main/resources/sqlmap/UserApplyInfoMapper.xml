@@ -184,6 +184,7 @@
 	    <if test="apply.startDate != null and apply.startDate !='' and apply.endDate != null and apply.endDate != ''">
 	        and date_format(create_time, '%Y-%m-%d') BETWEEN #{apply.startDate} AND #{apply.endDate} 
 	    </if>
+	    <if test="apply.status != null and apply.status != ''"> and a.status=#{apply.status} </if>
 	  </sql>
   	<!-- 分页查询 -->
 	<select id="FINDLIST" resultMap="queryForListMap" parameterType="java.util.Map">

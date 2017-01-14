@@ -101,7 +101,7 @@ function doExport(){
 	<input id="subStartDate" name="subStartDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc">至
 	<input id="subEndDate" name="subEndDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc">
  	<span>审核状态:</span>
-	<select id="checkStatus" name="checkStatus" class="easyui-combobox" style="width:120px;">
+	<select id="checkStatus" name="checkStatus" class="easyui-combobox" style="width:120px;" data-options="editable:false,panelHeight:'auto'">
 		<option value="">请选择</option>
 		<option value="2">待审核</option>
 		<option value="0">通过</option>
