@@ -6,7 +6,7 @@ pageEncoding="UTF-8"%>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <title>进件管理</title>
 <%@include file="../common/include.jsp"%> 
-
+<script src="${path}/script/common/dateUtil.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){
 	$('#grid').datagrid({
@@ -21,7 +21,7 @@ $(function(){
 			{field:'minApplyAmount',title:'申请最低额度',width:100},
 			{field:'maxApplyAmount',title:'申请最高额度',width:100},
 			{field:'maxMonthlyPayment',title:'月还款最高额度',width:100},
-			{field:'applySubmitTime',title:'提交时间',width:100},
+			{field:'applySubmitTime',title:'提交时间',width:200,formatter:formatDateBoxFull},
 			{field:'status',title:'进件状态',width:100,formatter:function(value){
 				if(value =="0"){
 					return "未进件";
