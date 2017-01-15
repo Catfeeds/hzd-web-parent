@@ -180,6 +180,13 @@ function updatePassWord(canshu) {
 	}]
     });
 }
+
+function doExport(){
+	//window.location="${path}/member/excel";
+	$("#searchForm").attr("action", "${path}/user/excel");
+	 $("#searchForm").attr("method", "POST");
+	 $("#searchForm").submit();
+}
 </script>
 
 </head>
@@ -212,7 +219,7 @@ function updatePassWord(canshu) {
 	</select> 	 -->
 	<div class="btnDiv">
 		<span align="center"><a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search"  onclick="doSearch()">查询</a></span>
-		<!-- <span align="center"><a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-save"  onclick="doExport()">导出Excel</a></span> -->
+		<span align="center"><a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-save"  onclick="doExport()">导出Excel</a></span>
 	</div>
 	</form>
 </div>
