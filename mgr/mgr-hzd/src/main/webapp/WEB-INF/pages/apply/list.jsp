@@ -56,7 +56,8 @@ function doSearch(){
 		idCard: $('#idCard').val(),
 		//buyRedpackCount: $('#buyRedpackCount').combobox('getValue'),
 		startDate: $('#startDate').datebox('getValue'),
-		endDate: $('#endDate').datebox('getValue')
+		endDate: $('#endDate').datebox('getValue'),
+		status:$("#status").combobox('getValue')
 	});
 }
 
@@ -94,7 +95,7 @@ function detail(det){
 	<input id="startDate" name="startDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc"/>至
 	<input id="endDate" name="endDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc"/>
 	<span>进件状态:</span>
-	<select id="applyStatus" name="applyStatus" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'">
+	<select id="status" name="status" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'">
     	<option value="">请选择</option>
     	<option value="0">未进件</option>
     	<option value="1">已进件</option>
