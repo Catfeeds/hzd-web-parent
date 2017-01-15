@@ -21,16 +21,13 @@ $(function(){
 			{field:'minApplyAmount',title:'申请最低额度',width:100},
 			{field:'maxApplyAmount',title:'申请最高额度',width:100},
 			{field:'maxMonthlyPayment',title:'月还款最高额度',width:100},
-			{field:'applySubmitTime',title:'提交时间',width:200,formatter:formatDateBoxFull},//引用外部JS
+			{field:'applySubmitTime',title:'提交时间',width:200,formatter:formatDateBoxFull},
 			{field:'status',title:'进件状态',width:100,formatter:function(value){
 				if(value =="0"){
-					return value+"未进件";
+					return "未进件";
 				}
 				if(value=="1"){
-					return value+"已进件";
-				}
-				if(value=="2"){
-					return value+"待审核";
+					return "已进件";
 				}
 			}},
 		   {field:'-',title:'操作',width:100,formatter:function(value,row,index){
@@ -98,11 +95,17 @@ function detail(det){
 	<input id="startDate" name="startDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc"/>至
 	<input id="endDate" name="endDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc"/>
 	<span>进件状态:</span>
-	<select id="status" name="status" class="easyui-combobox" style="width:120px;" data-options="editable:false,panelHeight:'auto'">
+	<select id="status" name="status" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'">
+    	<option value="">请选择</option>
+    	<option value="0">未进件</option>
+    	<option value="1">已进件</option>
+    </select>
+<!-- 	<span>借款状态:</span>
+	<select  class="easyui-combobox" style="width:120px;">
 		<option value="">请选择</option>
-		<option value="0">待进件</option>
-		<option value="1">已进件</option>  
-	</select>
+		<option value="1">是</option>
+		<option value="0">否</option>  
+	</select>  -->	 
 	
 	<div class="btnDiv">
 		<span align="center"><a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search"  onclick="doSearch()">查询</a></span>
