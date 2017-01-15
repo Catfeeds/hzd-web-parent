@@ -45,13 +45,11 @@ public class ApplyServiceImpl implements IApplyService {
 			String loanPurposeOne = userApplyInfoVO.getLoanPurposeOne();
 			String loanPurposeOneValue = dictUtilService.convertLoanPurposeOne(loanPurposeOne);
 			userApplyInfoVO.setLoanPurposeOne(loanPurposeOneValue);
-			System.out.println(loanPurposeOneValue);
 			String loanPurposeTwo = userApplyInfoVO.getLoanPurposeTwo();
 			String loanPurposeTwoValue = dictUtilService.convertLoanPurposeTwo(loanPurposeOne,loanPurposeTwo);
 			userApplyInfoVO.setLoanPurposeTwo(loanPurposeTwoValue);
-			System.out.println(loanPurposeTwoValue);
-//			apply.setLoanPurposeOne(dictUtilService.convertLoanPurposeOne(apply.getLoanPurposeOne()));
-//			apply.setLoanPurposeTwo(dictUtilService.convertLoanPurposeTwo(apply.getLoanPurposeOne(), apply.getLoanPurposeTwo()));
+//			userApplyInfoVO.setLoanPurposeOne(dictUtilService.convertLoanPurposeOne(userApplyInfoVO.getLoanPurposeOne()));
+//			userApplyInfoVO.setLoanPurposeTwo(dictUtilService.convertLoanPurposeTwo(userApplyInfoVO.getLoanPurposeOne(), userApplyInfoVO.getLoanPurposeTwo()));
 		}
 		result.setItems(applyList);
 		dataGrid.setRows(result.getItems());
