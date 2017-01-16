@@ -276,5 +276,45 @@ public class UserController {
         }
         ExportExcel ex = new ExportExcel(title, rowsName, dataList);
         ex.export(response);
-   }	 
+   }
+	
+	/**
+	 * 导出用户列表Excel
+	 * @return
+	 */
+	@RequestMapping(value = "/user/excel",method = RequestMethod.POST)
+    public void exportUser(HttpServletResponse response, UserVO user){
+		String title = "yonghu"+DateUtils.getDate();
+        String[] rowsName = new String[]{"序号","手机号","姓名","身份证号","用户状态","注册时间","进件状态"};
+        List<UserVO> result = sysUserService.getCheckUserForSearch(user);
+        List<Object[]>  dataList = new ArrayList<Object[]>();
+        Object[] objs = null;
+        UserVO vo = null;
+        for (int i = 0; i < result.size(); i++) {
+        	vo = result.get(i);
+            objs = new Object[rowsName.length];
+            objs[0] = i+1;
+            objs[1] = vo.getMobile();
+            objs[2] = vo.getName();
+            objs[3] = vo.getIdCard();
+            String userStatus = vo.getStatus();
+            if (userStatus.equals(ConstantsParam.USER_STATUS_Y)) {
+            	objs[4] = "正常";
+            }
+            if (userStatus.equals(ConstantsParam.USER_STATUS_N)) {
+            	objs[4] = "禁用";
+            }
+            objs[5] = DateUtils.formatDate(vo.getCreateTime(), "yyyy-MM-dd HH:mm:ss");
+            String applyStatus = vo.getApplyStatus();
+            if(applyStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)){
+            	objs[6] = "未进件";
+            }
+            if(applyStatus.equals(ConstantsParam.USER_CKECKSTATUS_N)){
+            	objs[6] = "已进件";
+            }
+            dataList.add(objs);
+        }
+        ExportExcel ex = new ExportExcel(title, rowsName, dataList);
+        ex.export(response);
+   }
 }

@@ -126,10 +126,13 @@ public class RealNameServiceImpl implements IRealNameService {
         	//返回“保存失败”，"1011"，"用户未注册"
         	return new BackResult(HzdStatusCodeEnum.MEF_CODE_1011.getCode(),HzdStatusCodeEnum.MEF_CODE_1011.getMsg(),null);
         }
-        if(StringUtils.isNotBlank(items.getName() )|| StringUtils.isNotBlank(items.getIdCard())){
-        	logger.i("用户已经提交实名认证信息,不能重复提交");
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_1088.getCode(),HzdStatusCodeEnum.MEF_CODE_1088.getMsg(),null);
-		}
+        //重复提交，必须是待审核的状态，否则视为实名认证修改
+        if(!BaseConfig.card_status_1.equals(items.getCheckStatus())){
+	        if(StringUtils.isNotBlank(items.getName() )|| StringUtils.isNotBlank(items.getIdCard())){
+	        	logger.i("用户已经提交实名认证信息,不能重复提交");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_1088.getCode(),HzdStatusCodeEnum.MEF_CODE_1088.getMsg(),null);
+			}
+        }
         String realName=String.valueOf(map.get("name"));
         String idCard=String.valueOf(map.get("idCard"));
         /*第一步验证：验证实名认证信息是否符合要求
