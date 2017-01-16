@@ -51,13 +51,13 @@ pageEncoding="UTF-8"%>
 				success:function(rst){
 					var rst2=eval('(' + rst+ ')');
 					if(rst2.result==true){
-						alert("恭喜您,提交成功!");
+						alert("提交成功!");
 						window.location = '${path}/users/check/list';
 						return null;
 					}else if(rst2.result==false){//
 						var resultMsg=rst2.resultMsg;
 						var resultMsg2=eval('(' + resultMsg+ ')');
-						alert(resultMsg2.retInfo);
+						alert(resultMsg2.retInfo);//弹出错误信息
 						return false;
 					} 
 				}

@@ -47,7 +47,7 @@ public class UserController {
 	IUserService sysUserService;
 	
 	@Autowired
-	private ImageServer imageServer;
+	//private ImageServer imageServer;
 	
 	@RequestMapping(value = "/users/fast",method = RequestMethod.GET)
 	public String fast() throws Exception {
@@ -58,8 +58,8 @@ public class UserController {
 			File[] files = folder.listFiles();
 			for (File file : files) {
 				if (file.exists() && file.isFile()) {
-					String file_url = imageServer.uploadFile(FileCommon.File2byte(file), getSuffix(file.getName()));
-					System.out.println(file.getName() + " : " + file_url);
+					//String file_url = imageServer.uploadFile(FileCommon.File2byte(file), getSuffix(file.getName()));
+					//System.out.println(file.getName() + " : " + file_url);
 				}
 			}
 		}
@@ -175,19 +175,14 @@ public class UserController {
 		//String resultMsg = String.valueOf(map.getItems().get("resultMsg"));
 		//Boolean status = bool.getItems().booleanValue();
 //		response.getWriter().print(map);
-		Map result=map.getItems();
-        GsonBuilder builder = new GsonBuilder();
-        builder.disableHtmlEscaping();
-        builder.setDateFormat("yyyy-MM-dd HH:mm:ss");
-        Gson gson = null;
-    	gson = builder.create();
+		JSONObject mapJSON=JSONObject.fromObject(map);
 		response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0
 		response.setDateHeader("Expires", 0); // prevents caching at the
 												// proxy server
 		response.setCharacterEncoding("UTF-8");
 		response.setContentType("textml;charset=UTF-8");
-		response.getWriter().write(gson.toJson(result, Map.class));
+		response.getWriter().write(mapJSON.toString());
 		response.flushBuffer();
 //		return "users/checklist";
 	}

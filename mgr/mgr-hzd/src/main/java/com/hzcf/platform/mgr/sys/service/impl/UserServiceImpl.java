@@ -153,8 +153,9 @@ public class UserServiceImpl implements IUserService {
 		}
 		Result<UserVO> result = userSerivce.getByMobile(mobile);
 		//调用线下是否成功
+		boolean jinjian=false;
 		boolean flag = false;
-		Map tempMap = null;
+		Map tempMap = new HashMap();
 		//提交线下系统
 		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)&&result.getStatus()==200){
 			//TODO  查询applyId
@@ -163,11 +164,12 @@ public class UserServiceImpl implements IUserService {
 			parmMap.put("userId", result.getItems().getId());
 			parmMap.put("status", ConstantsParam.USER_APPLYINFO_STATU_WJ);
 			Result<UserApplyInfoVO> resultApply = userApplyInfoSerivce.selectByUserIdAndStatus(parmMap);
-			if(resultApply.getStatus()==200){
+			if(resultApply.getStatus()==200 && resultApply.getItems()!=null){
 				applyId = resultApply.getItems().getApplyId();
 				if(!applyId.equals("")){
 					// TODO 调裴高翔接口把applyId传过去
 					try {
+						jinjian=true;
 						tempMap = loadService.operateLoadMap(applyId);
 						flag = (boolean)tempMap.get("result");
 					} catch (Exception e) {
@@ -179,44 +181,67 @@ public class UserServiceImpl implements IUserService {
 				logger.e("UserApplyInfoVO数据查询失败");
 			}
 		}
-		//调用线下是否成功
-		if(flag){
-			MsgBoxVO msgBoxVO = new MsgBoxVO();
-			msgBoxVO.setMsgId(UUIDGenerator.getUUID());
-			msgBoxVO.setUserId(result.getItems().getId());
-			//msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_YES);
-			msgBoxVO.setMsgType(ConstantsParam.MSG_TYPE);
-			msgBoxVO.setIsRead(ConstantsParam.MSG_IS_READ_YES);
-			msgBoxVO.setCreateTime(new Date());
-			msgBoxVO.setMsgTitle("实名认证用户审核情况");
-			String date ="";
-			if(result.getItems().getSubmitTime()!=""&&result.getItems().getSubmitTime()!=null){
-				date = DateUtils.getDateString(result.getItems().getSubmitTime());
-			}
-			
-			if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_N)){
-				msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_BTG);
-				msgBoxVO.setMsgContent("尊敬的用户，您在"+date+"提交的实名认证申请未通过，请重新申请。");
-				msgBoxservice.insertSelective(msgBoxVO);
-			}
-			if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)){
-				msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_TG);
-				msgBoxVO.setMsgContent("尊敬的用户，您在"+date+"提交的实名认证申请已通过。");
-				msgBoxservice.insertSelective(msgBoxVO);
-			}
-			user.setId(result.getItems().getId());
-			user.setIdCard(result.getItems().getIdCard());
-			user.setApplyStatus(ConstantsParam.USE_APPLY_STASUE_N);
-			tempMap = new HashMap();
-			tempMap.put("result", userSerivce.updateByPrimaryKeySelective(user).getItems());
+		//写入站内信
+		MsgBoxVO msgBoxVO = new MsgBoxVO();
+		msgBoxVO.setMsgId(UUIDGenerator.getUUID());
+		msgBoxVO.setUserId(result.getItems().getId());
+		//msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_YES);
+		msgBoxVO.setMsgType(ConstantsParam.MSG_TYPE);
+		msgBoxVO.setIsRead(ConstantsParam.MSG_IS_READ_YES);
+		msgBoxVO.setCreateTime(new Date());
+		msgBoxVO.setMsgTitle("实名认证用户审核情况");
+		String date ="";
+		if(result.getItems().getSubmitTime()!=""&&result.getItems().getSubmitTime()!=null){
+			date = DateUtils.getDateString(result.getItems().getSubmitTime());
+		}
+		
+		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_N)||flag==false){
+			msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_BTG);
+			msgBoxVO.setMsgContent("尊敬的用户，您在"+date+"提交的实名认证申请未通过，请重新申请。");
+			msgBoxservice.insertSelective(msgBoxVO);
+		}
+		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)&&flag==true){
+			msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_TG);
+			msgBoxVO.setMsgContent("尊敬的用户，您在"+date+"提交的实名认证申请已通过。");
+			msgBoxservice.insertSelective(msgBoxVO);
+		}
+		user.setId(result.getItems().getId());
+		user.setIdCard(result.getItems().getIdCard());
+		user.setApplyStatus(ConstantsParam.USE_APPLY_STASUE_N);
+		Result<Boolean> bool = userSerivce.updateByPrimaryKeySelective(user);
+//		tempMap = new HashMap();
+//		if(flag||checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_N)){
+//			tempMap.put("result", bool.getItems());
+//			tempMap.put("resultMsg","");
+//			return new Result<Map>(ConstantsParam.APPLY_STATUS_SUCCESS, tempMap);
+//		}else{
+//			//调用线下失败
+//			//String resultMsg = String.valueOf(tempMap.get("resultMsg"));
+//			return new Result<Map>(ConstantsParam.APPLY_STATUS_FAIL, tempMap);
+//		}
+		//"实名认证"审核不通过
+		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_N)){
+			tempMap.put("result", bool.getItems());
 			tempMap.put("resultMsg","");
 			return new Result<Map>(ConstantsParam.APPLY_STATUS_SUCCESS, tempMap);
-		}else{
+		//"实名认证"审核通过,未进件
+		}else if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y) && jinjian==false){
 			//调用线下失败
 			//String resultMsg = String.valueOf(tempMap.get("resultMsg"));
-			
+			tempMap.put("result", bool.getItems());
+			tempMap.put("resultMsg","");
+			return new Result<Map>(ConstantsParam.APPLY_STATUS_FAIL, tempMap);
+		//"实名认证"审核通过,有进件,但是进件成功
+		}else if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y) && jinjian==true && flag==true){
+			tempMap.put("result", flag);
+			tempMap.put("resultMsg","");
+			return new Result<Map>(ConstantsParam.APPLY_STATUS_FAIL, tempMap);
+		//"实名认证"审核通过,有进件,但是进件失败
+		}else if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y) && jinjian==true && flag==false){
+			tempMap.put("result", flag);
 			return new Result<Map>(ConstantsParam.APPLY_STATUS_FAIL, tempMap);
 		}
+		return null;
 	}
 
 	@Override
