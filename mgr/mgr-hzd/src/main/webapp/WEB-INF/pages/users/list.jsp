@@ -129,7 +129,12 @@ function updatePassWord(canshu) {
 	var mobile = arr[0];
 	var name = arr[1];
 	$("#div").html(mobile);
-	$("#di").text(name);
+	if(name == "null"){
+		$("#di").text("");
+	}
+	else{
+		$("#di").text(name);
+	} 
 	
     $("#dd").dialog({
 	 closable: false, //右上角的关闭按钮，因为dialog框架关联的是window框架，window框架关联的是panel框架，所以该API是在panel框架中找到的
