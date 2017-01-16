@@ -175,7 +175,7 @@ public class UserController {
 		//String resultMsg = String.valueOf(map.getItems().get("resultMsg"));
 		//Boolean status = bool.getItems().booleanValue();
 //		response.getWriter().print(map);
-		JSONObject mapJSON=JSONObject.fromObject(map);
+		JSONObject mapJSON=JSONObject.fromObject(map.getItems());
 		response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
 		response.setHeader("Pragma", "no-cache"); // HTTP 1.0
 		response.setDateHeader("Expires", 0); // prevents caching at the
