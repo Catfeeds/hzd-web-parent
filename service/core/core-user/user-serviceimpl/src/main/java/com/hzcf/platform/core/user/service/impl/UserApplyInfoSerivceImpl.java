@@ -140,4 +140,19 @@ public class UserApplyInfoSerivceImpl  extends AbstractBaseServiceImpl<UserApply
 			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
 		}
 	}
+
+	@Override
+	public Result<UserApplyInfoVO> selectByUserIdAndStatus(Map<String, Object> parmMap) {
+		try {
+			UserApplyInfoVO t = purchaseOrderDao.selectByUserIdAndStatus(parmMap);
+            if (null == t) {
+                logger.debug("data null.");
+                return new Result<UserApplyInfoVO>(StatusCodes.OK, null);
+            }
+            return new Result<UserApplyInfoVO>(StatusCodes.OK, t);
+        } catch (Exception e) {
+            logger.error("an error occur in selectByUserIdAndStatus service : {}", e);
+            return new Result<UserApplyInfoVO>(StatusCodes.INTERNAL_SERVER_ERROR, getModel());
+        }
+	}
 }

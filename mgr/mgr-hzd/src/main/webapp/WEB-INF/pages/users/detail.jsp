@@ -16,7 +16,13 @@ pageEncoding="UTF-8"%>
 		}
 			
 	});
-	
+	function removeHTMLTag(str){
+		str = str.replace(/<\/?[^>]*>/g,''); //去除HTML tag
+		str = str.replace(/[ | ]*\n/g,'\n'); //去除行尾空白
+		//str = str.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
+		str=str.replace(/&nbsp;/ig,'');//去掉&nbsp;
+		return str;
+	}
 	function rad(obj){
 		if(obj.value==1){
 			$("#center").show();
@@ -42,13 +48,23 @@ pageEncoding="UTF-8"%>
 					"checkStatus" : checkStatus,
 					"nopassCause" : nopassCause,
 				},
-				success:function(result){
-					if(result){
+				success:function(rst){
+					alert(JSON.stringify(rst));
+					var rst2=eval(rst);
+					
+					
+					alert(rst.result);
+					
+					if(rst.status==true){
 						alert("恭喜您,提交成功!");
 						window.location = '${path}/users/check/list';
 						return null;
-					}else{
-						alert("修改失败");
+					}else if(rst.status==false){//
+						alert("000000000000000000000")
+						var result2=result.items;
+						var msg=result2.resultMsg;
+						var resultMsg=eval(msg);
+						alert(resultMsg.retInfo);
 						return false;
 					} 
 				}

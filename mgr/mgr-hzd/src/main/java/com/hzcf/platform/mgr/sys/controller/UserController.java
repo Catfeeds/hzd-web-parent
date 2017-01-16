@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -14,6 +15,9 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.user.model.UserVO;
@@ -27,6 +31,8 @@ import com.hzcf.platform.mgr.sys.common.util.ExportExcel;
 import com.hzcf.platform.mgr.sys.service.IUserService;
 import com.hzcf.platform.mgr.sys.util.ConstantsParam;
 import com.imageserver.ImageServer;
+
+import net.sf.json.JSONObject;
 /**
  * @description:后台用户管理
  * @author zhangmx
@@ -162,11 +168,28 @@ public class UserController {
 	 * @throws IOException
 	 */
 	@RequestMapping(value="/users/check/updateStatus",method=RequestMethod.POST)
-	public String updateStatus(String mobile,String checkStatus,String nopassCause,HttpServletResponse response) throws IOException{
-		Result<Boolean> bool = sysUserService.updateStatus(mobile, checkStatus,nopassCause);
-		Boolean status = bool.getItems().booleanValue();
-		response.getWriter().print(status);
-		return "users/checklist";
+	@ResponseBody
+	public void updateStatus(String mobile,String checkStatus,String nopassCause,HttpServletResponse response) throws IOException{
+		Result<Map> map = sysUserService.updateStatus(mobile, checkStatus,nopassCause);
+		//boolean result = (boolean)map.getItems().get("result");
+		//String resultMsg = String.valueOf(map.getItems().get("resultMsg"));
+		//Boolean status = bool.getItems().booleanValue();
+//		response.getWriter().print(map);
+		Map result=map.getItems();
+        GsonBuilder builder = new GsonBuilder();
+        builder.disableHtmlEscaping();
+        builder.setDateFormat("yyyy-MM-dd HH:mm:ss");
+        Gson gson = null;
+    	gson = builder.create();
+		response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+		response.setDateHeader("Expires", 0); // prevents caching at the
+												// proxy server
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("textml;charset=UTF-8");
+		response.getWriter().write(gson.toJson(result, Map.class));
+		response.flushBuffer();
+//		return "users/checklist";
 	}
 	/**
 	 * 修改登录密码

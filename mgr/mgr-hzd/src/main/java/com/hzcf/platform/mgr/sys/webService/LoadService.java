@@ -65,7 +65,7 @@ public class LoadService {
 	 * @return:String
 	 * @throws Exception
 	 */
-	public String insertLoad(String applyId) throws Exception{
+	public String insertLoad(String applyId){
 		/**初始化参数*/
 		String result="";//返回结果
 		//发送到调度的参数信息
@@ -260,6 +260,65 @@ public class LoadService {
 			}
 		return true;
 	}
+	
+	/**
+	 * @Title: operateLoad 进件接口
+	 * @Description:线下和调度对接，进件，就是保存借款信息
+	 * 	注意：这个接口不仅会发送进件信息，还会修改数据库中的“进件状态字段”
+	 * @time: 2017年1月7日 下午6:58:46
+	 * @return:String
+	 * @throws Exception
+	 */
+	@Transactional
+	public Map operateLoadMap(String applyId) {
+			Map map = new HashMap();
+			String result=insertLoad(applyId);
+			/**根据线下返回的结果，修改借款人的“借款状态”
+			 * 线下返回结果示例：{"retInfo":"进件成功!","retCode":"0000"}
+			 * */
+			logger.info("接口：进件。开始修改数据库中‘进件状态’");
+			map.put("result", true);
+			map.put("resultMsg", result);
+			if(StringUtils.isNotBlank(result)){
+				JSONObject resultJSON=JSONObject.fromObject(result);
+				String retCode=resultJSON.getString("retCode");
+				if("0000".equals(retCode)){
+					/**修改User中的“借款状态”*/
+					//组装参数
+					UserVO updateUserVO=new UserVO();
+					Result<UserInfoVO> userInfoVOResult=userInfoService.selectByApplyId(applyId);
+					UserInfoVO userInfoVO=userInfoVOResult.getItems();
+					updateUserVO.setId(userInfoVO.getUserId());
+					updateUserVO.setApplyStatus("1");
+					//修改数据库user中的进件状态
+					Result<Boolean> updateUserVOResult=userSerivce.updateByPrimaryKeySelective(updateUserVO);
+					logger.info("修改User中的'进件状态'，结果："+updateUserVOResult.getItems());
+					/**修改UserApplyInfo中的“借款状态”*/
+					//组装参数
+					UserApplyInfoVO updateUserApplyInfoVO=new UserApplyInfoVO();
+					updateUserApplyInfoVO.setApplyId(applyId);
+					updateUserApplyInfoVO.setStatus("1");
+					//修改数据库中user_apply_info中的进件状态
+					Result<Boolean> updateUserApplyInfoVOResult=userApplyInfoSerivce.updateApplyId(updateUserApplyInfoVO);
+					logger.info("修改UserApplyInfo中的'进件状态'，结果："+updateUserApplyInfoVOResult.getItems());
+					if(updateUserVOResult.getItems()==false || updateUserApplyInfoVOResult.getItems()==false){
+						map.put("result", false);
+						//return false;
+					}
+				}else{
+					map.put("result", false);
+					//return false;
+				}
+			}else{
+				map.put("result", false);
+				//return false;
+			}
+			return map;
+			
+		//return true;
+	}
+	
+	
 	/**
 	 * @Title: selectLoadProgress 
 	 * @Description:线下和调度对接，借款人查询借款进度

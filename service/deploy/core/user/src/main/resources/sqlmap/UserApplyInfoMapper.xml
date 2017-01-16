@@ -43,7 +43,14 @@
     from user_apply_info
     where user_id = #{userId,jdbcType=VARCHAR}
   </select>
-
+  <select id="selectByUserIdAndStatus" resultMap="queryForListMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_apply_info
+    where user_id = #{userId,jdbcType=VARCHAR} and status = #{status,jdbcType=VARCHAR}
+    order by apply_submit_time desc
+    limit 0,1
+  </select>
   <select id="selectByApplyId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
@@ -184,7 +191,7 @@
 	    <if test="apply.startDate != null and apply.startDate !='' and apply.endDate != null and apply.endDate != ''">
 	        and date_format(create_time, '%Y-%m-%d') BETWEEN #{apply.startDate} AND #{apply.endDate} 
 	    </if>
-	    <if test="apply.status != null and apply.status != ''"> and a.status=#{apply.status} </if>
+	    <if test="apply.status != null and apply.status != ''"> and status=#{apply.status} </if>
 	  </sql>
   	<!-- 分页查询 -->
 	<select id="FINDLIST" resultMap="queryForListMap" parameterType="java.util.Map">

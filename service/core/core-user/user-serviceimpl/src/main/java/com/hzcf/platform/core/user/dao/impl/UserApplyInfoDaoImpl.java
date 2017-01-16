@@ -48,4 +48,9 @@ public class UserApplyInfoDaoImpl  extends AbstractMysqlBaseDaoImpl<UserApplyInf
         this.sqlSessionTemplate.update(this.getSqlName("updateByApplyId"), userApplyInfo);
         return true;
     }
+
+	@Override
+	public UserApplyInfoVO selectByUserIdAndStatus(Map<String, Object> parmMap) {
+		return (UserApplyInfoVO)this.sqlSessionTemplate.selectOne(this.getSqlName("selectByUserIdAndStatus"), parmMap);
+	}
 }

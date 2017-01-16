@@ -1,6 +1,7 @@
 package com.hzcf.platform.mgr.sys.service;
 
 import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -23,7 +24,7 @@ public interface IUserService {
 	
 	public Result<Boolean> update(String mobile,String name,String idCard);
 	
-	public Result<Boolean> updateStatus(String mobile,String checkStatus,String nopassCause);
+	public Result<Map> updateStatus(String mobile,String checkStatus,String nopassCause);
 	
 	public Result<Boolean> updatePassWord(String mobile,String passWord);
 	

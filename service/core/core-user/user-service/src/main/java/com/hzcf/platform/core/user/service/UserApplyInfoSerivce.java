@@ -28,4 +28,6 @@ public interface UserApplyInfoSerivce extends IBaseService<UserApplyInfoVO> {
 	 * @return:Result<Boolean>
 	 */
 	public Result<Boolean> updateApplyId(UserApplyInfoVO userApplyInfoVO);
+	//后台实名认证通过，查询进件数据
+	public Result<UserApplyInfoVO> selectByUserIdAndStatus(Map<String, Object> parmMap);
 }

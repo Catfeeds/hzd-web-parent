@@ -143,7 +143,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
-	public Result<Boolean> updateStatus(String mobile, String checkStatus,String nopassCause) {
+	public Result<Map> updateStatus(String mobile, String checkStatus,String nopassCause) {
 		String applyId = "";
 		UserVO user = new UserVO();
 		user.setCheckStatus(checkStatus);
@@ -152,17 +152,24 @@ public class UserServiceImpl implements IUserService {
 			user.setNopassCause(nopassCause);
 		}
 		Result<UserVO> result = userSerivce.getByMobile(mobile);
-		
+		//调用线下是否成功
+		boolean flag = false;
+		Map tempMap = null;
 		//提交线下系统
-/*		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)&&result.getStatus()==200){
+		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)&&result.getStatus()==200){
 			//TODO  查询applyId
-			Result<UserApplyInfoVO> resultApply = userApplyInfoSerivce.selectByUserId(result.getItems().getId());
+			//Result<UserApplyInfoVO> resultApply = userApplyInfoSerivce.selectByUserId(result.getItems().getId());
+			Map parmMap = new HashMap();
+			parmMap.put("userId", result.getItems().getId());
+			parmMap.put("status", ConstantsParam.USER_APPLYINFO_STATU_WJ);
+			Result<UserApplyInfoVO> resultApply = userApplyInfoSerivce.selectByUserIdAndStatus(parmMap);
 			if(resultApply.getStatus()==200){
 				applyId = resultApply.getItems().getApplyId();
 				if(!applyId.equals("")){
 					// TODO 调裴高翔接口把applyId传过去
 					try {
-						loadService.operateLoad(applyId);
+						tempMap = loadService.operateLoadMap(applyId);
+						flag = (boolean)tempMap.get("result");
 					} catch (Exception e) {
 						logger.e("进件接口调用失败!");
 						e.printStackTrace();
@@ -171,35 +178,45 @@ public class UserServiceImpl implements IUserService {
 			}else{
 				logger.e("UserApplyInfoVO数据查询失败");
 			}
-		}*/
-		
-		MsgBoxVO msgBoxVO = new MsgBoxVO();
-		msgBoxVO.setMsgId(UUIDGenerator.getUUID());
-		msgBoxVO.setUserId(result.getItems().getId());
-		//msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_YES);
-		msgBoxVO.setMsgType(ConstantsParam.MSG_TYPE);
-		msgBoxVO.setIsRead(ConstantsParam.MSG_IS_READ_YES);
-		msgBoxVO.setCreateTime(new Date());
-		msgBoxVO.setMsgTitle("实名认证用户审核情况");
-		String date ="";
-		if(result.getItems().getSubmitTime()!=""&&result.getItems().getSubmitTime()!=null){
-			date = DateUtils.getDateString(result.getItems().getSubmitTime());
 		}
-		
-		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_N)){
-			msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_BTG);
-			msgBoxVO.setMsgContent("尊敬的用户，您在"+date+"提交的实名认证申请未通过，请重新申请。");
-			msgBoxservice.insertSelective(msgBoxVO);
+		//调用线下是否成功
+		if(flag){
+			MsgBoxVO msgBoxVO = new MsgBoxVO();
+			msgBoxVO.setMsgId(UUIDGenerator.getUUID());
+			msgBoxVO.setUserId(result.getItems().getId());
+			//msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_YES);
+			msgBoxVO.setMsgType(ConstantsParam.MSG_TYPE);
+			msgBoxVO.setIsRead(ConstantsParam.MSG_IS_READ_YES);
+			msgBoxVO.setCreateTime(new Date());
+			msgBoxVO.setMsgTitle("实名认证用户审核情况");
+			String date ="";
+			if(result.getItems().getSubmitTime()!=""&&result.getItems().getSubmitTime()!=null){
+				date = DateUtils.getDateString(result.getItems().getSubmitTime());
+			}
+			
+			if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_N)){
+				msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_BTG);
+				msgBoxVO.setMsgContent("尊敬的用户，您在"+date+"提交的实名认证申请未通过，请重新申请。");
+				msgBoxservice.insertSelective(msgBoxVO);
+			}
+			if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)){
+				msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_TG);
+				msgBoxVO.setMsgContent("尊敬的用户，您在"+date+"提交的实名认证申请已通过。");
+				msgBoxservice.insertSelective(msgBoxVO);
+			}
+			user.setId(result.getItems().getId());
+			user.setIdCard(result.getItems().getIdCard());
+			user.setApplyStatus(ConstantsParam.USE_APPLY_STASUE_N);
+			tempMap = new HashMap();
+			tempMap.put("result", userSerivce.updateByPrimaryKeySelective(user).getItems());
+			tempMap.put("resultMsg","");
+			return new Result<Map>(ConstantsParam.APPLY_STATUS_SUCCESS, tempMap);
+		}else{
+			//调用线下失败
+			//String resultMsg = String.valueOf(tempMap.get("resultMsg"));
+			
+			return new Result<Map>(ConstantsParam.APPLY_STATUS_FAIL, tempMap);
 		}
-		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)){
-			msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_TG);
-			msgBoxVO.setMsgContent("尊敬的用户，您在"+date+"提交的实名认证申请已通过。");
-			msgBoxservice.insertSelective(msgBoxVO);
-		}
-		user.setId(result.getItems().getId());
-		user.setIdCard(result.getItems().getIdCard());
-		user.setApplyStatus(ConstantsParam.USE_APPLY_STASUE_N);
-		return userSerivce.updateByPrimaryKeySelective(user);
 	}
 
 	@Override

@@ -26,5 +26,8 @@ public interface UserApplyInfoDao  extends IBaseDao<UserApplyInfo> {
      * @return:boolean
      */
     public boolean updateApplyId(UserApplyInfo userApplyInfo);
+    //后台实名认证通过，查询进件数据
+    public UserApplyInfoVO selectByUserIdAndStatus(Map<String, Object> parmMap);
+    
     
 }
