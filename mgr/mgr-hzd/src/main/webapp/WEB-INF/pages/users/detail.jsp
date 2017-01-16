@@ -49,22 +49,15 @@ pageEncoding="UTF-8"%>
 					"nopassCause" : nopassCause,
 				},
 				success:function(rst){
-					alert(JSON.stringify(rst));
-					var rst2=eval(rst);
-					
-					
-					alert(rst.result);
-					
-					if(rst.status==true){
+					var rst2=eval('(' + rst+ ')');
+					if(rst2.result==true){
 						alert("恭喜您,提交成功!");
 						window.location = '${path}/users/check/list';
 						return null;
-					}else if(rst.status==false){//
-						alert("000000000000000000000")
-						var result2=result.items;
-						var msg=result2.resultMsg;
-						var resultMsg=eval(msg);
-						alert(resultMsg.retInfo);
+					}else if(rst2.result==false){//
+						var resultMsg=rst2.resultMsg;
+						var resultMsg2=eval('(' + resultMsg+ ')');
+						alert(resultMsg2.retInfo);
 						return false;
 					} 
 				}
