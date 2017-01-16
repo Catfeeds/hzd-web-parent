@@ -100,8 +100,17 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 				}
 
 			}
-
-
+			Map mapstatus = new HashedMap();
+			mapstatus.put("userId",items.getId());
+			mapstatus.put("status","2");
+			Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByUserIdAndStatus(mapstatus);
+			if(userApplyInfoVOResult.getItems()!=null){
+				logger.i("不能重复提交进件");
+				checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
+				checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_1);
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_2333.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_2333.getMsg(), checkApplyLoanStatus);
+			}
 /*			if (BaseConfig.apply_loan_1.equals(items.getApplyStatus())) {
 				logger.i("------------------不能重复提交进件信息");
 				checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
@@ -160,6 +169,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			String applyId = serialnumber.Getnum();
 			userApplyInfoVO.setApplyId(applyId);
 			userApplyInfoVO.setUserId(user.getId());
+			userApplyInfoVO.setStatus(BaseConfig.apply_loan_0);
 			userApplyInfoVO.setApplySubmitTime(new Date());
 			Result<String> stringResult = userApplyInfoSerivce.create(userApplyInfoVO);
 
@@ -667,22 +677,25 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
 			}
 		  logger.i("------------用户实名认证待审核,进件信息提交到后台");
-/*
-		UserVO updateUserVO=new UserVO();
-		updateUserVO.setId(items.getId());//用户id
-		updateUserVO.setApplyStatus(BaseConfig.apply_loan_0);
-		Result<Boolean> booleanResult = userSerivce.updateByPrimaryKeySelective(updateUserVO);
-		if (StatusCodes.OK == booleanResult.getStatus()) {
 
-			logger.i("------------用户实名认证在审核中,直接提交进件到后台");
+
+		UserApplyInfoVO userApplyInfoVO = new UserApplyInfoVO();
+		userApplyInfoVO.setApplyId(applyId);
+		userApplyInfoVO.setStatus(BaseConfig.apply_loan_2);
+		Result<Boolean> booleanResult1 = userApplyInfoSerivce.updateApplyId(userApplyInfoVO);
+		if(StatusCodes.OK == booleanResult1.getStatus()){
+			logger.i("提交进件更新userApplyInfoVO状态成功");
+			logger.i("-----用户进件申请第七步---------------用户已经通过实名认证,更新进件信息成功");
+			checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
+			checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_0);
+			logger.i("------------用户实名认证在审核中,直接提交进件到后台----成功");
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
 					HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),checkApplyLoanStatus);
-		}*/
-		checkApplyLoanStatus.setIdentityStatus(items.getCheckStatus());
-		checkApplyLoanStatus.setApplyLoanStatus(items.getApplyStatus());
-		
-		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
-                HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), checkApplyLoanStatus);
+		}
+		logger.i("------------用户实名认证在审核中,直接提交进件到后台----失败");
+		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+				HzdStatusCodeEnum.MEF_CODE_0001.getMsg(), null);
+
 	}
 
 	private static String getSuffix(String url) {

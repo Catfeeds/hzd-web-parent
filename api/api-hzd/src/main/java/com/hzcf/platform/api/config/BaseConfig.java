@@ -54,5 +54,6 @@ public class BaseConfig {
 	//进件申请状态 0-未进件 1-已进件 2-已提交 待审核
 	public static final String apply_loan_1="1";
 	public static final String apply_loan_0="0";
+	public static final String apply_loan_2="2";
 	
 }
