@@ -6,12 +6,14 @@ import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.form.onlineLoanapplyInfoPreviewForm;
 import com.hzcf.platform.api.model.CheckApplyLoanStatus;
+import com.hzcf.platform.api.model.WxjinjianQueryRsp;
 import com.hzcf.platform.api.service.IOnlineApplyLoanService;
 import com.hzcf.platform.api.util.CustomerUtils;
 import com.hzcf.platform.api.util.DateUtil;
 import com.hzcf.platform.api.util.StringUtil;
 import com.hzcf.platform.api.util.serialnumber;
 import com.hzcf.platform.common.exception.CheckException;
+import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
@@ -80,18 +82,35 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
 						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), checkApplyLoanStatus);
 			}
+			String result=LoadService.selectLoadProgress(items.getIdCard());
+			JSONObject  json = JSONObject.fromObject(result);
+			//WxjinjianQueryRsp wxrsp =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
+			String retCode = json.getString("retCode");
+			String retInfo = json.getString("retInfo");
+			if(retCode.equals("0000")) {
+				logger.i("接口：借款人查询借款进度成功，结果：" + result);
+				WxjinjianQueryRsp wr = JsonUtil.jsonNote2Object(result, WxjinjianQueryRsp.class);
+
+				if(BaseConfig.apply_loan_1.equals(wr.getMtStatusCode())){
+					logger.i("不能重复提交进件");
+					checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
+					checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_1);
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_2333.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_2333.getMsg(), checkApplyLoanStatus);
+				}
+
+			}
 
 
-
-			if (BaseConfig.apply_loan_1.equals(items.getApplyStatus())) {
+/*			if (BaseConfig.apply_loan_1.equals(items.getApplyStatus())) {
 				logger.i("------------------不能重复提交进件信息");
 				checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
 				checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_1);
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
 						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), checkApplyLoanStatus);
 
-			}
-
+			}*/
+			
 			checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
 			checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_0);
 			checkApplyLoanStatus.setId(items.getId());
@@ -141,7 +160,6 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			String applyId = serialnumber.Getnum();
 			userApplyInfoVO.setApplyId(applyId);
 			userApplyInfoVO.setUserId(user.getId());
-			userApplyInfoVO.setStatus(BaseConfig.apply_loan_1);
 			userApplyInfoVO.setApplySubmitTime(new Date());
 			Result<String> stringResult = userApplyInfoSerivce.create(userApplyInfoVO);
 
@@ -576,14 +594,33 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_1045.getCode(),HzdStatusCodeEnum.MEF_CODE_1045.getMsg(),null);
 			}
 
-		if (BaseConfig.apply_loan_1.equals(items.getApplyStatus()) || BaseConfig.apply_loan_2.equals(items.getApplyStatus())) {
+		String result=LoadService.selectLoadProgress(items.getIdCard());
+		JSONObject  json = JSONObject.fromObject(result);
+		//WxjinjianQueryRsp wxrsp =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
+		String retCode = json.getString("retCode");
+		String retInfo = json.getString("retInfo");
+		if(retCode.equals("0000")) {
+			logger.i("接口：借款人查询借款进度成功，结果：" + result);
+			WxjinjianQueryRsp wr = JsonUtil.jsonNote2Object(result, WxjinjianQueryRsp.class);
+
+			if(BaseConfig.apply_loan_1.equals(wr.getMtStatusCode())){
+				logger.i("不能重复提交进件");
+				checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
+				checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_1);
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_2333.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_2333.getMsg(), checkApplyLoanStatus);
+			}
+
+		}
+		//TODO 调用线下
+/*		if (BaseConfig.apply_loan_1.equals(items.getApplyStatus()) || BaseConfig.apply_loan_2.equals(items.getApplyStatus())) {
 			logger.i("------------------不能重复提交进件信息");
 			checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
 			checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_1);
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_2333.getCode(),
 					HzdStatusCodeEnum.MEF_CODE_2333.getMsg(), checkApplyLoanStatus);
 
-		}
+		}*/
 
 			if (BaseConfig.card_status_0.equals(items.getCheckStatus())) {
 				logger.i("------用户进件申请第七步------用户已经通过实名认证,直接提交进件信息");
@@ -597,12 +634,19 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
                         updateUserVO.setApplyStatus(BaseConfig.apply_loan_1);
                         Result<Boolean> booleanResult = userSerivce.updateByPrimaryKeySelective(updateUserVO);
                         if (StatusCodes.OK == booleanResult.getStatus()) {
-
-                            logger.i("-----用户进件申请第七步---------------用户已经通过实名认证,更新用户信息成功");
-                            checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
-                            checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_0);
-                            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
-                                    HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),checkApplyLoanStatus);
+                        	logger.i("提交进件更新USER状态成功");
+                        	UserApplyInfoVO userApplyInfoVO = new UserApplyInfoVO();
+							userApplyInfoVO.setApplyId(applyId);
+							userApplyInfoVO.setStatus(BaseConfig.apply_loan_1);
+							Result<Boolean> booleanResult1 = userApplyInfoSerivce.updateApplyId(userApplyInfoVO);
+							if(StatusCodes.OK == booleanResult1.getStatus()){
+								logger.i("提交进件更新userApplyInfoVO状态成功");
+								logger.i("-----用户进件申请第七步---------------用户已经通过实名认证,更新用户信息成功");
+								checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
+								checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_0);
+								return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
+										HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),checkApplyLoanStatus);
+							}
                         }
                         logger.i("-----用户进件申请第七步---------------保存用户信息失败");
                         return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
@@ -623,22 +667,22 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
 			}
 		  logger.i("------------用户实名认证待审核,进件信息提交到后台");
-
+/*
 		UserVO updateUserVO=new UserVO();
 		updateUserVO.setId(items.getId());//用户id
-		updateUserVO.setApplyStatus(BaseConfig.apply_loan_2);
+		updateUserVO.setApplyStatus(BaseConfig.apply_loan_0);
 		Result<Boolean> booleanResult = userSerivce.updateByPrimaryKeySelective(updateUserVO);
 		if (StatusCodes.OK == booleanResult.getStatus()) {
-			 checkApplyLoanStatus.setIdentityStatus(items.getCheckStatus());
-			   checkApplyLoanStatus.setApplyLoanStatus(items.getApplyStatus());
+
 			logger.i("------------用户实名认证在审核中,直接提交进件到后台");
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
 					HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),checkApplyLoanStatus);
-		}
-		  
-		logger.i("-------更新实名认证状态失败-----");
-		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-                HzdStatusCodeEnum.MEF_CODE_0001.getMsg(), null);
+		}*/
+		checkApplyLoanStatus.setIdentityStatus(items.getCheckStatus());
+		checkApplyLoanStatus.setApplyLoanStatus(items.getApplyStatus());
+		
+		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
+                HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), checkApplyLoanStatus);
 	}
 
 	private static String getSuffix(String url) {
@@ -650,4 +694,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 		}
 		return url;
 	}
+
+
+
 }

@@ -6,6 +6,7 @@ import com.hzcf.platform.common.util.status.StatusCodes;
 
 import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -84,9 +85,10 @@ public class LoadServiceImpl implements ILoadService {
 			String retInfo = json.getString("retInfo");
 			if(retCode.equals("0000")){
 				logger.i("接口：借款人查询借款进度成功，结果："+result);
-	
 				WxjinjianQueryRsp wr= JsonUtil.jsonNote2Object(result, WxjinjianQueryRsp.class);
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),retInfo,wr!=null?wr.getWeiXinApplyList():null);
+				Map map = new HashedMap();
+				map.put("weiXinApplyList",wr!=null?wr.getWeiXinApplyList():"");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),retInfo,wr!=null?wr.getWeiXinApplyList():map);
 			}else{
 				logger.e("接口：借款人查询借款进度失败，结果："+result);
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_6101.getCode(), HzdStatusCodeEnum.MEF_CODE_6101.getMsg());

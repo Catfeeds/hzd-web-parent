@@ -18,11 +18,17 @@ import java.util.List;
  */
 public class WxjinjianQueryRsp extends ServiceStatus implements Serializable{
 	private static final long serialVersionUID = 2978365969221886180L;
-	
+	private String mtStatusCode;//状态code 0:(冻结、放款撤销、放款成功、客户放弃、拒贷、结清) 1：(其他所有)
 	private List<WeiXinApplyList> weiXinApplyList;
-	
-	
-	
+
+	public String getMtStatusCode() {
+		return mtStatusCode;
+	}
+
+	public void setMtStatusCode(String mtStatusCode) {
+		this.mtStatusCode = mtStatusCode;
+	}
+
 	public List<WeiXinApplyList> getWeiXinApplyList() {
 		return weiXinApplyList;
 	}
