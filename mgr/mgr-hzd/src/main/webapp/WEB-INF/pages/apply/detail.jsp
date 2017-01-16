@@ -38,37 +38,42 @@ pageEncoding="UTF-8"%>
 					<td>姓名：<span>${user.name}</span></td>
 					<td>身份证号：<span>${user.idCard}</span></td>
 					<td>证件有效期：<span>${userInfo.idcardValidity}</span></td>
-					<td>学历：<span>${userInfo.education}</span></td>
 					<td>出生日期：<span><fmt:formatDate value="${user.birthday }" pattern="yyyy-MM-dd"/></span></td>
+					
 				</tr>
 				<tr>
+					<td>员工编号：<span>${userInfo.staffNo}</span></td>
+					<td>电子邮件地址：<span>${userInfo.email}</span></td>
+					<td>学历：<span>${userInfo.education}</span></td>
+					<td>性别：<span>${user.gender}</span></td>
+					
+				</tr>
+				<tr>
+					
 					<td>户籍所在省：<span>${userInfo.domicileProvince}</span></td>
 					<td>户籍所在市：<span>${userInfo.domicileCity}</span></td>
 					<td>户籍详细地址：<span>${userInfo.domicileAddress}</span></td>
-					<td>婚姻状况：<span>${userInfo.marriageStatus}</span></td>
-					<td>性别：<span>${user.gender}</span></td>
-				</tr>
-				<tr>
-					<td>有无子女：<span>${userInfo.childrenStatus}</span></td>
-					<td>房产情况：<span>${userInfo.houseStatus}</span></td>
-					<td>家庭所在省：<span>${userInfo.residentProvince}</span></td>
 					<td>户籍邮政编码：<span>${userInfo.domicilePostCode}</span></td>
+					
 				</tr>
 				<tr>
+					<td>家庭所在省：<span>${userInfo.residentProvince}</span></td>
 					<td>家庭所在市：<span>${userInfo.residentCity}</span></td>
 					<td>家庭详细地址：<span>${userInfo.residentAddress}</span></td>
-					<td>家庭电话号码：<span>${userInfo.residentTelCode}</span></td>
-					<td>电子邮件地址：<span>${userInfo.email}</span></td>
-					<td>家庭电话区号：<span>${userInfo.residentTelAreaCode}</span></td>
+					<td>家庭邮政编码：<span>${userInfo.residentPostCode}</span></td>
 				</tr>
 				<tr>
 					<td>个人年收入：<span>${userInfo.annualIncome}</span></td>
 					<td>信用卡最高额度：<span>${userInfo.creditCardLimit}</span></td>
-					<td>共同居住者：<span>${userInfo.liveTogether}</span></td>
-					<td>家庭邮政编码：<span>${userInfo.residentPostCode}</span></td>
+					<td>家庭电话区号：<span>${userInfo.residentTelAreaCode}</span></td>
+					<td>家庭电话号码：<span>${userInfo.residentTelCode}</span></td>
 				</tr>
 				<tr>
-					<td>员工编号：<span>${userInfo.staffNo}</span></td>
+					<td>房产情况：<span>${userInfo.houseStatus}</span></td>
+					<td>共同居住者：<span>${userInfo.liveTogether}</span></td>
+					<td>婚姻状况：<span>${userInfo.marriageStatus}</span></td>
+					<td>有无子女：<span>${userInfo.childrenStatus}</span></td>
+					
 				</tr>
 			</table>
 		</div>
@@ -83,9 +88,9 @@ pageEncoding="UTF-8"%>
 				</tr>
 				<tr>
 					<td>单位详细地址：<span>${userInfo.orgAddress}</span></td>
-					<td>单位电话号码：<span>${userInfo.orgTelCode}</span></td>
 					<td>单位邮政编码：<span>${userInfo.orgPostCode}</span></td>
 					<td>单位电话区号：<span>${userInfo.orgTelAreaCode}</span></td>
+					<td>单位电话号码：<span>${userInfo.orgTelCode}</span></td>
 				</tr>
 			</table>
 		</div>
