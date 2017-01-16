@@ -71,6 +71,15 @@ public class LoginController {
 			loginJsonResult.setSuccess(true);
 			loginJsonResult.setResultContents(result);
 		}
+		
+		//保存登陆信息到session中
+		SysUsersVO user = new SysUsersVO();
+		user.setUserName(username);
+		user.setPassword(password);
+		request.getSession().setAttribute("user", user);
+		
+		//request.getSession().setMaxInactiveInterval(60);
+		
 		return loginJsonResult;
 	}
 
@@ -93,7 +102,12 @@ public class LoginController {
 	@RequestMapping(value = "/sys/main")
 	public String main(HttpServletRequest request) {
 		
-		return "home/main";
+		//判断有无session信息，有直接到首页，无返回登陆
+		if(request.getSession().getAttribute("user")!=null)
+		{
+			return "home/main";
+		}
+		return "login/login";
 	}
 	
 
