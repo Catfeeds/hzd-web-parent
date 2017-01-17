@@ -103,11 +103,13 @@ public class LoginController {
 	public String main(HttpServletRequest request) {
 		
 		//判断有无session信息，有直接到首页，无返回登陆
-		if(request.getSession().getAttribute("user")!=null)
+/*		if(request.getSession().getAttribute("user")!=null)
 		{
 			return "home/main";
 		}
-		return "login/login";
+		return "login/login";*/
+		
+		return "home/main";
 	}
 	
 

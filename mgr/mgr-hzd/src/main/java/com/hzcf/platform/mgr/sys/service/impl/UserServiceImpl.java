@@ -162,7 +162,7 @@ public class UserServiceImpl implements IUserService {
 			//Result<UserApplyInfoVO> resultApply = userApplyInfoSerivce.selectByUserId(result.getItems().getId());
 			Map parmMap = new HashMap();
 			parmMap.put("userId", result.getItems().getId());
-			parmMap.put("status", ConstantsParam.USER_APPLYINFO_STATU_WJ);
+			parmMap.put("status", ConstantsParam.USER_APPLYINFO_STATU_DSH);	//USER_APPLYINFO_STATU_WJ
 			Result<UserApplyInfoVO> resultApply = userApplyInfoSerivce.selectByUserIdAndStatus(parmMap);
 			if(resultApply.getStatus()==200 && resultApply.getItems()!=null){
 				applyId = resultApply.getItems().getApplyId();
