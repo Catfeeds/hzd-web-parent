@@ -41,13 +41,13 @@
     <mvc:resources location="/script/" mapping="/script/**" /> -->
  
   	<!-- 配置session超时拦截器 -->
-	<mvc:interceptors>
+<!-- 	<mvc:interceptors>
 		<mvc:interceptor>
-			<!-- 匹配的是url路径， 如果不配置或/**,将拦截所有的Controller -->
+			匹配的是url路径， 如果不配置或/**,将拦截所有的Controller
 			<mvc:mapping path="/sys/**" />
 			<bean class="com.hzcf.platform.mgr.sys.interceptor.SessionTimeOutInterceptor" />
 		</mvc:interceptor>
-	</mvc:interceptors>
+	</mvc:interceptors> -->
     
     
     <!-- 系统异常转换 --> 

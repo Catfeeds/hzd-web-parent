@@ -3,6 +3,7 @@ package com.hzcf.platform.mgr.sys.controller;
 import java.util.Enumeration;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.slf4j.Logger;
@@ -103,13 +104,13 @@ public class LoginController {
 	public String main(HttpServletRequest request) {
 		
 		//判断有无session信息，有直接到首页，无返回登陆
-/*		if(request.getSession().getAttribute("user")!=null)
+		if(request.getSession().getAttribute("user")!=null)
 		{
 			return "home/main";
 		}
-		return "login/login";*/
+		return "login/login";
 		
-		return "home/main";
+//		return "home/main";
 	}
 	
 
