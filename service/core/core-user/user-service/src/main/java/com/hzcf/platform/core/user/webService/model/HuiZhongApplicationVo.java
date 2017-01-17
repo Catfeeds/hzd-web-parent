@@ -25,7 +25,7 @@ public class HuiZhongApplicationVo {
 	private	String	domicileProvince	;	//	户籍所在省
 	private	String	domicileCity	;	//	户籍所在市
 	private	String	domicilePostCode	;	//	户籍邮政编码
-	
+	private String domicileAddress;
 	
 	//证件信息
 	private	String	idType	;	//	证件类型
@@ -502,6 +502,14 @@ public class HuiZhongApplicationVo {
 	}
 	public void setImageList(List<ImageVo> imageList) {
 		this.imageList = imageList;
+	}
+	
+	
+	public String getDomicileAddress() {
+		return domicileAddress;
+	}
+	public void setDomicileAddress(String domicileAddress) {
+		this.domicileAddress = domicileAddress;
 	}
 	@Override
 	public String toString() {

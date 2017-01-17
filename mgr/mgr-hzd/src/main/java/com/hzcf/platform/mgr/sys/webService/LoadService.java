@@ -163,6 +163,7 @@ public class LoadService {
 			huiZhongApplicationVo.setIsInside(userInfoVO.getIsInside());
 			huiZhongApplicationVo.setOrgTeamId(userInfoVO.getOrgTeamId());
 			huiZhongApplicationVo.setBorrowType(userInfoVO.getBorrowType());
+			huiZhongApplicationVo.setDomicileAddress(userInfoVO.getDomicileAddress());
 			//借款人的关系集合
 			List<BorrowRelationVo> borrowRelationList=new ArrayList<BorrowRelationVo>();
 			for(int i=0;i<userRelationVOList.size();i++){

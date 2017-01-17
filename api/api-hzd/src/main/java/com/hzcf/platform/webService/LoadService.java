@@ -131,6 +131,7 @@ public class LoadService {
 			huiZhongApplicationVo.setAnnualIncome(userInfoVO.getAnnualIncome());
 			huiZhongApplicationVo.setCreditCardLimit(userInfoVO.getCreditCardLimit());
 			huiZhongApplicationVo.setLiveTogether(userInfoVO.getLiveTogether());
+			huiZhongApplicationVo.setDomicileAddress(userInfoVO.getDomicileAddress());
 			//
 			String temp = "";
 			if("A".equals(userApplyInfo.getLoanPurposeOne())){
