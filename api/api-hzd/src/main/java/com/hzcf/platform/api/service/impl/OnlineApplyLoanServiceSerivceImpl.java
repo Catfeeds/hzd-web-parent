@@ -76,7 +76,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
 			}
 
-			String result=LoadService.selectLoadProgress(items.getIdCard());
+			String result=LoadService.selectLoadProgress(items.getMobile());
 			JSONObject  json = JSONObject.fromObject(result);
 			//WxjinjianQueryRsp wxrsp =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
 			String retCode = json.getString("retCode");
@@ -613,7 +613,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_1045.getCode(),HzdStatusCodeEnum.MEF_CODE_1045.getMsg(),null);
 			}
 
-		String result=LoadService.selectLoadProgress(items.getIdCard());
+		String result=LoadService.selectLoadProgress(items.getMobile());
 		JSONObject  json = JSONObject.fromObject(result);
 		//WxjinjianQueryRsp wxrsp =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
 		String retCode = json.getString("retCode");
