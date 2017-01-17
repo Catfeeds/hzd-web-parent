@@ -50,6 +50,6 @@ public class UserRelationDaoImpl extends AbstractMysqlBaseDaoImpl<UserRelation> 
 
 	@Override
 	public int deleteByApplyId(String applyId) {
-		return this.sqlSessionTemplate.delete("deleteByApplyId");
+		return this.sqlSessionTemplate.delete("deleteByApplyId",applyId);
 	}
 }
