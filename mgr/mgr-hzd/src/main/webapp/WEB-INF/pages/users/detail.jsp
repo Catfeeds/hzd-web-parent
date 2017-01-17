@@ -86,13 +86,13 @@ pageEncoding="UTF-8"%>
             <h1>图片上传信息</h1>
             <div class="gallery">
                 <div class="showImage2">
-                    <div><img src="${smsUserInfo.artWorkA}" /></div>
+                    <div><a href="${smsUserInfo.artWorkA}"><img src="${smsUserInfo.artWorkA}" /></a></div>
                 </div>
                 <div class="showImage2">
-                    <div><img src= "${smsUserInfo.artWorkB}" /></div>
+                    <div><a href="${smsUserInfo.artWorkB}"><img src= "${smsUserInfo.artWorkB}" /></a></div>
                 </div>
                 <div class="showImage2">
-                    <div><img src= "${smsUserInfo.artWorkC}" /></div>
+                    <div><a href="${smsUserInfo.artWorkC}"><img src= "${smsUserInfo.artWorkC}" /></a></div>
                 </div>
             </div>
             <div class="clear"></div>
@@ -115,5 +115,7 @@ pageEncoding="UTF-8"%>
             </div>
         </div>
     </div>
+    <script src="${path}/script/easyui/js/jquery-2.1.4.min.js"></script>
+	<script src="${path}/script/easyui/js/zoom/zoom.min.js"></script>
 </body>
 </html>
