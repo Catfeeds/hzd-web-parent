@@ -81,7 +81,7 @@ public class LoadServiceImpl implements ILoadService {
 			}
 
 			//String idCard=items.getIdCard();//用户身份证信息
-			String result=LoadService.selectLoadProgress(items.getIdCard());
+			String result=LoadService.selectLoadProgress(items.getMobile());
 			JSONObject  json = JSONObject.fromObject(result);
 			//WxjinjianQueryRsp wxrsp =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
 			String retCode = json.getString("retCode");
