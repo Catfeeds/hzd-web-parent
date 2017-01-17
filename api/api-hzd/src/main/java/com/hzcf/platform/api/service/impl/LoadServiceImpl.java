@@ -2,12 +2,18 @@ package com.hzcf.platform.api.service.impl;
 
 import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.api.model.WxjinjianQueryRsp;
+import com.hzcf.platform.api.util.DateUtil;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.status.StatusCodes;
 
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 import java.util.Map;
 
 import com.hzcf.platform.core.user.model.UserApplyInfoVO;
+import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
+
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -38,6 +44,8 @@ public class LoadServiceImpl implements ILoadService {
 	public LoadService LoadService;//借款组件service（线下和调度的对接类）
     @Autowired
     public UserService userSerivce;//借款人service
+	@Autowired
+	public UserApplyInfoSerivce userApplyInfoSerivce;
 	@Override
 	public BackResult insertLoad(String params) {
 		JSONObject json=JSONObject.fromObject(params);
@@ -87,11 +95,28 @@ public class LoadServiceImpl implements ILoadService {
 			String retCode = json.getString("retCode");
 			String retInfo = json.getString("retInfo");
 			if(retCode.equals("0000")){
+				Map map = new HashedMap();
 				logger.i("接口：借款人查询借款进度成功，结果："+result);
 				WxjinjianQueryRsp wr= JsonUtil.jsonNote2Object(result, WxjinjianQueryRsp.class);
-				Map map = new HashedMap();
-				map.put("weiXinApplyList",wr!=null?wr.getWeiXinApplyList():"");
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),retInfo,wr!=null?wr.getWeiXinApplyList():map);
+
+				if("0".equals(wr.getStatusCodeApplyOnLine()) && "0".equals(wr.getStatusCodeWFXZ()) && wr.getWeiXinApplyList()==null){
+					Map mapstatus = new HashedMap();
+					mapstatus.put("userId",items.getId());
+					mapstatus.put("status","2");
+					Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByUserIdAndStatus(mapstatus);
+					if(userApplyInfoVOResult.getItems()!=null){
+						List<WxjinjianQueryRsp.WeiXinApplyList>  wlList = new ArrayList<>();
+						WxjinjianQueryRsp.WeiXinApplyList  wl = new WxjinjianQueryRsp.WeiXinApplyList();
+						Date createTime = userApplyInfoVOResult.getItems().getApplySubmitTime();
+						wl.setCreateTime(DateUtil.formatDate3(createTime));
+						wl.setIsWFXZFlag("1");
+						wl.setWeiXinApplicationStatus("正在等待审核资料");
+						wlList.add(wl);
+						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
+								HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),wlList);
+					}
+				}
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),retInfo,wr.getWeiXinApplyList());
 			}else{
 				logger.e("接口：借款人查询借款进度失败，结果："+result);
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_6101.getCode(), HzdStatusCodeEnum.MEF_CODE_6101.getMsg());

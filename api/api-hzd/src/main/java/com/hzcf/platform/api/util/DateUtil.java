@@ -98,7 +98,9 @@ public class DateUtil {
     public static String formatDate2() {
         return (formatDate(now(), "yyyyMMdd"));
     }
-
+    public static String formatDate3(Date date) {
+        return (formatDate(date, "yyyy年MM月dd日"));
+    }
     /**
      * HH:mm:ss
      *
