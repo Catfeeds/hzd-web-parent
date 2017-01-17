@@ -142,7 +142,7 @@ pageEncoding="UTF-8"%>
 				<c:if test = "${userImage.imageType == 'B1'}">
 					<div class="gallery">
 						<div class="imgBox">
-	                    	<div><img src="${userImage.artWork}" /></div>
+	                    	<div><a href="${userImage.artWork}"><img src="${userImage.artWork}" /></a></div>
 		                </div>
 					</div>
 				</c:if>
@@ -155,7 +155,7 @@ pageEncoding="UTF-8"%>
 				<c:if test = "${userImage.imageType == 'E1'}">
 					<div class="gallery">
 						<div class="showImage2">
-	                    	<div><img src="${userImage.artWork}" /></div>
+	                    	<div><a href="${userImage.artWork}"><img src="${userImage.artWork}" /></a></div>
 		                </div>
 					</div>
 				</c:if>
@@ -167,7 +167,7 @@ pageEncoding="UTF-8"%>
 				<c:if test = "${userImage.imageType == 'F7'}">
 					<div class="gallery">
 						<div class="showImage2">
-	                    	<div><img src="${userImage.artWork}" /></div>
+	                    	<div><a href="${userImage.artWork}"><img src="${userImage.artWork}" /></a></div>
 		                </div>
 					</div>
 				</c:if>
@@ -179,7 +179,7 @@ pageEncoding="UTF-8"%>
 				<c:if test = "${userImage.imageType == 'C8'}">
 					<div class="gallery">
 						<div class="showImage2">
-	                    	<div><img src="${userImage.artWork}" /></div>
+	                    	<div><a href="${userImage.artWork}"><img src="${userImage.artWork}" /></a></div>
 		                </div>
 					</div>
 				</c:if>
@@ -191,7 +191,7 @@ pageEncoding="UTF-8"%>
 				<c:if test = "${userImage.imageType == 'D8'}">
 					<div class="gallery">
 						<div class="showImage2">
-	                    	<div><img src="${userImage.artWork}" /></div>
+	                    	<div><a href="${userImage.artWork}"><img src="${userImage.artWork}" /></a></div>
 		                </div>
 					</div>
 				</c:if>
@@ -203,12 +203,14 @@ pageEncoding="UTF-8"%>
 				<c:if test = "${userImage.imageType == 'L5'}">
 					<div class="gallery">
 						<div class="showImage2">
-	                    	<div><img src="${userImage.artWork}" /></div>
+	                    	<div><a href="${userImage.artWork}"><img src="${userImage.artWork}" /></a></div>
 		                </div>
 					</div>
 				</c:if>
 			</c:forEach>											
 		</div>
 	</div>
+	<script src="${path}/script/easyui/js/jquery-2.1.4.min.js"></script>
+	<script src="${path}/script/easyui/js/zoom/zoom.min.js"></script>
 </body>
 </html>
