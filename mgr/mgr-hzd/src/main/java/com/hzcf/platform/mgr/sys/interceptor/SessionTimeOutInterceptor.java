@@ -14,7 +14,7 @@ import com.hzcf.platform.core.sys.model.SysUsersVO;
 public class SessionTimeOutInterceptor extends HandlerInterceptorAdapter {//此处一般继承HandlerInterceptorAdapter适配器即可  
 	
 	//日志
-	//private static Log logger = Log.getLogger(SessionTimeOutInterceptor.class);
+	private static Log logger = Log.getLogger(SessionTimeOutInterceptor.class);
 
 //	@Override  
 //    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {  
@@ -27,9 +27,8 @@ public class SessionTimeOutInterceptor extends HandlerInterceptorAdapter {//此�
 	@Override
 	public boolean preHandle(HttpServletRequest request,HttpServletResponse response,Object handler) throws Exception {
 
-		HttpSession session = request.getSession();
 		//从session 里面获取用户名的信息
-		SysUsersVO user = (SysUsersVO)session.getAttribute("user");
+		SysUsersVO user = (SysUsersVO)request.getSession().getAttribute("user");
 		//判断如果没有取到用户信息，就跳转到登陆页面，提示用户进行登陆  
 		if(user == null || "".equals(user)){
 			//response.sendRedirect("/mgr-hzd/sys/tologin");//未登录，跳转到登陆页面
