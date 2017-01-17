@@ -269,7 +269,7 @@ public class LoadService {
 	 * @time: 2017年1月7日 下午6:58:46  
 	 * @return:String
 	 */
-	public static String selectLoadProgress(String idCard){
+	public static String selectLoadProgress(String mobile){
 		/**初始化参数*/
 		String result="";//设置返回结果
 		//发送到调度的参数信息
@@ -279,11 +279,11 @@ public class LoadService {
 		String key = ConstantsDictionary.KEY;//调度的“查询借款进度”接口的密钥
 		//发送数据的Map
 		Map<String,Object> weiXinQueryProgressParms = new HashMap<String,Object>();
-		weiXinQueryProgressParms.put("idcard",idCard);//身份证号
+		weiXinQueryProgressParms.put("phoneNum",mobile);//身份证号
 		weiXinQueryProgressParms.put("systemSourceId", systemSourceId);//系统标识
 		try {
 			//MD5加密
-			signature=Md5Util.getMD5String(StringUtils.join(new String[]{systemSourceId,idCard}, ","),key);
+			signature=Md5Util.getMD5String(StringUtils.join(new String[]{systemSourceId,mobile}, ","),key);
 			weiXinQueryProgressParms.put("signature", signature);
 			logger.info("接口：借款人查询借款进度。signature："+signature);
 			//将Map对象转换成JSON类型字符串
