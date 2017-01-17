@@ -36,17 +36,29 @@ public class ApplyDetailController {
 	public String Detail(String applyId,String mobile,Model model) {
 		
 		UserApplyInfoVO userApplyInfo = applyDetailService.getUserApplyInfoDetail(applyId);
+		if (userApplyInfo != null) {
+			model.addAttribute("userApplyInfo", userApplyInfo);
+		}
+		
 		UserVO user = applyDetailService.getUserDetail(mobile);
+		if (user != null) {
+			model.addAttribute("user", user);
+		}
+		
 		UserInfoVO userInfo = applyDetailService.getUserInfoDetail(applyId);
+		if (userInfo != null) {
+			model.addAttribute("userInfo", userInfo);
+		}
+		
 		List<UserRelationVO> userRelationVOList = applyDetailService.getUserRelationDetail(applyId);
+		if (userRelationVOList != null) {
+			model.addAttribute("userRelationVOList", userRelationVOList);
+		}
+		
 		List<UserImageVO> userImageVOList = applyDetailService.getUserImageDetail(applyId);
-		
-		model.addAttribute("userApplyInfo", userApplyInfo);
-		model.addAttribute("user", user);
-		model.addAttribute("userInfo", userInfo);
-		model.addAttribute("userRelationVOList", userRelationVOList);
-		model.addAttribute("userImageVOList",userImageVOList);
-		
+		if (userImageVOList != null) {
+			model.addAttribute("userImageVOList",userImageVOList);
+		}
 		
 		return "apply/detail";
 	}
