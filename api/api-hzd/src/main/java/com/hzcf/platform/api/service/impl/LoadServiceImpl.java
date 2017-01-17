@@ -1,11 +1,13 @@
 package com.hzcf.platform.api.service.impl;
 
+import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.api.model.WxjinjianQueryRsp;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.status.StatusCodes;
 
 import java.util.Map;
 
+import com.hzcf.platform.core.user.model.UserApplyInfoVO;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -77,8 +79,9 @@ public class LoadServiceImpl implements ILoadService {
 				logger.i("接口：借款人查询借款进度失败，未查询到用户信息");
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_6103.getCode(),HzdStatusCodeEnum.MEF_CODE_6103.getMsg());
 			}
-			String idCard=items.getIdCard();//用户身份证信息
-			String result=LoadService.selectLoadProgress(idCard);
+
+			//String idCard=items.getIdCard();//用户身份证信息
+			String result=LoadService.selectLoadProgress(items.getIdCard());
 			JSONObject  json = JSONObject.fromObject(result);
 			//WxjinjianQueryRsp wxrsp =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
 			String retCode = json.getString("retCode");

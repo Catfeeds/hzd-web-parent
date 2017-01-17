@@ -15,7 +15,8 @@ public class CheckApplyLoanStatus implements Serializable{
      * 进件状态
      * 进件申请状态 0-未进件 1-已进件
      */
-    private String applyLoanStatus;//进件状态
+    private String onlineApplyLoanStatus;//线上状态
+    private String offlineApplyLoanStatus;//线下状态
 
     private String id;
     private String Idcard;
@@ -63,12 +64,20 @@ public class CheckApplyLoanStatus implements Serializable{
         this.mobile = mobile;
     }
 
-    public String getApplyLoanStatus() {
-        return applyLoanStatus;
+    public String getOnlineApplyLoanStatus() {
+        return onlineApplyLoanStatus;
     }
 
-    public void setApplyLoanStatus(String applyLoanStatus) {
-        this.applyLoanStatus = applyLoanStatus;
+    public void setOnlineApplyLoanStatus(String onlineApplyLoanStatus) {
+        this.onlineApplyLoanStatus = onlineApplyLoanStatus;
+    }
+
+    public String getOfflineApplyLoanStatus() {
+        return offlineApplyLoanStatus;
+    }
+
+    public void setOfflineApplyLoanStatus(String offlineApplyLoanStatus) {
+        this.offlineApplyLoanStatus = offlineApplyLoanStatus;
     }
 }
 

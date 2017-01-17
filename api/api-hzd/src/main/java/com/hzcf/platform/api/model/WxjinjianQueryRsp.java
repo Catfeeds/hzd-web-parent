@@ -18,15 +18,38 @@ import java.util.List;
  */
 public class WxjinjianQueryRsp extends ServiceStatus implements Serializable{
 	private static final long serialVersionUID = 2978365969221886180L;
-	private String mtStatusCode;//状态code 0:(冻结、放款撤销、放款成功、客户放弃、拒贷、结清) 1：(其他所有)
+
+	/*
+         * StatusCodeWFXZ
+         * 0:(允许再次进件)移动端无进件记录、进件记录全部为已处理、
+         * 1:(不允许进件)移动端有意向申请且为未处理
+         * */
+	private String statusCodeWFXZ;
+	/*
+	 * StatusCodeApplyOnLine
+	 * 0:(允许进件)无正式进件数据、全部进件数据的状态都在(冻结、放款撤销、放款成功、客户放弃、拒贷、结清)五个里面
+	 * 1:(不允许进件)有正式进件数据不符合上述五个状态
+	 * */
+	private String statusCodeApplyOnLine;
+
+
+
 	private List<WeiXinApplyList> weiXinApplyList;
 
-	public String getMtStatusCode() {
-		return mtStatusCode;
+	public String getStatusCodeWFXZ() {
+		return statusCodeWFXZ;
 	}
 
-	public void setMtStatusCode(String mtStatusCode) {
-		this.mtStatusCode = mtStatusCode;
+	public void setStatusCodeWFXZ(String statusCodeWFXZ) {
+		this.statusCodeWFXZ = statusCodeWFXZ;
+	}
+
+	public String getStatusCodeApplyOnLine() {
+		return statusCodeApplyOnLine;
+	}
+
+	public void setStatusCodeApplyOnLine(String statusCodeApplyOnLine) {
+		this.statusCodeApplyOnLine = statusCodeApplyOnLine;
 	}
 
 	public List<WeiXinApplyList> getWeiXinApplyList() {
@@ -48,9 +71,22 @@ public class WxjinjianQueryRsp extends ServiceStatus implements Serializable{
 		
 		private String weiXinApplicationStatus;
 		private String idcard;
+		/*
+	 * isWFXZFlag
+	 * 0:移动端意向申请状态
+	 * 1：正式进件的状态
+	 * */
+		private String isWFXZFlag;
+
 		private String createTime;
 
+		public String getIsWFXZFlag() {
+			return isWFXZFlag;
+		}
 
+		public void setIsWFXZFlag(String isWFXZFlag) {
+			this.isWFXZFlag = isWFXZFlag;
+		}
 
 		public String getWeiXinApplicationStatus() {
 			return weiXinApplicationStatus;

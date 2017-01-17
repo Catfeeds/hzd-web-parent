@@ -69,37 +69,41 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 		try {
 			DataVerifcation.datavVerification(user.getMobile());
 			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
+			UserVO items = byMobile.getItems();
 			if (StatusCodes.OK != (byMobile.getStatus()) && byMobile!=null) {
 				logger.i("数据查询失败 。。。。。。。。。。。。。 ");
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
 						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
 			}
-			UserVO items = byMobile.getItems();
-			if (BaseConfig.card_status_1.equals(items.getCheckStatus())) {
-				logger.i("------------用户未通过实名认证");
-				checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_1);
-				checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_0);
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
-						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), checkApplyLoanStatus);
-			}
+
 			String result=LoadService.selectLoadProgress(items.getIdCard());
 			JSONObject  json = JSONObject.fromObject(result);
 			//WxjinjianQueryRsp wxrsp =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
 			String retCode = json.getString("retCode");
 			String retInfo = json.getString("retInfo");
-			if(retCode.equals("0000")) {
-				logger.i("接口：借款人查询借款进度成功，结果：" + result);
-				WxjinjianQueryRsp wr = JsonUtil.jsonNote2Object(result, WxjinjianQueryRsp.class);
-
-				if(BaseConfig.apply_loan_1.equals(wr.getMtStatusCode())){
+			if(!retCode.equals("0000")) {
+				logger.i("查询线下接口失败");
+			/*	if(BaseConfig.apply_loan_1.equals(wr.getStatusCodeApplyOnLine()) || BaseConfig.apply_loan_1.equals(wr.getStatusCodeWFXZ())){
 					logger.i("不能重复提交进件");
 					checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
 					checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_1);
 					return new BackResult(HzdStatusCodeEnum.MEF_CODE_2333.getCode(),
 							HzdStatusCodeEnum.MEF_CODE_2333.getMsg(), checkApplyLoanStatus);
-				}
+				}*/
 
 			}
+			WxjinjianQueryRsp wr = JsonUtil.jsonNote2Object(result, WxjinjianQueryRsp.class);
+
+
+			if (BaseConfig.card_status_1.equals(items.getCheckStatus())) {
+				logger.i("------------用户未通过实名认证");
+				checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_1);
+				checkApplyLoanStatus.setOnlineApplyLoanStatus(BaseConfig.apply_loan_0);
+				checkApplyLoanStatus.setOfflineApplyLoanStatus(wr.getStatusCodeWFXZ());
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
+						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), checkApplyLoanStatus);
+			}
+
 			Map mapstatus = new HashedMap();
 			mapstatus.put("userId",items.getId());
 			mapstatus.put("status","2");
@@ -107,7 +111,8 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			if(userApplyInfoVOResult.getItems()!=null){
 				logger.i("不能重复提交进件");
 				checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
-				checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_1);
+				checkApplyLoanStatus.setOnlineApplyLoanStatus(BaseConfig.apply_loan_1);
+				checkApplyLoanStatus.setOfflineApplyLoanStatus(wr.getStatusCodeWFXZ());
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_2333.getCode(),
 						HzdStatusCodeEnum.MEF_CODE_2333.getMsg(), checkApplyLoanStatus);
 			}
@@ -119,9 +124,13 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), checkApplyLoanStatus);
 
 			}*/
-			
+
+
+
+			logger.i("接口：借款人查询借款进度成功，结果：" + result);
 			checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
-			checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_0);
+			checkApplyLoanStatus.setOnlineApplyLoanStatus(wr.getStatusCodeApplyOnLine());
+			checkApplyLoanStatus.setOfflineApplyLoanStatus(wr.getStatusCodeWFXZ());
 			checkApplyLoanStatus.setId(items.getId());
 			checkApplyLoanStatus.setIdcard(items.getIdCard());
 			checkApplyLoanStatus.setMobile(items.getMobile());
@@ -613,10 +622,10 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			logger.i("接口：借款人查询借款进度成功，结果：" + result);
 			WxjinjianQueryRsp wr = JsonUtil.jsonNote2Object(result, WxjinjianQueryRsp.class);
 
-			if(BaseConfig.apply_loan_1.equals(wr.getMtStatusCode())){
+			if(BaseConfig.apply_loan_1.equals(wr.getStatusCodeApplyOnLine())){
 				logger.i("不能重复提交进件");
 				checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
-				checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_1);
+				checkApplyLoanStatus.setOnlineApplyLoanStatus(BaseConfig.apply_loan_1);
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_2333.getCode(),
 						HzdStatusCodeEnum.MEF_CODE_2333.getMsg(), checkApplyLoanStatus);
 			}
@@ -653,7 +662,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 								logger.i("提交进件更新userApplyInfoVO状态成功");
 								logger.i("-----用户进件申请第七步---------------用户已经通过实名认证,更新用户信息成功");
 								checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
-								checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_0);
+								checkApplyLoanStatus.setOnlineApplyLoanStatus(BaseConfig.apply_loan_1);
 								return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
 										HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),checkApplyLoanStatus);
 							}
@@ -687,7 +696,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 			logger.i("提交进件更新userApplyInfoVO状态成功");
 			logger.i("-----用户进件申请第七步---------------用户已经通过实名认证,更新进件信息成功");
 			checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
-			checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_0);
+			checkApplyLoanStatus.setOnlineApplyLoanStatus(BaseConfig.apply_loan_2);
 			logger.i("------------用户实名认证在审核中,直接提交进件到后台----成功");
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
 					HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),checkApplyLoanStatus);
