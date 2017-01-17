@@ -99,7 +99,7 @@ public class LoadServiceImpl implements ILoadService {
 				logger.i("接口：借款人查询借款进度成功，结果："+result);
 				WxjinjianQueryRsp wr= JsonUtil.jsonNote2Object(result, WxjinjianQueryRsp.class);
 
-				if("0".equals(wr.getStatusCodeApplyOnLine()) && "0".equals(wr.getStatusCodeWFXZ()) && wr.getWeiXinApplyList()==null){
+			/*	if("0".equals(wr.getStatusCodeApplyOnLine()) && "0".equals(wr.getStatusCodeWFXZ()) && wr.getWeiXinApplyList()==null){
 					Map mapstatus = new HashedMap();
 					mapstatus.put("userId",items.getId());
 					mapstatus.put("status","2");
@@ -115,8 +115,8 @@ public class LoadServiceImpl implements ILoadService {
 						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
 								HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),wlList);
 					}
-				}
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),retInfo,wr.getWeiXinApplyList());
+				}*/
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),retInfo,wr.getWeiXinApplyList()!=null?wr.getWeiXinApplyList():"");
 			}else{
 				logger.e("接口：借款人查询借款进度失败，结果："+result);
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_6101.getCode(), HzdStatusCodeEnum.MEF_CODE_6101.getMsg());
