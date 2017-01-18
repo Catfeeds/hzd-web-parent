@@ -66,7 +66,7 @@ $(function(){
 		toolbar: '#toolbar'
 	});
 });
-
+//修改借款人的“禁用/启用”状态
 function updateStatus(stu){
 	var arr=stu.split(",");
 	var mobile = arr[0];
@@ -82,14 +82,6 @@ function updateStatus(stu){
 				},
 				success:function(result){
 					var result2=eval("("+result+")");
-					//不起作用
-// 					$.messager.show({
-//                         title:"提示框",
-//                         width:250,
-//                         height:100,
-//                         timeout:0,
-//                         msg:result2.message
-//                   	});
 					$.messager.alert("",result2.message,"info",function(){
 						window.location = '${path}/users/list';						
 					});
@@ -114,9 +106,8 @@ function doSearch(){
 		applyStatus:$("#applyStatus").combobox('getValue')
 	});
 }
-
+//重置密码
 function updatePassWord(canshu) {
-
 	var arr=canshu.split(",");
 	var mobile = arr[0];
 	var name = arr[1];
@@ -126,7 +117,7 @@ function updatePassWord(canshu) {
 	}
 	else{
 		$("#di").text(name);
-	} 
+	}
 	
     $("#dd").dialog({
 	 closable: false, //右上角的关闭按钮，因为dialog框架关联的是window框架，window框架关联的是panel框架，所以该API是在panel框架中找到的
@@ -136,41 +127,39 @@ function updatePassWord(canshu) {
 	 height: 300,
 	 buttons: [//dialog右下角的按钮，以Json数组形式添加
 	    {
-	    text: "提交", //按钮名称
-	   
-	    handler: function () {//按钮点击之后出发的方
-	    	var passWord = $("#pw1").val();
-	    	var pw = $("#pw2").val();
-	    	if(passWord!=null&&passWord!=""&&pw!=""&&pw!=null){
-		    	if(passWord==pw){
-		    		$("#msg").html("");
-		    		$.ajax({
-		    			type:"POST",
-		    			url: '${path}/users/check/updatePassword',
-		    			data:{
-		    				"mobile" : mobile,
-		    				"passWord" : passWord,
-		    			},
-		    			success:function(result){
-		    				var result2=eval("("+result+")");
-		    				alert(result2.message);
-		    				window.location = '${path}/users/list';
-		    				return true;
-		    			}
-		    		});
-		    	}else{
+	    	text: "提交", //按钮名称
+		    handler: function () {//按钮点击之后出发的方
+		    	var passWord = $("#pw1").val();
+		    	var pw = $("#pw2").val();
+		    	if(passWord==null || passWord=="" || pw=="" || pw==null){
+		    		$("#msg").html("新密码不能为空");
+		    		return false;
+		    	}
+		    	if(passWord!=pw){
 		    		$("#msg").html("俩次密码不一致");
-		    	}	
-	    	}else{
-	    		$("#msg").html("新密码不能为空");
-	    	}
-	    }
-	},{
-		text:"取消",
-		 handler: function () {
-			 window.location = '${path}/users/list';
-		 }
-	}]
+		    	}
+	    		$("#msg").html("");
+	    		$.ajax({
+	    			type:"POST",
+	    			url: '${path}/users/check/updatePassword',
+	    			data:{
+	    				"mobile" : mobile,
+	    				"passWord" : passWord,
+	    			},
+	    			success:function(result){
+	    				var result2=eval("("+result+")");
+	    				alert(result2.message);
+	    				window.location = '${path}/users/list';
+	    				return true;
+	    			}
+	    		});
+		    }
+		},{
+			text:"取消",
+			handler: function () {
+				window.location = '${path}/users/list';
+			}
+		}]
     });
 }
 
@@ -232,7 +221,7 @@ function doExport(){
 				用户名 :
 			</th>
 			<td id="di">
-				
+				<input id="userNameRepeat" class="easyui-textbox" prompt="Username" iconWidth="28"/>
 			</td>
 		</tr>
 		<tr>
@@ -240,7 +229,7 @@ function doExport(){
 				新密码 :
 			</th>
 			<td>
-				<input id="pw1" type="password" />
+				<input id="pw1" class="easyui-passwordbox" prompt="Password" iconWidth="28"/>
 			</td>
 		</tr>
 		<tr>
@@ -248,7 +237,7 @@ function doExport(){
 				确认新密码 :
 			</th>
 			<td>
-				<input id="pw2" type="password" />
+				<input id="pw2" class="easyui-passwordbox" prompt="Password" iconWidth="28"/>
 			</td>
 		</tr>
 		<tr><td><div id="msg" style="line-height: 100px; font-size: 1rem; color: red;"></div></td></tr>

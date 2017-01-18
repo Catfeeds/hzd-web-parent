@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzcf.platform.core.sys.model.SysUsersVO;
 import com.hzcf.platform.mgr.sys.service.ISysUsersService;
+import com.hzcf.platform.mgr.sys.util.MD5Tools;
 
 import net.sf.json.JSONObject;
 /**
@@ -81,7 +82,7 @@ public class LoginController {
 		//保存登陆信息到session中
 		SysUsersVO user = new SysUsersVO();
 		user.setUserName(username);
-		user.setPassword(password);
+		user.setPassword(MD5Tools.getMD5(password));
 		request.getSession().setAttribute("user", user);
 		request.getSession().setAttribute("userName", username);
 		//request.getSession().setMaxInactiveInterval(60);
@@ -165,7 +166,7 @@ public class LoginController {
 			if("1".equals(updateResult.get("code"))){
 				result.put("code","1");
 				result.put("message","修改密码成功");
-				user.setPassword(passwordNew);
+				user.setPassword(MD5Tools.getMD5(passwordNew));
 				session.setAttribute("user",user);
 			}else{
 				result.put("message",updateResult.get("message"));

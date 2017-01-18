@@ -5,7 +5,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 /**
-  * @Description:用于对借款人的密码加密
+  * @Description:用于对借款人的密码加密，对系统后台用户密码加密
   * 加密的 key  =  01b503cf15f16f5e9c95938d09ef1219
   * @author 作者:裴高祥
   * @date 创建时间：2017年1月18日 上午9:48:28 
@@ -124,9 +124,9 @@ public class MD5Tools {
         return md5Str;
     }
 	public static void main(String[] args) {
-		String str1=MD5Tools.getMD5("admin123456");
+		String str1=MD5Tools.getMD5("admin");
 		String str2=MD5Tools.getMD5("test123456");
-		System.out.println(str1);//admin123456    A66ABB5684C45962D887564F08346E8D
+		System.out.println(str1);//admin123456    21232F297A57A5A743894A0E4A801FC3
 		System.out.println(str2);//test123456     47EC2DD791E31E2EF2076CAF64ED9B3D
 		
 	}
