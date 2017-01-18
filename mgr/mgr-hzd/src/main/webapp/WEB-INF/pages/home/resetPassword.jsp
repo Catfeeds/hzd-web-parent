@@ -5,6 +5,8 @@
     <meta charset="UTF-8">
     <title>Basic PasswordBox - jQuery EasyUI Demo</title>
 	<%@include file="../common/include.jsp"%>
+	<script src="${path}/script/artDialog/jquery.artDialog.js?skin=blue" type="text/javascript"></script>
+	<script src="${path}/script/artDialog/plugins/iframeTools.js" type="text/javascript"></script>
     <style type="text/css">
 	    .warnClass{
 	    	color:red;
@@ -124,13 +126,13 @@ function doSure(){
  		async : false,
 		success : function(data) {
 		    if (data.code == "1") {
-		    	art.dialog.alert(data.msg, function() {
+		    	art.dialog(data.message, function() {
 		    		//获取上一级页面，并让上一个页面重新加载
 		    		var win = art.dialog.open.origin;
 		    		win.location.reload();
 		    	});
 		    } else {
-		    	art.dialog.alert(data.msg, function() {
+				art.dialog(data.message, function() {
 		    		//获取上一级页面，并让上一个页面重新加载
 		    		var win = art.dialog.open.origin;
 		    		win.location.reload();
@@ -138,7 +140,7 @@ function doSure(){
 		    }
 	    },
 	    error : function(data) {
-	    	art.dialog.alert(data.msg, function() {
+	    	art.dialog.alert(data.message, function() {
 	    		//获取上一级页面，并让上一个页面重新加载
 	    		var win = art.dialog.open.origin;
 	    		win.location.reload();
