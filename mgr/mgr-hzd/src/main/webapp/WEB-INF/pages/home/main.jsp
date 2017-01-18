@@ -4,9 +4,27 @@
 <html>
 <head>
 <title>进件二期后台管理系统</title>
-<%@include file="../common/include.jsp"%> 
-
+<%@include file="../common/include.jsp"%>
+<script src="${path}/script/artDialog/jquery.artDialog.js?skin=blue" type="text/javascript"></script>
+<script src="${path}/script/artDialog/plugins/iframeTools.js" type="text/javascript"></script>
 <script>
+/*  	$.ajaxSetup({
+		error: function (XMLHttpRequest, textStatus, errorThrown){
+			if(XMLHttpRequest.status==403){
+				alert('您没有权限访问此资源或进行此操作');
+				return false;
+			}
+		},
+		complete:function(XMLHttpRequest,textStatus){
+			var sessionstatus=XMLHttpRequest.getResponseHeader("sessionstatus");//通过XMLHttpRequest取得响应头,sessionstatus
+			if(sessionstatus=='timeout'){//如果超时就处理 ，指定要跳转的页面
+				var top = getTopWinow(); //获取当前页面的顶层窗口对象
+				alert('登录超时, 请重新登录.');
+				top.location.href="mgr-hzd/sys/tologin"; //跳转到登陆页面
+			}
+		}
+	});  */
+
 	function addTab(title, url){
 		var centerTabsObj = $('#mainTabs');
 		if ($('#mainTabs').tabs('exists', title)){
@@ -32,17 +50,45 @@
 			window.location="${path}/sys/logout";
 		}
 	}
+	//重置密码
+	function resetPassword(){
+		art.dialog.open("${path}/sys/toresetpassword.do", {
+			   title: '重置密码',
+			   id: 'resetPassword',
+			   width:'800px',
+			   height:'500px',
+			   fixed: true,
+			   resize:true,
+			   drag:true,
+			   lock:true,
+			   init:function(){
+				   this.content="数据加载中...";
+			   },/*
+			   okVal:'确定',
+			   ok:function(){
+				   return true;
+			   },
+			   cancelVal:'取消',
+			   cancel: function(){
+				   return true;
+			   },*/
+			   close:function(){
+				   return true;
+			   }
+			},false);
+	}
 </script>
-
-
 </head>
     <body class="easyui-layout">  
         <!-- 正上方panel -->  
         <div region="north" split="true" border="false" style="overflow: hidden; height: 30px;
         background: url(images/layout-browser-hd-bg.gif) #7f99be repeat-x center 50%;
         line-height: 20px;color: #fff; font-family: Verdana, 微软雅黑,黑体">
-        <span style="float:right; padding-right:20px;" class="head">
-        <a href="javascript:void(0)" onclick="exit()" style="font-size: 14px; float:right; padding-right:20px;color:#FFF; text-decoration:none;">安全退出</a></span>
+        <span style="font-size: 14px;float:right; padding-right:20px;" class="head">
+        	您好，${sessionScope.userName }&nbsp;&nbsp;&nbsp;
+        	<a href="javascript:void(0)" onclick="exit()" style="padding-right:20px;color:#FFF; text-decoration:none;">安全退出</a>
+        	<a href="javascript:void(0)" onclick="resetPassword();" style="padding-right:20px;color:#FFF; text-decoration:none;">修改密码</a>
+        </span>
         <span style="padding-left:10px; font-size: 16px; ">
         	<img src="${path}/images/blocks.gif" width="20" height="20" align="absmiddle" >
         	进件二期后台管理系统</span>
