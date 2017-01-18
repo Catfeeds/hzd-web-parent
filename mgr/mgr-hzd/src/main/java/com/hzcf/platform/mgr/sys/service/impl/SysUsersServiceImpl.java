@@ -13,6 +13,7 @@ import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.sys.model.SysUsersVO;
 import com.hzcf.platform.core.sys.service.SysUsersService;
 import com.hzcf.platform.mgr.sys.service.ISysUsersService;
+import com.hzcf.platform.mgr.sys.util.MD5Tools;
 /**
  * 
  * @author 李强
@@ -33,7 +34,7 @@ public class SysUsersServiceImpl implements ISysUsersService {
 		SysUsersVO sysUsers = sysUsersVO.getItems();
 		if (sysUsers != null){
 			String passwordDB = sysUsersVO.getItems().getPassword();
-			if (passwordDB.equals(password)){
+			if (passwordDB.equals(MD5Tools.getMD5(password))){
 				login = true;
 			}
 		} else {
@@ -55,10 +56,10 @@ public class SysUsersServiceImpl implements ISysUsersService {
 			result.put("code","-1");
 			result.put("message","未找到用户信息");
 		}else{
-			if(password.equals(sysUsers.getPassword())){
+			if((MD5Tools.getMD5(password)).equals(sysUsers.getPassword())){
 				SysUsersVO params=new SysUsersVO();
 				params.setUserName(username);
-				params.setPassword(passwordNew);
+				params.setPassword(MD5Tools.getMD5(passwordNew));
 				Result<Integer> updateresult=sysUsersSerivce.updateByUserNameSelective(params);
 				if(updateresult.getItems()==1){
 					result.put("code","1");

@@ -229,10 +229,16 @@ public class ApplyDetailServiceImpl implements IApplyDetailService {
 	 * Type：0=身份证		 1=征信报告		2=个人住址证明		3=收入证明		4=实名认证图片		 5=工作证明		6=社保/公积金		7=其它
 	 */
 	@Override
-	public List<UserImageVO> getUserImageDetail(String applyId) {
+	public List<UserImageVO> getUserImageDetail(UserApplyInfoVO userApplyInfo) {
 		
-		Result<List<UserImageVO>> userImageList = userImageService.selectByApplyId(applyId);
+		Result<List<UserImageVO>> userImageList = userImageService.selectByApplyId(userApplyInfo.getApplyId());
 		List<UserImageVO> userImageVOList = userImageList.getItems();
+		
+		//身份证图片信息
+		Result<List<UserImageVO>> sfzImageVOList=userImageService.getUserId(userApplyInfo.getUserId());
+		List<UserImageVO> sfzImageVO=sfzImageVOList.getItems();
+		userImageVOList.addAll(sfzImageVO);
+		
 		if (userImageVOList == null){
 			return userImageVOList;
 		} else {

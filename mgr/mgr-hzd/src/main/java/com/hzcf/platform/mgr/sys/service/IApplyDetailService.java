@@ -44,7 +44,7 @@ public interface IApplyDetailService {
 	 * @param applyId
 	 * @return 上传图片展示
 	 */
-	public List<UserImageVO> getUserImageDetail(String applyId);
+	public List<UserImageVO> getUserImageDetail(UserApplyInfoVO userApplyInfo);
 
 	
 	

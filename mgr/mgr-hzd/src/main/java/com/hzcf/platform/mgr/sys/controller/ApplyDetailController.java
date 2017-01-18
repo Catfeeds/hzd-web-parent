@@ -55,7 +55,7 @@ public class ApplyDetailController {
 			model.addAttribute("userRelationVOList", userRelationVOList);
 		}
 		
-		List<UserImageVO> userImageVOList = applyDetailService.getUserImageDetail(applyId);
+		List<UserImageVO> userImageVOList = applyDetailService.getUserImageDetail(userApplyInfo);
 		if (userImageVOList != null) {
 			model.addAttribute("userImageVOList",userImageVOList);
 		}
