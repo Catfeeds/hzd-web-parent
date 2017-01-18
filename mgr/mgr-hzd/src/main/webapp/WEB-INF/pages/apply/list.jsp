@@ -32,7 +32,7 @@ $(function(){
 			{field:'maxMonthlyPayment',title:'月还款最高额度',width:100},
 			{field:'applySubmitTime',title:'提交时间',width:200,formatter:formatDateBoxFull},
 			{field:'status',title:'进件状态',width:100,formatter:function(value){
-				if(value =="0"){
+				if(value =="2"){
 					return "未进件";
 				}
 				if(value=="1"){
@@ -106,7 +106,7 @@ function detail(det){
 	<span>进件状态:</span>
 	<select id="status" name="status" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'">
     	<option value="">请选择</option>
-    	<option value="0">未进件</option>
+    	<option value="2">未进件</option>
     	<option value="1">已进件</option>
     </select>
 <!-- 	<span>借款状态:</span>
