@@ -21,6 +21,7 @@
 				$("body").keydown(function(event){
 					if(event.keyCode==13){
 						$("#submit").click();
+						
 					}
 				});
 				
@@ -58,7 +59,7 @@
  							error : function(XMLHttpRequest, textStatus, errorThrown) {
 								// 通常 textStatus 和 errorThrown 之中
 								// 只有一个会包含信息
-								if(XMLHttpRequest.Status == 403) {
+								if(XMLHttpRequestStatus == 403){
 									$("#message").html('连接失败！');
 								}
 							}

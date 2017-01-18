@@ -195,12 +195,12 @@ public class UserServiceImpl implements IUserService {
 			date = DateUtils.getDateString(result.getItems().getSubmitTime());
 		}
 		
-		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_N)||flag==false){
+		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_N)){		//||flag==false
 			msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_BTG);
 			msgBoxVO.setMsgContent("尊敬的用户，您在"+date+"提交的实名认证申请未通过，请重新申请。");
 			msgBoxservice.insertSelective(msgBoxVO);
 		}
-		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)&&flag==true){
+		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)){		//&&flag==true
 			msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_TG);
 			msgBoxVO.setMsgContent("尊敬的用户，您在"+date+"提交的实名认证申请已通过。");
 			msgBoxservice.insertSelective(msgBoxVO);

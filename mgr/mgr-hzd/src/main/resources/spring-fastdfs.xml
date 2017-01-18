@@ -1,20 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-       xsi:schemaLocation="
-        http://www.springframework.org/schema/beans
-	    http://www.springframework.org/schema/beans/spring-beans.xsd">
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns="http://www.springframework.org/schema/beans" xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:p="http://www.springframework.org/schema/p" xmlns:c="http://www.springframework.org/schema/c"
+       xmlns:cache="http://www.springframework.org/schema/cache"
+       xsi:schemaLocation="http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.1.xsd
+         	http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+         	http://www.springframework.org/schema/cache http://www.springframework.org/schema/cache/spring-cache.xsd">
+    <context:property-placeholder location="classpath:/rock.properties" />
 
     <!--<bean id="fastdfsConfig" class="com.hzcf.platform.framework.fastdfs.client.FastDFSConfig">-->
     <bean id="fastdfsConfig" class="com.hzcf.common.FastDFSConfig">
-		<property name="connectTimeout" value="6000" />
-		<property name="networkTimeout" value="30000" />
-		<property name="charset" value="UTF-8" />
-		<property name="httpTrackerPort" value="80" />
-		<property name="httpAntiStealtoken" value="false" />
-		<property name="httpSecret_key" value="" />
-		
-		<property name="trackerAddrs">
+        <property name="connectTimeout" value="6000" />
+        <property name="networkTimeout" value="30000" />
+        <property name="charset" value="UTF-8" />
+        <property name="httpTrackerPort" value="80" />
+        <property name="httpAntiStealtoken" value="false" />
+        <property name="httpSecret_key" value="" />
+
+        <property name="trackerAddrs">
             <bean class="org.springframework.beans.factory.config.ListFactoryBean">
                 <property name="targetListClass">
                     <value>java.util.ArrayList</value>
@@ -23,26 +26,27 @@
                     <list>
                         <!-- <value>up.img-pc.exiao.me:22122</value> -->
                         <!--<value>10.20.200.47:22122</value>-->
-                        <value>10.10.10.63:22122</value>
+                        <value>${fastdfs.host.port}</value>
                     </list>
                 </property>
             </bean>
         </property>
 
-	</bean>
-    <!--(3)此处获取对象的方式是从工厂类中获取静态方法-->  
+    </bean>
+    <!--(3)此处获取对象的方式是从工厂类中获取静态方法-->
     <!-- <bean name="fastdfsClient" class="com.exiao.platform.framework.fastdfs.FastDFSClientFactory" factory-method="getFastdfsClient"></bean>  -->
 
-	<!--<bean name="fastdfsClient" class="com.hzcf.platform.framework.fastdfs.FastDFSClientImpl" scope="prototype"></bean>-->
-<!--
-    <bean name="imageServer" class="com.hzcf.platform.framework.fastdfs.pool.ImageServerImpl" scope="prototype">
-        <constructor-arg name="serverIp" value="10.10.10.63"></constructor-arg>
-        <constructor-arg name="port" value="22122"></constructor-arg>
-        <constructor-arg name="size" value="10"></constructor-arg>
-    </bean>-->
+    <!--<bean name="fastdfsClient" class="com.hzcf.platform.framework.fastdfs.FastDFSClientImpl" scope="prototype"></bean>-->
+    <!--
+        <bean name="imageServer" class="com.hzcf.platform.framework.fastdfs.pool.ImageServerImpl" scope="prototype">
+            <constructor-arg name="serverIp" value="10.10.10.63"></constructor-arg>
+            <constructor-arg name="port" value="22122"></constructor-arg>
+            <constructor-arg name="size" value="10"></constructor-arg>
+        </bean>-->
+
     <bean name="imageServer" class="com.imageserver.ImageServerImpl" scope="prototype">
-        <constructor-arg name="connnectString" value="10.10.10.63"></constructor-arg>
-        <constructor-arg name="port" value="22122"></constructor-arg>
-        <constructor-arg name="size" value="10"></constructor-arg>
+        <constructor-arg name="connnectString" value="${fastdfs.host}"></constructor-arg>
+        <constructor-arg name="port" value="${fastdfs.port}"></constructor-arg>
+        <constructor-arg name="size" value="${fastdfs.size}"></constructor-arg>
     </bean>
 </beans>
