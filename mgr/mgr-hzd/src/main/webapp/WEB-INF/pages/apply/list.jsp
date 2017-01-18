@@ -32,7 +32,7 @@ $(function(){
 			{field:'maxMonthlyPayment',title:'月还款最高额度',width:100},
 			{field:'applySubmitTime',title:'提交时间',width:200,formatter:formatDateBoxFull},
 			{field:'status',title:'进件状态',width:100,formatter:function(value){
-				if(value =="0"){
+				if(value =="2"){
 					return "未进件";
 				}
 				if(value=="1"){
