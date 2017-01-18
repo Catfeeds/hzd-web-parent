@@ -20,4 +20,21 @@ import com.hzcf.platform.framework.core.service.IBaseService;
 public interface SysUsersService extends IBaseService<SysUsersVO>{
 	
 	public Result<SysUsersVO> getBySysUsersName(String userName);
+	/**
+	 * @Title: updateByPrimaryKeySelective 
+	 * @Description:根据主键修改后台用户信息 
+	 * @time: 2017年1月17日 下午7:24:21  
+	 * @return:Result<SysUsersVO>
+	 */
+	public Result<Boolean> updateByPrimaryKeySelective(SysUsersVO sysUsersVO);
+	/**
+	 * @Title: updateByUserNameSelective 
+	 * @Description: TODO 
+	 * @time: 2017年1月17日 下午9:41:18  
+	 * @return:Result<Integer>
+	 */
+	public Result<Integer> updateByUserNameSelective(SysUsersVO sysUsersVO);
+	
+	
+	
 }

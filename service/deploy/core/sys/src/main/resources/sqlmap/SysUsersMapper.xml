@@ -88,6 +88,21 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
+  <update id="updateByUserNameSelective" parameterType="SysUsers" >
+    update sys_users
+    <set >
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null" >
+        status = #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="createTime != null" >
+        create_time = #{createTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where user_name = #{userName,jdbcType=VARCHAR}
+  </update>
   <update id="updateByPrimaryKey" parameterType="SysUsers" >
     update sys_users
     set user_name = #{userName,jdbcType=VARCHAR},

@@ -50,7 +50,27 @@ public class SysUsersServiceImpl extends AbstractBaseServiceImpl<SysUsersVO,SysU
 			return new Result<SysUsersVO>(StatusCodes.INTERNAL_SERVER_ERROR, getModel());
 		}
 	}
+	@Override
+	public Result<Boolean> updateByPrimaryKeySelective(SysUsersVO sysUsersVO){
+		try {
+			purchaseOrderDao.updateByPrimaryKeySelective(sysUsersVO);
+			return new Result<Boolean>(StatusCodes.OK, true);
+		} catch (Exception e) {
+			logger.error("an error occur in updateByPrimaryKeySelective service : {}", e);
+			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR,false);
+		}
+	}
 
+	@Override
+	public Result<Integer> updateByUserNameSelective(SysUsersVO sysUsersVO) {
+		try {
+			int result=purchaseOrderDao.updateByUserNameSelective(sysUsersVO);
+			return new Result<Integer>(StatusCodes.OK, result);
+		} catch (Exception e) {
+			logger.error("an error occur in updateByUserNameSelective service : {}", e);
+			return new Result<Integer>(StatusCodes.INTERNAL_SERVER_ERROR,0);
+		}
+	}
 	
 	
 	
