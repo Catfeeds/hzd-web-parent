@@ -12,9 +12,18 @@ $(function(){
 	$('#grid').datagrid({
 		url:'${path}/users/check/page',
 		columns:[[
+		{field:'rowNumbers',  
+		    title: '序号',  
+		    align: 'center',  
+		    width: 30,  
+		    formatter: function(val,rec,index){  
+		       var op = $('#grid').datagrid('options');  
+		      return op.pageSize * (op.pageNumber - 1) + (index + 1);  
+		    }  
+			},
 		   {field:'id',title:'id',width:30,hidden:true},
 		   {field:'mobile',title:'手机号',width:150},
-			{field:'name',title:'姓名',width:150},
+			{field:'name',title:'姓名',width:100},
 			{field:'idCard',title:'身份证号',width:180},
 			{field:'submitTime',title:'提交时间',width:120,formatter:formatDateBoxFull},
 			{field:'checkStatus',title:'审核状态',width:100,formatter:function(value){

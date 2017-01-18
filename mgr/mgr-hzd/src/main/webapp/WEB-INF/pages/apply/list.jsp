@@ -12,9 +12,18 @@ $(function(){
 	$('#grid').datagrid({
 		url:'${path}/apply/page',
 		columns:[[
-		   {field:'applyId',title:'applyId',width:230},
+			{field:'rowNumbers',  
+			    title: '序号',  
+			    align: 'center',  
+			    width: 40,  
+			    formatter: function(val,rec,index){  
+			       var op = $('#grid').datagrid('options');  
+			      return op.pageSize * (op.pageNumber - 1) + (index + 1);  
+			    }  
+				},
+		   {field:'applyId',title:'applyId',width:230,hidden:'true'},
 		   {field:'mobile',title:'手机号',width:150},
-			{field:'name',title:'姓名',width:150},
+			{field:'name',title:'姓名',width:100},
 			{field:'idCard',title:'身份证号',width:180},
 		    {field:'loanPurposeOne',title:'借款用途',width:100},
 			{field:'loanPurposeTwo',title:'借款用途详情',width:120},
