@@ -4,6 +4,7 @@ package com.hzcf.platform.core.user.dao.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import com.hzcf.platform.core.user.dao.UserApplyInfoDao;
@@ -52,5 +53,18 @@ public class UserApplyInfoDaoImpl  extends AbstractMysqlBaseDaoImpl<UserApplyInf
 	@Override
 	public UserApplyInfoVO selectByUserIdAndStatus(Map<String, Object> parmMap) {
 		return (UserApplyInfoVO)this.sqlSessionTemplate.selectOne(this.getSqlName("selectByUserIdAndStatus"), parmMap);
+	}
+	/**
+	 * @Title: deleteByApplyId 
+	 * @Description:根据applyId删除图片信息 
+	 * @time: 2017年1月18日 下午5:12:12  
+	 * @return:Result<Boolean>
+	 */
+	public boolean deleteByApplyId(String applyId){
+        if (StringUtils.isNotBlank(applyId))  {
+            sqlSessionTemplate.delete(getSqlName("deleteByApplyId"), applyId);
+            return true;
+        }
+        return false;
 	}
 }

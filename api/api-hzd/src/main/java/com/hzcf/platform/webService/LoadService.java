@@ -10,6 +10,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hzcf.platform.api.config.ConstantsDictionary;
@@ -19,6 +20,7 @@ import com.hzcf.platform.api.util.HttpRequestUtil;
 import com.hzcf.platform.api.util.Md5Util;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.core.user.model.UserApplyInfoVO;
 import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.model.UserInfoVO;
@@ -65,7 +67,8 @@ public class LoadService {
 	 * @return:String
 	 * @throws Exception
 	 */
-	public String insertLoad(String applyId) throws Exception{
+	@Transactional(propagation=Propagation.REQUIRED)
+	public String insertLoad(String applyId) {
 		/**初始化参数*/
 		String result="";//返回结果
 		//发送到调度的参数信息
@@ -77,7 +80,6 @@ public class LoadService {
 		String key=ConstantsDictionary.KEY;//调度的“查询借款进度”接口的密钥
 		//用于查询的参数信息
 		String userId="";//用户id
-		try {
 			/**查询数据库，获取参数*/
 			//借款人详细信息
 			Result<UserInfoVO> userInfoVOResult=userInfoService.selectByApplyId(applyId);
@@ -176,7 +178,7 @@ public class LoadService {
 				borrowRelationList.add(borrowRelationVo);
 			}
 			huiZhongApplicationVo.setBorrowRelationList(borrowRelationList);
-			//借款人的图片集合 TODO
+			//借款人的图片集合
 			List<ImageVo> imageList=new ArrayList<ImageVo>();
 			for(int i=0;i<userImage1.size();i++){
 				UserImageVO userImageVO=userImage1.get(i);
@@ -203,17 +205,19 @@ public class LoadService {
 //			String str=JsonUtil.json2String(applyDataMap);//此处这个方法不能正确的将对象转成字符串，故不用
 			String str=applyDataMap.toString();
 			logger.info("接口：进件。请求参数："+str);
-			//AES加密
-			str = AESUtil.enCrypt(str,key);
-			logger.info("接口：进件。加密后的参数："+str);
-			str = "addHuiZhongApplyInfoParms="+str;
-			/**发送Http请求，POST方式*/
-			result=HttpRequestUtil.sendPost(ConstantsDictionary.dispatchLoadInsertLoadUrl,str);
-			logger.info("接口：进件。返回的结果："+result);
-		} catch (Exception e) {
-			logger.error("接口：进件。发生异常，异常信息："+e.getMessage());
-			e.printStackTrace();
-		}
+			
+			try {
+				//AES加密
+				str = AESUtil.enCrypt(str,key);
+				logger.info("接口：进件。加密后的参数："+str);
+				str = "addHuiZhongApplyInfoParms="+str;
+				/**发送Http请求，POST方式*/
+				result=HttpRequestUtil.sendPost(ConstantsDictionary.dispatchLoadInsertLoadUrl,str);
+				logger.info("接口：进件。返回的结果："+result);
+			} catch (Exception e) {
+				e.printStackTrace();
+				return "";
+			}
 		return result;
 	}
 	/**
@@ -225,43 +229,65 @@ public class LoadService {
 	 * @throws Exception
 	 */
 	@Transactional
-	public boolean operateLoad(String applyId) throws Exception{
+	public boolean operateLoad(String applyId) {
 			String result=insertLoad(applyId);
 			/**根据线下返回的结果，修改借款人的“借款状态”
 			 * 线下返回结果示例：{"retInfo":"进件成功!","retCode":"0000"}
 			 * */
 			logger.info("接口：进件。开始修改数据库中‘进件状态’");
-			if(StringUtils.isNotBlank(result)){
-				JSONObject resultJSON=JSONObject.fromObject(result);
-				String retCode=resultJSON.getString("retCode");
-				if("0000".equals(retCode)){
-					/**修改User中的“借款状态”*/
-					//组装参数
-					UserVO updateUserVO=new UserVO();
-					Result<UserInfoVO> userInfoVOResult=userInfoService.selectByApplyId(applyId);
-					UserInfoVO userInfoVO=userInfoVOResult.getItems();
-					updateUserVO.setId(userInfoVO.getUserId());
-					updateUserVO.setApplyStatus("1");
-					//修改数据库user中的进件状态
-					Result<Boolean> updateUserVOResult=userSerivce.updateByPrimaryKeySelective(updateUserVO);
-					logger.info("修改User中的'进件状态'，结果："+updateUserVOResult.getItems());
-					/**修改UserApplyInfo中的“借款状态”*/
-					//组装参数
-					UserApplyInfoVO updateUserApplyInfoVO=new UserApplyInfoVO();
-					updateUserApplyInfoVO.setApplyId(applyId);
-					updateUserApplyInfoVO.setStatus("1");
-					//修改数据库中user_apply_info中的进件状态
-					Result<Boolean> updateUserApplyInfoVOResult=userApplyInfoSerivce.updateApplyId(updateUserApplyInfoVO);
-					logger.info("修改UserApplyInfo中的'进件状态'，结果："+updateUserApplyInfoVOResult.getItems());
-					if(updateUserVOResult.getItems()==false || updateUserApplyInfoVOResult.getItems()==false){
+			try {
+				if(StringUtils.isNotBlank(result)){
+					JSONObject resultJSON=JSONObject.fromObject(result);
+					String retCode=resultJSON.getString("retCode");
+					if("0000".equals(retCode)){
+						/**修改User中的“借款状态”*/
+						//组装参数
+						UserVO updateUserVO=new UserVO();
+						Result<UserInfoVO> userInfoVOResult=userInfoService.selectByApplyId(applyId);
+						UserInfoVO userInfoVO=userInfoVOResult.getItems();
+						updateUserVO.setId(userInfoVO.getUserId());
+						updateUserVO.setApplyStatus("1");
+						//修改数据库user中的进件状态
+						Result<Boolean> updateUserVOResult=userSerivce.updateByPrimaryKeySelective(updateUserVO);
+						logger.info("修改User中的'进件状态'，结果："+updateUserVOResult.getItems());
+						/**修改UserApplyInfo中的“借款状态”*/
+						//组装参数
+						UserApplyInfoVO updateUserApplyInfoVO=new UserApplyInfoVO();
+						updateUserApplyInfoVO.setApplyId(applyId);
+						updateUserApplyInfoVO.setStatus("1");
+						//修改数据库中user_apply_info中的进件状态
+						Result<Boolean> updateUserApplyInfoVOResult=userApplyInfoSerivce.updateApplyId(updateUserApplyInfoVO);
+						logger.info("修改UserApplyInfo中的'进件状态'，结果："+updateUserApplyInfoVOResult.getItems());
+						if(updateUserVOResult.getItems()==false || updateUserApplyInfoVOResult.getItems()==false){
+							return false;
+						}
+					}else{
 						return false;
 					}
 				}else{
 					return false;
 				}
-			}else{
+			} catch (Exception e) {
+				e.printStackTrace();
 				return false;
 			}
+		return true;
+	}
+	/**
+	 * @Title: deleteLoad 
+	 * @Description:根据applyId删除借款人的申请信息 
+	 * @time: 2017年1月18日 下午4:53:00  
+	 * @return:String
+	 */
+	public boolean deleteLoad(String applyId){
+		/**执行删除操作*/
+		//删除借款人的关系信息
+		Result<Boolean> deleteRelation = userRelationService.deleteByApplyId(applyId);
+		Result<Boolean> deleteImage = userImageService.deleteByApplyId(applyId);
+		Result<Boolean> deleteApplyInfo = userApplyInfoSerivce.deleteByApplyId(applyId);
+		if(deleteRelation.getStatus()!=StatusCodes.OK || deleteImage.getStatus()!=StatusCodes.OK || deleteApplyInfo.getStatus()!=StatusCodes.OK){
+			return false;
+		}
 		return true;
 	}
 	/**
@@ -303,5 +329,4 @@ public class LoadService {
 		}
 		return result;
 	}
-
 }

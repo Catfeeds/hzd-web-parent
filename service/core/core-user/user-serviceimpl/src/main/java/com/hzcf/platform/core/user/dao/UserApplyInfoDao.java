@@ -4,6 +4,8 @@ package com.hzcf.platform.core.user.dao;
 import java.util.List;
 import java.util.Map;
 
+import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.core.user.data.UserApplyInfo;
 import com.hzcf.platform.core.user.model.UserApplyInfoVO;
 import com.hzcf.platform.framework.core.storage.IBaseDao;
@@ -29,5 +31,11 @@ public interface UserApplyInfoDao  extends IBaseDao<UserApplyInfo> {
     //后台实名认证通过，查询进件数据
     public UserApplyInfoVO selectByUserIdAndStatus(Map<String, Object> parmMap);
     
-    
+	/**
+	 * @Title: deleteByApplyId 
+	 * @Description:根据applyId删除图片信息 
+	 * @time: 2017年1月18日 下午5:12:12  
+	 * @return:Result<Boolean>
+	 */
+	public boolean deleteByApplyId(String applyId);
 }
