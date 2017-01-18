@@ -212,6 +212,8 @@
 	        and date_format(submit_time, '%Y-%m-%d') BETWEEN #{user.subStartDate} AND #{user.subEndDate} 
 	    </if>
 	    <if test="user.applyStatus != null and user.applyStatus != ''"> and apply_status=#{user.applyStatus} </if>
+	    <!-- 过滤掉未认证用户 -->
+	    and id_card is not null
 	  </sql>
   	<!-- 分页查询 -->
 	<select id="FINDLIST" resultMap="BaseResultMap" parameterType="java.util.Map">
