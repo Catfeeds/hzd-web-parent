@@ -126,13 +126,13 @@ function doSure(){
  		async : false,
 		success : function(data) {
 		    if (data.code == "1") {
-		    	art.dialog(data.message, function() {
+		    	art.dialog.alert(data.message, function() {
 		    		//获取上一级页面，并让上一个页面重新加载
 		    		var win = art.dialog.open.origin;
 		    		win.location.reload();
 		    	});
 		    } else {
-				art.dialog(data.message, function() {
+				art.dialog.alert(data.message, function() {
 		    		//获取上一级页面，并让上一个页面重新加载
 		    		var win = art.dialog.open.origin;
 		    		win.location.reload();
