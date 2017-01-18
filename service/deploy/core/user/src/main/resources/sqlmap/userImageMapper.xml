@@ -81,6 +81,10 @@
       AND image_type=#{imageType,jdbcType=VARCHAR}
     </if>
   </delete>
+  <delete id="deleteByApplyId" parameterType="java.lang.String" >
+    delete from user_image
+    where apply_id=#{applyId,jdbcType=VARCHAR}
+  </delete>  
   <insert id="insert" parameterType="UserImage" >
     insert into user_image (image_id, user_id, apply_id, 
       user_info_id, art_work, small, 

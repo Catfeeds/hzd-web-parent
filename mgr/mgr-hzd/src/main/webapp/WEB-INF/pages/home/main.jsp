@@ -55,8 +55,8 @@
 		art.dialog.open("${path}/sys/toresetpassword.do", {
 			   title: '重置密码',
 			   id: 'resetPassword',
-			   width:'800px',
-			   height:'500px',
+			   width:'60%',
+			   height:'40%',
 			   fixed: true,
 			   resize:true,
 			   drag:true,

@@ -61,6 +61,10 @@
     delete from user_apply_info
     where apply_id = #{applyId,jdbcType=VARCHAR}
   </delete>
+  <delete id="deleteByApplyId" parameterType="java.lang.String" >
+    delete from user_apply_info
+    where apply_id=#{applyId,jdbcType=VARCHAR}
+  </delete>    
   <insert id="insert" parameterType="UserApplyInfo" >
     insert into user_apply_info (apply_id, user_id, loan_purpose_one, 
       loan_purpose_two, min_apply_amount, max_apply_amount, 

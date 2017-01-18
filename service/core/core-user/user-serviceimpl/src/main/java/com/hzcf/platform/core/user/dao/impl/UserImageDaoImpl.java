@@ -9,6 +9,7 @@ import com.hzcf.platform.framework.core.storage.mysql.AbstractMysqlBaseDaoImpl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
 /**
@@ -93,5 +94,19 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
 	@Override
 	public List<UserImageVO> selectByApplyId(String applyId) {
 		return this.sqlSessionTemplate.selectList(this.getSqlName("selectByApplyId"),applyId);
+	}
+	/**
+	 * @Title: deleteByApplyId 
+	 * @Description:根据applyId删除图片信息 
+	 * @time: 2017年1月18日 下午5:12:12  
+	 * @return:boolean
+	 */
+	@Override
+	public boolean deleteByApplyId(String applyId){
+        if (StringUtils.isNotBlank(applyId))  {
+            sqlSessionTemplate.delete(getSqlName("deleteByApplyId"), applyId);
+            return true;
+        }
+        return false;
 	}
 }

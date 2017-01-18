@@ -51,11 +51,8 @@ public class LoadServiceImpl implements ILoadService {
 		JSONObject json=JSONObject.fromObject(params);
 		String applyId=json.getString("applyId");
 		String result="";
-		try {
 			result=LoadService.insertLoad(applyId);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
+		
 		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),result);
 	}
 	@Override

@@ -27,4 +27,11 @@ public interface UserImageService extends IBaseService<UserImageVO> {
 	public Result<Boolean> updateImageByUserIdAndTypeAndUrl(Map<String, String> parmMap);
 
 	public Result<List<UserImageVO>> selectByApplyId(String applyId);
+	/**
+	 * @Title: deleteByApplyId 
+	 * @Description:根据applyId删除图片信息 
+	 * @time: 2017年1月18日 下午5:12:12  
+	 * @return:Result<Boolean>
+	 */
+	public Result<Boolean> deleteByApplyId(String applyId);
 }

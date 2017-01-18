@@ -155,4 +155,20 @@ public class UserApplyInfoSerivceImpl  extends AbstractBaseServiceImpl<UserApply
             return new Result<UserApplyInfoVO>(StatusCodes.INTERNAL_SERVER_ERROR, getModel());
         }
 	}
+	/**
+	 * @Title: deleteByApplyId 
+	 * @Description:根据applyId删除借款人的申请信息 
+	 * @time: 2017年1月18日 下午5:22:18  
+	 * @return:Result<Boolean>
+	 */
+	@Override
+	public Result<Boolean> deleteByApplyId(String applyId){
+		try {
+			purchaseOrderDao.deleteByApplyId(applyId);
+			return new Result<Boolean>(StatusCodes.OK, true);
+		} catch (Exception e) {
+			logger.error("an error occur in deleteByApplyId service : {}", e);
+			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
+		}
+	}
 }
