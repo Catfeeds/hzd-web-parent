@@ -262,7 +262,7 @@
     where apply_id=#{applyId,jdbcType=VARCHAR}
   </delete>
   <!--根据applyId集合批量删除借款人的进件中的图片信息  -->
-  <delete id="deleteByApplyId" parameterType="java.lang.String" >
+  <delete id="deleteByApplyIdList" parameterType="java.lang.List" >
     delete from user_image  where apply_id in 
    	<foreach item="item" index="index" collection="list" open="("
 		separator="," close=")">
