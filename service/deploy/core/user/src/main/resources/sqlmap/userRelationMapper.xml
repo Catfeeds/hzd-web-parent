@@ -33,13 +33,6 @@
     delete from user_relation
     where relation_id = #{relationId,jdbcType=VARCHAR}
   </delete>
-  
-  <delete id="deleteByApplyId" parameterType="java.lang.String" >
-    delete from user_relation
-    where apply_id = #{applyId,jdbcType=VARCHAR}
-  </delete>
-  
-    
   <insert id="insert" parameterType="UserRelation" >
     insert into user_relation (relation_id, user_id, apply_id, 
       name, relation_type,
@@ -146,4 +139,18 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where relation_id = #{relationId,jdbcType=VARCHAR}
   </update>
+  <delete id="deleteByApplyId" parameterType="java.lang.String" >
+    delete from user_relation
+    where apply_id = #{applyId,jdbcType=VARCHAR}
+  </delete>
+  <!-- 根据applyId集合批量删除借款人申请信息 -->
+  <delete id="deleteByApplyIdList" parameterType="list">
+    delete from user_relation where apply_id in 
+	<foreach item="item" index="index" collection="list" open="("
+		separator="," close=")">
+		#{item}
+	</foreach>
+  </delete>
+  
+  
 </mapper>

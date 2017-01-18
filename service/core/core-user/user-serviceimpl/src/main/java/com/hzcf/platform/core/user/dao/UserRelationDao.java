@@ -28,4 +28,11 @@ public interface UserRelationDao extends IBaseDao<UserRelation> {
 
     
     public int deleteByApplyId(String applyId);
+    /**
+     * @Title: deleteByApplyIdList
+     * @Description:根据applyId集合删除借款人关系信息 
+     * @time: 2017年1月18日 下午8:02:19  
+     * @return:Result<Boolean>
+     */
+    public boolean deleteByApplyIdList(List<String> applyIdList);
 }

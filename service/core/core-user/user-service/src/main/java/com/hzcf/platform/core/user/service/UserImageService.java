@@ -34,4 +34,11 @@ public interface UserImageService extends IBaseService<UserImageVO> {
 	 * @return:Result<Boolean>
 	 */
 	public Result<Boolean> deleteByApplyId(String applyId);
+	/**
+	 * @Title: deleteByApplyIdList 
+	 * @Description:根据applyId集合删除借款人的图片信息
+	 * @time: 2017年1月18日 下午8:18:03  
+	 * @return:Result<Boolean>
+	 */
+	public Result<Boolean> deleteByApplyIdList(List<String> applyIdList);
 }

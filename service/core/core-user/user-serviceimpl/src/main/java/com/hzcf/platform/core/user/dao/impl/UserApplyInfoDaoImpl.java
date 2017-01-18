@@ -54,12 +54,24 @@ public class UserApplyInfoDaoImpl  extends AbstractMysqlBaseDaoImpl<UserApplyInf
 	public UserApplyInfoVO selectByUserIdAndStatus(Map<String, Object> parmMap) {
 		return (UserApplyInfoVO)this.sqlSessionTemplate.selectOne(this.getSqlName("selectByUserIdAndStatus"), parmMap);
 	}
+
+    /**
+     * @Title: selectByUserIdAndStatusAll 
+     * @Description:根据userId，status查询借款人的申请信息 
+     * @time: 2017年1月18日 下午6:52:15  
+     * @return:List<UserApplyInfoVO>
+     */
+	@Override
+  	public List<UserApplyInfoVO> selectByUserIdAndStatusAll(Map<String, Object> parmMap){
+		return sqlSessionTemplate.selectList(getSqlName("selectByUserIdAndStatusAll"), parmMap);
+  	}
 	/**
 	 * @Title: deleteByApplyId 
 	 * @Description:根据applyId删除图片信息 
 	 * @time: 2017年1月18日 下午5:12:12  
 	 * @return:Result<Boolean>
 	 */
+	@Override
 	public boolean deleteByApplyId(String applyId){
         if (StringUtils.isNotBlank(applyId))  {
             sqlSessionTemplate.delete(getSqlName("deleteByApplyId"), applyId);
@@ -67,4 +79,19 @@ public class UserApplyInfoDaoImpl  extends AbstractMysqlBaseDaoImpl<UserApplyInf
         }
         return false;
 	}
+    /**
+     * @Title: deleteByApplyIdListAndStatus
+     * @Description:根据applyIdList集合,status删除借款人关系信息 
+     * @time: 2017年1月18日 下午8:02:19  
+     * @return:boolean
+     */
+	@Override
+	public boolean deleteByApplyIdListAndStatus(Map<String,Object> paramsMap) {
+        if (paramsMap!=null && paramsMap.get("applyIdList")!=null && paramsMap.get("status")!=null)  {
+            sqlSessionTemplate.delete(getSqlName("deleteByApplyIdListAndStatus"),paramsMap);
+            return true;
+        }
+        return false;
+	}
+	
 }

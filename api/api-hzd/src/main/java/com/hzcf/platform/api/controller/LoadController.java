@@ -45,6 +45,14 @@ public class LoadController {
         logger.i("进件接口");
         loadService.operateLoad(params);
     }
+	/**删除进件接口
+	 * 
+	 */
+	@RequestMapping(value="deleteload",method = RequestMethod.POST)
+    public void deleteload(@RequestBody String params) throws Exception {
+        logger.i("删除进件接口");
+        loadService.deleteLoad(params);
+    }
 	/**借款人查询借款进度接口
 	 * 
 	 */

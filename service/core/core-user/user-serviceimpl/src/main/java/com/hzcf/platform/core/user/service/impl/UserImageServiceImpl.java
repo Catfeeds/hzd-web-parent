@@ -185,5 +185,20 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
 			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
 		}
 	}
-	
+	/**
+	 * @Title: deleteByApplyIdList 
+	 * @Description:根据applyId集合删除借款人的图片信息
+	 * @time: 2017年1月18日 下午8:18:03  
+	 * @return:Result<Boolean>
+	 */
+	@Override
+	public Result<Boolean> deleteByApplyIdList(List<String> applyIdList){
+		try {
+			purchaseOrderDao.deleteByApplyIdList(applyIdList);
+			return new Result<Boolean>(StatusCodes.OK, true);
+		} catch (Exception e) {
+			logger.error("an error occur in deleteByApplyIdList service : {}", e);
+			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
+		}
+	}
 }

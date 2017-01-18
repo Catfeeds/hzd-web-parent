@@ -85,4 +85,21 @@ public class UserRelationServiceImpl  extends AbstractBaseServiceImpl<UserRelati
             return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
         }
 	}
+
+	@Override
+    /**
+     * @Title: deleteByApplyIdList
+     * @Description:根据applyId集合删除借款人关系信息 
+     * @time: 2017年1月18日 下午8:02:19  
+     * @return:Result<Boolean>
+     */
+	public Result<Boolean> deleteByApplyIdList(List<String> applyIdList) {
+		try {
+            purchaseOrderDao.deleteByApplyIdList(applyIdList);
+            return new Result<Boolean>(StatusCodes.OK, true);
+        } catch (Exception e) {
+            logger.error("an error occur in deleteByApplyIdList service : {}", e);
+            return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
+        }
+	}
 }

@@ -1,5 +1,6 @@
 package com.hzcf.platform.core.user.service;
 
+import java.util.List;
 import java.util.Map;
 
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
@@ -15,8 +16,14 @@ public interface UserApplyInfoSerivce extends IBaseService<UserApplyInfoVO> {
 
     Result<UserApplyInfoVO> selectByUserId(String userId);
     Result<UserApplyInfoVO> selectByApplyId(String applyId);
-    
-	public PaginatedResult<UserApplyInfoVO> getUserApplyInfoList(Map<String, Object> parmMap);
+    /**
+     * @Title: selectByUserIdAndStatusAll 
+     * @Description:根据userId，status查询借款人的申请信息 
+     * @time: 2017年1月18日 下午6:47:57  
+     * @return:Result<UserApplyInfoVO>
+     */
+  	public Result<List<UserApplyInfoVO>> selectByUserIdAndStatusAll(Map<String, Object> parmMap);
+    public PaginatedResult<UserApplyInfoVO> getUserApplyInfoList(Map<String, Object> parmMap);
 	public Long getUserApplyInfoTotal(Map<String, Object> parmMap);
 	
 	//不分页
@@ -37,4 +44,11 @@ public interface UserApplyInfoSerivce extends IBaseService<UserApplyInfoVO> {
 	 * @return:Result<Boolean>
 	 */
 	public Result<Boolean> deleteByApplyId(String applyId);
+	/**
+	 * @Title: deleteByApplyIdListAndStatus 
+	 * @Description:根据applyIdList集合，status删除借款人的进件信息 
+	 * @time: 2017年1月18日 下午8:34:40  
+	 * @return:Result<Boolean>
+	 */
+	public Result<Boolean> deleteByApplyIdListAndStatus(Map<String,Object> paramsMap);
 }

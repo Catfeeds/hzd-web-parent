@@ -81,10 +81,6 @@
       AND image_type=#{imageType,jdbcType=VARCHAR}
     </if>
   </delete>
-  <delete id="deleteByApplyId" parameterType="java.lang.String" >
-    delete from user_image
-    where apply_id=#{applyId,jdbcType=VARCHAR}
-  </delete>  
   <insert id="insert" parameterType="UserImage" >
     insert into user_image (image_id, user_id, apply_id, 
       user_info_id, art_work, small, 
@@ -260,4 +256,22 @@
     </set>
     where user_id = #{userId,jdbcType=VARCHAR} and art_work = #{artWork} and type = #{type}
   </update>
-        </mapper>
+  <!--根据applyId删除借款人的进件中的图片信息  -->
+  <delete id="deleteByApplyId" parameterType="java.lang.String" >
+    delete from user_image
+    where apply_id=#{applyId,jdbcType=VARCHAR}
+  </delete>
+  <!--根据applyId集合批量删除借款人的进件中的图片信息  -->
+  <delete id="deleteByApplyId" parameterType="java.lang.String" >
+    delete from user_image  where apply_id in 
+   	<foreach item="item" index="index" collection="list" open="("
+		separator="," close=")">
+		#{item}
+	</foreach>
+  </delete>  
+
+
+
+
+
+</mapper>

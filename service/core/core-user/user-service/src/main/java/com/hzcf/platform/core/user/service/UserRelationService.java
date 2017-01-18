@@ -14,6 +14,18 @@ public interface UserRelationService extends IBaseService<UserRelationVO> {
 
     Result<List<UserRelationVO>> selectByApplyId(String applyId);
     public Result<Boolean> updateRelationId(UserRelationVO userRelationVO);
-    
+    /**
+     * @Title: deleteByApplyId 
+     * @Description:根据applyId删除借款人关系信息 
+     * @time: 2017年1月18日 下午8:02:19  
+     * @return:Result<Boolean>
+     */
     public Result<Boolean> deleteByApplyId(String applyId);
+    /**
+     * @Title: deleteByApplyIdList
+     * @Description:根据applyId集合删除借款人关系信息 
+     * @time: 2017年1月18日 下午8:02:19  
+     * @return:Result<Boolean>
+     */
+    public Result<Boolean> deleteByApplyIdList(List<String> applyIdList);
 }

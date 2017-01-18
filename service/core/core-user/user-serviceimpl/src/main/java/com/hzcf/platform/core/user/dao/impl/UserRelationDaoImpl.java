@@ -52,4 +52,18 @@ public class UserRelationDaoImpl extends AbstractMysqlBaseDaoImpl<UserRelation> 
 	public int deleteByApplyId(String applyId) {
 		return this.sqlSessionTemplate.delete("deleteByApplyId",applyId);
 	}
+    /**
+     * @Title: deleteByApplyIdList
+     * @Description:根据applyId集合删除借款人关系信息 
+     * @time: 2017年1月18日 下午8:02:19  
+     * @return:Result<Boolean>
+     */
+	@Override
+	public boolean deleteByApplyIdList(List<String> applyIdList) {
+        if (applyIdList!=null)  {
+            sqlSessionTemplate.delete(getSqlName("deleteByApplyIdList"), applyIdList);
+            return true;
+        }
+        return false;
+	}
 }

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.util.AESUtil;
 import com.hzcf.platform.api.util.DateExtendUtils;
@@ -275,16 +276,40 @@ public class LoadService {
 	}
 	/**
 	 * @Title: deleteLoad 
-	 * @Description:根据applyId删除借款人的申请信息 
+	 * @Description:根据userId删除借款人的申请信息 
 	 * @time: 2017年1月18日 下午4:53:00  
 	 * @return:String
 	 */
-	public boolean deleteLoad(String applyId){
-		/**执行删除操作*/
-		//删除借款人的关系信息
-		Result<Boolean> deleteRelation = userRelationService.deleteByApplyId(applyId);
-		Result<Boolean> deleteImage = userImageService.deleteByApplyId(applyId);
-		Result<Boolean> deleteApplyInfo = userApplyInfoSerivce.deleteByApplyId(applyId);
+	public boolean deleteLoad(String userId){
+		/**根据userId，status查询借款人的申请信息*/
+		//封装参数
+		Map<String,Object> params=new HashMap<String,Object>();
+		params.put("userId",userId);
+		params.put("status",BaseConfig.apply_loan_0);//status=0  表示未进件
+		//查询数据
+		Result<List<UserApplyInfoVO>> userApplyInfoResult=userApplyInfoSerivce.selectByUserIdAndStatusAll(params);
+		if(userApplyInfoResult.getItems()==null){
+			return false;//查询借款人的进件信息失败
+		}
+		List<UserApplyInfoVO> userApplyInfoList=userApplyInfoResult.getItems();
+		if(userApplyInfoList.size()==0){
+			return true;//借款人没有未进件的申请信息
+		}
+		/**执行批量删除进件操作*/
+		//获取applyId集合
+		Map<String,Object> paramsMap=new HashMap<String,Object>();
+		List<String> applyIdList=new ArrayList<String>();
+		for(int i=0;i<userApplyInfoList.size();i++){
+			UserApplyInfoVO uaiv=userApplyInfoList.get(i);
+			applyIdList.add(uaiv.getApplyId());
+		}
+		paramsMap.put("applyIdList", applyIdList);
+		paramsMap.put("status",BaseConfig.apply_loan_0);//status=0  表示未进件
+		//执行删除操作
+		Result<Boolean> deleteRelation = userRelationService.deleteByApplyIdList(applyIdList);//批量删除借款人的关系信息
+		Result<Boolean> deleteImage = userImageService.deleteByApplyIdList(applyIdList);//批量删除借款人的图片信息
+		Result<Boolean> deleteApplyInfo = userApplyInfoSerivce.deleteByApplyIdListAndStatus(paramsMap);//批量删除借款人的申请进件信息
+		/**解析数据操作结果，设置返回数据*/
 		if(deleteRelation.getStatus()!=StatusCodes.OK || deleteImage.getStatus()!=StatusCodes.OK || deleteApplyInfo.getStatus()!=StatusCodes.OK){
 			return false;
 		}

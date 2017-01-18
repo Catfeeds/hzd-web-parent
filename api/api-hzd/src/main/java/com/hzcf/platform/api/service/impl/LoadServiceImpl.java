@@ -46,6 +46,9 @@ public class LoadServiceImpl implements ILoadService {
     public UserService userSerivce;//借款人service
 	@Autowired
 	public UserApplyInfoSerivce userApplyInfoSerivce;
+	/**进件接口，进件成功之后不会修改数据库
+	 * 
+	 */
 	@Override
 	public BackResult insertLoad(String params) {
 		JSONObject json=JSONObject.fromObject(params);
@@ -55,11 +58,24 @@ public class LoadServiceImpl implements ILoadService {
 		
 		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),result);
 	}
+	/**进件接口，进件成功之后会修改数据库
+	 * 
+	 */
 	@Override
 	public BackResult operateLoad(String params) throws Exception {
 		JSONObject json=JSONObject.fromObject(params);
 		String applyId=json.getString("applyId");
 		boolean result=LoadService.operateLoad(applyId);
+		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),result);
+	}
+	/**根据userId删除借款人的进件信息
+	 * 
+	 */
+	@Override
+	public BackResult deleteLoad(String params) {
+		JSONObject json=JSONObject.fromObject(params);
+		String userId=json.getString("userId");
+		boolean result=LoadService.deleteLoad(userId);
 		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),result);
 	}
 	/**借款人查询借款进度

@@ -51,6 +51,13 @@
     order by apply_submit_time desc
     limit 0,1
   </select>
+  <!-- 根据applyId和status，查询所有的借款人申请信息 -->
+  <select id="selectByUserIdAndStatusAll" resultMap="queryForListMap" parameterType="java.util.Map" >
+    select 
+    <include refid="Base_Column_List" />
+    from user_apply_info
+    where user_id = #{userId,jdbcType=VARCHAR} and status = #{status,jdbcType=VARCHAR}
+  </select>
   <select id="selectByApplyId" resultMap="BaseResultMap" parameterType="java.lang.String" >
     select
     <include refid="Base_Column_List" />
@@ -196,6 +203,9 @@
 	    <if test="apply.startDate != null and apply.startDate !='' and apply.endDate != null and apply.endDate != ''">
 	        and date_format(create_time, '%Y-%m-%d') BETWEEN #{apply.startDate} AND #{apply.endDate} 
 	    </if>
+	    <if test="apply.status != null and apply.status != ''"> and a.status=#{apply.status} </if>
+	    <!-- 过滤未提交进件 -->
+	    and a.status != '0'
 	  </sql>
   	<!-- 分页查询 -->
 	<select id="FINDLIST" resultMap="queryForListMap" parameterType="java.util.Map">
@@ -205,7 +215,6 @@
 		ON u.id = a.user_id
 	    <where>
 	      <include refid="Base_Where_Clause"/>
-	      <if test="apply.status != null and apply.status != ''"> and a.status=#{apply.status} </if>
 	    </where>
 		ORDER BY a.apply_submit_time DESC
 	    <if test="page.page > 0">
@@ -231,6 +240,14 @@
 	    </where>
 		ORDER BY a.apply_submit_time DESC
 	</select>	
-	
+    <delete id="deleteByApplyIdListAndStatus" parameterType="java.lang.String" >
+        delete from user_apply_info where apply_id in 
+        <foreach item="item" index="index" collection="applyIdList" open="(" separator="," close=")">  
+		  #{item}  
+		 </foreach>
+        <if test="status != null and status!=''" >
+        and status = #{status,jdbcType=VARCHAR}
+      </if>
+    </delete> 
 	
 </mapper>

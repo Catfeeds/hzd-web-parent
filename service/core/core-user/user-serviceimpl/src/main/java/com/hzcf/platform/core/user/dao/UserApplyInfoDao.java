@@ -19,7 +19,13 @@ public interface UserApplyInfoDao  extends IBaseDao<UserApplyInfo> {
 	public List<UserApplyInfoVO> getUserApplyInfoList(Map<String, Object> parmMap);
 	public Long getUserApplyInfoTotal(Map<String, Object> parmMap);
     UserApplyInfo selectByApplyId(String applyId);
-
+    /**
+     * @Title: selectByUserIdAndStatusAll 
+     * @Description:根据userId，status查询借款人的申请信息 
+     * @time: 2017年1月18日 下午6:52:15  
+     * @return:List<UserApplyInfoVO>
+     */
+  	public List<UserApplyInfoVO> selectByUserIdAndStatusAll(Map<String, Object> parmMap);
     public List<UserApplyInfoVO> getUserApplyForSearch(Map<String, Object> parmMap);
     /**
      * @Title: updateApplyId 
@@ -38,4 +44,11 @@ public interface UserApplyInfoDao  extends IBaseDao<UserApplyInfo> {
 	 * @return:Result<Boolean>
 	 */
 	public boolean deleteByApplyId(String applyId);
+    /**
+     * @Title: deleteByApplyIdListAndStatus
+     * @Description:根据applyIdList集合,status删除借款人关系信息 
+     * @time: 2017年1月18日 下午8:02:19  
+     * @return:boolean
+     */
+    public boolean deleteByApplyIdListAndStatus(Map<String,Object> paramsMap);
 }

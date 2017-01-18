@@ -109,4 +109,18 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
         }
         return false;
 	}
+	/**
+	 * @Title: deleteByApplyIdList 
+	 * @Description:根据applyId集合删除图片信息 
+	 * @time: 2017年1月18日 下午5:12:12  
+	 * @return:boolean
+	 */
+	@Override
+	public boolean deleteByApplyIdList(List<String> applyIdList){
+        if (applyIdList!=null){
+            sqlSessionTemplate.delete(getSqlName("deleteByApplyIdList"), applyIdList);
+            return true;
+        }
+        return false;
+	}
 }

@@ -15,6 +15,8 @@ public interface ILoadService {
 	public BackResult insertLoad(String params);
 	//进件,保存借款信息，同时修改数据库中的“借款状态”
 	public BackResult operateLoad(String params) throws Exception;
+	//删除进件,
+	public BackResult deleteLoad(String params);
 	//查询借款进度
 	public BackResult selectLoadProgress(UserVO user);
 }

@@ -38,7 +38,14 @@ public interface UserImageDao extends IBaseDao<UserImage> {
 	 * @Title: deleteByApplyId 
 	 * @Description:根据applyId删除图片信息 
 	 * @time: 2017年1月18日 下午5:12:12  
-	 * @return:Result<Boolean>
+	 * @return:boolean
 	 */
-	boolean deleteByApplyId(String applyId);
+	public boolean deleteByApplyId(String applyId);
+	/**
+	 * @Title: deleteByApplyIdList 
+	 * @Description:根据applyId集合删除图片信息 
+	 * @time: 2017年1月18日 下午5:12:12  
+	 * @return:boolean
+	 */
+	public boolean deleteByApplyIdList(List<String> applyIdList);
 }

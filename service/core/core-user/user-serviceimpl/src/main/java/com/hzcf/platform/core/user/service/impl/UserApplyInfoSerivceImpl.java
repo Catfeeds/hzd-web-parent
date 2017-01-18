@@ -155,6 +155,25 @@ public class UserApplyInfoSerivceImpl  extends AbstractBaseServiceImpl<UserApply
             return new Result<UserApplyInfoVO>(StatusCodes.INTERNAL_SERVER_ERROR, getModel());
         }
 	}
+    /**
+     * @Title: selectByUserIdAndStatusAll 
+     * @Description:根据userId，status查询借款人的申请信息 
+     * @time: 2017年1月18日 下午6:47:57  
+     * @return:Result<UserApplyInfoVO>
+     */
+  	public Result<List<UserApplyInfoVO>> selectByUserIdAndStatusAll(Map<String, Object> parmMap){
+		try {
+			List<UserApplyInfoVO> result = purchaseOrderDao.selectByUserIdAndStatusAll(parmMap);
+            if (null == result) {
+                logger.debug("selectByUserIdAndStatusAll data null.");
+                return new Result<List<UserApplyInfoVO>>(StatusCodes.OK, null);
+            }
+            return new Result<List<UserApplyInfoVO>>(StatusCodes.OK, result);
+        } catch (Exception e) {
+            logger.error("an error occur in selectByUserIdAndStatusAll service : {}", e);
+            return new Result<List<UserApplyInfoVO>>(StatusCodes.INTERNAL_SERVER_ERROR,null);
+        }
+  	}
 	/**
 	 * @Title: deleteByApplyId 
 	 * @Description:根据applyId删除借款人的申请信息 
@@ -168,6 +187,21 @@ public class UserApplyInfoSerivceImpl  extends AbstractBaseServiceImpl<UserApply
 			return new Result<Boolean>(StatusCodes.OK, true);
 		} catch (Exception e) {
 			logger.error("an error occur in deleteByApplyId service : {}", e);
+			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
+		}
+	}
+	/**
+	 * @Title: deleteByApplyIdListAndStatus 
+	 * @Description:根据applyIdList集合，status删除借款人的进件信息 
+	 * @time: 2017年1月18日 下午8:34:40  
+	 * @return:Result<Boolean>
+	 */
+	public Result<Boolean> deleteByApplyIdListAndStatus(Map<String,Object> paramsMap){
+		try {
+			purchaseOrderDao.deleteByApplyIdListAndStatus(paramsMap);
+			return new Result<Boolean>(StatusCodes.OK, true);
+		} catch (Exception e) {
+			logger.error("an error occur in deleteByApplyIdMap service : {}", e);
 			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
 		}
 	}
