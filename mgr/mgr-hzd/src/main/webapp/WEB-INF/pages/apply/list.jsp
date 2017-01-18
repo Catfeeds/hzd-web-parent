@@ -89,8 +89,8 @@ function detail(det){
 	<input id="mobile" name="mobile" class="easyui-textbox"  style="width:120px;"/>
 	<span>用户姓名:</span>
 	<input id="name" name="name" class="easyui-textbox"  style="width:120px;"/>
-	<!-- <span>身份证号:</span>
-	<input id="idCard" name="idCard" class="easyui-textbox"  style="width:120px;"> -->
+	<span>身份证号:</span>
+	<input id="idCard" name="idCard" class="easyui-textbox"  style="width:120px;">
 	<span>提交时间:</span>
 	<input id="startDate" name="startDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc"/>至
 	<input id="endDate" name="endDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc"/>
