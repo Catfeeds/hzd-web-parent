@@ -106,7 +106,7 @@ function detail(det){
 	<span>进件状态:</span>
 	<select id="status" name="status" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'">
     	<option value="">请选择</option>
-    	<option value="0">未进件</option>
+    	<option value="2">未进件</option>
     	<option value="1">已进件</option>
     </select>
 <!-- 	<span>借款状态:</span>
