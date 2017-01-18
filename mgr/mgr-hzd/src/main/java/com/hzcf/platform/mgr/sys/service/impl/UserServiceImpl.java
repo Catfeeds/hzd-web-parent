@@ -36,6 +36,7 @@ import com.hzcf.platform.mgr.sys.common.util.DateUtils;
 import com.hzcf.platform.mgr.sys.service.IUserService;
 import com.hzcf.platform.mgr.sys.util.ConstantsDictionary;
 import com.hzcf.platform.mgr.sys.util.ConstantsParam;
+import com.hzcf.platform.mgr.sys.util.MD5Tools;
 import com.hzcf.platform.mgr.sys.webService.LoadService;
 import com.imageserver.ImageServer;
 
@@ -243,16 +244,24 @@ public class UserServiceImpl implements IUserService {
 		}
 		return null;
 	}
-
+	/**
+	 * @Title: updatePassWord 
+	 * @Description:根据借款人的手机号修改借款人的密码 
+	 * @time: 2017年1月18日 上午10:09:54  
+	 * @return:Result<Boolean>
+	 */
 	@Override
 	public Result<Boolean> updatePassWord(String mobile, String passWord) {
 		UserVO user = new UserVO();
-		user.setMobile(mobile);
-		user.setPassword(passWord);
 		Result<UserVO> useVO = userSerivce.getByMobile(mobile);
-		user.setId(useVO.getItems().getId());
+		UserVO userVO=useVO.getItems();
+		if(userVO!=null){
+			user.setId(userVO.getId());
+			user.setPassword(MD5Tools.getMD5(passWord));
+		}else{
+			return new Result<Boolean>(StatusCodes.OK,false);//根据手机号未查询到对应的借款人信息
+		}
 		return userSerivce.updateByPrimaryKeySelective(user);
-		
 	}
 
 	@Override

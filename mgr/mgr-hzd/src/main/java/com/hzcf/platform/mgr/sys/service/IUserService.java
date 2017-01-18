@@ -25,7 +25,12 @@ public interface IUserService {
 	public Result<Boolean> update(String mobile,String name,String idCard);
 	
 	public Result<Map> updateStatus(String mobile,String checkStatus,String nopassCause);
-	
+	/**
+	 * @Title: updatePassWord 
+	 * @Description:根据借款人的手机号修改借款人的密码 
+	 * @time: 2017年1月18日 上午10:09:54  
+	 * @return:Result<Boolean>
+	 */
 	public Result<Boolean> updatePassWord(String mobile,String passWord);
 	
 	public Result<Boolean> status(String mobile,String status);

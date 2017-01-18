@@ -3,12 +3,14 @@ package com.hzcf.platform.mgr.sys.controller;
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -44,7 +46,7 @@ public class UserController {
 	private static final Log logger = Log.getLogger(UserController.class);
     
 	@Autowired
-	IUserService sysUserService;
+	IUserService sysUserService;//借款人service
 	
 	@Autowired
 	//private ImageServer imageServer;
@@ -187,7 +189,7 @@ public class UserController {
 //		return "users/checklist";
 	}
 	/**
-	 * 修改登录密码
+	 * 修改借款人的登录密码
 	 * @param mobile
 	 * @param passWord
 	 * @param response
@@ -195,9 +197,37 @@ public class UserController {
 	 */
 	@RequestMapping(value="/users/check/updatePassword",method=RequestMethod.POST)
 	public void updatePassword(String mobile,String passWord,HttpServletResponse response) throws IOException{
-		Result<Boolean> bool=sysUserService.updatePassWord(mobile, passWord);
-		Boolean status = bool.getItems().booleanValue();
-		response.getWriter().print(status);
+		/**初始化参数*/
+		Map<String,Object> result=new HashMap<String,Object>();
+		result.put("code","-1");
+		/**验证参数是否合法*/
+		//验证手机号
+		if(StringUtils.isBlank(mobile)){
+			result.put("message","修改借款人密码失败，借款人手机号为空");
+		}else{
+			//验证密码是否合法
+			if(StringUtils.isBlank(passWord) || passWord.length()<8 || passWord.length()>16){
+				result.put("message","修改借款人密码失败，借款人密码不符合要求");
+			}else{
+				/**执行数据修改操作*/
+				Result<Boolean> updateResult=sysUserService.updatePassWord(mobile, passWord);
+				if(updateResult!=null && updateResult.getItems()!=null && updateResult.getItems()==true){
+					result.put("code","1");
+					result.put("message","修改借款人密码成功");	
+				}else{
+					result.put("message","修改借款人密码失败");
+				}
+			}
+		}
+		JSONObject json=JSONObject.fromObject(result);
+		response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+		response.setDateHeader("Expires", 0); // prevents caching at the
+												// proxy server
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("textml;charset=UTF-8");
+		response.getWriter().write(json.toString());
+		response.flushBuffer();
 	}
 	/**
 	 * 修改状态

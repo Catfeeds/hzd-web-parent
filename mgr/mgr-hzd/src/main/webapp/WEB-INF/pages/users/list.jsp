@@ -160,14 +160,10 @@ function updatePassWord(canshu) {
 		    				"passWord" : passWord,
 		    			},
 		    			success:function(result){
-		    				if(result){
-		    					alert("恭喜您,修改成功!");
-		    					window.location = '${path}/users/list';
-		    					return true;
-		    				}else{
-		    					alert("修改失败");
-		    					return false;
-		    				} 
+		    				var result2=eval("("+result+")");
+		    				alert(result2.message);
+		    				window.location = '${path}/users/list';
+		    				return true;
 		    			}
 		    		});
 		    	}else{
