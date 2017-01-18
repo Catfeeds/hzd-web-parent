@@ -225,8 +225,24 @@ public class RealNameServiceImpl implements IRealNameService {
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
 					"图片类型不能为空",null);
 		}
+		if(StringUtils.isBlank(user.getId())){
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+					"用户ID不能为空",null);
+		}
+		Result<List<UserImageVO>> UserImageVOList = userImageService.getUserId(user.getId());
+		if(UserImageVOList.getItems().size()==3){
+			UserImageVO uiv =  new UserImageVO();
+			uiv.setUserId(user.getId());
+			uiv.setImageType(BaseConfig.IMAGETYPE_B1);
+			Result<Boolean> booleanResult = userImageService.deleteByPrimaryKey(uiv);
+			if(StatusCodes.OK ==booleanResult.getStatus()){
+				logger.i("重新上传认证图片,删除原有图片成功");
+			}
+			logger.i("重新上传认证图片,删除原有图片失败");
+		}
 
-			long startTime = System.currentTimeMillis();//获取当前时间戳
+
+		long startTime = System.currentTimeMillis();//获取当前时间戳
 		//将当前上下文初始化给 CommonsMutipartResolver （多部分解析器）
 		CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
 				request.getSession().getServletContext());

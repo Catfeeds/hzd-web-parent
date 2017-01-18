@@ -116,7 +116,7 @@ public class LoadServiceImpl implements ILoadService {
 								HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),wlList);
 					}
 				}*/
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),retInfo,wr.getWeiXinApplyList()!=null?wr.getWeiXinApplyList():"");
+				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),retInfo,wr.getWeiXinApplyList()!=null?wr.getWeiXinApplyList():null);
 			}else{
 				logger.e("接口：借款人查询借款进度失败，结果："+result);
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_6101.getCode(), HzdStatusCodeEnum.MEF_CODE_6101.getMsg());

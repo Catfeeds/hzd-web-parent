@@ -74,7 +74,12 @@
 
      AND apply_id=#{applyId,jdbcType=VARCHAR}
     </if>
+    <if test="artWork!=null">
      AND art_work=#{artWork,jdbcType=VARCHAR}
+    </if>
+    <if test="imageType!=null">
+      AND image_type=#{imageType,jdbcType=VARCHAR}
+    </if>
   </delete>
   <insert id="insert" parameterType="UserImage" >
     insert into user_image (image_id, user_id, apply_id, 

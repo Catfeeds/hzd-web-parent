@@ -113,8 +113,8 @@ public class UserServiceImpl implements IUserService {
 			if(items!=null){
 				if(user.getPassword().equals(items.getPassword())){
 					if(BaseConfig.status_1.equals(items.getStatus())){
+						logger.i("用户被禁用,禁止登录,手机号:"+items.getMobile());
 						return new BackResult(HzdStatusCodeEnum.MEF_CODE_1099.getCode(), HzdStatusCodeEnum.MEF_CODE_1099.getMsg(),null);
-
 					}
 					String token =UUIDGenerator.getUUID();
 					items.setToken(token);

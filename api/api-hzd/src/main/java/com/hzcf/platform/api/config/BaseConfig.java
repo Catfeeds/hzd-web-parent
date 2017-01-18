@@ -55,5 +55,7 @@ public class BaseConfig {
 	public static final String apply_loan_1="1";
 	public static final String apply_loan_0="0";
 	public static final String apply_loan_2="2";
-	
+
+
+	public static final String IMAGETYPE_B1="B1"; //图片类型
 }

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Repository;
 public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implements UserImageDao {
     @Override
     public boolean deleteByPrimaryKey(UserImage record) {
-        if (record.getArtWork().length() > 0 )  {
+        if (record.getUserId().length() > 0 )  {
             sqlSessionTemplate.delete(getSqlName("deleteByPrimaryKey"), record);
             return true;
         }

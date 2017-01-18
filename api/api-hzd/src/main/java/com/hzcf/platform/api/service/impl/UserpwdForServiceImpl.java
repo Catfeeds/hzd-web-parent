@@ -93,6 +93,10 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 
 	@Override
 	public BackResult findpwdForlogin(UserVO user,String smsnum) {
+		if(StringUtils.isBlank(user.getMobile())){
+			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(),
+					"手机号码输入不能为空",null);
+		}
 
 		String registerType = cache.load(ConstantsToken.SMS_CACHE_FINDPWD_KEY + user.getMobile());
 
