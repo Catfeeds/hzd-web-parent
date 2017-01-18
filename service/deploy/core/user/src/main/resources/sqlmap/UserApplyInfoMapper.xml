@@ -186,12 +186,12 @@
   </update>
   
   	 <sql id="Base_Where_Clause">
+	    <if test="apply.idCard != null and apply.idCard != ''"> and id_card=#{apply.idCard} </if>
 	    <if test="apply.name != null and apply.name !=''"> and name like CONCAT('%',#{apply.name},'%')     </if>
 	    <if test="apply.mobile != null and apply.mobile != ''"> and mobile=#{apply.mobile} </if>
 	    <if test="apply.startDate != null and apply.startDate !='' and apply.endDate != null and apply.endDate != ''">
 	        and date_format(create_time, '%Y-%m-%d') BETWEEN #{apply.startDate} AND #{apply.endDate} 
 	    </if>
-	    <if test="apply.status != null and apply.status != ''"> and status=#{apply.status} </if>
 	  </sql>
   	<!-- 分页查询 -->
 	<select id="FINDLIST" resultMap="queryForListMap" parameterType="java.util.Map">
@@ -201,6 +201,7 @@
 		ON u.id = a.user_id
 	    <where>
 	      <include refid="Base_Where_Clause"/>
+	      <if test="apply.status != null and apply.status != ''"> and a.status=#{apply.status} </if>
 	    </where>
 		ORDER BY a.apply_submit_time DESC
 	    <if test="page.page > 0">

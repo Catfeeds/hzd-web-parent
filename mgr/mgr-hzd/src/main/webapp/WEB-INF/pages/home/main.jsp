@@ -8,6 +8,23 @@
 <script src="${path}/script/artDialog/jquery.artDialog.js?skin=blue" type="text/javascript"></script>
 <script src="${path}/script/artDialog/plugins/iframeTools.js" type="text/javascript"></script>
 <script>
+/*  	$.ajaxSetup({
+		error: function (XMLHttpRequest, textStatus, errorThrown){
+			if(XMLHttpRequest.status==403){
+				alert('您没有权限访问此资源或进行此操作');
+				return false;
+			}
+		},
+		complete:function(XMLHttpRequest,textStatus){
+			var sessionstatus=XMLHttpRequest.getResponseHeader("sessionstatus");//通过XMLHttpRequest取得响应头,sessionstatus
+			if(sessionstatus=='timeout'){//如果超时就处理 ，指定要跳转的页面
+				var top = getTopWinow(); //获取当前页面的顶层窗口对象
+				alert('登录超时, 请重新登录.');
+				top.location.href="mgr-hzd/sys/tologin"; //跳转到登陆页面
+			}
+		}
+	});  */
+
 	function addTab(title, url){
 		var centerTabsObj = $('#mainTabs');
 		if ($('#mainTabs').tabs('exists', title)){
