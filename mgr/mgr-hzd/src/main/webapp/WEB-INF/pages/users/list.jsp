@@ -62,49 +62,36 @@ function updateStatus(stu){
 	var arr=stu.split(",");
 	var mobile = arr[0];
 	var status = arr[1];
-	if(status==0){
-		if(window.confirm('确定禁用吗？')){
-			status = 1;
+	$.messager.confirm("确认对话框","确定"+(status==0?"禁用":"启用")+"吗？",function(flag){
+		if(flag){
 			$.ajax({
 				type:"POST",
 				url: '${path}/users/check/status',
 				data:{
 					"mobile" : mobile,
-					"status" : status,
+					"status" : (status==0?"1":"0")
 				},
 				success:function(result){
 					var result2=eval("("+result+")");
-					alert(result2.message);
-					window.location = '${path}/users/list';
+					//不起作用
+// 					$.messager.show({
+//                         title:"提示框",
+//                         width:250,
+//                         height:100,
+//                         timeout:0,
+//                         msg:result2.message
+//                   	});
+					$.messager.alert("",result2.message,"info",function(){
+						window.location = '${path}/users/list';						
+					});
 					return true;
 				}
 			});
-			return null;
+			return true;
 		}else{
 			return false;
 		}
-	}
-	if(status==1){
-		if(window.confirm('确定启用吗？')){
-			status = 0;
-			$.ajax({
-				type:"POST",
-				url: '${path}/users/check/status',
-				data:{
-					"mobile" : mobile,
-					"status" : status,
-				},
-				success:function(result){
-					if(result){
-						alert("恭喜您,修改成功!");
-						window.location = '${path}/users/list';
-					}else{
-						alert("修改失败");
-					} 
-				}
-			});
-		}
-	}
+	});
 }
 
 function doSearch(){
