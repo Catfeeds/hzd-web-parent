@@ -57,7 +57,7 @@ public class SysUsersServiceImpl implements ISysUsersService {
 		}else{
 			if(password.equals(sysUsers.getPassword())){
 				SysUsersVO params=new SysUsersVO();
-				params.setId(sysUsers.getId());
+				params.setUserName(username);
 				params.setPassword(passwordNew);
 				Result<Integer> updateresult=sysUsersSerivce.updateByUserNameSelective(params);
 				if(updateresult.getItems()==1){
