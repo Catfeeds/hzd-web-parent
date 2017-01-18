@@ -9,6 +9,7 @@ pageEncoding="UTF-8"%>
 <script src="${path}/script/common/dateUtil.js" type="text/javascript"></script>
 <script type="text/javascript">
 $(function(){
+	//获取借款人列表数据
 	$('#grid').datagrid({
 		url:'${path}/users/page',
 		columns:[[
@@ -45,14 +46,9 @@ $(function(){
 		   {field:'-',title:'操作',width:100,formatter:function(value,row,index){
 			   //return "<a href='#' onClick='edit(" + row.id + ")'>修改 </a> <a href='#' onClick='dele(" + row.id + ")'>下线</a> ";
 			   // return "<a href='#' onclick='updatePassWord(\""+row.mobile+"\,"+row.name+"\");' >重置密码 </a>&nbsp;<a href='#' onclick='status(\""+row.mobile+"\,"+row.status+"\");'> row.status==0?"禁用":"启用"</a>";   
-			  value
-			   if(row.status==0){
-				   return "<a href='#' onclick='updatePassWord(\""+row.mobile+"\,"+row.name+"\");' >重置密码 </a>&nbsp;<a href='#' onclick='updateStatus(\""+row.mobile+"\,"+row.status+"\");'>禁用</a>";
-			   }else{
-				   return "<a href='#' onclick='updatePassWord(\""+row.mobile+"\,"+row.name+"\");' >重置密码 </a>&nbsp;<a href='#' onclick='updateStatus(\""+row.mobile+"\,"+row.status+"\");'>启用</a>";
-			   }
+			  //value
+			   return "<a href='javaScript:void(0);' onclick=updatePassWord('"+row.mobile+"','"+row.name+"'); >重置密码 </a>&nbsp;<a href='javaScript:void(0);' onclick=updateStatus('"+row.mobile+"','"+row.status+"');>"+(row.status==0?"禁用":"启用")+"</a>";
 		   }}
-		  
 		]],
 		title : '用户列表',
 		iconCls : 'icon-ok',
@@ -65,52 +61,18 @@ $(function(){
 		collapsible:true,
 		toolbar: '#toolbar'
 	});
+	$("#pw1").tooltip({
+		content:"密码长度需在8到16位之间",
+	});
+	$("#pw2").tooltip({
+		content:"密码长度需在8到16位之间",
+	});
+	
+	
+	
 });
-//修改借款人的“禁用/启用”状态
-function updateStatus(stu){
-	var arr=stu.split(",");
-	var mobile = arr[0];
-	var status = arr[1];
-	$.messager.confirm("确认对话框","确定"+(status==0?"禁用":"启用")+"吗？",function(flag){
-		if(flag){
-			$.ajax({
-				type:"POST",
-				url: '${path}/users/check/status',
-				data:{
-					"mobile" : mobile,
-					"status" : (status==0?"1":"0")
-				},
-				success:function(result){
-					var result2=eval("("+result+")");
-					$.messager.alert("",result2.message,"info",function(){
-						window.location = '${path}/users/list';						
-					});
-					return true;
-				}
-			});
-			return true;
-		}else{
-			return false;
-		}
-	});
-}
-
-function doSearch(){
-	$('#grid').datagrid('load',{
-		mobile: $('#mobile').val(),
-		name: $('#name').val(),
-		idCard: $('#idCard').val(),
-		//buyRedpackCount: $('#buyRedpackCount').combobox('getValue'),
-		startDate: $('#startDate').datebox('getValue'),
-		endDate: $('#endDate').datebox('getValue'),
-		applyStatus:$("#applyStatus").combobox('getValue')
-	});
-}
 //重置密码
-function updatePassWord(canshu) {
-	var arr=canshu.split(",");
-	var mobile = arr[0];
-	var name = arr[1];
+function updatePassWord(mobile,name) {
 	$("#div").html(mobile);
 	if(name == "null"){
 		$("#di").text("");
@@ -118,7 +80,6 @@ function updatePassWord(canshu) {
 	else{
 		$("#di").text(name);
 	}
-	
     $("#dd").dialog({
 	 closable: false, //右上角的关闭按钮，因为dialog框架关联的是window框架，window框架关联的是panel框架，所以该API是在panel框架中找到的
 	 title: "重置密码", //dialog左上角的名称
@@ -132,11 +93,16 @@ function updatePassWord(canshu) {
 		    	var passWord = $("#pw1").val();
 		    	var pw = $("#pw2").val();
 		    	if(passWord==null || passWord=="" || pw=="" || pw==null){
-		    		$("#msg").html("新密码不能为空");
+		    		$("#passwordRepeatSpan").html("新密码和重复密码均不能为空");
+		    		return false;
+		    	}
+		    	if(passWord.length<8 || passWord.length>16 || pw.length<8 || pw.length>16){
+		    		$("#passwordRepeatSpan").html("新密码长度需在8到16位之间");
 		    		return false;
 		    	}
 		    	if(passWord!=pw){
-		    		$("#msg").html("俩次密码不一致");
+		    		$("#passwordRepeatSpan").html("两次密码不一致");
+		    		return false;
 		    	}
 	    		$("#msg").html("");
 	    		$.ajax({
@@ -148,8 +114,9 @@ function updatePassWord(canshu) {
 	    			},
 	    			success:function(result){
 	    				var result2=eval("("+result+")");
-	    				alert(result2.message);
-	    				window.location = '${path}/users/list';
+	    				$.messager.alert("",result2.message,(result2.code=="1"?"info":"error"),function(){
+							window.location = '${path}/users/list';						
+						});
 	    				return true;
 	    			}
 	    		});
@@ -162,7 +129,42 @@ function updatePassWord(canshu) {
 		}]
     });
 }
-
+//修改借款人的“禁用/启用”状态
+function updateStatus(mobile,status){
+	$.messager.confirm("确认对话框","确定"+(status==0?"禁用":"启用")+"吗？",function(flag){
+		if(flag){
+			$.ajax({
+				type:"POST",
+				url: '${path}/users/check/status',
+				data:{
+					"mobile" : mobile,
+					"status" : (status==0?"1":"0")
+				},
+				success:function(result){
+					var result2=eval("("+result+")");
+					$.messager.alert("",result2.message,(result2.code=="1"?"info":"error"),function(){
+						window.location = '${path}/users/list';						
+					});
+					return true;
+				}
+			});
+			return true;
+		}else{
+			return false;
+		}
+	});
+}
+function doSearch(){
+	$('#grid').datagrid('load',{
+		mobile: $('#mobile').val(),
+		name: $('#name').val(),
+		idCard: $('#idCard').val(),
+		//buyRedpackCount: $('#buyRedpackCount').combobox('getValue'),
+		startDate: $('#startDate').datebox('getValue'),
+		endDate: $('#endDate').datebox('getValue'),
+		applyStatus:$("#applyStatus").combobox('getValue')
+	});
+}
 function doExport(){
 	//window.location="${path}/member/excel";
 	$("#searchForm").attr("action", "${path}/user/excel");
@@ -229,7 +231,8 @@ function doExport(){
 				新密码 :
 			</th>
 			<td>
-				<input id="pw1" class="easyui-passwordbox" prompt="Password" iconWidth="28"/>
+				<input id="pw1" type="password"/><br/>
+				<span id="passwordRepeatSpan" style="color:red;"></span>
 			</td>
 		</tr>
 		<tr>
@@ -237,10 +240,14 @@ function doExport(){
 				确认新密码 :
 			</th>
 			<td>
-				<input id="pw2" class="easyui-passwordbox" prompt="Password" iconWidth="28"/>
+				<input id="pw2" type="password"/>
 			</td>
 		</tr>
-		<tr><td><div id="msg" style="line-height: 100px; font-size: 1rem; color: red;"></div></td></tr>
+<!-- 		<tr>
+			<td>
+				<div id="msg" style="line-height: 100px; font-size: 1rem; color: red;"></div>
+			</td>
+		</tr> -->
 	</table>
 </form>
 </div>
