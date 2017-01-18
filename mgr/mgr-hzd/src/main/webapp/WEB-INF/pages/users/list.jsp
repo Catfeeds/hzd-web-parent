@@ -73,14 +73,10 @@ function updateStatus(stu){
 					"status" : status,
 				},
 				success:function(result){
-					if(result){
-						alert("恭喜您,修改成功!");
-						window.location = '${path}/users/list';
-						return null;
-					}else{
-						alert("修改失败");
-						return false;
-					} 
+					var result2=eval("("+result+")");
+					alert(result2.message);
+					window.location = '${path}/users/list';
+					return true;
 				}
 			});
 			return null;

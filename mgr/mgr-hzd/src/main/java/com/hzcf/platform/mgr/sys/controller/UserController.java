@@ -230,16 +230,38 @@ public class UserController {
 		response.flushBuffer();
 	}
 	/**
-	 * 修改状态
+	 * 修改借款人的“禁用/启用”状态
 	 * @param mobile
 	 * @return
 	 * @throws IOException 
 	 */
 	@RequestMapping(value="/users/check/status",method=RequestMethod.POST)
 	public void status(String mobile,String status,HttpServletResponse response) throws IOException{
-		Result<Boolean> bool = sysUserService.status(mobile, status);
-		Boolean statu = bool.getItems().booleanValue();
-		response.getWriter().print(statu);
+		/**初始化参数*/
+		Map<String,Object> result=new HashMap<String,Object>();
+		result.put("code","-1");
+		/**验证参数的合法性*/
+		if(StringUtils.isBlank(mobile)){
+			result.put("message","修改借款人状态失败，借款人手机号为空");
+		}else{
+			/**执行数据修改操作*/
+			Result<Boolean> updateResult = sysUserService.status(mobile, status);
+			if(updateResult!=null && updateResult.getItems()!=null && updateResult.getItems()==true){
+				result.put("code","1");
+				result.put("message","修改借款人状态成功");	
+			}else{
+				result.put("message","修改借款人状态失败");
+			}
+		}
+		JSONObject json=JSONObject.fromObject(result);
+		response.setHeader("Cache-Control", "no-cache"); // HTTP 1.1
+		response.setHeader("Pragma", "no-cache"); // HTTP 1.0
+		response.setDateHeader("Expires", 0); // prevents caching at the
+												// proxy server
+		response.setCharacterEncoding("UTF-8");
+		response.setContentType("textml;charset=UTF-8");
+		response.getWriter().write(json.toString());
+		response.flushBuffer();
 	}
 	
 	/*

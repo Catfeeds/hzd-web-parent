@@ -32,7 +32,12 @@ public interface IUserService {
 	 * @return:Result<Boolean>
 	 */
 	public Result<Boolean> updatePassWord(String mobile,String passWord);
-	
+	/**
+	 * @Title: status 
+	 * @Description:修改借款人的“启用/禁用”状态 
+	 * @time: 2017年1月18日 上午11:06:06  
+	 * @return:Result<Boolean>
+	 */
 	public Result<Boolean> status(String mobile,String status);
 	
 	public Result<String> smsImgUpload(HttpServletRequest request,String imgId,String mobile);

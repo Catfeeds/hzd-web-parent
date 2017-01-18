@@ -263,15 +263,22 @@ public class UserServiceImpl implements IUserService {
 		}
 		return userSerivce.updateByPrimaryKeySelective(user);
 	}
-
+	/**
+	 * @Title: status 
+	 * @Description:修改借款人的“启用/禁用”状态 
+	 * @time: 2017年1月18日 上午11:06:06  
+	 * @return:Result<Boolean>
+	 */
 	@Override
 	public Result<Boolean> status(String mobile, String status) {
 		UserVO user = new UserVO();
-		user.setMobile(mobile);
-		user.setStatus(status);
 		Result<UserVO> useVO = userSerivce.getByMobile(mobile);
-		user.setId(useVO.getItems().getId());
-		return userSerivce.updateByPrimaryKeySelective(user);
+		if(useVO!=null && useVO.getItems()!=null){
+			user.setId(useVO.getItems().getId());
+			user.setStatus(status);
+			return userSerivce.updateByPrimaryKeySelective(user);
+		}
+		return new Result<Boolean>(StatusCodes.OK,false);//根据手机号未查询到对应的借款人信息
 	}
 
 	@Override
