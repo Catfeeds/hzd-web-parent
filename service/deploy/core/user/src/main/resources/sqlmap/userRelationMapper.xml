@@ -139,7 +139,7 @@
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where relation_id = #{relationId,jdbcType=VARCHAR}
   </update>
-  <delete id="deleteByApplyId" parameterType="java.lang.String" >
+  <delete id="deleteByRelationApplyId" parameterType="java.lang.String" >
     delete from user_relation
     where apply_id = #{applyId,jdbcType=VARCHAR}
   </delete>

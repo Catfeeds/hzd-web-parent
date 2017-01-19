@@ -51,9 +51,9 @@ public class UserRelationDaoImpl extends AbstractMysqlBaseDaoImpl<UserRelation> 
 
 
 	@Override
-	public boolean deleteByApplyId(String applyId) {
+	public boolean deleteByRelationApplyId(String applyId) {
 		if(StringUtils.isNotBlank(applyId)){
-			this.sqlSessionTemplate.delete("deleteByApplyId",applyId);
+			this.sqlSessionTemplate.delete("deleteByRelationApplyId",applyId);
 			return true;
 		}
 		return false;

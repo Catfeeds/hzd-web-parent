@@ -305,10 +305,13 @@ public class LoadService {
 		}
 		paramsMap.put("applyIdList", applyIdList);
 		paramsMap.put("status",BaseConfig.apply_loan_0);//status=0  表示未进件
+
 		//执行删除操作
-		Result<Boolean> deleteRelation = userRelationService.deleteRelationByApplyIdList(applyIdList);//批量删除借款人的关系信息
 		Result<Boolean> deleteImage = userImageService.deleteImageByApplyIdList(applyIdList);//批量删除借款人的图片信息
+		Result<Boolean> deleteRelation = userRelationService.deleteRelationByApplyIdList(applyIdList);//批量删除借款人的关系信息
 		Result<Boolean> deleteApplyInfo = userApplyInfoSerivce.deleteByApplyIdListAndStatus(paramsMap);//批量删除借款人的申请进件信息
+		userInfoService.deleteUserInfoByApplyId(userApplyInfoList.get(0).getApplyId());
+
 		/**解析数据操作结果，设置返回数据*/
 		if(deleteRelation.getStatus()!=StatusCodes.OK || deleteImage.getStatus()!=StatusCodes.OK || deleteApplyInfo.getStatus()!=StatusCodes.OK){
 			return false;

@@ -76,9 +76,9 @@ public class UserRelationServiceImpl  extends AbstractBaseServiceImpl<UserRelati
     }
 
 	@Override
-	public Result<Boolean> deleteByApplyId(String applyId) {
+	public Result<Boolean> deleteByRelationApplyId(String applyId) {
 		try {
-            purchaseOrderDao.deleteByApplyId(applyId);
+            purchaseOrderDao.deleteByRelationApplyId(applyId);
             return new Result<Boolean>(StatusCodes.OK, true);
         } catch (Exception e) {
             logger.error("an error occur in deleteByApplyId service : {}", e);

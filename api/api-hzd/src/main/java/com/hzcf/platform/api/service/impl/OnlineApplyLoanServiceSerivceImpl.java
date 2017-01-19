@@ -155,6 +155,13 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 	public BackResult onlineLoanapplyOne(UserVO user, UserApplyInfoVO userApplyInfoVO) {
 		try {
 			DataVerifcation.checkUserApplyInfoVO(userApplyInfoVO, user);
+
+			/**
+			 * 申请前,删除之前的申请信息
+			 */
+
+			loadService.deleteLoad(user.getId());
+
 			if(StringUtils.isNotBlank(userApplyInfoVO.getApplyId())){
 				logger.i("-用户进件申请第一步 >>更新信息");
 				Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(userApplyInfoVO.getApplyId());
@@ -395,7 +402,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 						HzdStatusCodeEnum.MEF_CODE_2400.getMsg());
 			}
 			//清空关系数据
-			Result<Boolean> delResult = userRelationService.deleteByApplyId(applyId);
+			Result<Boolean> delResult = userRelationService.deleteByRelationApplyId(applyId);
 			if (StatusCodes.OK != (delResult.getStatus())) {
 				logger.i("进入  -----用户进件申请第四步,  清空关系数据 失败 。。。。。。。。。。。。。 ");
 
@@ -645,7 +652,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 				logger.i("------用户进件申请第七步------用户已经通过实名认证,直接提交进件信息");
 				// 如果用于已经实名认证,直接进件    TODO 提交进件
 				try {
-						
+					String resultJson=loadService.insertLoad(applyId);
                     if (loadService.operateLoad(applyId)) {
                         logger.i("用户进件申请第七步--------线上进件申请成功申请单号:" + applyId);
                         UserVO updateUserVO=new UserVO();

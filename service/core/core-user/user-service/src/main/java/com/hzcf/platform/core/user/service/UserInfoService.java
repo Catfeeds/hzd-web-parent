@@ -11,4 +11,5 @@ import com.hzcf.platform.framework.core.service.IBaseService;
 public interface UserInfoService extends IBaseService<UserInfoVO> {
     Result<UserInfoVO> selectByApplyId(String applyId);
     Result<Boolean> updateUserInfo(UserInfoVO userInfoVO);
+    Result<Boolean> deleteUserInfoByApplyId(String applyId);
 }
