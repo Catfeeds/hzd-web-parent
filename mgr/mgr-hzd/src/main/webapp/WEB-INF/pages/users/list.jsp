@@ -36,7 +36,7 @@ $(function(){
 		    }},
 			{field:'createTime',title:'注册时间',width:120,formatter:formatDateBoxFull},
 			{field:'applyStatus',title:'进件状态',width:100,formatter:function(value){
-				if(value =="0"){
+				if(value =="0"||value=="2"){
 					return "未进件";
 				}
 				if(value=="1"){
