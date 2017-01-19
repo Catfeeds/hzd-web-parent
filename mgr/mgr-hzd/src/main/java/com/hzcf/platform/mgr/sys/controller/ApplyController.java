@@ -87,15 +87,15 @@ public class ApplyController {
             if(status==null||status==""){
             	objs[10] = "";
             }
-            if((ConstantsParam.USER_APPLYINFO_STATU_WJ).equals(status)){
+            if((ConstantsParam.USER_APPLYINFO_STATU_WJ).equals(status) || (ConstantsParam.USER_APPLYINFO_STATU_DSH).equals(status)){
             	objs[10] = "未进件";
             }
             if((ConstantsParam.USER_APPLYINFO_STATU_JJ).equals(status)){
             	objs[10] = "已进件";
             }
-            if((ConstantsParam.USER_APPLYINFO_STATU_DSH).equals(status)){
-            	objs[10] = "待审核";
-            }
+//            if((ConstantsParam.USER_APPLYINFO_STATU_DSH).equals(status)){
+//            	objs[10] = "待审核";
+//            }
             dataList.add(objs);
         }
         ExportExcel ex = new ExportExcel(title, rowsName, dataList);
