@@ -93,9 +93,9 @@ public class UserRelationServiceImpl  extends AbstractBaseServiceImpl<UserRelati
      * @time: 2017年1月18日 下午8:02:19  
      * @return:Result<Boolean>
      */
-	public Result<Boolean> deleteByApplyIdList(List<String> applyIdList) {
+	public Result<Boolean> deleteRelationByApplyIdList(List<String> applyIdList) {
 		try {
-            purchaseOrderDao.deleteByApplyIdList(applyIdList);
+            purchaseOrderDao.deleteRelationByApplyIdList(applyIdList);
             return new Result<Boolean>(StatusCodes.OK, true);
         } catch (Exception e) {
             logger.error("an error occur in deleteByApplyIdList service : {}", e);

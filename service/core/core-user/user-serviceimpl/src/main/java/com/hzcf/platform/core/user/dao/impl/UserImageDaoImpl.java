@@ -95,20 +95,7 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
 	public List<UserImageVO> selectByApplyId(String applyId) {
 		return this.sqlSessionTemplate.selectList(this.getSqlName("selectByApplyId"),applyId);
 	}
-	/**
-	 * @Title: deleteByApplyId 
-	 * @Description:根据applyId删除图片信息 
-	 * @time: 2017年1月18日 下午5:12:12  
-	 * @return:boolean
-	 */
-	@Override
-	public boolean deleteByApplyId(String applyId){
-        if (StringUtils.isNotBlank(applyId))  {
-            sqlSessionTemplate.delete(getSqlName("deleteByApplyId"), applyId);
-            return true;
-        }
-        return false;
-	}
+
 	/**
 	 * @Title: deleteByApplyIdList 
 	 * @Description:根据applyId集合删除图片信息 
@@ -116,9 +103,9 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
 	 * @return:boolean
 	 */
 	@Override
-	public boolean deleteByApplyIdList(List<String> applyIdList){
+	public boolean deleteImageByApplyIdList(List<String> applyIdList){
         if (applyIdList!=null){
-            sqlSessionTemplate.delete(getSqlName("deleteByApplyIdList"), applyIdList);
+            sqlSessionTemplate.delete(getSqlName("deleteImageByApplyIdList"), applyIdList);
             return true;
         }
         return false;

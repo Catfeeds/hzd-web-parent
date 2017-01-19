@@ -34,5 +34,5 @@ public interface UserRelationDao extends IBaseDao<UserRelation> {
      * @time: 2017年1月18日 下午8:02:19  
      * @return:Result<Boolean>
      */
-    public boolean deleteByApplyIdList(List<String> applyIdList);
+    public boolean deleteRelationByApplyIdList(List<String> applyIdList);
 }

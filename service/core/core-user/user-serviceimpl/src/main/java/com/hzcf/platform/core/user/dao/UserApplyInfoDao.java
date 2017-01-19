@@ -36,14 +36,7 @@ public interface UserApplyInfoDao  extends IBaseDao<UserApplyInfo> {
     public boolean updateApplyId(UserApplyInfo userApplyInfo);
     //后台实名认证通过，查询进件数据
     public UserApplyInfoVO selectByUserIdAndStatus(Map<String, Object> parmMap);
-    
-	/**
-	 * @Title: deleteByApplyId 
-	 * @Description:根据applyId删除图片信息 
-	 * @time: 2017年1月18日 下午5:12:12  
-	 * @return:Result<Boolean>
-	 */
-	public boolean deleteByApplyId(String applyId);
+
     /**
      * @Title: deleteByApplyIdListAndStatus
      * @Description:根据applyIdList集合,status删除借款人关系信息 

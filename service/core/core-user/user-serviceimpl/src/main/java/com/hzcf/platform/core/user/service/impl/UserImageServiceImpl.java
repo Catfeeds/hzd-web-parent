@@ -169,22 +169,7 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
 			return new Result<List<UserImageVO>>(StatusCodes.INTERNAL_SERVER_ERROR,result);
 		}
 	}
-	/**
-	 * @Title: deleteByApplyId 
-	 * @Description:根据applyId删除图片信息 
-	 * @time: 2017年1月18日 下午5:12:12  
-	 * @return:Result<Boolean>
-	 */
-	@Override
-	public Result<Boolean> deleteByApplyId(String applyId) {
-		try {
-			purchaseOrderDao.deleteByApplyId(applyId);
-			return new Result<Boolean>(StatusCodes.OK, true);
-		} catch (Exception e) {
-			logger.error("an error occur in deleteByApplyId service : {}", e);
-			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
-		}
-	}
+
 	/**
 	 * @Title: deleteByApplyIdList 
 	 * @Description:根据applyId集合删除借款人的图片信息
@@ -192,9 +177,9 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
 	 * @return:Result<Boolean>
 	 */
 	@Override
-	public Result<Boolean> deleteByApplyIdList(List<String> applyIdList){
+	public Result<Boolean> deleteImageByApplyIdList(List<String> applyIdList){
 		try {
-			purchaseOrderDao.deleteByApplyIdList(applyIdList);
+			purchaseOrderDao.deleteImageByApplyIdList(applyIdList);
 			return new Result<Boolean>(StatusCodes.OK, true);
 		} catch (Exception e) {
 			logger.error("an error occur in deleteByApplyIdList service : {}", e);

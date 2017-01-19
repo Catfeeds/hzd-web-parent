@@ -27,5 +27,5 @@ public interface UserRelationService extends IBaseService<UserRelationVO> {
      * @time: 2017年1月18日 下午8:02:19  
      * @return:Result<Boolean>
      */
-    public Result<Boolean> deleteByApplyIdList(List<String> applyIdList);
+    public Result<Boolean> deleteRelationByApplyIdList(List<String> applyIdList);
 }

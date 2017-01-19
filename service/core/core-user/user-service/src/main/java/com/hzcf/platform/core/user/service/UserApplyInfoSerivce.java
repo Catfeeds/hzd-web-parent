@@ -37,13 +37,7 @@ public interface UserApplyInfoSerivce extends IBaseService<UserApplyInfoVO> {
 	public Result<Boolean> updateApplyId(UserApplyInfoVO userApplyInfoVO);
 	//后台实名认证通过，查询进件数据
 	public Result<UserApplyInfoVO> selectByUserIdAndStatus(Map<String, Object> parmMap);
-	/**
-	 * @Title: deleteByApplyId 
-	 * @Description:根据applyId删除借款人的申请信息 
-	 * @time: 2017年1月18日 下午5:22:18  
-	 * @return:Result<Boolean>
-	 */
-	public Result<Boolean> deleteByApplyId(String applyId);
+
 	/**
 	 * @Title: deleteByApplyIdListAndStatus 
 	 * @Description:根据applyIdList集合，status删除借款人的进件信息 

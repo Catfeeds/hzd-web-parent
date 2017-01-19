@@ -65,20 +65,7 @@ public class UserApplyInfoDaoImpl  extends AbstractMysqlBaseDaoImpl<UserApplyInf
   	public List<UserApplyInfoVO> selectByUserIdAndStatusAll(Map<String, Object> parmMap){
 		return sqlSessionTemplate.selectList(getSqlName("selectByUserIdAndStatusAll"), parmMap);
   	}
-	/**
-	 * @Title: deleteByApplyId 
-	 * @Description:根据applyId删除图片信息 
-	 * @time: 2017年1月18日 下午5:12:12  
-	 * @return:Result<Boolean>
-	 */
-	@Override
-	public boolean deleteByApplyId(String applyId){
-        if (StringUtils.isNotBlank(applyId))  {
-            sqlSessionTemplate.delete(getSqlName("deleteByApplyId"), applyId);
-            return true;
-        }
-        return false;
-	}
+
     /**
      * @Title: deleteByApplyIdListAndStatus
      * @Description:根据applyIdList集合,status删除借款人关系信息 

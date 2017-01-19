@@ -34,18 +34,12 @@ public interface UserImageDao extends IBaseDao<UserImage> {
     public boolean updateImageByUserIdAndTypeAndUrl(Map<String, String> parmMap);
 
 	List<UserImageVO> selectByApplyId(String applyId);
-	/**
-	 * @Title: deleteByApplyId 
-	 * @Description:根据applyId删除图片信息 
-	 * @time: 2017年1月18日 下午5:12:12  
-	 * @return:boolean
-	 */
-	public boolean deleteByApplyId(String applyId);
+
 	/**
 	 * @Title: deleteByApplyIdList 
 	 * @Description:根据applyId集合删除图片信息 
 	 * @time: 2017年1月18日 下午5:12:12  
 	 * @return:boolean
 	 */
-	public boolean deleteByApplyIdList(List<String> applyIdList);
+	public boolean deleteImageByApplyIdList(List<String> applyIdList);
 }
