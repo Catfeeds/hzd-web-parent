@@ -3,6 +3,8 @@ package com.hzcf.platform.core.user.dao.impl;
 import com.hzcf.platform.core.user.dao.UserRelationDao;
 import com.hzcf.platform.core.user.data.UserRelation;
 import com.hzcf.platform.framework.core.storage.mysql.AbstractMysqlBaseDaoImpl;
+
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -49,8 +51,12 @@ public class UserRelationDaoImpl extends AbstractMysqlBaseDaoImpl<UserRelation> 
 
 
 	@Override
-	public int deleteByApplyId(String applyId) {
-		return this.sqlSessionTemplate.delete("deleteByApplyId",applyId);
+	public boolean deleteByApplyId(String applyId) {
+		if(StringUtils.isNotBlank(applyId)){
+			this.sqlSessionTemplate.delete("deleteByApplyId",applyId);
+			return true;
+		}
+		return false;
 	}
     /**
      * @Title: deleteByApplyIdList

@@ -240,7 +240,7 @@
 	    </where>
 		ORDER BY a.apply_submit_time DESC
 	</select>	
-    <delete id="deleteByApplyIdListAndStatus" parameterType="java.lang.String" >
+    <delete id="deleteByApplyIdListAndStatus" parameterType="java.util.Map" >
         delete from user_apply_info where apply_id in 
         <foreach item="item" index="index" collection="applyIdList" open="(" separator="," close=")">  
 		  #{item}  
