@@ -353,7 +353,7 @@ public class UserController {
             }
             objs[5] = DateUtils.formatDate(vo.getCreateTime(), "yyyy-MM-dd HH:mm:ss");
             String applyStatus = vo.getApplyStatus();
-            if(applyStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)){
+            if(applyStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)||applyStatus.equals(ConstantsParam.USER_CKECKSTATUS)){
             	objs[6] = "未进件";
             }
             if(applyStatus.equals(ConstantsParam.USER_CKECKSTATUS_N)){
