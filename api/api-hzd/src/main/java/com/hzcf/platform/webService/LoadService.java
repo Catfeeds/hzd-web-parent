@@ -310,7 +310,6 @@ public class LoadService {
 		Result<Boolean> deleteRelation = null;//批量删除借款人的关系信息
 		Result<Boolean> deleteApplyInfo = null;//批量删除借款人的申请进件信息
 
-
 			//执行删除操作
 			deleteImage = userImageService.deleteImageByApplyIdList(applyIdList);
 			deleteRelation = userRelationService.deleteRelationByApplyIdList(applyIdList);
