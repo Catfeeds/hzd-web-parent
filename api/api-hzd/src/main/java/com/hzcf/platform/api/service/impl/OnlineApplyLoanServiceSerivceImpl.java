@@ -652,7 +652,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
             logger.i("------用户进件申请第七步------用户已经通过实名认证,直接提交进件信息");
             // 如果用于已经实名认证,直接进件    TODO 提交进件
             try {
-                String resultJson = loadService.insertLoad(applyId);
+
                 if (loadService.operateLoad(applyId)) {
                     logger.i("用户进件申请第七步--------线上进件申请成功申请单号:" + applyId);
                     UserVO updateUserVO = new UserVO();
