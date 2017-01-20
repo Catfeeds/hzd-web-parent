@@ -162,7 +162,10 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
             loadService.deleteLoad(user.getId());
 
-      /*      if (StringUtils.isNotBlank(userApplyInfoVO.getApplyId())) {
+      /*
+
+      
+            if (StringUtils.isNotBlank(userApplyInfoVO.getApplyId())) {
                 logger.i("-用户进件申请第一步 >>更新信息");
                 Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(userApplyInfoVO.getApplyId());
                 if (userApplyInfoVOResult.getItems() != null) {
