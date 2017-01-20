@@ -1,5 +1,6 @@
 package com.hzcf.platform.core.user.service;
 
+import java.sql.SQLException;
 import java.util.List;
 import java.util.Map;
 
@@ -34,5 +35,5 @@ public interface UserImageService extends IBaseService<UserImageVO> {
 	 * @time: 2017年1月18日 下午8:18:03  
 	 * @return:Result<Boolean>
 	 */
-	public Result<Boolean> deleteImageByApplyIdList(List<String> applyIdList);
+	public Result<Boolean> deleteImageByApplyIdList(List<String> applyIdList) ;
 }

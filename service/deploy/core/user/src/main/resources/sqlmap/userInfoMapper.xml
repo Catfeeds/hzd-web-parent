@@ -71,6 +71,11 @@
         where apply_id = #{ApplyId,jdbcType=VARCHAR}
     </select>
 
+  <delete id="deleteUserInfoByApplyId" parameterType="java.lang.String" >
+
+    delete from user_info
+    where apply_id = #{applyId,jdbcType=VARCHAR}
+  </delete>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
     delete from user_info
     where user_info_id = #{userInfoId,jdbcType=VARCHAR}

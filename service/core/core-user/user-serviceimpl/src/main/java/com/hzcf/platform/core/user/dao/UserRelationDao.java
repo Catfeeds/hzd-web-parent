@@ -27,7 +27,7 @@ public interface UserRelationDao extends IBaseDao<UserRelation> {
     int updateByPrimaryKey(UserRelation record);
 
     
-    public boolean deleteByApplyId(String applyId);
+    public boolean deleteByRelationApplyId(String applyId);
     /**
      * @Title: deleteByApplyIdList
      * @Description:根据applyId集合删除借款人关系信息 

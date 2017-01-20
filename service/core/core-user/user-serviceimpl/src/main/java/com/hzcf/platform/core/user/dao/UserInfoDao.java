@@ -18,4 +18,5 @@ public interface UserInfoDao extends IBaseDao<UserInfo> {
     Boolean updateByApplyId(UserInfo userInfo);
 
     UserInfo selectByApplyId(String ApplyId);
+    Boolean deleteUserInfoByApplyId(String ApplyId);
 }
