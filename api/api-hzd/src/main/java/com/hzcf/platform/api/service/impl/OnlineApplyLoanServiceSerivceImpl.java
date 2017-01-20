@@ -162,7 +162,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
             loadService.deleteLoad(user.getId());
 
-            if (StringUtils.isNotBlank(userApplyInfoVO.getApplyId())) {
+      /*      if (StringUtils.isNotBlank(userApplyInfoVO.getApplyId())) {
                 logger.i("-用户进件申请第一步 >>更新信息");
                 Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(userApplyInfoVO.getApplyId());
                 if (userApplyInfoVOResult.getItems() != null) {
@@ -179,7 +179,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
                 logger.i("-用户进件申请第一步 >>更新失败 未查询到申请信息>>applyId:" + userApplyInfoVO.getApplyId());
                 return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
                         HzdStatusCodeEnum.MEF_CODE_0001.getMsg(), null);
-            }
+            }*/
             // ------------
             logger.i("-用户进件申请第一步 >保存个人信息");
             String applyId = serialnumber.Getnum();
