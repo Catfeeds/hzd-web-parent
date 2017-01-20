@@ -177,12 +177,12 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
 	 * @return:Result<Boolean>
 	 */
 	@Override
-	public Result<Boolean> deleteImageByApplyIdList(List<String> applyIdList){
+	public Result<Boolean> deleteImageByApplyIdList(List<String> applyIdList) {
 		try {
 			purchaseOrderDao.deleteImageByApplyIdList(applyIdList);
 			return new Result<Boolean>(StatusCodes.OK, true);
 		} catch (Exception e) {
-			logger.error("an error occur in deleteByApplyIdList service : {}", e);
+			logger.error("an error occur in deleteImageByApplyIdList service : {}", e);
 			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
 		}
 	}
