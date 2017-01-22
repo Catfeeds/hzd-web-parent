@@ -3,43 +3,71 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Basic PasswordBox - jQuery EasyUI Demo</title>
+    <title>重置密码</title>
 	<%@include file="../common/include.jsp"%>
 	<script src="${path}/script/artDialog/jquery.artDialog.js?skin=blue" type="text/javascript"></script>
 	<script src="${path}/script/artDialog/plugins/iframeTools.js" type="text/javascript"></script>
     <style type="text/css">
-	    .warnClass{
-	    	color:red;
-	    }
+ 	    .warnClass{
+ 	    	color:red;
+ 	    }
+/* 		table{ */
+/* 		   border-spacing:200%;  */
+/* 		}  */
     </style>
 </head>
 <body>
-	<!-- <h2>重置密码</h2> -->
-    <!-- <p>The passwordbox allows a user to enter passwords.</p> -->
-    <!-- <div style="margin:20px 0;"></div>
-     style="margin-bottom:20px"
-     -->
-    <div class="easyui-panel" style="width:700px;height:370px;padding:50px 10px 40px 10px;margin:50px 10px 40px 10px;">
-        <div>
-        	<label>原始密码:</label>
-            <input id="password" name="password" class="easyui-passwordbox" prompt="Password" iconWidth="28" style="width:80%;height:20px;padding:10px">
-            &nbsp;<span id="passwordSpan" class="warnClass"></span>
-        </div>
-        <div>
-        	<label>新密码:</label>
-            <input id="passwordNew" name="passwordNew" class="easyui-passwordbox" prompt="Password" iconWidth="28" style="width:80%;height:20px;padding:10px">
-            &nbsp;<span id="passwordNewSpan" class="warnClass"></span>
-        </div>
-        <div>
-        	<label>重复密码:</label>
-            <input id="passwordNewRepeat" name="passwordNewRepeat" class="easyui-passwordbox" prompt="Password" iconWidth="28" style="width:80%;height:20px;padding:10px">
-            &nbsp;<span id="passwordNewRepeatSpan" class="warnClass"></span>
-        </div>
-		<div class="aui_buttons">
-			<a id="doSure" href="javascript:void(0)" class="button button-end" >确定</a>
-			<a id="doCancel" href="javascript:void(0)" class="button button-end" >取消</a>
-		</div>
-    </div>
+<!--     <div class="easyui-panel" style="width:700px;height:370px;padding:50px 10px 40px 10px;margin:50px 10px 40px 10px;"> -->
+<!--         <div> -->
+<!--         	<label>原始密码:</label> -->
+<!--             <input id="password" name="password" class="easyui-passwordbox" prompt="Password" iconWidth="28" style="width:80%;height:20px;padding:10px"> -->
+<!--             &nbsp;<span id="passwordSpan" class="warnClass"></span> -->
+<!--         </div> -->
+<!--         <div> -->
+<!--         	<label>新密码:</label> -->
+<!--             <input id="passwordNew" name="passwordNew" class="easyui-passwordbox" prompt="Password" iconWidth="28" style="width:80%;height:20px;padding:10px"> -->
+<!--             &nbsp;<span id="passwordNewSpan" class="warnClass"></span> -->
+<!--         </div> -->
+<!--         <div> -->
+<!--         	<label>重复密码:</label> -->
+<!--             <input id="passwordNewRepeat" name="passwordNewRepeat" class="easyui-passwordbox" prompt="Password" iconWidth="28" style="width:80%;height:20px;padding:10px"> -->
+<!--             &nbsp;<span id="passwordNewRepeatSpan" class="warnClass"></span> -->
+<!--         </div> -->
+<!-- 		<div class="aui_buttons"> -->
+<!-- 			<a id="doSure" href="javascript:void(0)" class="button button-end" >确定</a> -->
+<!-- 			<a id="doCancel" href="javascript:void(0)" class="button button-end" >取消</a> -->
+<!-- 		</div> -->
+<!--     </div>  style="width:150%;height:100%;"-->
+    <table>
+        <tr>
+        	<th>原始密码:</th>
+        	<td>
+            <input id="password" name="password">
+            <span id="passwordSpan" class="warnClass"></span>
+            </td>
+        </tr>
+        <tr>
+        	<th>新密码:</th>
+        	<td>
+            <input id="passwordNew" name="passwordNew">
+            <span id="passwordNewSpan" class="warnClass"></span>
+            </td>
+        </tr>
+        <tr>
+        	<th>重复密码:</th>
+        	<td>
+            <input id="passwordNewRepeat" name="passwordNewRepeat">
+            <span id="passwordNewRepeatSpan" class="warnClass"></span>
+            </td>
+        </tr>
+		<tr>
+			<th></th>
+			<td>
+			<a id="doSure" href="javascript:void(0);">确定</a>
+			<a id="doCancel" href="javascript:void(0);">取消</a>
+			</td>
+		</tr>
+    </table>
 </body>
 <script type="text/javascript">
 $(document).ready(function(){
@@ -133,7 +161,7 @@ function doSure(){
 		    	});
 		    } else {
 				art.dialog.alert(data.message, function() {
-		    		//获取上一级页面，并让上一个页面重新加载
+					//获取上一级页面，并让上一个页面重新加载
 		    		var win = art.dialog.open.origin;
 		    		win.location.reload();
 		    	});
