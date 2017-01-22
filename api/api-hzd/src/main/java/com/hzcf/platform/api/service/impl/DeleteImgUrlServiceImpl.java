@@ -32,11 +32,15 @@ public class DeleteImgUrlServiceImpl implements IDeleteImgUrlService {
     @Override
     public BackResult deleteImgUrl(UserVO userVO ,UserImageVO userImageVO) {
 
+
+
         if(StringUtils.isBlank( userImageVO.getArtWork())){
             logger.i("artWork为空");
             return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(),
                     "artWork为空",null);
         }
+
+
         try {
         userImageVO.setUserId(userVO.getId());
         String sufFirst = StringUtil.getSufFirst(userImageVO.getArtWork());

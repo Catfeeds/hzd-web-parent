@@ -242,28 +242,6 @@ public class RealNameServiceImpl implements IRealNameService {
 		}
 
 
-		if(itemsList.size()>3){
-
-			for(UserImageVO iv:itemsList){
-				if(itemsList.size()==3){
-					break;
-				}
-			/*	UserImageVO uiv =  new UserImageVO();
-				uiv.setUserId(iv.getUserId());
-				uiv.setImageType(BaseConfig.IMAGETYPE_B1);*/
-				Result<Boolean> booleanResult = userImageService.deleteByImageId(iv.getImageId());
-				if(StatusCodes.OK ==booleanResult.getStatus()){
-					itemsList.remove(iv);
-					logger.i("重新上传认证图片,删除原有图片成功");
-				}else{
-					logger.i("重新上传认证图片,删除原有图片失败");
-				}
-			}
-
-
-
-		}
-
 
 		long startTime = System.currentTimeMillis();//获取当前时间戳
 		//将当前上下文初始化给 CommonsMutipartResolver （多部分解析器）

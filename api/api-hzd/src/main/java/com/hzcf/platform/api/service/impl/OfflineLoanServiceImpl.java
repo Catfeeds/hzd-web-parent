@@ -2,6 +2,7 @@ package com.hzcf.platform.api.service.impl;
 
 
 import com.hzcf.platform.api.service.IOfflineLoanService;
+import com.hzcf.platform.common.exception.CheckException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -62,11 +63,17 @@ public class OfflineLoanServiceImpl implements IOfflineLoanService {
 						HzdStatusCodeEnum.MEF_CODE_2200.getCode(), retInfo);
 
 			}
-		} catch (Exception e) {
+		}catch (CheckException e){
+			e.printStackTrace();
+			return	new BackResult(
+					HzdStatusCodeEnum.MEF_CODE_9000.getCode(),
+					e.getMessage(),null);
+		}
+		catch (Exception e) {
 			e.printStackTrace();
 			return	new BackResult(
 					HzdStatusCodeEnum.MEF_CODE_2211.getCode(),
-					e.getMessage());
+					e.getMessage(),null);
 		}
 	}
 	//作废  LoadService
