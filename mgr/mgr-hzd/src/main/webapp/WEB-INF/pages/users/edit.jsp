@@ -8,7 +8,7 @@ pageEncoding="UTF-8"%>
 <%@include file="../common/include.jsp"%> 
 <script type="text/javascript">
 	function save(){
-		var mobile = $("#mobile1").val()
+		var mobile = $("#mobile1").text();
 		var name = $("#name").val();
 		if(name==null||name==""){
 			$("#div").html("请输入姓名!");
@@ -119,7 +119,7 @@ pageEncoding="UTF-8"%>
         <h1>用户信息</h1>
         <table cellpadding="0" cellspacing="0">
             <tr>
-                <td>手机号：<span>${smsUserInfo.mobile}</span></td>
+                <td>手机号：<span id="mobile1">${smsUserInfo.mobile}</span></td>
                 
                 <td>姓名 : <span><input type="text" id="name" name="name" onblur="xm()" value="${smsUserInfo.name}" /> </span></td>
                 
