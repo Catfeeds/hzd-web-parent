@@ -78,6 +78,11 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
             }
 
             String result = LoadService.selectLoadProgress(items.getMobile());
+            if(StringUtils.isBlank(result)){
+                logger.i("查询进件状态失败,线下接口返回异常,result 为 null");
+                return new BackResult(HzdStatusCodeEnum.MEF_CODE_2100.getCode(),
+                        HzdStatusCodeEnum.MEF_CODE_2100.getMsg(), null);
+            }
             JSONObject json = JSONObject.fromObject(result);
             //WxjinjianQueryRsp wxrsp =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
             String retCode = json.getString("retCode");
@@ -621,7 +626,12 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
         }
 
         String result = LoadService.selectLoadProgress(items.getMobile());
-        JSONObject json = JSONObject.fromObject(result);
+        if(StringUtils.isBlank(result)) {
+            logger.i("查询进件状态失败,线下接口返回异常,result 为 null");
+            return new BackResult(HzdStatusCodeEnum.MEF_CODE_2100.getCode(),
+                    HzdStatusCodeEnum.MEF_CODE_2100.getMsg(), null);
+        }
+            JSONObject json = JSONObject.fromObject(result);
         //WxjinjianQueryRsp wxrsp =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
         String retCode = json.getString("retCode");
         String retInfo = json.getString("retInfo");
