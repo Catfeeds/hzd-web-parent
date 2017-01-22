@@ -98,7 +98,7 @@ public class UserRelationServiceImpl  extends AbstractBaseServiceImpl<UserRelati
             purchaseOrderDao.deleteRelationByApplyIdList(applyIdList);
             return new Result<Boolean>(StatusCodes.OK, true);
         } catch (Exception e) {
-            logger.error("an error occur in deleteByApplyIdList service : {}", e);
+            logger.error("an error occur in deleteRelationByApplyIdList service : {}", e);
             return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
         }
 	}

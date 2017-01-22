@@ -201,7 +201,7 @@ public class UserApplyInfoSerivceImpl  extends AbstractBaseServiceImpl<UserApply
 			purchaseOrderDao.deleteByApplyIdListAndStatus(paramsMap);
 			return new Result<Boolean>(StatusCodes.OK, true);
 		} catch (Exception e) {
-			logger.error("an error occur in deleteByApplyIdMap service : {}", e);
+			logger.error("an error occur in deleteByApplyIdListAndStatus service : {}", e);
 			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
 		}
 	}
