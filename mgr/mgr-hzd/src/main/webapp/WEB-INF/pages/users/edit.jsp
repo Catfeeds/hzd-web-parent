@@ -45,13 +45,15 @@ pageEncoding="UTF-8"%>
 				},
 				success:function(result){
 					if(result){
-						alert("恭喜您,保存成功!");
-						window.location = '${path}/users/check/list';
-						return null;
+						$.messager.alert("","恭喜您,保存成功!","info",function(){
+							window.location = '${path}/users/check/list';						
+							return true;
+						});
 					}else{
-						alert("修改失败");
-						return false;
-					} 
+						$.messager.alert("","修改失败","error",function(){
+							return false;
+						});
+					}
 				}
 			});
 			//document.getElementById("form").submit();
