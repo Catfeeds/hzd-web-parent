@@ -62,6 +62,9 @@ public class UserServiceImpl implements IUserService {
 	@Autowired
 	private LoadService loadService;
 	
+	/**
+	 * 用户列表
+	 */
 	@Override
 	public DataGrid getUserPage(PageHelper pageHelper, UserVO userVO){
 		pageHelper.setStart((pageHelper.getPage()-1)*pageHelper.getRows());
@@ -69,6 +72,25 @@ public class UserServiceImpl implements IUserService {
 		Map<String, Object> parmMap = new HashMap<String, Object>();
 		parmMap.put("user", userVO);
 		parmMap.put("page", pageHelper);
+		
+		DataGrid dataGrid = new DataGrid();
+		dataGrid.setTotal(userSerivce.getUserTotal(parmMap));
+		PaginatedResult result = userSerivce.getUserList(parmMap);
+		dataGrid.setRows(result.getItems());
+		return dataGrid;
+	}
+	
+	/**
+	 * 实名认证列表
+	 */
+	@Override
+	public DataGrid getCheckUserPage(PageHelper pageHelper, UserVO userVO){
+		pageHelper.setStart((pageHelper.getPage()-1)*pageHelper.getRows());
+		pageHelper.setEnd(pageHelper.getRows());
+		Map<String, Object> parmMap = new HashMap<String, Object>();
+		parmMap.put("user", userVO);
+		parmMap.put("page", pageHelper);
+		parmMap.put("ischeckuser", "true");
 		
 		DataGrid dataGrid = new DataGrid();
 		dataGrid.setTotal(userSerivce.getUserTotal(parmMap));

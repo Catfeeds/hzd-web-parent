@@ -117,7 +117,7 @@ public class UserController {
 	@RequestMapping(value="/users/check/page",method=RequestMethod.POST)
     @ResponseBody
     public DataGrid checkUserPage(PageHelper page, UserVO user){
-		return sysUserService.getUserPage(page, user);
+		return sysUserService.getCheckUserPage(page, user);
     }	
 	/**
 	 * 实名认证详情页面

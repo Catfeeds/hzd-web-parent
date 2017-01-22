@@ -213,7 +213,8 @@
 	    </if>
 	    <if test="user.applyStatus != null and user.applyStatus != ''"> and apply_status=#{user.applyStatus} </if>
 	    <!-- 过滤掉未认证用户 -->
-	    and id_card is not null
+	    <if test="ischeckuser != null and ischeckuser != ''"> and id_card is not null </if>
+	    
 	  </sql>
   	<!-- 分页查询 -->
 	<select id="FINDLIST" resultMap="BaseResultMap" parameterType="java.util.Map">

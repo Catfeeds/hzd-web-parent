@@ -19,6 +19,7 @@ import com.hzcf.platform.mgr.sys.common.pageModel.SmsUserInfo;
 public interface IUserService {
 	
 	public DataGrid getUserPage(PageHelper pageHelper, UserVO user);
+	public DataGrid getCheckUserPage(PageHelper pageHelper, UserVO userVO);
 	
 	public SmsUserInfo getSmsUserDetail(String mobile);
 	
