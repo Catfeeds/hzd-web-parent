@@ -230,15 +230,38 @@ public class RealNameServiceImpl implements IRealNameService {
 					"用户ID不能为空",null);
 		}
 		Result<List<UserImageVO>> UserImageVOList = userImageService.getUserId(user.getId());
-		if(UserImageVOList.getItems().size()==3){
-			UserImageVO uiv =  new UserImageVO();
-			uiv.setUserId(user.getId());
-			uiv.setImageType(BaseConfig.IMAGETYPE_B1);
-			Result<Boolean> booleanResult = userImageService.deleteByPrimaryKey(uiv);
-			if(StatusCodes.OK ==booleanResult.getStatus()){
-				logger.i("重新上传认证图片,删除原有图片成功");
+		List<UserImageVO> itemsList = UserImageVOList.getItems();
+
+		if(itemsList != null && itemsList.size() >=3) {
+			String imageId = "";
+			for (UserImageVO uv : itemsList) {
+				imageId = uv.getImageId();
+				break;
 			}
-			logger.i("重新上传认证图片,删除原有图片失败");
+			this.userImageService.deleteByImageId(imageId);
+		}
+
+
+		if(itemsList.size()>3){
+
+			for(UserImageVO iv:itemsList){
+				if(itemsList.size()==3){
+					break;
+				}
+			/*	UserImageVO uiv =  new UserImageVO();
+				uiv.setUserId(iv.getUserId());
+				uiv.setImageType(BaseConfig.IMAGETYPE_B1);*/
+				Result<Boolean> booleanResult = userImageService.deleteByImageId(iv.getImageId());
+				if(StatusCodes.OK ==booleanResult.getStatus()){
+					itemsList.remove(iv);
+					logger.i("重新上传认证图片,删除原有图片成功");
+				}else{
+					logger.i("重新上传认证图片,删除原有图片失败");
+				}
+			}
+
+
+
 		}
 
 

@@ -39,7 +39,7 @@
        select
        <include refid="Base_Column_List" />
        from user_image
-       where image_type='B1' and user_id=#{id,jdbcType=VARCHAR}
+       where image_type='B1' and user_id=#{id,jdbcType=VARCHAR} order by  create_time asc
   </select>
   
   <select id="selectByApplyId" resultMap="BaseResultMapVO" parameterType="java.lang.String" >
@@ -81,6 +81,15 @@
       AND image_type=#{imageType,jdbcType=VARCHAR}
     </if>
   </delete>
+
+  <delete id="deleteByImageId" parameterType="java.lang.String" >
+    delete from user_image
+    where
+    image_id=#{imageId,jdbcType=VARCHAR}
+
+  </delete>
+
+
   <insert id="insert" parameterType="UserImage" >
     insert into user_image (image_id, user_id, apply_id, 
       user_info_id, art_work, small, 

@@ -94,6 +94,18 @@ public class UserImageServiceImpl extends AbstractBaseServiceImpl<UserImageVO,Us
 	}
 
 	@Override
+	public Result<Boolean> deleteByImageId(String imageId) {
+		try {
+
+			purchaseOrderDao.deleteByImageId(imageId);
+			return new Result<Boolean>(StatusCodes.OK, true);
+		} catch (Exception e) {
+			logger.error("an error occur in update service : {}", e);
+			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
+		}
+	}
+
+	@Override
 	public Result<List<UserImageVO>> getUserId(String userId) {
 
 		try {

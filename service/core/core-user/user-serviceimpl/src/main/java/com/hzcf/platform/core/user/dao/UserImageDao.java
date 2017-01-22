@@ -11,7 +11,7 @@ import com.hzcf.platform.framework.core.storage.IBaseDao;
 
 public interface UserImageDao extends IBaseDao<UserImage> {
     boolean deleteByPrimaryKey(UserImage record);
-
+    boolean deleteByImageId(String imageId);
     int insert(UserImage record);
 
     boolean insertSelective(UserImage record);

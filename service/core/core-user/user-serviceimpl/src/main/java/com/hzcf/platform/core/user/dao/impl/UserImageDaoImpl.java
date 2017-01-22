@@ -27,6 +27,14 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
     }
 
     @Override
+    public boolean deleteByImageId(String imageId) {
+        if (imageId.length() > 0 )  {
+            sqlSessionTemplate.delete(getSqlName("deleteByImageId"), imageId);
+            return true;
+        }
+        return false;
+    }
+    @Override
     public int insert(UserImage record) {
         return 0;
     }
@@ -110,4 +118,5 @@ public class UserImageDaoImpl extends AbstractMysqlBaseDaoImpl<UserImage> implem
         }
         return false;
 	}
+
 }
