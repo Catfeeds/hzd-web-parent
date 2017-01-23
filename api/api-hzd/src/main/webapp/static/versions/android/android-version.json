@@ -1,12 +1,12 @@
 {
     "data": {
-        "displayVersion": "1.0.1",
-        "dlurl": "http://10.10.10.139:8081/hzd-api/static/versions/android/app-release.apk",
+        "displayVersion": "2.0.0",
+        "dlurl": "http://10.10.10.139:8081/api-hzd/static/versions/android/app-release.apk",
         "notes": [
-            "APP更新",
-            "数据完善"
+            "app名称修改",
+            "优化用户体验，修复bug"
         ],
-        "size": "10M",
+        "size": "5.6M",
         "version": 3004
     },
     "showMessage": "成功",
