@@ -71,8 +71,8 @@ public class ApplyController {
             String loanPurposeTwo = vo.getLoanPurposeTwo();
             String loanPurposeTwoValue = dictUtilService.convertLoanPurposeTwo(loanPurposeOne,loanPurposeTwo);
             
-           // objs[0] = i+1;
-            objs[0] = vo.getApplyId();
+            objs[0] = i+1;
+            //objs[0] = vo.getApplyId();
             objs[1] = vo.getMobile();
             objs[2] = vo.getName();
             objs[3] = vo.getIdCard();

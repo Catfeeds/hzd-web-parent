@@ -45,10 +45,16 @@
 			});
 		}
 	}
+	//退出登录
 	function exit(){
-		if(confirm('确定退出吗 ？')){
-			window.location="${path}/sys/logout";
-		}
+		$.messager.confirm("确认对话框","确定退出吗 ？",function(flag){
+			if(flag){
+				window.location="${path}/sys/logout";
+				return true;
+			}else{
+				return false;
+			}
+		});
 	}
 	//重置密码
 	function resetPassword(){
