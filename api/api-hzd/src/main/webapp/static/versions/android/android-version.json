@@ -1,13 +1,13 @@
 {
     "data": {
         "displayVersion": "1.0.1",
-        "dlurl": "http://app.huizhongshengshi.com/hzssapp/static/versions/android/app-release.apk",
+        "dlurl": "http://10.10.10.139:8081/hzd-api/static/versions/android/app-release.apk",
         "notes": [
             "APP更新",
             "数据完善"
         ],
         "size": "10M",
-        "version": 2
+        "version": 3004
     },
     "showMessage": "成功",
     "state": 0

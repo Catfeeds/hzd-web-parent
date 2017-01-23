@@ -23,9 +23,9 @@ public class ConstantsToken  implements Serializable{
     public static final String CURRENT_USER_ID = "CURRENT_USER_ID";
 
     /**
-     * token有效期（小时）
+     * token有效期（秒）
      */
-    public static final int TOKEN_EXPIRES_HOUR = 6000;
+    public static final int TOKEN_EXPIRES_HOUR = 604800;
     /**
      * 短信验证码有效时间（一分钟）
      */
