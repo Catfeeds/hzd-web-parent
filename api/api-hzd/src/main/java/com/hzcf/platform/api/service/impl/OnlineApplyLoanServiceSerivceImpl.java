@@ -92,10 +92,10 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
             /*	if(BaseConfig.apply_loan_1.equals(wr.getStatusCodeApplyOnLine()) || BaseConfig.apply_loan_1.equals(wr.getStatusCodeWFXZ())){
                     logger.i("不能重复提交进件");
 					checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_0);
-					checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_1);
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_2333.getCode(),
-							HzdStatusCodeEnum.MEF_CODE_2333.getMsg(), checkApplyLoanStatus);
-				}*/
+					checkApplyLoanStatus.setApplyLoanStatus(BaseConfig.apply_loan_1);}*/
+                return new BackResult(HzdStatusCodeEnum.MEF_CODE_6101.getCode(),
+                        HzdStatusCodeEnum.MEF_CODE_6101.getMsg(), null);
+
 
             }
             WxjinjianQueryRsp wr = JsonUtil.jsonNote2Object(result, WxjinjianQueryRsp.class);
