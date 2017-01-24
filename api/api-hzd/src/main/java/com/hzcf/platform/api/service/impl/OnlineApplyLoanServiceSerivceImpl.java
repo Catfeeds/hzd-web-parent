@@ -104,7 +104,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
             if (BaseConfig.card_status_1.equals(items.getCheckStatus())) {
                 logger.i("------------用户未通过实名认证");
                 checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_1);
-                checkApplyLoanStatus.setOnlineApplyLoanStatus(BaseConfig.apply_loan_0);
+                checkApplyLoanStatus.setOnlineApplyLoanStatus(wr.getStatusCodeApplyOnLine());
                 checkApplyLoanStatus.setOfflineApplyLoanStatus(wr.getStatusCodeWFXZ());
                 return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
                         HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), checkApplyLoanStatus);
