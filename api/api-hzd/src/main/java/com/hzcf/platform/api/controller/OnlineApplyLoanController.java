@@ -131,6 +131,17 @@ public class OnlineApplyLoanController {
         return onlineApplyLoanService.onlineLoanapplyInfoSubmit(user, applyId);
     }
 
+    /**
+     * 用户进件申请  根据applyId删除图片信息
+     */
+    @RequestMapping(value = {"rest/api/100/deleteApplyIdImage/{applyId}", "api/100/onlineLoanapply/info/Preview/{applyId}"}, method = RequestMethod.POST)
+    public BackResult deleteApplyIdImage(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,
+                                                @PathVariable String applyId) {
+        logger.i("进入 根据applyId删除图片信息 ");
+        logger.i("入参user:" + JsonUtil.json2String(user));
+        logger.i("applyId:" + applyId);
+        return onlineApplyLoanService.onlineLoanapplyInfoSubmit(user, applyId);
+    }
 
     private static String getSuffix(String url) {
         if (url != null) {

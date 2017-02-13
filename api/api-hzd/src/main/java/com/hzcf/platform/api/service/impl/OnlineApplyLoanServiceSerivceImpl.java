@@ -724,6 +724,22 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
     }
 
+    @Override
+    public BackResult deleteApplyIdImage(UserVO user, String applyId) {
+
+        List<String> applyIdList=new ArrayList<String>();
+        applyIdList.add(applyId);
+        Result<Boolean> deleteImage = userImageService.deleteImageByApplyIdList(applyIdList);
+        if (StatusCodes.OK == deleteImage.getStatus()) {
+            logger.i("根据applyId删除图片成功 applyId: "+applyId);
+            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
+                    HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), null);
+        }
+        logger.i("根据applyId删除图片失败 applyId: "+applyId);
+        return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+                HzdStatusCodeEnum.MEF_CODE_0001.getMsg(), null);
+    }
+
     private static String getSuffix(String url) {
         if (url != null) {
             int index = url.lastIndexOf(".");
