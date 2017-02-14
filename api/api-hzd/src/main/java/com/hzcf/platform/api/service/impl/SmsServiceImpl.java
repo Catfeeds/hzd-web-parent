@@ -39,6 +39,13 @@ public class SmsServiceImpl implements ISmsService {
 	public BackResult registerSms(String mobile) {
 		if (StringUtils.isNotBlank(mobile)) {
 			try {
+
+				String sms = cache.load(ConstantsToken.SMS_CACHE_REG_KEY + mobile);
+				if(StringUtils.isNotBlank(sms)){
+					logger.i("1分钟内不能重复获取验证码。。。。。。。。。。。 手机号:"+mobile);
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+				}
 				Result<UserVO> byMobile = userSerivce.getByMobile(mobile);
 				if (StatusCodes.OK != (byMobile.getStatus())) {
 					logger.i("数据查询失败 。byMobile   >>>>500。。。。。。。。。。。 ");
@@ -58,7 +65,7 @@ public class SmsServiceImpl implements ISmsService {
 						
 						logger.i("-------------获取短信验证码成功" + six + "phoneNum:"+ mobile);
 						Map map = new HashMap<>();
-						map.put("sms",six);
+						//map.put("sms",six);
 						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
 					}else{
 						logger.i("调用接口失败"+ mobile);
@@ -86,6 +93,12 @@ public class SmsServiceImpl implements ISmsService {
 	public BackResult findPwdSms(String mobile) {
 		if (StringUtils.isNotBlank(mobile)) {
 			try {
+				String sms = cache.load(ConstantsToken.SMS_CACHE_FINDPWD_KEY + mobile);
+				if(StringUtils.isNotBlank(sms)){
+					logger.i("1分钟内不能重复获取验证码。。。。。。。。。。。 手机号:"+mobile);
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+				}
 				Result<UserVO> byMobile = userSerivce.getByMobile(mobile);
 				if (StatusCodes.OK != (byMobile.getStatus())) {
 					logger.i("数据查询失败 。byMobile   >>>>500。。。。。。。。。。。 ");
@@ -100,7 +113,7 @@ public class SmsServiceImpl implements ISmsService {
 						//缓存验证码
 						cache.save(ConstantsToken.SMS_CACHE_FINDPWD_KEY+mobile, six ,ConstantsToken.SMS_EXPIRES_MIN);
 						Map map = new HashMap<>();
-						map.put("sms",six);
+						//map.put("sms",six);
 						logger.i("-------------获取短信验证码成功" + six + "phoneNum:"+ mobile);
 						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
 					}else{
@@ -129,6 +142,12 @@ public class SmsServiceImpl implements ISmsService {
 	public BackResult updatePwdSms(UserVO user) {
 		if (user != null && StringUtils.isNotBlank(user.getMobile())) {
 			try {
+				String sms = cache.load(ConstantsToken.SMS_CACHE_UPDATEPWD_KEY + user.getMobile());
+				if(StringUtils.isNotBlank(sms)){
+					logger.i("1分钟内不能重复获取验证码。。。。。。。。。。。 手机号:"+user.getMobile());
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+				}
 				String six = Serialnumber.getSix();
 				String dataInfo = SmsObtainService.smsObtain(six, user.getMobile());
 				if (StringUtils.isNotBlank(dataInfo) &&"0000".equals(JSONObject.fromObject(dataInfo.toString()).getString("retCode"))) {
@@ -137,7 +156,7 @@ public class SmsServiceImpl implements ISmsService {
 					
 					logger.i("-------------获取短信验证码成功" + six + "phoneNum:"+ user.getMobile());
 					 Map map = new HashMap<>();
-					map.put("sms",six);
+					//map.put("sms",six);
 					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
 				}else{
 					logger.i("获取验证码失败"+ user.getMobile());

@@ -83,4 +83,11 @@ public interface IOnlineApplyLoanService {
      */
     public BackResult onlineLoanapplyInfoSubmit(UserVO user, String applyId);
 
+    /**
+     * 根据applyId删除图片信息
+     * @param user
+     * @param applyId
+     * @return
+     */
+    public BackResult deleteApplyIdImage(UserVO user, String applyId);
 }
