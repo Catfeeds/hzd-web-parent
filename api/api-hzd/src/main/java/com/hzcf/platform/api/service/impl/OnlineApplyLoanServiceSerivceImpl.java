@@ -500,7 +500,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
                         }
 
                         if (StringUtils.isBlank(file_url)) {
-                            logger.i("上传图片失败----------------------：" + file_url);
+                            logger.i("上传图片失败----------------------：" + file_url+"---"+"手机号:"+user.getMobile());
                             return new BackResult(HzdStatusCodeEnum.MEF_CODE_4100.getCode(), HzdStatusCodeEnum.MEF_CODE_4100.getMsg());
                         }
                         userImageVO.setImageId(UUIDGenerator.getUUID());
@@ -510,7 +510,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
                         userImageVO.setCreateTime(new Date());
                         Result<Boolean> booleanResult = userImageService.insertSelective(userImageVO);
                         if (StatusCodes.OK != (booleanResult.getStatus())) {
-                            logger.i("保存图片失败----------------------：" + file_url);
+                            logger.i("保存图片失败----------------------：" + file_url +"---"+"手机号:"+user.getMobile());
                             return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
                                     HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
                         }
@@ -519,7 +519,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
                         Map map = new HashedMap();
                         map.put("url", url);
                         map.put("imageType", userImageVO.getImageType());
-                        logger.i("-----------------------上传图片成功");
+                        logger.i("-----------------------上传图片成功 ---手机号:"+user.getMobile());
                         logger.i("上传图片运行时间：" + String.valueOf(endTime - startTime) + "ms" + url);
                         return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
 
