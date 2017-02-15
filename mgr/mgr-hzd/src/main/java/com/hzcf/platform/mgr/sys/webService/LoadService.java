@@ -176,15 +176,16 @@ public class LoadService {
 				borrowRelationList.add(borrowRelationVo);
 			}
 			huiZhongApplicationVo.setBorrowRelationList(borrowRelationList);
-			//借款人的图片集合 TODO
+			//借款人的图片集合 
 			List<ImageVo> imageList=new ArrayList<ImageVo>();
 			for(int i=0;i<userImage1.size();i++){
 				UserImageVO userImageVO=userImage1.get(i);
 				ImageVo imageVo=new ImageVo();
-				imageVo.setImageType(userImageVO.getImageType());
-				String artWork=userImageVO.getArtWork();
+				String imageType=userImageVO.getImageType();//图片类型
+				imageVo.setImageType(imageType);
+				String artWork=userImageVO.getArtWork();//图片完整路径
 				imageVo.setArtWork(artWork);
-				imageVo.setDisplayName(artWork.substring(artWork.lastIndexOf("/")+1));
+				imageVo.setDisplayName(imageType+"-"+artWork.substring(artWork.lastIndexOf(".")-5));//图片名称，示例：B1-G8020.JPG
 				imageList.add(imageVo);
 			}
 			huiZhongApplicationVo.setImageList(imageList);			
