@@ -99,7 +99,7 @@ public class OnlineApplyLoanController {
                                                @RequestAttribute(BaseConfig.USER_TYPE) UserVO user,
                                                @RequestBodyForm UserImageVO userImageVO,
                                                @PathVariable String applyId) {
-        logger.i("线上进件申请上传图片");
+        logger.i("线上进件申请上传图片 手机号:"+user.getMobile());
         logger.i("applyId:" +applyId );
         logger.i("入参user:" + JsonUtil.json2String(user));
         logger.i("userImageVO:" + JsonUtil.json2String(userImageVO));
@@ -140,7 +140,7 @@ public class OnlineApplyLoanController {
         logger.i("进入 根据applyId删除图片信息 ");
         logger.i("入参user:" + JsonUtil.json2String(user));
         logger.i("applyId:" + applyId);
-        return onlineApplyLoanService.onlineLoanapplyInfoSubmit(user, applyId);
+        return onlineApplyLoanService.deleteApplyIdImage(user, applyId);
     }
 
     private static String getSuffix(String url) {
