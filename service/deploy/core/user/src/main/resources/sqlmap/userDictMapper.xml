@@ -31,7 +31,7 @@
     select
     <include refid="Base_Column_List" />
     <!-- from user_dict where   pid  !='' --> 
-    from user_dict where dict_path='LOANUSE' and status = 0 
+    from user_dict where dict_path='LOANUSE' and status = '0' 
 	order by dict_id
   </select>
   
