@@ -36,6 +36,7 @@ public enum HzdStatusCodeEnum {
 	
 	MEF_CODE_1111(1111, "token已失效"),
 	MEF_CODE_1099(1099, "用户被禁用,禁止登录"),
+	MEF_CODE_1818(1818, "传入参数有非法字符"),
 
 
 	//======进件接口
