@@ -34,7 +34,7 @@ public class LogonInterceptor extends HandlerInterceptorAdapter {
 		// 如果不是映射到方法直接通过
 		if (handler instanceof HandlerMethod) {
 
-			if(!verifyXSS.verify(request)){
+/*			if(!verifyXSS.verify(request)){
 				response.setCharacterEncoding("UTF-8");
 				response.setContentType("application/json; charset=utf-8");
 				response.setStatus(HttpServletResponse.SC_OK);
@@ -52,7 +52,7 @@ public class LogonInterceptor extends HandlerInterceptorAdapter {
 					}
 				}
 				return false;
-			}
+			}*/
 
 			String agent = request.getHeader("user-agent");
 			if("".equals(agent)){
