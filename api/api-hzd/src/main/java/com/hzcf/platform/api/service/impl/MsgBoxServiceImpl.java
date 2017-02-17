@@ -1,5 +1,6 @@
 package com.hzcf.platform.api.service.impl;
 
+import com.hzcf.platform.api.annotation.LogAnnotation;
 import com.hzcf.platform.core.user.model.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -32,6 +33,7 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 	 * 查询未读数量
 	 */
 	@Override
+	@LogAnnotation
 	public BackResult selectUnReadNum(UserVO user,MsgBoxVO msgBoxVO) {
 		Map<String,Object> map = new HashMap<String,Object>();
 
@@ -57,6 +59,7 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 	 */
 
 	@Override
+	@LogAnnotation
 	public BackResult selectAllByUser(UserVO user, MsgBoxVO msgBoxVO) {
 		if(msgBoxVO != null){
 			msgBoxVO.setUserId(user.getId());
@@ -90,6 +93,7 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 	 * 修改已读状态
 	 */
 	@Override
+	@LogAnnotation
 	public BackResult updateReadByUser( UserVO user,MsgBoxVO msgBoxVO) {
 		if(msgBoxVO != null){
 			msgBoxVO.setUserId(user.getId());

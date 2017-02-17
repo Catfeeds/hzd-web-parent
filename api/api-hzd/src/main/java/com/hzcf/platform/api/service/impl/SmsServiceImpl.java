@@ -1,6 +1,7 @@
 package com.hzcf.platform.api.service.impl;
 
 
+import com.hzcf.platform.api.annotation.LogAnnotation;
 import com.hzcf.platform.common.util.status.StatusCodes;
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -36,6 +37,7 @@ public class SmsServiceImpl implements ISmsService {
 	 * 用户注册 短信验证码
 	 */
 	@Override
+	@LogAnnotation
 	public BackResult registerSms(String mobile) {
 		if (StringUtils.isNotBlank(mobile)) {
 			try {
@@ -90,6 +92,7 @@ public class SmsServiceImpl implements ISmsService {
 	 * @return
 	 */
 	@Override
+	@LogAnnotation
 	public BackResult findPwdSms(String mobile) {
 		if (StringUtils.isNotBlank(mobile)) {
 			try {
@@ -139,6 +142,7 @@ public class SmsServiceImpl implements ISmsService {
 	 * 修改密码
 	 */
 	@Override
+	@LogAnnotation
 	public BackResult updatePwdSms(UserVO user) {
 		if (user != null && StringUtils.isNotBlank(user.getMobile())) {
 			try {
@@ -172,7 +176,7 @@ public class SmsServiceImpl implements ISmsService {
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_3010.getCode(), HzdStatusCodeEnum.MEF_CODE_3010.getMsg());
 		}
 	}
-	
+	@LogAnnotation
 	public BackResult smsCheck(String key,String mobile,String sms){
 		try {
 

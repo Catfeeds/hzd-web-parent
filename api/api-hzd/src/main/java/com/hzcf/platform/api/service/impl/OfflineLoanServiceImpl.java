@@ -1,6 +1,7 @@
 package com.hzcf.platform.api.service.impl;
 
 
+import com.hzcf.platform.api.annotation.LogAnnotation;
 import com.hzcf.platform.api.service.IOfflineLoanService;
 import com.hzcf.platform.common.exception.CheckException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -37,6 +38,7 @@ public class OfflineLoanServiceImpl implements IOfflineLoanService {
 	OnlineLoanWebService onlineLoanWebServic;
 	
 	@Override
+	@LogAnnotation
 	public BackResult offlineLoanApply(UserVO user, OnlineLoanInfo onlineLoanInfo) {
 		try {
 			DataVerifcation.datavVerification(user.getMobile(), onlineLoanInfo.getIdCard().toUpperCase(), onlineLoanInfo.getArea(), onlineLoanInfo.getName());
@@ -78,6 +80,7 @@ public class OfflineLoanServiceImpl implements IOfflineLoanService {
 	}
 	//作废  LoadService
 	@Override
+	@LogAnnotation
 	public BackResult offlineLoanQuery(String mobile) {
 		try {
 			String sendRsp = onlineLoanWebServic.OnlineLoanQuery(mobile);

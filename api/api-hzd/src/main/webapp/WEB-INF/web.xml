@@ -14,7 +14,7 @@
     </context-param>  
     
 	<!-- XSS过滤 -->
-	<filter>  
+	<!--<filter>
 	     <filter-name>XssSqlFilter</filter-name>  
 	     <filter-class>com.hzcf.platform.api.filter.XssFilter</filter-class>  
 	</filter>  
@@ -22,7 +22,7 @@
 	     <filter-name>XssSqlFilter</filter-name>  
 	     <url-pattern>/*</url-pattern>  
 	     <dispatcher>REQUEST</dispatcher>  
-	</filter-mapping>
+	</filter-mapping>-->
     
 	<!-- 字符编码过滤器 -->
 	<filter>

@@ -1,5 +1,6 @@
 package com.hzcf.platform.api.service.impl;
 
+import com.hzcf.platform.api.annotation.LogAnnotation;
 import com.hzcf.platform.api.common.ConstantsToken;
 import com.hzcf.platform.common.util.status.StatusCodes;
 import org.apache.commons.lang3.StringUtils;
@@ -38,6 +39,7 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
     private ICache cache;
 	
 	@Override
+	@LogAnnotation
 	public BackResult updatepwdForlogin(UserVO user,String smsnum) {
 		if(StringUtils.isNotBlank(user.getMobile())&&StringUtils.isNotBlank(user.getPassword())){
 			try {
@@ -92,6 +94,7 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 	}
 
 	@Override
+	@LogAnnotation
 	public BackResult findpwdForlogin(UserVO user,String smsnum) {
 		if(StringUtils.isBlank(user.getMobile())){
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(),

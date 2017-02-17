@@ -1,5 +1,6 @@
 package com.hzcf.platform.api.service.impl;
 
+import com.hzcf.platform.api.annotation.LogAnnotation;
 import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.api.model.WxjinjianQueryRsp;
 import com.hzcf.platform.api.util.DateUtil;
@@ -50,6 +51,7 @@ public class LoadServiceImpl implements ILoadService {
 	 * 
 	 */
 	@Override
+	@LogAnnotation
 	public BackResult insertLoad(String params) {
 		JSONObject json=JSONObject.fromObject(params);
 		String applyId=json.getString("applyId");
@@ -62,6 +64,7 @@ public class LoadServiceImpl implements ILoadService {
 	 * 
 	 */
 	@Override
+	@LogAnnotation
 	public BackResult operateLoad(String params) throws Exception {
 		JSONObject json=JSONObject.fromObject(params);
 		String applyId=json.getString("applyId");
@@ -72,6 +75,7 @@ public class LoadServiceImpl implements ILoadService {
 	 * 
 	 */
 	@Override
+	@LogAnnotation
 	public BackResult deleteLoad(String params) {
 		JSONObject json=JSONObject.fromObject(params);
 		String userId=json.getString("userId");
@@ -82,6 +86,7 @@ public class LoadServiceImpl implements ILoadService {
 	 * 
 	 */
 	@Override
+	@LogAnnotation
 	public BackResult selectLoadProgress(UserVO user) {
 		String mobile=user.getMobile();
 		if(StringUtils.isBlank(mobile)){

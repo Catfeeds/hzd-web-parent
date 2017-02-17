@@ -1,5 +1,6 @@
 package com.hzcf.platform.api.controller;
 
+import com.hzcf.platform.api.annotation.LogAnnotation;
 import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.api.config.ConfigSmsUtil;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +41,7 @@ public class SmsController {
 	@RequestMapping(value="api/100/sms/register",method=RequestMethod.POST)
 	@ResponseBody
 	public BackResult register(@RequestBodyForm UserVO user){
-		logger.i("进入用户注册SmsController====user:"+user.toString());
+		logger.i("进入用户注册");
 		return smsService.registerSms(user.getMobile());
 	}
 	
@@ -52,7 +53,7 @@ public class SmsController {
 	@RequestMapping(value="api/100/sms/findpwd",method=RequestMethod.POST)
 	@ResponseBody
 	public BackResult findpwd(@RequestBodyForm UserVO user){
-		logger.i("进入找回密码SmsController====user:"+user.toString());
+		logger.i("进入找回密码");
 		return smsService.findPwdSms(user.getMobile());
 	}
     
@@ -64,7 +65,7 @@ public class SmsController {
 	@RequestMapping(value="rest/api/100/sms/updatepwd",method=RequestMethod.POST)
 	@ResponseBody
 	public BackResult updatepwd(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
-		logger.i("进入修改密码SmsController====UserVO:"+user.toString());
+		logger.i("进入修改密码");
 		return smsService.updatePwdSms(user);
 	}
 	
@@ -76,7 +77,7 @@ public class SmsController {
 	@RequestMapping(value="api/100/sms/smsCheck/{type}",method=RequestMethod.POST)
 	@ResponseBody
 	public BackResult smsCheck(@RequestBodyForm UserVO user,@PathVariable String type){
-		logger.i("进入SmsController====UserVO:"+user.toString());
+		logger.i("进入短信校验");
 		
 		return smsService.smsCheck(user.getSmsCacheType(),user.getMobile(),type);
 	}

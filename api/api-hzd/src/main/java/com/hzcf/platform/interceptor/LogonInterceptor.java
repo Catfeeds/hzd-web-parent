@@ -26,7 +26,7 @@ public class LogonInterceptor extends HandlerInterceptorAdapter {
 	private static Log logger = Log.getLogger(LogonInterceptor.class);
 	
 	
-	/*
+	/**
 	 * @Autowired private TokenManager manager;
 	 */
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)

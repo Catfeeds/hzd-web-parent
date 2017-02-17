@@ -2,6 +2,7 @@ package com.hzcf.platform.api.controller;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.hzcf.platform.api.annotation.LogAnnotation;
 import com.hzcf.platform.api.config.RequestAgent;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -41,8 +42,7 @@ public class UserController {
 	@RequestMapping(value="api/100/user/register/{type}",method=RequestMethod.POST)
 	@ResponseBody
 	public BackResult register(@RequestBodyForm UserVO user,@PathVariable  String type){
-		logger.i("进入用户注册功能 ====入参====UserVO:"+user.toString());
-
+		logger.i("进入用户注册功能");
 		return registerUserService.register(user,type);
 	}
 	
@@ -50,20 +50,20 @@ public class UserController {
 	@ResponseBody
 	public BackResult logonUser(@RequestBodyForm UserVO user,HttpServletRequest request,
 			@RequestAttribute(BaseConfig.REQUEST_AGENT) RequestAgent agent){
-		logger.i("进入用户登录功能 ====入参====UserVO:"+user.toString());
+		logger.i("进入用户登录功能 ");
 		return registerUserService.logonUser(user,request,agent);
 	}
 	@RequestMapping(value="rest/api/100/user/exitLogon",method=RequestMethod.POST)
 	@ResponseBody
 	public BackResult  exitLogo(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
-		logger.i("进入退出登录功能 ====入参====UserVO:"+user.toString());
+		logger.i("进入退出登录功能");
 		return registerUserService.exitLogon(user);
 	}
 	
 	@RequestMapping(value="rest/api/100/user/isLogon",method=RequestMethod.POST)
 	@ResponseBody
 	public BackResult  isLogo(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
-		logger.i("登录状态判断 ====入参====UserVO:"+user.toString());
+		logger.i("登录状态判断");
 		return registerUserService.isLogon(user);
 	}
 }

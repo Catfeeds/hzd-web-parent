@@ -1,5 +1,6 @@
 package com.hzcf.platform.api.controller;
 
+import com.hzcf.platform.api.annotation.LogAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -33,8 +34,7 @@ public class UserPasswordController {
 	@RequestMapping(value="api/100/user/updatepwd/{type}",method=RequestMethod.POST)
 	@ResponseBody
 	public BackResult updatepwdForlogin(@RequestBodyForm UserVO user,@PathVariable String type){
-		logger.i("进入修改密码====UserVO:"+user.toString()+"num:"+type);
-		
+		logger.i("进入修改密码");
 		return userpwdForService.updatepwdForlogin(user, type);
 	}
 	                                                                                                       
@@ -46,8 +46,7 @@ public class UserPasswordController {
 	@RequestMapping(value="api/100/user/findpwd/{type}",method=RequestMethod.POST)
 	@ResponseBody
 	public BackResult findpwdForlogin(@RequestBodyForm UserVO user,@PathVariable String type){
-		logger.i("进入修改密码====UserVO:"+user.toString());
-		
+		logger.i("进入修改密码");
 		return userpwdForService.findpwdForlogin(user, type);
 	}
 	

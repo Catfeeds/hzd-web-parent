@@ -7,6 +7,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.hzcf.platform.api.annotation.LogAnnotation;
 import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.api.config.RequestAgent;
 import com.hzcf.platform.api.service.IUserService;
@@ -44,6 +45,7 @@ public class UserServiceImpl implements IUserService {
 	 * @date 2016年12月7日
 	 * @throws
 	 */
+	@LogAnnotation
 	public BackResult register(UserVO user,String type) {
 		try {
 
@@ -99,6 +101,7 @@ public class UserServiceImpl implements IUserService {
 	 * @date 2016年12月7日
 	 * @throws
 	 */
+	@LogAnnotation
 	public BackResult logonUser(UserVO user,HttpServletRequest request,RequestAgent agent){
 
 		try {
@@ -143,6 +146,7 @@ public class UserServiceImpl implements IUserService {
 
 	}
 	@Override
+	@LogAnnotation
 	public BackResult exitLogon(UserVO user) {
 		try {
 			cache.delete(ConstantsToken.USER_CACHE_KEY+user.getToken());
@@ -154,6 +158,7 @@ public class UserServiceImpl implements IUserService {
 	}
 
 	@Override
+	@LogAnnotation
 	public BackResult isLogon(UserVO user) {
 		if(user!=null){
 

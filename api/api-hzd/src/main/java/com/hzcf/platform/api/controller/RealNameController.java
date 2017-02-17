@@ -4,6 +4,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.hzcf.platform.api.annotation.LogAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,7 +39,6 @@ public class RealNameController {
     @RequestMapping(value="rest/api/100/user/selectRealName",method = RequestMethod.POST)
     public BackResult selectrealname(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
         logger.i("查询借款人实名认证信息");
-        logger.i("入参"+ JsonUtil.json2String(user));
         return realNameService.selectRealName(user);
     }
 	/**保存实名认证信息
@@ -47,7 +47,6 @@ public class RealNameController {
     @RequestMapping(value={"rest/api/100/user/saveRealName","api/100/user/saveRealName"},method = RequestMethod.POST)
     public BackResult saverealname(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,@RequestBody Map map){
         logger.i("保存借款人实名认证信息");
-        logger.i("入参"+ JsonUtil.json2String(user));
         return realNameService.saveRealName(user,map);
     }
 	/**上传实名认证图片
@@ -58,7 +57,6 @@ public class RealNameController {
             @RequestAttribute(BaseConfig.USER_TYPE)  UserVO user,
             @RequestBodyForm UserImageVO userImageVO)  {
         logger.i("保存借款人实名认证信息的图片");
-        logger.i("入参"+ JsonUtil.json2String(user));
         return realNameService.saveRealNamePic(request,user, userImageVO);
     }
 
@@ -69,7 +67,6 @@ public class RealNameController {
     public BackResult findImageInfo(
                                       @RequestAttribute(BaseConfig.USER_TYPE)  UserVO user)  {
         logger.i("保存借款人实名认证信息的图片");
-        logger.i("入参"+ JsonUtil.json2String(user));
         return realNameService.findImageInfo(user);
     }
 }

@@ -1,5 +1,6 @@
 package com.hzcf.platform.api.controller;
 
+import com.hzcf.platform.api.annotation.LogAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -38,8 +39,7 @@ public class OfflineApplyLoanController {
 	@RequestMapping(value="rest/api/100/offlineLoan/apply",method=RequestMethod.POST)
 	@ResponseBody
 	public BackResult onlineLoanApply(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user ,@RequestBodyForm OnlineLoanInfo onlineLoanInfo ){
-		logger.i("进入外访协助接口 ====入参====UserVO:"+user.toString());
-		logger.i("进入外访协助接口====入参====onlineLoanInfo:"+onlineLoanInfo.toString());
+		logger.i("进入外访协助接口");
 		return onlineLoanService.offlineLoanApply(user, onlineLoanInfo);
 	}
 	//“查询借款进度”，该方法不再使用，请使用com.hzcf.platform.webService.LoadService.selectLoadProgress(String)该方法
@@ -47,7 +47,7 @@ public class OfflineApplyLoanController {
 	@RequestMapping(value="rest/api/100/offlineLoan/query/{mobile}",method=RequestMethod.GET)
 	@ResponseBody
 	public BackResult onlineLoanQuery(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,@PathVariable String mobile){
-		 logger.i("进入用户查询进件功能 ====入参====UserVO:"+user.toString());
+		 logger.i("进入用户查询进件功能 ");
 		 return onlineLoanService.offlineLoanQuery(mobile);
 	}
 	

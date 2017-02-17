@@ -1,5 +1,6 @@
 package com.hzcf.platform.api.service.impl;
 
+import com.hzcf.platform.api.annotation.LogAnnotation;
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.common.DictBase;
 import com.hzcf.platform.api.config.BaseConfig;
@@ -63,6 +64,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
     LoadService loadService;
 
     @Override
+    @LogAnnotation
     public BackResult isApplyLoanQuery(UserVO user) {
 
         Map<String, Object> map = new HashMap<String, Object>();
@@ -157,6 +159,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
     }
 
     @Override
+    @LogAnnotation
     public BackResult onlineLoanapplyOne(UserVO user, UserApplyInfoVO userApplyInfoVO) {
         try {
             DataVerifcation.checkUserApplyInfoVO(userApplyInfoVO, user);
@@ -221,6 +224,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
     }
 
     @Override
+    @LogAnnotation
     public BackResult onlineLoanapplyInfoTwo(UserVO user, UserInfoVO userInfoVO, String applyId) {
 
         try {
@@ -339,6 +343,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
     }
 
     @Override
+    @LogAnnotation
     public BackResult onlineLoanapplyInfoThree(UserVO user, UserInfoVO userInfoVO, String applyId) {
 
         try {
@@ -391,6 +396,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
     }
 
     @Override
+    @LogAnnotation
     public BackResult onlineLoanapplyInfoPerfect(UserVO user, List<UserRelationVO> userRelationVO, String applyId) {
 
         try {
@@ -454,6 +460,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
     }
 
     @Override
+    @LogAnnotation
     public BackResult onlineLoanapplyImgUpload(HttpServletRequest request, UserVO user, UserImageVO userImageVO, String applyId) {
 
         //TODO 图片入参校验
@@ -551,6 +558,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
 
     @Override
+    @LogAnnotation
     public BackResult onlineLoanapplyInfoPreview(UserVO user, String applyId) {
         logger.i("---------------->>>>>>>个人信息预览接口---手机号:" + user.getMobile() + "----申请单号:" + applyId);
         Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
@@ -607,6 +615,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
     }
 
     @Override
+    @LogAnnotation
     public BackResult onlineLoanapplyInfoSubmit(UserVO user, String applyId) {
 
         Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
@@ -725,6 +734,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
     }
 
     @Override
+    @LogAnnotation
     public BackResult deleteApplyIdImage(UserVO user, String applyId) {
 
         List<String> applyIdList = new ArrayList<String>();

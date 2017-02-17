@@ -2,6 +2,7 @@ package com.hzcf.platform.api.controller;
 
 import java.util.Map;
 
+import com.hzcf.platform.api.annotation.LogAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,7 +60,6 @@ public class LoadController {
 	@RequestMapping(value="rest/api/100/user/selectloadprogress",method = RequestMethod.POST)
     public BackResult selectloadprogress(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user){
         logger.i("借款人查询借款进度接口");
-        logger.i("入参"+ JsonUtil.json2String(user));
         return loadService.selectLoadProgress(user);
     }
 

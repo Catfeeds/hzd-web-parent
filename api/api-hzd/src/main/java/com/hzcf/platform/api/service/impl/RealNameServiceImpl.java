@@ -10,6 +10,7 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
+import com.hzcf.platform.api.annotation.LogAnnotation;
 import com.hzcf.platform.api.config.BaseConfig;
 import com.imageserver.ImageServer;
 //import com.hzcf.platform.framework.fastdfs.pool.ImageServer;
@@ -79,6 +80,7 @@ public class RealNameServiceImpl implements IRealNameService {
      * 
      */
 	@Override
+	@LogAnnotation
 	public BackResult selectRealName(UserVO user) {
 		/**初始化参数：根据借款人的手机号查询用户信息*/
 		try {
@@ -112,6 +114,7 @@ public class RealNameServiceImpl implements IRealNameService {
 	 * 
 	 */
 	@Override
+	@LogAnnotation
 	public BackResult saveRealName(UserVO user,Map map) {
 		/**初始化参数：根据借款人的手机号查询借款人信息,该信息包含“实名认证信息”*/
 		Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
@@ -192,6 +195,7 @@ public class RealNameServiceImpl implements IRealNameService {
 	}
 
     @Override
+	@LogAnnotation
     public BackResult findImageInfo(UserVO user) {
         List<UserImageVO> items=null;
         if(StringUtils.isNotBlank(user.getId())){
@@ -220,6 +224,7 @@ public class RealNameServiceImpl implements IRealNameService {
 	 * 需要2个参数：借款人信息，实名认证的图片信息
 	 */
 	@Override
+	@LogAnnotation
 	public BackResult saveRealNamePic(HttpServletRequest request, UserVO user, UserImageVO userImageVO) {
 		if(StringUtils.isBlank(userImageVO.getImageType())){
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
