@@ -1,5 +1,6 @@
 package com.hzcf.platform.api.common;
 
+import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.core.user.model.UserApplyInfoVO;
 import com.hzcf.platform.core.user.model.UserInfoVO;
 import com.hzcf.platform.core.user.model.UserRelationVO;
@@ -26,11 +27,17 @@ import java.util.List;
  * </pre>
  */
 public class DataVerifcation {
-	 public DataVerifcation() {
+
+	private  static  final  String[]  XSS ={"<",">","script"};
+
+	public DataVerifcation() {
 	    }
 
 	    public static void datavVerification( String phone_num, String idCard, String area, String name, String sms, String psw, String id) throws CheckException {
-	        if (StringUtils.isBlank(phone_num) || !JudgeNumberLegal.isMobileNum(phone_num)) {
+			if(!verifyXSS(phone_num+sms+psw)){
+				throw new CheckException("传入参数包含非法字符");
+			}
+	    	if (StringUtils.isBlank(phone_num) || !JudgeNumberLegal.isMobileNum(phone_num)) {
 	            throw new CheckException("手机号码输入不合法");
 	        }  else if (StringUtils.isBlank(sms) || !JudgeNumberLegal.isCodeNum(sms)) {
 	            throw new CheckException("验证码输入不合法");
@@ -40,6 +47,9 @@ public class DataVerifcation {
 	    }
 	    
 	    public static void datavVerification( String phone_num, String sms) throws CheckException {
+			if(!verifyXSS(phone_num+sms)){
+				throw new CheckException("传入参数包含非法字符");
+			}
 	        if (StringUtils.isBlank(phone_num) || !JudgeNumberLegal.isMobileNum(phone_num)) {
 	            throw new CheckException("手机号码输入不合法");
 	        }  else if (StringUtils.isBlank(sms)) {
@@ -48,12 +58,20 @@ public class DataVerifcation {
 	    }
 
 	public static void datavVerification( String phone_num) throws CheckException {
+		if(!verifyXSS(phone_num)){
+			throw new CheckException("传入参数包含非法字符");
+		}
+
 		if (StringUtils.isBlank(phone_num) || !JudgeNumberLegal.isMobileNum(phone_num)) {
 			throw new CheckException("手机号码输入不合法");
 		}
 	}
 	    
 	    public static void datavVerification( String phone_num, String idCard, String area, String name) throws CheckException {
+
+			if(!verifyXSS(phone_num+idCard+area+name)){
+				throw new CheckException("传入参数包含非法字符");
+			}
 	        if (StringUtils.isBlank(phone_num) || !JudgeNumberLegal.isMobileNum(phone_num)) {
 	            throw new CheckException("手机号码输入不合法");
 	        } else if (StringUtils.isBlank(idCard) || !ServiceUtil.validateIdNo(idCard)) {
@@ -65,7 +83,9 @@ public class DataVerifcation {
 
 
 	    public static void checkUserApplyInfoVO(UserApplyInfoVO userApplyInfoVO,UserVO userVO) throws CheckException  {
-
+			if(!verifyXSS(JsonUtil.json2String(userApplyInfoVO)+JsonUtil.json2String(userVO))){
+				throw new CheckException("传入参数包含非法字符");
+			}
 			if (StringUtils.isBlank(userApplyInfoVO.getLoanPurposeOne()) ) {
 				throw new CheckException("借款用途大类输入为空");
 			}else if (StringUtils.isBlank(userVO.getId())){
@@ -86,7 +106,9 @@ public class DataVerifcation {
 		}
 
 		public static void checkUserInfoVOTwo(UserInfoVO userInfoVO, UserVO userVO) throws CheckException{
-
+			if(!verifyXSS(JsonUtil.json2String(userInfoVO)+JsonUtil.json2String(userVO))){
+				throw new CheckException("传入参数包含非法字符");
+			}
 			if (StringUtils.isBlank(userVO.getId()) ) {
 				throw new CheckException("用户UserID为空");
 			}else if (StringUtils.isBlank(userInfoVO.getIdcardValidity())){
@@ -131,7 +153,9 @@ public class DataVerifcation {
 		}
 
 	public static void checkUserInfoVOThree(UserInfoVO userInfoVO, UserVO userVO) throws CheckException{
-
+		if(!verifyXSS(JsonUtil.json2String(userInfoVO)+JsonUtil.json2String(userVO))){
+			throw new CheckException("传入参数包含非法字符");
+		}
 		if (StringUtils.isBlank(userVO.getId()) ) {
 			throw new CheckException("用户UserID为空");
 		}else if (StringUtils.isBlank(userInfoVO.getOrgName())){
@@ -153,12 +177,26 @@ public class DataVerifcation {
 	}
 
 	public static  void checkUserRelationVO(UserVO user,  List<UserRelationVO> userRelationVO) throws  CheckException{
-
+		if(!verifyXSS(JsonUtil.json2String(user)+JsonUtil.json2String(userRelationVO))){
+			throw new CheckException("传入参数包含非法字符");
+		}
 		if (StringUtils.isBlank(user.getId()) ) {
 			throw new CheckException("用户UserID为空");
 		}else if (userRelationVO==null){
 			throw new CheckException("请填写联系人信息");
 		}
 
+	}
+
+	public static boolean  verifyXSS(String data){
+
+
+		for (int i = 0;i<XSS.length;i++){
+				int i1 = data.indexOf(XSS[i]);
+				if(i1!=-1){
+					return  false;
+				}
+			}
+			return true;
 	}
 }

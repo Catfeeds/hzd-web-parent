@@ -136,7 +136,7 @@ public class OnlineApplyLoanController {
      */
     @RequestMapping(value = {"rest/api/100/deleteApplyIdImage/{applyId}", "api/100/onlineLoanapply/info/Preview/{applyId}"}, method = RequestMethod.POST)
     public BackResult deleteApplyIdImage(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,
-                                                @PathVariable String applyId) {
+                                              @PathVariable String applyId) {
         logger.i("进入 根据applyId删除图片信息 ");
         logger.i("入参user:" + JsonUtil.json2String(user));
         logger.i("applyId:" + applyId);

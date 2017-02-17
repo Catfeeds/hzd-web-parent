@@ -46,6 +46,7 @@ public class UserServiceImpl implements IUserService {
 	 */
 	public BackResult register(UserVO user,String type) {
 		try {
+
 			DataVerifcation.datavVerification(user.getMobile(),type);
 			String registerType = cache.load(ConstantsToken.SMS_CACHE_REG_KEY + user.getMobile());
 

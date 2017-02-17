@@ -11,7 +11,7 @@ import java.io.IOException;
  */
 public class verifyXSS {
 
-    public  static  final  String[]  XSS ={"<",">","script"};
+    private  static  final  String[]  XSS ={"<",">","script"};
     public static boolean verify(HttpServletRequest request) {
         MyRequestWrapper myRequestWrapper = null;
         try {
