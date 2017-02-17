@@ -126,7 +126,7 @@ public class SmsServiceImpl implements ISmsService {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				logger.i("数据处理异常"+ e.toString());
+				logger.e("数据处理异常"+ e.toString());
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
 			}
 		}else{
@@ -164,7 +164,7 @@ public class SmsServiceImpl implements ISmsService {
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
-				logger.i("数据处理异常"+ e.toString());
+				logger.e("数据处理异常"+ e.toString());
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
 			}
 		}else{

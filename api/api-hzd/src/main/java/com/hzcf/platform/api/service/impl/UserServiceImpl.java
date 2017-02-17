@@ -82,7 +82,7 @@ public class UserServiceImpl implements IUserService {
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
-			logger.i("注册出现异常---手机号:"+user.getMobile());
+			logger.e("注册出现异常---手机号:"+user.getMobile());
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
 		}
 		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
@@ -137,7 +137,7 @@ public class UserServiceImpl implements IUserService {
 			}
 		}  catch (Exception e) {
 			e.printStackTrace();
-			logger.i("登录出现异常---手机号:"+user.getMobile());
+			logger.e("登录出现异常---手机号:"+user.getMobile());
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
 		}
 
@@ -148,7 +148,7 @@ public class UserServiceImpl implements IUserService {
 			cache.delete(ConstantsToken.USER_CACHE_KEY+user.getToken());
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
 		} catch (Exception e) {
-			logger.i("退出登录出现异常");
+			logger.e("退出登录出现异常");
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
 		}
 	}

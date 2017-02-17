@@ -74,7 +74,7 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 				
 			}catch (CheckException e) {
 				e.printStackTrace();
-				logger.i("修改密码系统异常-手机号:"+user.getMobile());
+				logger.e("修改密码系统异常-手机号:"+user.getMobile());
 				return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(),e.getMessage());
 
 			} catch (Exception e) {
@@ -128,7 +128,7 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 				
 			} catch (Exception e) {
 				e.printStackTrace();
-				logger.i("找回密码系统异常-手机号:"+user.getMobile());
+				logger.e("找回密码系统异常-手机号:"+user.getMobile());
 			}
 		
 

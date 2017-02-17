@@ -60,8 +60,8 @@ public class DeleteImgUrlServiceImpl implements IDeleteImgUrlService {
                     HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),null);
         }
         } catch (Exception e) {
-            e.printStackTrace();
-            logger.i("删除图片失败  服务器异常");
+
+            logger.e("删除图片失败  服务器异常"+e);
             return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(),
                     HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),null);
         }

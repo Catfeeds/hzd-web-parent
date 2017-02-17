@@ -102,7 +102,7 @@ public class RealNameServiceImpl implements IRealNameService {
 			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),result);//返回“查询成功”，借款人的实名认证信息
 
 		}catch (Exception e){
-			logger.i("查询实名认证状态失败, 请检查");
+			logger.e("查询实名认证状态失败, 请检查");
 			e.printStackTrace();
 		}
 		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),HzdStatusCodeEnum.MEF_CODE_0001.getMsg(),null);//返回“查询成功”，借款人的实名认证信息
@@ -295,7 +295,7 @@ public class RealNameServiceImpl implements IRealNameService {
 						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
 
 					} catch (Exception e) {
-						logger.i("-----------系统异常,请检查数据源-------");
+						logger.e("-----------系统异常,请检查数据源-------");
 						e.printStackTrace();
 						return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
 								null);

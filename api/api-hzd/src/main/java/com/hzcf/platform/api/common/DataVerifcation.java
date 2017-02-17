@@ -81,7 +81,6 @@ public class DataVerifcation {
 	        } 
 	    }
 
-
 	    public static void checkUserApplyInfoVO(UserApplyInfoVO userApplyInfoVO,UserVO userVO) throws CheckException  {
 			if(!verifyXSS(JsonUtil.json2String(userApplyInfoVO)+JsonUtil.json2String(userVO))){
 				throw new CheckException("传入参数包含非法字符");
