@@ -1,21 +1,35 @@
-/*
-package com.hzcf.platform.api.aop;
+package com.hzcf.platform.api.annotation.biz;
+
+
+import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
+import com.hzcf.platform.api.common.BackResult;
+import com.hzcf.platform.common.util.log.Log;
+import org.aspectj.lang.ProceedingJoinPoint;
+import org.aspectj.lang.annotation.Around;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.reflect.MethodSignature;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
+import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
+
+import javax.validation.ConstraintViolation;
+import javax.validation.Validator;
+import java.lang.annotation.Annotation;
+import java.util.*;
 
 
 
-
-
-*/
 /**
  * Created by leijiaming on 2017/2/18
  * 请求参数切面验证
- *//*
-
+ */
 @Aspect
 public class RequestParamVerifier {
 
     private static Log logger = Log.getLogger(RequestParamVerifier.class);
-
+    @Autowired
     private Validator validator;
 
     private ExtendsOverProcessor processor;
@@ -28,57 +42,49 @@ public class RequestParamVerifier {
         this.processor = processor;
     }
 
-    */
-/**
+    /**
      * 切spring-mvc方法上的@RequestMapping注解, 后续放弃
      *
      * @param point
      * @return
      * @throws Throwable
-     *//*
-
+     */
 //    @Around("@annotation(org.springframework.web.bind.annotation.RequestMapping)")
     public Object verifySpringMVCMethod(ProceedingJoinPoint point) throws Throwable {
         return verify(point);
     }
 
-    */
-/**
+    /**
      * 切@RequestValidation
      *
      * @param point
      * @return
      * @throws Throwable
-     *//*
-
-    @Around("@within(org.cf.myfen.webapp.annotation.RequestValidation)")
+     */
+    @Around("@within(com.hzcf.platform.api.annotation.RequestValidation)")
     public Object verifyType(ProceedingJoinPoint point) throws Throwable {
         return verify(point);
     }
 
-    */
-/**
+    /**
      * 切请求
      *
      * @param point
      * @return
      * @throws Throwable
-     *//*
-
-    @Around("@annotation(org.cf.myfen.webapp.annotation.RequestValidation)")
+     */
+    @Around("@annotation(com.hzcf.platform.api.annotation.RequestValidation)")
     public Object verifyMethod(ProceedingJoinPoint point) throws Throwable {
         return verify(point);
     }
 
-    */
-/**
+    /**
      * 验证方法
      *
      * @param point
      * @return
      * @throws Throwable
-     *//*
-
+     */
     private Object verify(ProceedingJoinPoint point) throws Throwable {
         logger.i("start verify parameter for " + String.valueOf(point.getStaticPart()) + "\n\r");
 
@@ -101,8 +107,8 @@ public class RequestParamVerifier {
                         if (e == null)
                             continue;
                         BackResult result = new BackResult();
-                        result.setState(MEF_CODE_10040.getCode());
-                        result.setMessage(MEF_CODE_10040.getMsg());
+                        result.setState(HzdStatusCodeEnum.MEF_CODE_9000.getCode());
+                        result.setMessage(HzdStatusCodeEnum.MEF_CODE_9000.getMsg());
                         result.setShowMessage(e.getDefaultMessage());
                         // 打印验证日志
                         logger.w("parameter " + names[i] + "=" + os[i] + " was invalid the cause was " + e.getDefaultMessage() + "\n\r");
@@ -134,16 +140,14 @@ public class RequestParamVerifier {
         return point.proceed(os);
     }
 
-    */
-/**
+    /**
      * 验证参数
      *
      * @param ann
      * @param value
      * @param out 是否外部调用
      * @return
-     *//*
-
+     */
     private BackResult createBackResult(Annotation ann, Object value, Class<?> valType, boolean out) {
         if (ann == null)
             return null;
@@ -190,14 +194,12 @@ public class RequestParamVerifier {
         return result;
     }
 
-    */
-/**
+    /**
      * 验证结果
      *
      * @param value
      * @return
-     *//*
-
+     */
     private BackResult createConstraintViolation(Object value) {
         if (value == null)
             return null;
@@ -206,8 +208,8 @@ public class RequestParamVerifier {
             if (cv == null)
                 continue;
             BackResult result = new BackResult();
-            result.setState(MEF_CODE_10040.getCode());
-            result.setMessage(MEF_CODE_10040.getMsg());
+            result.setState(HzdStatusCodeEnum.MEF_CODE_9000.getCode());
+            result.setMessage(HzdStatusCodeEnum.MEF_CODE_9000.getMsg());
             result.setShowMessage(cv.getMessage());
             return result;
         }
@@ -215,4 +217,3 @@ public class RequestParamVerifier {
     }
 
 }
-*/

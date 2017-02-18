@@ -15,8 +15,13 @@
 			<groupId>com.hzcf.framework</groupId>
 			<artifactId>framework-webmvc</artifactId>
 		</dependency>
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>4.3.2.Final</version>
+        </dependency>
 
 
-	</dependencies>
+    </dependencies>
 	
 </project>

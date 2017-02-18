@@ -44,9 +44,9 @@ public class SmsServiceImpl implements ISmsService {
 
 				String sms = cache.load(ConstantsToken.SMS_CACHE_REG_KEY + mobile);
 				if(StringUtils.isNotBlank(sms)){
-					logger.i("1分钟内不能重复获取验证码。。。。。。。。。。。 手机号:"+mobile);
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+					logger.i("3分钟内不能重复获取验证码。。。。。。。。。。。 手机号:"+mobile);
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_3101.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_3101.getMsg());
 				}
 				Result<UserVO> byMobile = userSerivce.getByMobile(mobile);
 				if (StatusCodes.OK != (byMobile.getStatus())) {
@@ -98,9 +98,9 @@ public class SmsServiceImpl implements ISmsService {
 			try {
 				String sms = cache.load(ConstantsToken.SMS_CACHE_FINDPWD_KEY + mobile);
 				if(StringUtils.isNotBlank(sms)){
-					logger.i("1分钟内不能重复获取验证码。。。。。。。。。。。 手机号:"+mobile);
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+					logger.i("3分钟内不能重复获取验证码。。。。。。。。。。。 手机号:"+mobile);
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_3101.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_3101.getMsg());
 				}
 				Result<UserVO> byMobile = userSerivce.getByMobile(mobile);
 				if (StatusCodes.OK != (byMobile.getStatus())) {
@@ -148,9 +148,9 @@ public class SmsServiceImpl implements ISmsService {
 			try {
 				String sms = cache.load(ConstantsToken.SMS_CACHE_UPDATEPWD_KEY + user.getMobile());
 				if(StringUtils.isNotBlank(sms)){
-					logger.i("1分钟内不能重复获取验证码。。。。。。。。。。。 手机号:"+user.getMobile());
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+					logger.i("3分钟内不能重复获取验证码。。。。。。。。。。。 手机号:"+user.getMobile());
+					return new BackResult(HzdStatusCodeEnum.MEF_CODE_3101.getCode(),
+							HzdStatusCodeEnum.MEF_CODE_3101.getMsg());
 				}
 				String six = Serialnumber.getSix();
 				String dataInfo = SmsObtainService.smsObtain(six, user.getMobile());

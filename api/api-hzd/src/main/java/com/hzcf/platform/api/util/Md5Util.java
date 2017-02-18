@@ -8,7 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 /**
  *  md5加密方法
   * @ClassName: Md5Util
-  * @Description: TODO
+  * @Description:
   * @author Comsys-chengqiang
   * @date 2014-12-30 上午10:47:23
   *

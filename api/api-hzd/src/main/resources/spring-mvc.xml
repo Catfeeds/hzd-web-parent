@@ -86,7 +86,61 @@
     <aop:aspectj-autoproxy expose-proxy="true"></aop:aspectj-autoproxy>
 
     <context:component-scan base-package="com.hzcf.platform" />
-    
+    <!-- 国际化配置 -->
+   <!-- <bean id="localeResolver"
+          class="org.springframework.web.servlet.i18n.CookieLocaleResolver" />
+    <bean id="messageSource"
+          class="org.springframework.context.support.ReloadableResourceBundleMessageSource">
+        <property name="basenames">
+            <list>
+                <value>messages/hzd-messages</value>
+                <value>messages/hzd-messages-hibernate</value>
+            </list>
+        </property>
+        <property name="useCodeAsDefaultMessage" value="true" />
+    </bean>
+    &lt;!&ndash; 注册验证器 &ndash;&gt;
+    <mvc:annotation-driven validator="validator" />
+
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+      &lt;!&ndash;  <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+        &lt;!&ndash; 这里配置将使用上面国际化配置的messageSource &ndash;&gt;
+        <property name="validationMessageSource" ref="messageSource"/>&ndash;&gt;
+    </bean>-->
+
+<!--
+   &lt;!&ndash; &lt;!&ndash; 国际化资源文件 &ndash;&gt; &ndash;&gt;
+    <bean id="messageSource" class="com.hzcf.platform.api.annotation.biz.MessageReader">
+        <property name="basenames">
+            <list>
+                <value>messages/hzd-messages</value>
+                &lt;!&ndash;   <value>messages/hzd-messages-hibernate</value>&ndash;&gt;
+            </list>
+        </property>
+    </bean>
+  &lt;!&ndash;  &lt;!&ndash; 参数验证器 &ndash;&gt;&ndash;&gt;
+    <bean id="validator" class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean">
+        <property name="validationMessageSource" ref="messageSource"/>
+        <property name="providerClass" value="org.hibernate.validator.HibernateValidator"/>
+    </bean>-->
+
+
+    <!-- 参数验证切面 -->
+    <bean class="com.hzcf.platform.api.annotation.biz.RequestParamVerifier">
+
+        <property name="processor" ref="extendsOverProcessor"/>
+    </bean>
+
+    <!-- 复写处理 -->
+    <bean id="extendsOverProcessor" class="com.hzcf.platform.api.annotation.biz.ExtendsOverProcessor">
+        <property name="extendsCache">
+            <map key-type="java.lang.Class" value-type="com.hzcf.platform.api.annotation.biz.ExtendsOverHandler">
+                <entry key="com.hzcf.platform.api.annotation.biz.SimpleExtendsHandler" value-ref="simpleExtendsHandler"/>
+            </map>
+        </property>
+    </bean>
+    <bean id="simpleExtendsHandler" class="com.hzcf.platform.api.annotation.biz.SimpleExtendsHandler"/>
+
 </beans>
 	
 	
