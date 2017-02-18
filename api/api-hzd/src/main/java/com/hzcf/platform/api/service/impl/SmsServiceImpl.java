@@ -13,7 +13,7 @@ import com.hzcf.platform.common.cache.ICache;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.utils.Serialnumber;
-import com.hzcf.platform.api.common.ConstantsToken;
+import com.hzcf.platform.api.config.ConstantsToken;
 import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;

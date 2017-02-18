@@ -1,6 +1,5 @@
 package com.hzcf.platform.api.config;
 
-import com.hzcf.platform.api.common.ConstantsToken;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import com.hzcf.platform.api.controller.OfflineApplyLoanController;

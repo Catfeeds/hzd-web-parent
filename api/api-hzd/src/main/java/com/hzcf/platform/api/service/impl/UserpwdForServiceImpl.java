@@ -1,7 +1,7 @@
 package com.hzcf.platform.api.service.impl;
 
 import com.hzcf.platform.api.annotation.LogAnnotation;
-import com.hzcf.platform.api.common.ConstantsToken;
+import com.hzcf.platform.api.config.ConstantsToken;
 import com.hzcf.platform.common.util.status.StatusCodes;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

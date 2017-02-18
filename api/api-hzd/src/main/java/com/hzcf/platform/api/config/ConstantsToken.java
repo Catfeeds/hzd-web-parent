@@ -1,4 +1,4 @@
-package com.hzcf.platform.api.common;
+package com.hzcf.platform.api.config;
 
 import java.io.Serializable;
 
@@ -29,7 +29,7 @@ public class ConstantsToken  implements Serializable{
     /**
      * 短信验证码有效时间（一分钟）
      */
-    public static final int SMS_EXPIRES_MIN = 60;
+    public static final int SMS_EXPIRES_MIN = 180;
 
     /**
      * 存放Authorization的header字段

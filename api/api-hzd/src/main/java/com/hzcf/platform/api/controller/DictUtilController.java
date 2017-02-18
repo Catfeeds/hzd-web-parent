@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import com.hzcf.platform.api.annotation.LogAnnotation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.api.common.BackResult;
-import com.hzcf.platform.api.common.ConstantsToken;
+import com.hzcf.platform.api.config.ConstantsToken;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.core.user.model.UserDictJson;
 import com.hzcf.platform.core.user.service.DictUtilService;

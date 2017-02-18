@@ -5,7 +5,7 @@ import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.common.cache.ICache;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
-import com.hzcf.platform.api.common.ConstantsToken;
+import com.hzcf.platform.api.config.ConstantsToken;
 import com.hzcf.platform.api.util.CusAccessObjectUtil;
 import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.UserVO;
