@@ -32,11 +32,11 @@ public class DictUtilController {
         try {
             List<UserDictJson> map = dictUtilService.applyDictionaryJkyt();
             logger.i("map" + map);
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), map);
         } catch (Exception e) {
             logger.i("-----------系统异常,请检查数据源-------");
             e.printStackTrace();
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg(),
                     null);
         }
     }
@@ -57,11 +57,11 @@ public class DictUtilController {
             }
 
             logger.i("map" + map);
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), map);
         } catch (Exception e) {
             logger.i("-----------系统异常,请检查数据源-------");
             e.printStackTrace();
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg(),
                     null);
         }
     }
@@ -71,11 +71,11 @@ public class DictUtilController {
     public BackResult applyDictionaryinfo() {
         try {
             Map<String, Object> stringObjectMap = dictUtilService.applyDictionaryinfo();
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), stringObjectMap);
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), stringObjectMap);
         } catch (Exception e) {
             logger.i("-----------系统异常,请检查数据源-------");
             e.printStackTrace();
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg(),
                     null);
         }
     }
@@ -85,11 +85,11 @@ public class DictUtilController {
     public BackResult applyDictionarySheng() {
         try {
             List<UserDictJson> userDictJsons = dictUtilService.applyDictionaryRegionsheng();
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), userDictJsons);
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), userDictJsons);
         } catch (Exception e) {
             logger.i("-----------系统异常,请检查数据源-------");
             e.printStackTrace();
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg(),
                     null);
         }
     }
@@ -98,11 +98,11 @@ public class DictUtilController {
     public BackResult applyDictionaryShi(@PathVariable String code) {
         try {
             Map<String, Object> stringObjectMap = dictUtilService.applyDictionaryRegionshi();
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), stringObjectMap.get(code));
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), stringObjectMap.get(code));
         } catch (Exception e) {
             logger.i("-----------系统异常,请检查数据源-------");
             e.printStackTrace();
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg(),
                     null);
         }
     }
@@ -111,11 +111,11 @@ public class DictUtilController {
     public BackResult applyDictionaryQu(@PathVariable String code) {
         try {
             Map<String, Object> stringObjectMap = dictUtilService.applyDictionaryRegionqu();
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), stringObjectMap.get(code));
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), stringObjectMap.get(code));
         } catch (Exception e) {
             logger.i("-----------系统异常,请检查数据源-------");
             e.printStackTrace();
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg(),
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg(),
                     null);
         }
     }

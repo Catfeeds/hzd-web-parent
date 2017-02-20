@@ -61,7 +61,7 @@ public class RequestParamVerifier {
      * @return
      * @throws Throwable
      */
-    @Around("@within(com.hzcf.platform.api.annotation.RequestValidation)")
+    @Around("@within(com.hzcf.platform.api.aop.RequestValidation)")
     public Object verifyType(ProceedingJoinPoint point) throws Throwable {
         return verify(point);
     }
@@ -73,7 +73,7 @@ public class RequestParamVerifier {
      * @return
      * @throws Throwable
      */
-    @Around("@annotation(com.hzcf.platform.api.annotation.RequestValidation)")
+    @Around("@annotation(com.hzcf.platform.api.aop.RequestValidation)")
     public Object verifyMethod(ProceedingJoinPoint point) throws Throwable {
         return verify(point);
     }
@@ -107,8 +107,8 @@ public class RequestParamVerifier {
                         if (e == null)
                             continue;
                         BackResult result = new BackResult();
-                        result.setState(HzdStatusCodeEnum.MEF_CODE_9000.getCode());
-                        result.setMessage(HzdStatusCodeEnum.MEF_CODE_9000.getMsg());
+                        result.setState(HzdStatusCodeEnum.HZD_CODE_9000.getCode());
+                        result.setMessage(HzdStatusCodeEnum.HZD_CODE_9000.getMsg());
                         result.setShowMessage(e.getDefaultMessage());
                         // 打印验证日志
                         logger.w("parameter " + names[i] + "=" + os[i] + " was invalid the cause was " + e.getDefaultMessage() + "\n\r");
@@ -208,8 +208,8 @@ public class RequestParamVerifier {
             if (cv == null)
                 continue;
             BackResult result = new BackResult();
-            result.setState(HzdStatusCodeEnum.MEF_CODE_9000.getCode());
-            result.setMessage(HzdStatusCodeEnum.MEF_CODE_9000.getMsg());
+            result.setState(HzdStatusCodeEnum.HZD_CODE_9000.getCode());
+            result.setMessage(HzdStatusCodeEnum.HZD_CODE_9000.getMsg());
             result.setShowMessage(cv.getMessage());
             return result;
         }

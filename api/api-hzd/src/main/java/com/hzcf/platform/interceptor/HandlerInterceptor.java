@@ -94,8 +94,8 @@ public class HandlerInterceptor extends HandlerInterceptorAdapter {
 			try {
 
 				out = response.getWriter();
-				out.print(JsonUtil.json2String(new BackResult(HzdStatusCodeEnum.MEF_CODE_1111.getCode(),
-						HzdStatusCodeEnum.MEF_CODE_1111.getMsg())));
+				out.print(JsonUtil.json2String(new BackResult(HzdStatusCodeEnum.HZD_CODE_1111.getCode(),
+						HzdStatusCodeEnum.HZD_CODE_1111.getMsg())));
 			} catch (IOException e) {
 				e.printStackTrace();
 			} finally {

@@ -42,15 +42,15 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 			Result<Integer> result = this.msgBoxservice.selectUnReadNum(msgBoxVO);
 			if (StatusCodes.OK != (result.getStatus())) {
 				logger.i("数据查询失败 - 500,  失败 。。。。。。。。。。。。。 ");
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
+						HzdStatusCodeEnum.HZD_CODE_0001.getMsg());
 			}
 			map.put("number",result.getItems());
 			logger.i("用户  查询未读数量 。。。。。。 成功。。。。。 ");
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), map);
 		}else{
 			logger.i("用户  查询未读数量 。。。。。。 失败。。。。。 ");
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_2100.getCode(), HzdStatusCodeEnum.MEF_CODE_2100.getMsg(), null);
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_2100.getCode(), HzdStatusCodeEnum.HZD_CODE_2100.getMsg(), null);
 		}
 	}
 
@@ -67,23 +67,23 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 			if(StatusCodes.OK==result.getStatus() ){
 				if(result.getItems().size()==0){
 					logger.i("用户 查询站内信列表 。。。。。。 。。。。。查询成功， 但无数据。。。。。。。。 ");
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_5100.getCode(), HzdStatusCodeEnum.MEF_CODE_5100.getMsg(), result.getItems());
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_5100.getCode(), HzdStatusCodeEnum.HZD_CODE_5100.getMsg(), result.getItems());
 				}
 				Result<Boolean> update_result = this.msgBoxservice.updateReadByUser(msgBoxVO);
 				if(StatusCodes.OK==update_result.getStatus()){
 					logger.i("用户 查询站内信列表 。。。。。。 。。。。。修改已读状态 成功。。。。。。。。 ");
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), result.getItems());
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), result.getItems());
 				}else{
 					logger.i("用户 查询站内信列表 。。。。。。 。。。。。修改已读状态 失败。。。。。。。。 ");
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_2200.getCode(), HzdStatusCodeEnum.MEF_CODE_2200.getMsg(), null);
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_2200.getCode(), HzdStatusCodeEnum.HZD_CODE_2200.getMsg(), null);
 				}
 			}else{
 				logger.i("用户 查询站内信列表 。。。。。。 。。。。。查询 失败 。读取数据异常 500。。。。。。。 ");
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_2100.getCode(), HzdStatusCodeEnum.MEF_CODE_2100.getMsg(), null);
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_2100.getCode(), HzdStatusCodeEnum.HZD_CODE_2100.getMsg(), null);
 			}
 		}else{
 			logger.i("用户 查询站内信列表 。。。。。。 。。。。。查询 失败。。。传入参数为空。。。。。 ");
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_2100.getCode(), HzdStatusCodeEnum.MEF_CODE_2100.getMsg(), null);
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_2100.getCode(), HzdStatusCodeEnum.HZD_CODE_2100.getMsg(), null);
 		}
 		
 	}
@@ -98,9 +98,9 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 		if(msgBoxVO != null){
 			msgBoxVO.setUserId(user.getId());
 			Result<Boolean> result = this.msgBoxservice.updateReadByUser(msgBoxVO);
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), result.getItems());
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), result.getItems());
 		}else{
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_2100.getCode(), HzdStatusCodeEnum.MEF_CODE_2100.getMsg(), null);
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_2100.getCode(), HzdStatusCodeEnum.HZD_CODE_2100.getMsg(), null);
 		}
 	}
 

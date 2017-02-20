@@ -37,7 +37,7 @@ public class DeleteImgUrlServiceImpl implements IDeleteImgUrlService {
 
         if (StringUtils.isBlank(userImageVO.getArtWork())) {
             logger.i("artWork为空");
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(),
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_9000.getCode(),
                     "artWork为空", null);
         }
 
@@ -52,22 +52,22 @@ public class DeleteImgUrlServiceImpl implements IDeleteImgUrlService {
                 boolean b = imageServer.deleteFile(sufFirst);
                 if (!b) {
                     logger.i("删除图片失败  图片服务器异常");
-                    return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(),
-                            HzdStatusCodeEnum.MEF_CODE_9999.getMsg(), null);
+                    return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(),
+                            HzdStatusCodeEnum.HZD_CODE_9999.getMsg(), null);
                 }
 
                 logger.i("删除图片成功");
-                return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
-                        HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), null);
+                return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
+                        HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), null);
             }
         } catch (Exception e) {
 
             logger.e("删除图片失败  服务器异常" + e);
-            return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(),
-                    HzdStatusCodeEnum.MEF_CODE_9999.getMsg(), null);
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(),
+                    HzdStatusCodeEnum.HZD_CODE_9999.getMsg(), null);
         }
         logger.i("删除图片失败");
-        return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-                HzdStatusCodeEnum.MEF_CODE_0001.getMsg(), null);
+        return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
+                HzdStatusCodeEnum.HZD_CODE_0001.getMsg(), null);
     }
 }

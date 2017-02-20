@@ -55,7 +55,7 @@ public class OnlineApplyLoanController {
      * 用户进件申请  详情信息  第二步
      */
     @RequestMapping(value = {"rest/api/100/onlineLoanapply/info/two/{applyId}", "api/100/onlineLoanapply/info/two/{applyId}"}, method = RequestMethod.POST)
-    public BackResult onlineLoanapplyInfoTwo(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user, @RequestBodyForm UserInfoVO userInfoVO, @PathVariable String applyId) {
+    public BackResult onlineLoanapplyInfoTwo(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user, @RequestBodyForm UserInfoVO userInfoVO,  @PathVariable  String applyId) {
         logger.i("进入  -----用户进件申请第二步,录入借款人详细信息 ");
         return onlineApplyLoanService.onlineLoanapplyInfoTwo(user, userInfoVO, applyId);
     }

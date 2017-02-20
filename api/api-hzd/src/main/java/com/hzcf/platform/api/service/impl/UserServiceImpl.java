@@ -54,21 +54,21 @@ public class UserServiceImpl implements IUserService {
 
 			if(!type.equals(registerType)){
 				logger.i("");
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_3000.getCode(), HzdStatusCodeEnum.MEF_CODE_3000.getMsg());
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_3000.getCode(), HzdStatusCodeEnum.HZD_CODE_3000.getMsg());
 
 			}
 
 			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
 			if (StatusCodes.OK != (byMobile.getStatus())) {
 				logger.i("查询数据失败 。byMobile   >>>>500。。。。。。。。。。。 ");
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
+						HzdStatusCodeEnum.HZD_CODE_0001.getMsg());
 			}
 			UserVO items = byMobile.getItems();
 
 			if(items!=null){
 				logger.i("此用户已经注册 ---手机号:"+user.getMobile());
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_1010.getCode(), HzdStatusCodeEnum.MEF_CODE_1010.getMsg());
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_1010.getCode(), HzdStatusCodeEnum.HZD_CODE_1010.getMsg());
 			}
 
 			user.setId(UUIDGenerator.getUUID());
@@ -80,14 +80,14 @@ public class UserServiceImpl implements IUserService {
 			Result<String> create = userSerivce.insertSelective(user);
 			if(StatusCodes.OK==create.getStatus()){
 				logger.i("注册成功 ---手机号:"+user.getMobile());
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg());
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 			logger.e("注册出现异常---手机号:"+user.getMobile());
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg());
 		}
-		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+		return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(), HzdStatusCodeEnum.HZD_CODE_0001.getMsg());
 
 	}
 
@@ -109,8 +109,8 @@ public class UserServiceImpl implements IUserService {
 			Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
 			if (StatusCodes.OK != (byMobile.getStatus())) {
 				logger.i("查询数据失败 。byMobile   >>>>500。。。。。。。。。。。 ");
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-						HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
+						HzdStatusCodeEnum.HZD_CODE_0001.getMsg());
 			}
 			UserVO items = byMobile.getItems();
 			Map<String,Object> map = new HashMap<String,Object>();
@@ -118,7 +118,7 @@ public class UserServiceImpl implements IUserService {
 				if(user.getPassword().equals(items.getPassword())){
 					if(BaseConfig.status_1.equals(items.getStatus())){
 						logger.i("用户被禁用,禁止登录,手机号:"+items.getMobile());
-						return new BackResult(HzdStatusCodeEnum.MEF_CODE_1099.getCode(), HzdStatusCodeEnum.MEF_CODE_1099.getMsg(),null);
+						return new BackResult(HzdStatusCodeEnum.HZD_CODE_1099.getCode(), HzdStatusCodeEnum.HZD_CODE_1099.getMsg(),null);
 					}
 					String token =UUIDGenerator.getUUID();
 					items.setToken(token);
@@ -129,19 +129,19 @@ public class UserServiceImpl implements IUserService {
 					map.put("mobile", items.getMobile());
 					map.put("token", token);
 					map.put("id",items.getId());
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),map);
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),map);
 				}
 				logger.i("用户帐号密码错误.手机号:"+user.getMobile());
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_1022.getCode(), HzdStatusCodeEnum.MEF_CODE_1022.getMsg());
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_1022.getCode(), HzdStatusCodeEnum.HZD_CODE_1022.getMsg());
 
 			}else{
 				logger.i("用户未注册,请先注册.手机号:"+user.getMobile());
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_1011.getCode(), HzdStatusCodeEnum.MEF_CODE_1011.getMsg());
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_1011.getCode(), HzdStatusCodeEnum.HZD_CODE_1011.getMsg());
 			}
 		}  catch (Exception e) {
 			e.printStackTrace();
 			logger.e("登录出现异常---手机号:"+user.getMobile());
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg());
 		}
 
 	}
@@ -150,10 +150,10 @@ public class UserServiceImpl implements IUserService {
 	public BackResult exitLogon(UserVO user) {
 		try {
 			cache.delete(ConstantsToken.USER_CACHE_KEY+user.getToken());
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg());
 		} catch (Exception e) {
 			logger.e("退出登录出现异常");
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg());
 		}
 	}
 
@@ -162,8 +162,8 @@ public class UserServiceImpl implements IUserService {
 	public BackResult isLogon(UserVO user) {
 		if(user!=null){
 
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg());
 		}
-		return new BackResult(HzdStatusCodeEnum.MEF_CODE_1012.getCode(), HzdStatusCodeEnum.MEF_CODE_1012.getMsg());
+		return new BackResult(HzdStatusCodeEnum.HZD_CODE_1012.getCode(), HzdStatusCodeEnum.HZD_CODE_1012.getMsg());
 	}
 }

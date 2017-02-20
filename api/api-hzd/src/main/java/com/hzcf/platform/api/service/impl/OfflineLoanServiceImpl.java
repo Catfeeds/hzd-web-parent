@@ -54,27 +54,27 @@ public class OfflineLoanServiceImpl implements IOfflineLoanService {
 			if (retCode.equals("0000")) {
 				logger.i("外访协助申请成功"+retInfo+"手机号:"+onlineLoanInfo.getMobile());
 				return	new BackResult(
-						HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
-						HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),retInfo);
+						HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
+						HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),retInfo);
 			} else if(retCode.equals("4000")) {
 		    	return new BackResult(
-		    			HzdStatusCodeEnum.MEF_CODE_2333.getCode(), retInfo,null);
+		    			HzdStatusCodeEnum.HZD_CODE_2333.getCode(), retInfo,null);
 		    }else{
 				logger.i("进入微信进件提交方法:提交失败:"+retInfo+"手机号:"+onlineLoanInfo.getMobile());
 				return	new BackResult(
-						HzdStatusCodeEnum.MEF_CODE_2200.getCode(), retInfo);
+						HzdStatusCodeEnum.HZD_CODE_2200.getCode(), retInfo);
 
 			}
 		}catch (CheckException e){
 			e.printStackTrace();
 			return	new BackResult(
-					HzdStatusCodeEnum.MEF_CODE_9000.getCode(),
+					HzdStatusCodeEnum.HZD_CODE_9000.getCode(),
 					e.getMessage(),null);
 		}
 		catch (Exception e) {
 			e.printStackTrace();
 			return	new BackResult(
-					HzdStatusCodeEnum.MEF_CODE_2211.getCode(),
+					HzdStatusCodeEnum.HZD_CODE_2211.getCode(),
 					e.getMessage(),null);
 		}
 	}
@@ -91,21 +91,21 @@ public class OfflineLoanServiceImpl implements IOfflineLoanService {
 		    if(retCode.equals("0000")){
 		    	WxjinjianQueryRsp wr=JsonUtil.jsonNote2Object(sendRsp, WxjinjianQueryRsp.class);
 		    	logger.i("查询微信进件信息成功：mobile"+mobile);
-		    	return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),retInfo,wr!=null?wr.getWeiXinApplyList():null);
+		    	return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),retInfo,wr!=null?wr.getWeiXinApplyList():null);
 			 	
 		    }else if(retCode.equals("4000")) {
 		    	return new BackResult(
-		    			HzdStatusCodeEnum.MEF_CODE_2333.getCode(), retInfo,null);
+		    			HzdStatusCodeEnum.HZD_CODE_2333.getCode(), retInfo,null);
 		    }else{
 		    	logger.i("查询微信进件信息失败：mobile"+mobile);
-		    	return 	new BackResult(HzdStatusCodeEnum.MEF_CODE_2100.getCode(), HzdStatusCodeEnum.MEF_CODE_2100.getMsg());
+		    	return 	new BackResult(HzdStatusCodeEnum.HZD_CODE_2100.getCode(), HzdStatusCodeEnum.HZD_CODE_2100.getMsg());
 			 	
 		    }
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 			new BackResult(
-					HzdStatusCodeEnum.MEF_CODE_2111.getCode(),
+					HzdStatusCodeEnum.HZD_CODE_2111.getCode(),
 					e.getMessage());
 		}
 		return null;

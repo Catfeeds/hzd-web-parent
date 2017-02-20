@@ -48,12 +48,12 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 
 				if(!smsnum.equals(registerType)){
 					logger.i("修改密码验证码输入有误");
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_3000.getCode(), HzdStatusCodeEnum.MEF_CODE_3000.getMsg());
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_3000.getCode(), HzdStatusCodeEnum.HZD_CODE_3000.getMsg());
 
 				}
 
 				if(StringUtils.isBlank( user.getId())){
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(),"userId为空");
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_9000.getCode(),"userId为空");
 				}	
 				DataVerifcation.datavVerification(user.getMobile(), null, null, null, smsnum, user.getPassword(), user.getId());
 
@@ -62,22 +62,22 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 				Result<Boolean> updateMobile = userSerivce.updateMobile(user);
 				if (StatusCodes.OK != (updateMobile.getStatus())) {
 					logger.i("修改密码失败 。byMobile   >>>>500。。。。。。。。。。。 ");
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
+							HzdStatusCodeEnum.HZD_CODE_0001.getMsg());
 				}
 					if(updateMobile.getItems()){
 						logger.i("修改密码成功-手机号:"+user.getMobile());
-						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
+						return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg());
 
 					}else{
 						logger.i("修改密码失败-手机号:"+user.getMobile());
-						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(), HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+						return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(), HzdStatusCodeEnum.HZD_CODE_0001.getMsg());
 					}
 				
 			}catch (CheckException e) {
 				e.printStackTrace();
 				logger.e("修改密码系统异常-手机号:"+user.getMobile());
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(),e.getMessage());
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_9000.getCode(),e.getMessage());
 
 			} catch (Exception e) {
 				e.printStackTrace();
@@ -87,17 +87,17 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 			
 		}else{
 			logger.i("修改密码传入参数有误-手机号:"+user.getMobile());
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(), HzdStatusCodeEnum.MEF_CODE_9000.getMsg());
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_9000.getCode(), HzdStatusCodeEnum.HZD_CODE_9000.getMsg());
 
 		}
-		return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+		return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg());
 	}
 
 	@Override
 	@LogAnnotation
 	public BackResult findpwdForlogin(UserVO user,String smsnum) {
 		if(StringUtils.isBlank(user.getMobile())){
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(),
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_9000.getCode(),
 					"手机号码输入不能为空",null);
 		}
 
@@ -105,7 +105,7 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 
 		if(!smsnum.equals(registerType)){
 			logger.i("找回密码验证码输入有误");
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_3000.getCode(), HzdStatusCodeEnum.MEF_CODE_3000.getMsg());
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_3000.getCode(), HzdStatusCodeEnum.HZD_CODE_3000.getMsg());
 
 		}
 		if(StringUtils.isNotBlank(user.getMobile())&&StringUtils.isNotBlank(user.getPassword())){
@@ -113,19 +113,19 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 				Result<UserVO> byMobile = userSerivce.getByMobile(user.getMobile());
 				if (StatusCodes.OK != (byMobile.getStatus())) {
 					logger.i("查询数据失败 。byMobile   >>>>500。。。。。。。。。。。 ");
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
+							HzdStatusCodeEnum.HZD_CODE_0001.getMsg());
 				}
 				UserVO items = byMobile.getItems();
 				if(StringUtils.isBlank( items.getId())){
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(),"未查询到用户信息");
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_9000.getCode(),"未查询到用户信息");
 				}
 				user.setId(items.getId());
 				DataVerifcation.datavVerification(user.getMobile(), null, null, null, smsnum, user.getPassword(), user.getId());
 					Result<Boolean> updateMobile = userSerivce.updateMobile(user);
 					if(updateMobile.getItems()){
 						logger.i("找回密码成功-手机号:"+user.getMobile());
-						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
+						return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg());
 
 					}
 				
@@ -137,10 +137,10 @@ public class UserpwdForServiceImpl implements IUserpwdForService{
 
 		}else{
 			logger.i("找回密码传入参数有误-手机号:"+user.getMobile());
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9000.getCode(), HzdStatusCodeEnum.MEF_CODE_9000.getMsg());
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_9000.getCode(), HzdStatusCodeEnum.HZD_CODE_9000.getMsg());
 
 		}
-		return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+		return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg());
 	}
 	
 }
