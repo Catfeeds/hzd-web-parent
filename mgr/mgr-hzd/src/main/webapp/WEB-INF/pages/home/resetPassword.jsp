@@ -3,7 +3,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>重置密码</title>
+    <title>重置密码 </title>
 	<%@include file="../common/include.jsp"%>
 	<script src="${path}/script/artDialog/jquery.artDialog.js?skin=blue" type="text/javascript"></script>
 	<script src="${path}/script/artDialog/plugins/iframeTools.js" type="text/javascript"></script>
