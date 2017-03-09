@@ -67,7 +67,7 @@ public class SmsServiceImpl implements ISmsService {
 						
 						logger.i("-------------获取短信验证码成功" + six + "phoneNum:"+ mobile);
 						Map map = new HashMap<>();
-						map.put("sms",six);
+					 
 						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
 					}else{
 						logger.i("调用接口失败"+ mobile);
@@ -116,7 +116,7 @@ public class SmsServiceImpl implements ISmsService {
 						//缓存验证码
 						cache.save(ConstantsToken.SMS_CACHE_FINDPWD_KEY+mobile, six ,ConstantsToken.SMS_EXPIRES_MIN);
 						Map map = new HashMap<>();
-						map.put("sms",six);
+					 
 						logger.i("-------------获取短信验证码成功" + six + "phoneNum:"+ mobile);
 						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
 					}else{
@@ -160,7 +160,7 @@ public class SmsServiceImpl implements ISmsService {
 					
 					logger.i("-------------获取短信验证码成功" + six + "phoneNum:"+ user.getMobile());
 					 Map map = new HashMap<>();
-					map.put("sms",six);
+				 
 					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
 				}else{
 					logger.i("获取验证码失败"+ user.getMobile());
