@@ -44,7 +44,7 @@
 
     <sql id="Base_Column_List">
     apply_id, user_id, loan_purpose_one, loan_purpose_two, min_apply_amount, max_apply_amount, 
-    max_monthly_payment, status, apply_submit_time,period,borrower_apply_id,additional_submit_time,additional_status,additional_content,
+    max_monthly_payment, status, apply_submit_time,period,borrower_apply_id,additional_submit_time,additional_status,additional_content
 
   </sql>
     <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -88,7 +88,7 @@
     <insert id="insert" parameterType="UserApplyInfo">
     insert into user_apply_info (apply_id, user_id, loan_purpose_one, 
       loan_purpose_two, min_apply_amount, max_apply_amount, 
-      max_monthly_payment, status, apply_submit_time,period,borrower_apply_id,additional_submit_time,additional_status,additional_content,
+      max_monthly_payment, status, apply_submit_time,period,borrower_apply_id,additional_submit_time,additional_status,additional_content
 
       )
     values (#{applyId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{loanPurposeOne,jdbcType=VARCHAR}, 
