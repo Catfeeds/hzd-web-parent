@@ -11,6 +11,7 @@ import com.hzcf.platform.common.exception.CheckException;
 import com.hzcf.platform.common.util.utils.JudgeNumberLegal;
 import com.hzcf.platform.common.util.utils.ServiceUtil;
 
+import javax.xml.crypto.Data;
 import java.util.List;
 
 /**
@@ -171,6 +172,10 @@ public class DataVerifcation {
 			throw new CheckException("单位电话号码不能为空");
 		}else if (userInfoVO.getOrgTelCode().length()!=8 && userInfoVO.getOrgTelCode().length()!=7){
 			throw new CheckException("单位电话号码长度不符");
+		}else if (StringUtils.isBlank(userInfoVO.getPositions())){
+			throw new CheckException("担任职务不能为空");
+		}else if (userInfoVO.getEntryDate()==null){
+			throw new CheckException("入职时间不能为空");
 		}
 
 	}

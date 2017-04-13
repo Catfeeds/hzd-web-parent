@@ -6,6 +6,7 @@ import com.hzcf.platform.api.annotation.RequestBodyForm;
 import com.hzcf.platform.api.common.BackResult;
 
 import com.hzcf.platform.api.config.BaseConfig;
+import com.hzcf.platform.api.form.UserRelationForm;
 import com.hzcf.platform.core.user.model.*;
 
 import javax.servlet.http.HttpServletRequest;
@@ -51,10 +52,10 @@ public interface IOnlineApplyLoanService {
     /**
      * 进件申请第四步 完善个人信息
      * @param user
-     * @param userRelationVO
+     * @param UserRelationForm
      * @return
      */
-    public BackResult onlineLoanapplyInfoPerfect(UserVO user, List<UserRelationVO> userRelationVO,String applyId);
+    public BackResult onlineLoanapplyInfoPerfect(UserVO user, UserRelationForm userRelationForm, String applyId);
 
     /**
      * 进件申请第五步 上传图片

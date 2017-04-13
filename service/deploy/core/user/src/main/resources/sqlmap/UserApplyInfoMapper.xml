@@ -1,184 +1,246 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace="com.hzcf.platform.core.user.data.UserApplyInfo" >
-  <resultMap id="BaseResultMap" type="UserApplyInfo" >
-    <result column="apply_id" property="applyId" jdbcType="VARCHAR" />
-    <result column="user_id" property="userId" jdbcType="VARCHAR" />
-    <result column="loan_purpose_one" property="loanPurposeOne" jdbcType="VARCHAR" />
-    <result column="loan_purpose_two" property="loanPurposeTwo" jdbcType="VARCHAR" />
-    <result column="min_apply_amount" property="minApplyAmount" jdbcType="DECIMAL" />
-    <result column="max_apply_amount" property="maxApplyAmount" jdbcType="DECIMAL" />
-    <result column="max_monthly_payment" property="maxMonthlyPayment" jdbcType="DECIMAL" />
-    <result column="status" property="status" jdbcType="VARCHAR" />
-    <result column="apply_submit_time" property="applySubmitTime" jdbcType="TIMESTAMP" />
-    <result column="period" property="period" jdbcType="VARCHAR" />
-  </resultMap>
-  
-  <resultMap id="queryForListMap" type="com.hzcf.platform.core.user.model.UserApplyInfoVO">
-  		<!-- 附加字段 -->
-       <id column="apply_id" property="applyId" jdbcType="VARCHAR" />
-    	<result column="mobile" property="mobile" jdbcType="VARCHAR" />
-	    <result column="name" property="name" jdbcType="VARCHAR" />
-	    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
-		<!-- 借款人申请信息字段 -->	    
+<mapper namespace="com.hzcf.platform.core.user.data.UserApplyInfo">
+    <resultMap id="BaseResultMap" type="UserApplyInfo">
+        <result column="apply_id" property="applyId" jdbcType="VARCHAR"/>
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="loan_purpose_one" property="loanPurposeOne" jdbcType="VARCHAR"/>
+        <result column="loan_purpose_two" property="loanPurposeTwo" jdbcType="VARCHAR"/>
+        <result column="min_apply_amount" property="minApplyAmount" jdbcType="DECIMAL"/>
+        <result column="max_apply_amount" property="maxApplyAmount" jdbcType="DECIMAL"/>
+        <result column="max_monthly_payment" property="maxMonthlyPayment" jdbcType="DECIMAL"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="apply_submit_time" property="applySubmitTime" jdbcType="TIMESTAMP"/>
+        <result column="period" property="period" jdbcType="VARCHAR"/>
 
-        <result column="user_id" property="userId" jdbcType="VARCHAR" />
-	    <result column="loan_purpose_one" property="loanPurposeOne" jdbcType="VARCHAR" />
-	    <result column="loan_purpose_two" property="loanPurposeTwo" jdbcType="VARCHAR" />
-	    <result column="min_apply_amount" property="minApplyAmount" jdbcType="DECIMAL" />
-	    <result column="max_apply_amount" property="maxApplyAmount" jdbcType="DECIMAL" />
-	    <result column="max_monthly_payment" property="maxMonthlyPayment" jdbcType="DECIMAL" />
-	    <result column="status" property="status" jdbcType="VARCHAR" />
-	    <result column="apply_submit_time" property="applySubmitTime" jdbcType="TIMESTAMP" />
-	    <result column="period" property="period" jdbcType="VARCHAR" />
-   </resultMap>
-      
-  <sql id="Base_Column_List" >
+        <result column="borrower_apply_id" property="borrowerApplyId" jdbcType="VARCHAR"/>
+        <result column="additional_submit_time" property="additionalSubmitTime" jdbcType="TIMESTAMP"/>
+        <result column="additional_status" property="additionalStatus" jdbcType="VARCHAR"/>
+        <result column="additional_content" property="additionalContent" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <resultMap id="queryForListMap" type="com.hzcf.platform.core.user.model.UserApplyInfoVO">
+        <!-- 附加字段 -->
+        <id column="apply_id" property="applyId" jdbcType="VARCHAR"/>
+        <result column="mobile" property="mobile" jdbcType="VARCHAR"/>
+        <result column="name" property="name" jdbcType="VARCHAR"/>
+        <result column="id_card" property="idCard" jdbcType="VARCHAR"/>
+        <!-- 借款人申请信息字段 -->
+        <result column="borrower_apply_id" property="borrowerApplyId" jdbcType="VARCHAR"/>
+        <result column="additional_submit_time" property="additionalSubmitTime" jdbcType="TIMESTAMP"/>
+        <result column="additional_status" property="additionalStatus" jdbcType="VARCHAR"/>
+        <result column="additional_content" property="additionalContent" jdbcType="VARCHAR"/>
+
+        <result column="user_id" property="userId" jdbcType="VARCHAR"/>
+        <result column="loan_purpose_one" property="loanPurposeOne" jdbcType="VARCHAR"/>
+        <result column="loan_purpose_two" property="loanPurposeTwo" jdbcType="VARCHAR"/>
+        <result column="min_apply_amount" property="minApplyAmount" jdbcType="DECIMAL"/>
+        <result column="max_apply_amount" property="maxApplyAmount" jdbcType="DECIMAL"/>
+        <result column="max_monthly_payment" property="maxMonthlyPayment" jdbcType="DECIMAL"/>
+        <result column="status" property="status" jdbcType="VARCHAR"/>
+        <result column="apply_submit_time" property="applySubmitTime" jdbcType="TIMESTAMP"/>
+        <result column="period" property="period" jdbcType="VARCHAR"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
     apply_id, user_id, loan_purpose_one, loan_purpose_two, min_apply_amount, max_apply_amount, 
-    max_monthly_payment, status, apply_submit_time,period
+    max_monthly_payment, status, apply_submit_time,period,borrower_apply_id,additional_submit_time,additional_status,additional_content,
+
   </sql>
-  <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select 
-    <include refid="Base_Column_List" />
-    from user_apply_info
-    where user_id = #{userId,jdbcType=VARCHAR}
-  </select>
-  <select id="selectByUserIdAndStatus" resultMap="queryForListMap" parameterType="java.util.Map" >
-    select 
-    <include refid="Base_Column_List" />
-    from user_apply_info
-    where user_id = #{userId,jdbcType=VARCHAR} and status = #{status,jdbcType=VARCHAR}
-    order by apply_submit_time desc
-    limit 0,1
-  </select>
-  <!-- 根据applyId和status，查询所有的借款人申请信息 -->
-  <select id="selectByUserIdAndStatusAll" resultMap="queryForListMap" parameterType="java.util.Map" >
-    select 
-    <include refid="Base_Column_List" />
-    from user_apply_info
-    where user_id = #{userId,jdbcType=VARCHAR} and status = #{status,jdbcType=VARCHAR}
-  </select>
-  <select id="selectByApplyId" resultMap="BaseResultMap" parameterType="java.lang.String" >
-    select
-    <include refid="Base_Column_List" />
-    from user_apply_info
-    where apply_id = #{applyId,jdbcType=VARCHAR}
-  </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from user_apply_info
+        where user_id = #{userId,jdbcType=VARCHAR}
+    </select>
+
+    <select id="selectByBorrowerApplyId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from user_apply_info
+        where borrower_apply_id = #{borrowerApplyId,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByUserIdAndStatus" resultMap="queryForListMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from user_apply_info
+        where user_id = #{userId,jdbcType=VARCHAR} and status = #{status,jdbcType=VARCHAR}
+        order by apply_submit_time desc
+        limit 0,1
+    </select>
+    <!-- 根据applyId和status，查询所有的借款人申请信息 -->
+    <select id="selectByUserIdAndStatusAll" resultMap="queryForListMap" parameterType="java.util.Map">
+        select
+        <include refid="Base_Column_List"/>
+        from user_apply_info
+        where user_id = #{userId,jdbcType=VARCHAR} and status = #{status,jdbcType=VARCHAR}
+    </select>
+    <select id="selectByApplyId" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select
+        <include refid="Base_Column_List"/>
+        from user_apply_info
+        where apply_id = #{applyId,jdbcType=VARCHAR}
+    </select>
+    <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from user_apply_info
     where apply_id = #{applyId,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="UserApplyInfo" >
+    <insert id="insert" parameterType="UserApplyInfo">
     insert into user_apply_info (apply_id, user_id, loan_purpose_one, 
       loan_purpose_two, min_apply_amount, max_apply_amount, 
-      max_monthly_payment, status, apply_submit_time,period
+      max_monthly_payment, status, apply_submit_time,period,borrower_apply_id,additional_submit_time,additional_status,additional_content,
+
       )
     values (#{applyId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{loanPurposeOne,jdbcType=VARCHAR}, 
       #{loanPurposeTwo,jdbcType=VARCHAR}, #{minApplyAmount,jdbcType=DECIMAL}, #{maxApplyAmount,jdbcType=DECIMAL}, 
       #{maxMonthlyPayment,jdbcType=DECIMAL}, #{status,jdbcType=VARCHAR}, #{applySubmitTime,jdbcType=TIMESTAMP}, #{period,jdbcType=VARCHAR}
+      ,#{borrowerApplyId,jdbcType=VARCHAR},#{additionalSubmitTime,jdbcType=TIMESTAMP},
+      #{additionalStatus,jdbcType=VARCHAR},#{additionalContent,jdbcType=VARCHAR}
+
       )
   </insert>
-  <insert id="insertSelective" parameterType="UserApplyInfo" >
-    insert into user_apply_info
-    <trim prefix="(" suffix=")" suffixOverrides="," >
-      <if test="applyId != null" >
-        apply_id,
-      </if>
-      <if test="userId != null" >
-        user_id,
-      </if>
-      <if test="loanPurposeOne != null" >
-        loan_purpose_one,
-      </if>
-      <if test="loanPurposeTwo != null" >
-        loan_purpose_two,
-      </if>
-      <if test="minApplyAmount != null" >
-        min_apply_amount,
-      </if>
-      <if test="maxApplyAmount != null" >
-        max_apply_amount,
-      </if>
-      <if test="maxMonthlyPayment != null" >
-        max_monthly_payment,
-      </if>
-      <if test="status != null" >
-        status,
-      </if>
-      <if test="applySubmitTime != null" >
-        apply_submit_time,
-      </if>
-      <if test="period != null" >
-        period
-      </if>
-    </trim>
-    <trim prefix="values (" suffix=")" suffixOverrides="," >
-      <if test="applyId != null" >
-        #{applyId,jdbcType=VARCHAR},
-      </if>
-      <if test="userId != null" >
-        #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="loanPurposeOne != null" >
-        #{loanPurposeOne,jdbcType=VARCHAR},
-      </if>
-      <if test="loanPurposeTwo != null" >
-        #{loanPurposeTwo,jdbcType=VARCHAR},
-      </if>
-      <if test="minApplyAmount != null" >
-        #{minApplyAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="maxApplyAmount != null" >
-        #{maxApplyAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="maxMonthlyPayment != null" >
-        #{maxMonthlyPayment,jdbcType=DECIMAL},
-      </if>
-      <if test="status != null" >
-        #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="applySubmitTime != null" >
-        #{applySubmitTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="period != null" >
-        #{period,jdbcType=VARCHAR},
-      </if>
-    </trim>
-  </insert>
-  <update id="updateByApplyId" parameterType="UserApplyInfo" >
-    update user_apply_info
-    <set >
-      <if test="userId != null" >
-        user_id = #{userId,jdbcType=VARCHAR},
-      </if>
-      <if test="loanPurposeOne != null" >
-        loan_purpose_one = #{loanPurposeOne,jdbcType=VARCHAR},
-      </if>
-      <if test="loanPurposeTwo != null" >
-        loan_purpose_two = #{loanPurposeTwo,jdbcType=VARCHAR},
-      </if>
-      <if test="minApplyAmount != null" >
-        min_apply_amount = #{minApplyAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="maxApplyAmount != null" >
-        max_apply_amount = #{maxApplyAmount,jdbcType=DECIMAL},
-      </if>
-      <if test="maxMonthlyPayment != null" >
-        max_monthly_payment = #{maxMonthlyPayment,jdbcType=DECIMAL},
-      </if>
-      <if test="status != null" >
-        status = #{status,jdbcType=VARCHAR},
-      </if>
-      <if test="applySubmitTime != null" >
-        apply_submit_time = #{applySubmitTime,jdbcType=TIMESTAMP},
-      </if>
-      <if test="period != null" >
-        period = #{period,jdbcType=VARCHAR},
-      </if>
-    </set>
-    where apply_id = #{applyId,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="UserApplyInfo" >
+    <insert id="insertSelective" parameterType="UserApplyInfo">
+        insert into user_apply_info
+        <trim prefix="(" suffix=")" suffixOverrides=",">
+            <if test="applyId != null">
+                apply_id,
+            </if>
+            <if test="userId != null">
+                user_id,
+            </if>
+            <if test="loanPurposeOne != null">
+                loan_purpose_one,
+            </if>
+            <if test="loanPurposeTwo != null">
+                loan_purpose_two,
+            </if>
+            <if test="minApplyAmount != null">
+                min_apply_amount,
+            </if>
+            <if test="maxApplyAmount != null">
+                max_apply_amount,
+            </if>
+            <if test="maxMonthlyPayment != null">
+                max_monthly_payment,
+            </if>
+            <if test="status != null">
+                status,
+            </if>
+            <if test="applySubmitTime != null">
+                apply_submit_time,
+            </if>
+            <if test="period != null">
+                period,
+            </if>
+
+            <if test="borrowerApplyId != null">
+                borrower_apply_id,
+            </if>
+            <if test="additionalSubmitTime != null">
+                additional_submit_time,
+            </if>
+            <if test="additionalStatus != null">
+                additional_status,
+            </if>
+            <if test="additionalContent != null">
+                additional_content
+            </if>
+
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides=",">
+            <if test="applyId != null">
+                #{applyId,jdbcType=VARCHAR},
+            </if>
+            <if test="userId != null">
+                #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="loanPurposeOne != null">
+                #{loanPurposeOne,jdbcType=VARCHAR},
+            </if>
+            <if test="loanPurposeTwo != null">
+                #{loanPurposeTwo,jdbcType=VARCHAR},
+            </if>
+            <if test="minApplyAmount != null">
+                #{minApplyAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="maxApplyAmount != null">
+                #{maxApplyAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="maxMonthlyPayment != null">
+                #{maxMonthlyPayment,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null">
+                #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="applySubmitTime != null">
+                #{applySubmitTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="period != null">
+                #{period,jdbcType=VARCHAR},
+            </if>
+
+            <if test="borrowerApplyId != null">
+                #{borrowerApplyId,jdbcType=VARCHAR},
+            </if>
+            <if test="additionalSubmitTime != null">
+                #{additionalSubmitTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="additionalStatus != null">
+                #{additionalStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="additionalContent != null">
+                #{additionalContent,jdbcType=VARCHAR},
+            </if>
+
+        </trim>
+    </insert>
+    <update id="updateByApplyId" parameterType="UserApplyInfo">
+        update user_apply_info
+        <set>
+            <if test="userId != null">
+                user_id = #{userId,jdbcType=VARCHAR},
+            </if>
+            <if test="loanPurposeOne != null">
+                loan_purpose_one = #{loanPurposeOne,jdbcType=VARCHAR},
+            </if>
+            <if test="loanPurposeTwo != null">
+                loan_purpose_two = #{loanPurposeTwo,jdbcType=VARCHAR},
+            </if>
+            <if test="minApplyAmount != null">
+                min_apply_amount = #{minApplyAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="maxApplyAmount != null">
+                max_apply_amount = #{maxApplyAmount,jdbcType=DECIMAL},
+            </if>
+            <if test="maxMonthlyPayment != null">
+                max_monthly_payment = #{maxMonthlyPayment,jdbcType=DECIMAL},
+            </if>
+            <if test="status != null">
+                status = #{status,jdbcType=VARCHAR},
+            </if>
+            <if test="applySubmitTime != null">
+                apply_submit_time = #{applySubmitTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="period != null">
+                period = #{period,jdbcType=VARCHAR},
+            </if>
+            <if test="borrowerApplyId != null">
+                borrower_apply_id = #{borrowerApplyId,jdbcType=VARCHAR},
+            </if>
+            <if test="additionalSubmitTime != null">
+                additional_submit_time = #{additionalSubmitTime,jdbcType=TIMESTAMP},
+            </if>
+            <if test="additionalStatus != null">
+                additional_status = #{additionalStatus,jdbcType=VARCHAR},
+            </if>
+            <if test="additionalContent != null">
+                additional_content = #{additionalContent,jdbcType=VARCHAR},
+            </if>
+
+        </set>
+        where apply_id = #{applyId,jdbcType=VARCHAR}
+    </update>
+    <update id="updateByPrimaryKey" parameterType="UserApplyInfo">
     update user_apply_info
     set user_id = #{userId,jdbcType=VARCHAR},
       loan_purpose_one = #{loanPurposeOne,jdbcType=VARCHAR},
@@ -188,62 +250,69 @@
       max_monthly_payment = #{maxMonthlyPayment,jdbcType=DECIMAL},
       status = #{status,jdbcType=VARCHAR},
       apply_submit_time = #{applySubmitTime,jdbcType=TIMESTAMP},
-      period = #{period,jdbcType=VARCHAR}
+      period = #{period,jdbcType=VARCHAR},
+                  borrower_apply_id =    #{borrowerApplyId,jdbcType=VARCHAR},
+            additional_submit_time =   #{additionalSubmitTime,jdbcType=TIMESTAMP},
+            additional_status =    #{additionalStatus,jdbcType=VARCHAR},
+            additional_content =  #{additionalContent,jdbcType=VARCHAR}
+
     where apply_id = #{applyId,jdbcType=VARCHAR}
   </update>
-  
-  	 <sql id="Base_Where_Clause">
-	    <if test="apply.idCard != null and apply.idCard != ''"> and id_card=#{apply.idCard} </if>
-	    <if test="apply.name != null and apply.name !=''"> and name like CONCAT('%',#{apply.name},'%')     </if>
-	    <if test="apply.mobile != null and apply.mobile != ''"> and mobile=#{apply.mobile} </if>
-	    <if test="apply.startDate != null and apply.startDate !='' and apply.endDate != null and apply.endDate != ''">
-	        and date_format(create_time, '%Y-%m-%d') BETWEEN #{apply.startDate} AND #{apply.endDate} 
-	    </if>
-	    <if test="apply.status != null and apply.status != ''"> and a.status=#{apply.status} </if>
-	    <!-- 过滤未提交进件 -->
-	    and a.status != '0'
-	  </sql>
-  	<!-- 分页查询 -->
-	<select id="FINDLIST" resultMap="queryForListMap" parameterType="java.util.Map">
-		SELECT u.mobile, u.name, u.id_card, a.apply_id, a.user_id, a.loan_purpose_one, a.loan_purpose_two, 
-		a.min_apply_amount, a.max_apply_amount, a.max_monthly_payment, a.apply_submit_time, a.status,a.period
-		FROM users u INNER JOIN user_apply_info a
-		ON u.id = a.user_id
-	    <where>
-	      <include refid="Base_Where_Clause"/>
-	    </where>
-		ORDER BY a.apply_submit_time DESC
-	    <if test="page.page > 0">
-	    LIMIT #{page.start},#{page.end}
-	    </if>
-	</select>
-	
-	<select id="FINDLIST_COUNT" resultType="long" parameterType="java.util.Map">
-		SELECT COUNT(1) FROM users u INNER JOIN user_apply_info a
-		ON u.id = a.user_id
-	    <where>
-	      <include refid="Base_Where_Clause"/>
-	    </where>
-	</select>	
-	
-	<select id="FINDLIST_SEARCH" resultMap="queryForListMap" parameterType="java.util.Map">
-		SELECT a.apply_id, u.mobile, u.name, u.id_card, a.user_id, a.loan_purpose_one, a.loan_purpose_two, 
-		a.min_apply_amount, a.max_apply_amount, a.max_monthly_payment, a.apply_submit_time, a.status,a.period
-		FROM users u INNER JOIN user_apply_info a
-		ON u.id = a.user_id
-	    <where>
-	      <include refid="Base_Where_Clause"/>
-	    </where>
-		ORDER BY a.apply_submit_time DESC
-	</select>	
-    <delete id="deleteByApplyIdListAndStatus" parameterType="java.util.Map" >
-        delete from user_apply_info where apply_id in 
-        <foreach item="item" index="index" collection="applyIdList" open="(" separator="," close=")">  
-		  #{item}  
-		 </foreach>
-        <if test="status != null and status!=''" >
-        and status = #{status,jdbcType=VARCHAR}
-      </if>
-    </delete> 
-	
+
+    <sql id="Base_Where_Clause">
+        <if test="apply.idCard != null and apply.idCard != ''">and id_card=#{apply.idCard}</if>
+        <if test="apply.name != null and apply.name !=''">and name like CONCAT('%',#{apply.name},'%')</if>
+        <if test="apply.mobile != null and apply.mobile != ''">and mobile=#{apply.mobile}</if>
+        <if test="apply.additionalStatus != null and apply.additionalStatus != ''">and additional_status=#{apply.additionalStatus}</if>
+        <if test="apply.startDate != null and apply.startDate !='' and apply.endDate != null and apply.endDate != ''">
+            and date_format(create_time, '%Y-%m-%d') BETWEEN #{apply.startDate} AND #{apply.endDate}
+        </if>
+        <if test="apply.status != null and apply.status != ''">and a.status=#{apply.status}</if>
+        <!-- 过滤未提交进件 -->
+        and a.status != '0'
+    </sql>
+    <!-- 分页查询 -->
+    <select id="FINDLIST" resultMap="queryForListMap" parameterType="java.util.Map">
+        SELECT u.mobile, u.name, u.id_card, a.apply_id, a.user_id, a.loan_purpose_one, a.loan_purpose_two,
+        a.min_apply_amount, a.max_apply_amount, a.max_monthly_payment, a.apply_submit_time, a.status,a.period,a.borrower_apply_id,a.additional_submit_time,a.additional_status,a.additional_content
+
+        FROM users u INNER JOIN user_apply_info a
+        ON u.id = a.user_id
+        <where>
+            <include refid="Base_Where_Clause"/>
+        </where>
+        ORDER BY a.apply_submit_time DESC
+        <if test="page.page > 0">
+            LIMIT #{page.start},#{page.end}
+        </if>
+    </select>
+
+    <select id="FINDLIST_COUNT" resultType="long" parameterType="java.util.Map">
+        SELECT COUNT(1) FROM users u INNER JOIN user_apply_info a
+        ON u.id = a.user_id
+        <where>
+            <include refid="Base_Where_Clause"/>
+        </where>
+    </select>
+
+    <select id="FINDLIST_SEARCH" resultMap="queryForListMap" parameterType="java.util.Map">
+        SELECT a.apply_id, u.mobile, u.name, u.id_card, a.user_id, a.loan_purpose_one, a.loan_purpose_two,
+        a.min_apply_amount, a.max_apply_amount, a.max_monthly_payment, a.apply_submit_time, a.status,a.period,a.borrower_apply_id,a.additional_submit_time,a.additional_status,a.additional_content
+        FROM users u INNER JOIN user_apply_info a
+        ON u.id = a.user_id
+        <where>
+            <include refid="Base_Where_Clause"/>
+        </where>
+        ORDER BY a.apply_submit_time DESC
+    </select>
+    <delete id="deleteByApplyIdListAndStatus" parameterType="java.util.Map">
+        delete from user_apply_info where apply_id in
+        <foreach item="item" index="index" collection="applyIdList" open="(" separator="," close=")">
+            #{item}
+        </foreach>
+        <if test="status != null and status!=''">
+            and status = #{status,jdbcType=VARCHAR}
+        </if>
+    </delete>
+
 </mapper>

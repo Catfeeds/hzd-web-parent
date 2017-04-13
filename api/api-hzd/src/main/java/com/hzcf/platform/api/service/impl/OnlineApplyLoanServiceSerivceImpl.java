@@ -5,6 +5,7 @@ import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.common.DictBase;
 import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.api.config.ConstantsDictionary;
+import com.hzcf.platform.api.form.UserRelationForm;
 import com.hzcf.platform.api.form.onlineLoanapplyInfoPreviewForm;
 import com.hzcf.platform.api.model.CheckApplyLoanStatus;
 import com.hzcf.platform.api.model.WxjinjianQueryRsp;
@@ -397,10 +398,10 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
 
     @Override
     @LogAnnotation
-    public BackResult onlineLoanapplyInfoPerfect(UserVO user, List<UserRelationVO> userRelationVO, String applyId) {
+    public BackResult onlineLoanapplyInfoPerfect(UserVO user, UserRelationForm userRelationForm, String applyId) {
 
         try {
-
+            List<UserRelationVO> userRelationVO = userRelationForm.getUserRelationVO();
 
             DataVerifcation.checkUserRelationVO(user, userRelationVO);
 
@@ -436,7 +437,12 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
                             HzdStatusCodeEnum.HZD_CODE_0001.getMsg());
                 }
             }
-
+            if(StringUtils.isNotBlank(userRelationForm.getRemark())){
+                UserInfoVO u = new UserInfoVO();
+                u.setRemark(userRelationForm.getRemark());
+                u.setApplyId(applyId);
+                userInfoService.updateUserInfo(u);
+            }
             Map map = new HashMap();
             map.put("applyId", applyId);
             logger.i("进入  -----用户进件申请第四步,  成功 。。。。。。。。。。。。。 ---手机号:" + user.getMobile() + "----申请单号:" + applyId);

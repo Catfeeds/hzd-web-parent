@@ -15,6 +15,7 @@ import javax.xml.crypto.Data;
  * @since  JDK1.7
  */
 public class UserInfoVO extends BaseVO {
+
     private String userInfoId;//用户详情ID
     private String userId;//用户ID
     private String applyId;//用户申请ID
@@ -60,8 +61,9 @@ public class UserInfoVO extends BaseVO {
     private String orgPostCode;//单位邮政编码  (新增字段)
     private String orgTelAreaCode;//单位电话区号  (新增字段)
     private String orgTelCode;//单位电话号码
+	private String department; //所在部门
 	private String positions; //担任职务
-	private Data   entryDate; //入职时间
+	private Date   entryDate; //入职时间
 	private String remark;//备注
 
 
@@ -73,60 +75,8 @@ public class UserInfoVO extends BaseVO {
     private String isInside;//网内/网外  (新增字段)
     private String orgTeamId;//所属团队，咨询师  (新增字段)（不用传递）
     private String borrowType;//借款类型  (新增字段)
-	public UserInfoVO() {
-		super();
-	}
-	public UserInfoVO(String userInfoId, String userId, String applyId, String idType, String idcardValidity,
-			Date birthday, String gender, String education, String domicileProvince, String domicileCity,
-			String domicileAddress, String domicilePostCode, String marriageStatus, String childrenStatus,
-			String houseStatus, String residentProvince, String residentCity, String residentAddress,
-			String residentTelCode, String residentTelAreaCode, String residentPostCode, String email,
-			BigDecimal annualIncome, BigDecimal creditCardLimit, String liveTogether, String staffNo, String orgName,
-			String orgType, String orgProvince, String orgCity, String orgAddress, String orgPostCode,
-			String orgTelAreaCode, String orgTelCode, String isExpress, String productId, String receiverLoginName,
-			String isInside, String orgTeamId, String borrowType) {
-		super();
-		this.userInfoId = userInfoId;
-		this.userId = userId;
-		this.applyId = applyId;
-		this.idType = idType;
-		this.idcardValidity = idcardValidity;
-		this.birthday = birthday;
-		this.gender = gender;
-		this.education = education;
-		this.domicileProvince = domicileProvince;
-		this.domicileCity = domicileCity;
-		this.domicileAddress = domicileAddress;
-		this.domicilePostCode = domicilePostCode;
-		this.marriageStatus = marriageStatus;
-		this.childrenStatus = childrenStatus;
-		this.houseStatus = houseStatus;
-		this.residentProvince = residentProvince;
-		this.residentCity = residentCity;
-		this.residentAddress = residentAddress;
-		this.residentTelCode = residentTelCode;
-		this.residentTelAreaCode = residentTelAreaCode;
-		this.residentPostCode = residentPostCode;
-		this.email = email;
-		this.annualIncome = annualIncome;
-		this.creditCardLimit = creditCardLimit;
-		this.liveTogether = liveTogether;
-		this.staffNo = staffNo;
-		this.orgName = orgName;
-		this.orgType = orgType;
-		this.orgProvince = orgProvince;
-		this.orgCity = orgCity;
-		this.orgAddress = orgAddress;
-		this.orgPostCode = orgPostCode;
-		this.orgTelAreaCode = orgTelAreaCode;
-		this.orgTelCode = orgTelCode;
-		this.isExpress = isExpress;
-		this.productId = productId;
-		this.receiverLoginName = receiverLoginName;
-		this.isInside = isInside;
-		this.orgTeamId = orgTeamId;
-		this.borrowType = borrowType;
-	}
+
+
 	public String getUserInfoId() {
 		return userInfoId;
 	}
@@ -376,11 +326,11 @@ public class UserInfoVO extends BaseVO {
 		this.positions = positions;
 	}
 
-	public Data getEntryDate() {
+	public Date getEntryDate() {
 		return entryDate;
 	}
 
-	public void setEntryDate(Data entryDate) {
+	public void setEntryDate(Date entryDate) {
 		this.entryDate = entryDate;
 	}
 
@@ -392,52 +342,13 @@ public class UserInfoVO extends BaseVO {
 		this.remark = remark;
 	}
 
-	@Override
-	public String toString() {
-		return "UserInfoVO{" +
-				"userInfoId='" + userInfoId + '\'' +
-				", userId='" + userId + '\'' +
-				", applyId='" + applyId + '\'' +
-				", idType='" + idType + '\'' +
-				", idcardValidity='" + idcardValidity + '\'' +
-				", birthday=" + birthday +
-				", gender='" + gender + '\'' +
-				", education='" + education + '\'' +
-				", domicileProvince='" + domicileProvince + '\'' +
-				", domicileCity='" + domicileCity + '\'' +
-				", domicileAddress='" + domicileAddress + '\'' +
-				", domicilePostCode='" + domicilePostCode + '\'' +
-				", marriageStatus='" + marriageStatus + '\'' +
-				", childrenStatus='" + childrenStatus + '\'' +
-				", houseStatus='" + houseStatus + '\'' +
-				", residentProvince='" + residentProvince + '\'' +
-				", residentCity='" + residentCity + '\'' +
-				", residentAddress='" + residentAddress + '\'' +
-				", residentTelCode='" + residentTelCode + '\'' +
-				", residentTelAreaCode='" + residentTelAreaCode + '\'' +
-				", residentPostCode='" + residentPostCode + '\'' +
-				", email='" + email + '\'' +
-				", annualIncome=" + annualIncome +
-				", creditCardLimit=" + creditCardLimit +
-				", liveTogether='" + liveTogether + '\'' +
-				", staffNo='" + staffNo + '\'' +
-				", orgName='" + orgName + '\'' +
-				", orgType='" + orgType + '\'' +
-				", orgProvince='" + orgProvince + '\'' +
-				", orgCity='" + orgCity + '\'' +
-				", orgAddress='" + orgAddress + '\'' +
-				", orgPostCode='" + orgPostCode + '\'' +
-				", orgTelAreaCode='" + orgTelAreaCode + '\'' +
-				", orgTelCode='" + orgTelCode + '\'' +
-				", positions='" + positions + '\'' +
-				", entryDate=" + entryDate +
-				", remark='" + remark + '\'' +
-				", isExpress='" + isExpress + '\'' +
-				", productId='" + productId + '\'' +
-				", receiverLoginName='" + receiverLoginName + '\'' +
-				", isInside='" + isInside + '\'' +
-				", orgTeamId='" + orgTeamId + '\'' +
-				", borrowType='" + borrowType + '\'' +
-				'}';
+	public String getDepartment() {
+		return department;
 	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+
 }

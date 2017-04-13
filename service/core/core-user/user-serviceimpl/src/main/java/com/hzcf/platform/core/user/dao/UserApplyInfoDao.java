@@ -19,6 +19,8 @@ public interface UserApplyInfoDao  extends IBaseDao<UserApplyInfo> {
 	public List<UserApplyInfoVO> getUserApplyInfoList(Map<String, Object> parmMap);
 	public Long getUserApplyInfoTotal(Map<String, Object> parmMap);
     UserApplyInfo selectByApplyId(String applyId);
+
+    UserApplyInfo selectByBorrowerApplyId(String borrowerApplyId);
     /**
      * @Title: selectByUserIdAndStatusAll 
      * @Description:根据userId，status查询借款人的申请信息 

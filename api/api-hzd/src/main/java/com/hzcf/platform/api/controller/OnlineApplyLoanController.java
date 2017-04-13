@@ -78,7 +78,7 @@ public class OnlineApplyLoanController {
     public BackResult onlineLoanapplyInfoPerfect(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user, @RequestBodyForm UserRelationForm userRelationForm,
                                                  @PathVariable String applyId) {
         logger.i("进入  -----用户进件申请第四步,录入借款人详细信息 ");
-        return onlineApplyLoanService.onlineLoanapplyInfoPerfect(user, userRelationForm.getUserRelationVO(), applyId);
+        return onlineApplyLoanService.onlineLoanapplyInfoPerfect(user,userRelationForm, applyId);
     }
 
 
