@@ -42,7 +42,7 @@
     <result column="org_tel_code" property="orgTelCode" jdbcType="VARCHAR" />
     <!--新增 -->
     <result column="positions" property="positions" jdbcType="VARCHAR" />
-    <result column="entry_date" property="entryDate" jdbcType="VARCHAR" />
+    <result column="entry_date" property="entryDate" jdbcType="TIMESTAMP" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <!-- 借款信息 -->
     <result column="is_express" property="isExpress" jdbcType="VARCHAR" />

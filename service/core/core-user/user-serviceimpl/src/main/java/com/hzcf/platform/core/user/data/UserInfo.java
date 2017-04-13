@@ -54,7 +54,7 @@ public class UserInfo extends AbstractEntity {
     private String orgTelAreaCode;//单位电话区号  (新增字段)
     private String orgTelCode;//单位电话号码
 	private String positions; //担任职务
-	private Data entryDate; //入职时间
+	private Date entryDate; //入职时间
 	private String remark;//备注
     
     /**借款信息*/
@@ -367,11 +367,11 @@ public class UserInfo extends AbstractEntity {
 		this.positions = positions;
 	}
 
-	public Data getEntryDate() {
+	public Date getEntryDate() {
 		return entryDate;
 	}
 
-	public void setEntryDate(Data entryDate) {
+	public void setEntryDate(Date entryDate) {
 		this.entryDate = entryDate;
 	}
 
