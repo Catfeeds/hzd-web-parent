@@ -40,6 +40,10 @@
     <result column="org_post_code" property="orgPostCode" jdbcType="VARCHAR" />
     <result column="org_tel_area_code" property="orgTelAreaCode" jdbcType="VARCHAR" />
     <result column="org_tel_code" property="orgTelCode" jdbcType="VARCHAR" />
+    <!--新增 -->
+    <result column="positions" property="positions" jdbcType="VARCHAR" />
+    <result column="entry_date" property="entryDate" jdbcType="VARCHAR" />
+    <result column="remark" property="remark" jdbcType="VARCHAR" />
     <!-- 借款信息 -->
     <result column="is_express" property="isExpress" jdbcType="VARCHAR" />
     <result column="product_id" property="productId" jdbcType="VARCHAR" />
@@ -52,8 +56,7 @@
     user_info_id,user_id,apply_id,id_type,idcard_validity,birthday,gender,education,domicile_province,domicile_city,
     domicile_address,domicile_post_code,marriage_status,children_status,house_status,resident_province,resident_city,resident_address,
     resident_tel_code,resident_tel_area_code,resident_post_code,email,annual_income,credit_card_limit,live_together,
-    staff_no,create_time,org_name,org_type,org_province,org_city,org_address,org_post_code,org_tel_area_code,org_tel_code,
-	is_express,product_id,receiver_login_name,is_inside,org_team_id,borrow_type
+    staff_no,create_time,org_name,org_type,org_province,org_city,org_address,org_post_code,org_tel_area_code,org_tel_code,positions,entry_date,remark,is_express,product_id,receiver_login_name,is_inside,org_team_id,borrow_type
   </sql>
 
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -84,7 +87,7 @@
     insert into user_info (user_info_id,user_id,apply_id,id_type,idcard_validity,birthday,gender,education,domicile_province,domicile_city,
     domicile_address,domicile_post_code,marriage_status,children_status,house_status,resident_province,resident_city,resident_address,
     resident_tel_code,resident_tel_area_code,resident_post_code,email,annual_income,credit_card_limit,live_together,
-    staff_no,create_time,org_name,org_type,org_province,org_city,org_address,org_post_code,org_tel_area_code,org_tel_code,
+    staff_no,create_time,org_name,org_type,org_province,org_city,org_address,org_post_code,org_tel_area_code,org_tel_code,positions,entry_date,remark,
 	is_express,product_id,receiver_login_name,is_inside,org_team_id,borrow_type
       )
     values (#{userInfoId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{applyId,jdbcType=VARCHAR}, #{idType,jdbcType=VARCHAR},
@@ -95,7 +98,8 @@
       #{email,jdbcType=VARCHAR}, #{annualIncome,jdbcType=DECIMAL}, #{creditCardLimit,jdbcType=DECIMAL}, 
       #{liveTogether,jdbcType=VARCHAR}, #{staffNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
       #{orgName,jdbcType=VARCHAR},#{orgType,jdbcType=VARCHAR},#{orgProvince,jdbcType=VARCHAR},#{orgCity,jdbcType=VARCHAR},#{orgAddress,jdbcType=VARCHAR},
-      #{orgPostCode,jdbcType=VARCHAR},#{orgTelAreaCode,jdbcType=VARCHAR},#{orgTelCode,jdbcType=VARCHAR},#{isExpress,jdbcType=VARCHAR},#{productId,jdbcType=VARCHAR},
+      #{orgPostCode,jdbcType=VARCHAR},#{orgTelAreaCode,jdbcType=VARCHAR},#{orgTelCode,jdbcType=VARCHAR}, #{positions,jdbcType=VARCHAR},#{entryDate,jdbcType=TIMESTAMP},#{remark,jdbcType=VARCHAR},
+      #{isExpress,jdbcType=VARCHAR},#{productId,jdbcType=VARCHAR},
       #{receiverLoginName,jdbcType=VARCHAR},#{isInside,jdbcType=VARCHAR},#{orgTeamId,jdbcType=VARCHAR},#{borrowType,jdbcType=VARCHAR}
       )
   </insert>
@@ -206,6 +210,15 @@
       </if>
       <if test="orgTelCode != null" >
         org_tel_code,
+      </if>
+      <if test="positions != null" >
+        positions,
+      </if>
+      <if test="entryDate != null" >
+        entry_date,
+      </if>
+      <if test="remark != null" >
+        remark,
       </if>
       <if test="isExpress != null" >
         is_express,
@@ -332,6 +345,17 @@
       <if test="orgTelCode != null" >
         #{orgTelCode,jdbcType=VARCHAR},
       </if>
+
+      <if test="positions != null" >
+        #{positions,jdbcType=VARCHAR},
+      </if>
+      <if test="entryDate != null" >
+        #{entry_date,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        #{remark,jdbcType=VARCHAR},
+      </if>
+
       <if test="isExpress != null" >
         #{isExpress,jdbcType=VARCHAR},
       </if>
@@ -451,6 +475,17 @@
       <if test="orgTelCode != null" >
         org_tel_code = #{orgTelCode,jdbcType=VARCHAR},
       </if>
+
+      <if test="positions != null" >
+        positions = #{positions,jdbcType=VARCHAR},
+      </if>
+      <if test="entryDate != null" >
+        entry_date = #{entryDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="remark != null" >
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+
       <if test="isExpress != null" >
         is_express = #{isExpress,jdbcType=VARCHAR},
       </if>
@@ -509,6 +544,9 @@
       org_post_code = #{orgPostCode,jdbcType=VARCHAR},
       org_tel_area_code = #{orgTelAreaCode,jdbcType=VARCHAR},
       org_tel_code = #{orgTelCode,jdbcType=VARCHAR},
+      positions = #{positions,jdbcType=VARCHAR},
+      entry_date = #{entryDate,jdbcType=TIMESTAMP},
+      remark = #{remark,jdbcType=VARCHAR},
       is_express = #{isExpress,jdbcType=VARCHAR},
       product_id = #{productId,jdbcType=VARCHAR},
       receiver_login_name = #{receiverLoginName,jdbcType=VARCHAR},

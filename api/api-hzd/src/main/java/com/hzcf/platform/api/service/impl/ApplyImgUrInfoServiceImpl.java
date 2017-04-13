@@ -1,0 +1,184 @@
+package com.hzcf.platform.api.service.impl;
+
+
+import com.hzcf.platform.api.annotation.LogAnnotation;
+import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
+import com.hzcf.platform.api.common.BackResult;
+import com.hzcf.platform.api.config.ConstantsDictionary;
+import com.hzcf.platform.api.service.IApplyImgUrInfoUrlService;
+import com.hzcf.platform.api.util.StringUtil;
+import com.hzcf.platform.api.util.UploadImgUtil;
+import com.hzcf.platform.common.util.log.Log;
+import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.common.util.status.StatusCodes;
+import com.hzcf.platform.common.util.uuid.UUIDGenerator;
+import com.hzcf.platform.core.user.model.UserImageVO;
+import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.core.user.service.UserImageService;
+import com.imageserver.ImageServer;
+import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
+
+/**
+ * Created by leijiaming on 2017/1/9 0009.
+ */
+@Service
+public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
+    private static final Log logger = Log.getLogger(ApplyImgUrInfoServiceImpl.class);
+    //身份证明:B1  征信报告:E1  工作证明:D8  收入证明:C8  个人住址证明:F7  社保公积金证明:C3  其他资料:L5
+    private final String B1 = "B1";
+    private final String E1 = "E1";
+    private final String D8 = "D8";
+    private final String C8 = "C8";
+    private final String F7 = "F7";
+    private final String L5 = "L5";
+    private final String C3 = "C3";
+
+    @Autowired
+    UserImageService userImageService;
+    @Autowired
+    private ImageServer imageServer;
+
+    @Override
+    @LogAnnotation
+    public BackResult deleteImgUrl(UserVO userVO, UserImageVO userImageVO) {
+
+
+        if (StringUtils.isBlank(userImageVO.getArtWork())) {
+            logger.i("artWork为空");
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_9000.getCode(),
+                    "artWork为空", null);
+        }
+
+
+        try {
+            userImageVO.setUserId(userVO.getId());
+            String sufFirst = StringUtil.getSufFirst(userImageVO.getArtWork());
+            userImageVO.setArtWork(sufFirst);
+            Result<Boolean> booleanResult = userImageService.deleteByPrimaryKey(userImageVO);
+            if (StatusCodes.OK == (booleanResult.getStatus())) {
+
+                boolean b = imageServer.deleteFile(sufFirst);
+                if (!b) {
+                    logger.i("删除图片失败  图片服务器异常");
+                    return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(),
+                            HzdStatusCodeEnum.HZD_CODE_9999.getMsg(), null);
+                }
+
+                logger.i("删除图片成功");
+                return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
+                        HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), null);
+            }
+        } catch (Exception e) {
+
+            logger.e("删除图片失败  服务器异常" + e);
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(),
+                    HzdStatusCodeEnum.HZD_CODE_9999.getMsg(), null);
+        }
+        logger.i("删除图片失败");
+        return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
+                HzdStatusCodeEnum.HZD_CODE_0001.getMsg(), null);
+    }
+
+    @Override
+    @LogAnnotation
+    public BackResult queryImgByApplyId(String applyId) {
+
+        Map<String,Object> map = new HashMap<String,Object>();
+        List<UserImageVO> listB1 = new ArrayList<UserImageVO>();
+        List<UserImageVO> listE1 = new ArrayList<UserImageVO>();
+        List<UserImageVO> listD8 = new ArrayList<UserImageVO>();
+        List<UserImageVO> listC8 = new ArrayList<UserImageVO>();
+        List<UserImageVO> listF7 = new ArrayList<UserImageVO>();
+        List<UserImageVO> listL5 = new ArrayList<UserImageVO>();
+        List<UserImageVO> listC3 = new ArrayList<UserImageVO>();
+
+        Result<List<UserImageVO>> listResult =
+                userImageService.selectByApplyId(applyId);
+        if(StatusCodes.OK!=listResult.getStatus()){
+            logger.e("查询图片信息失败：applyId:"+applyId);
+            return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
+                    HzdStatusCodeEnum.HZD_CODE_0001.getMsg(), null);
+        }
+
+        if(listResult.getItems().size()>0){
+            for(UserImageVO userImage:listResult.getItems()){
+
+                if(B1.equals(userImage.getImageType())){
+                    listB1.add(userImage);
+                }
+                else if(E1.equals(userImage.getImageType())){
+                    listE1.add(userImage);
+                }
+                else if(D8.equals(userImage.getImageType())){
+                    listD8.add(userImage);
+                }
+                else if(C8.equals(userImage.getImageType())){
+                    listC8.add(userImage);
+                }
+                else if(F7.equals(userImage.getImageType())){
+                    listF7.add(userImage);
+                }
+                else if(C3.equals(userImage.getImageType())){
+                    listF7.add(userImage);
+                }
+                else {
+                        listL5.add(userImage);
+                }
+
+            }
+            map.put("B1",listB1);
+            map.put("E1",listE1);
+            map.put("D8",listD8);
+            map.put("C8",listC8);
+            map.put("F7",listF7);
+            map.put("L5",listL5);
+            map.put("C3",listC3);
+
+        }
+        logger.i("查询图片信息成功：applyId:"+applyId);
+        return  new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
+                HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),map);
+
+
+    }
+
+    @Override
+    public BackResult saveImgByApplyId(UserVO userVO, String applyId, List<UserImageVO> userImage) {
+        for (UserImageVO u:userImage){
+            u.setImageId(UUIDGenerator.getUUID());
+            u.setUserId(userVO.getId());
+            u.setApplyId(applyId);
+            u.setCreateTime(new Date());
+            Result<Boolean> booleanResult = userImageService.insertSelective(u);
+            if (StatusCodes.OK != (booleanResult.getStatus())) {
+                logger.i("保存图片失败----------------------：" + u.getArtWork() + "---" + "手机号:" + userVO.getMobile());
+
+            }
+
+        }
+        return  new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
+                HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),null);
+
+    }
+
+    @Override
+    public BackResult uploadImg(HttpServletRequest request) {
+
+        String url = UploadImgUtil.upLoadImg(request);
+        if(StringUtils.isNotBlank(url)){
+            return  new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
+                    HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),url);
+        }
+        return  new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
+                HzdStatusCodeEnum.HZD_CODE_0001.getMsg(),null);
+    }
+}

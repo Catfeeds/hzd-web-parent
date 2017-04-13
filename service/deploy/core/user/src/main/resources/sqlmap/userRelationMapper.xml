@@ -9,10 +9,12 @@
     <result column="relation_type" property="relationType" jdbcType="VARCHAR" />
     <result column="mobile" property="mobile" jdbcType="VARCHAR" />
     <result column="type" property="type" jdbcType="VARCHAR" />
+    <result column="organ_name" property="organName" jdbcType="VARCHAR" />
+    <result column="organ_addr" property="organAddr" jdbcType="VARCHAR" />
     <result column="create_time" property="createTime" jdbcType="TIMESTAMP" />
   </resultMap>
   <sql id="Base_Column_List" >
-    relation_id, user_id, apply_id, name, relation_type, mobile, type,
+    relation_id, user_id, apply_id, name, relation_type, mobile, type,organ_name,organ_addr,
     create_time
   </sql>
   <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
@@ -36,11 +38,12 @@
   <insert id="insert" parameterType="UserRelation" >
     insert into user_relation (relation_id, user_id, apply_id, 
       name, relation_type,
-      mobile, type, create_time
+      mobile, type, organ_name,organ_addr,create_time
       )
     values (#{relationId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{applyId,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{relationType,jdbcType=VARCHAR},
-      #{mobile,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      #{mobile,jdbcType=VARCHAR},#{organName,jdbcType=VARCHAR}, #{organAddr,jdbcType=VARCHAR},
+       #{type,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="UserRelation" >
@@ -68,6 +71,14 @@
       <if test="type != null" >
         type,
       </if>
+
+      <if test="organName != null" >
+        organ_name,
+      </if>
+      <if test="organAddr != null" >
+        organ_addr,
+      </if>
+
       <if test="createTime != null" >
         create_time,
       </if>
@@ -94,6 +105,12 @@
       </if>
       <if test="type != null" >
         #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="organName != null" >
+        #{organName,jdbcType=VARCHAR},
+      </if>
+      <if test="organAddr != null" >
+        #{organAddr,jdbcType=VARCHAR},
       </if>
       <if test="createTime != null" >
         #{createTime,jdbcType=TIMESTAMP},
@@ -122,6 +139,12 @@
       <if test="type != null" >
         type = #{type,jdbcType=VARCHAR},
       </if>
+      <if test="organName != null" >
+        organ_name = #{organName,jdbcType=VARCHAR},
+      </if>
+      <if test="organAddr != null" >
+        organ_addr = #{organAddr,jdbcType=VARCHAR},
+      </if>
       <if test="createTime != null" >
         create_time = #{createTime,jdbcType=TIMESTAMP},
       </if>
@@ -136,6 +159,8 @@
       relation_type = #{relationType,jdbcType=VARCHAR},
       mobile = #{mobile,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
+     organ_name = #{organName,jdbcType=VARCHAR},
+     organ_addr = #{organAddr,jdbcType=VARCHAR},
       create_time = #{createTime,jdbcType=TIMESTAMP}
     where relation_id = #{relationId,jdbcType=VARCHAR}
   </update>

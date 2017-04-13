@@ -120,7 +120,7 @@ pageEncoding="UTF-8"%>
                 </div>
                 <div class="clear"></div>
                 <div class="center" id="center" style="display: none ">
-                    <textarea name="" placeholder="请填写不通过原因" id="" cols="30" rows="10"></textarea>
+                    <textarea name="" placeholder="请填写不通过原因" id="mytext" cols="30" rows="10"></textarea>
                 </div>
             </div>
             <br />

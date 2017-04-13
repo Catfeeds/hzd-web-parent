@@ -7,6 +7,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.hzcf.platform.common.util.uuid.UUIDGenerator;
+import com.hzcf.platform.core.user.model.*;
+import com.hzcf.platform.core.user.service.*;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,16 +26,6 @@ import com.hzcf.platform.api.util.Md5Util;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
-import com.hzcf.platform.core.user.model.UserApplyInfoVO;
-import com.hzcf.platform.core.user.model.UserImageVO;
-import com.hzcf.platform.core.user.model.UserInfoVO;
-import com.hzcf.platform.core.user.model.UserRelationVO;
-import com.hzcf.platform.core.user.model.UserVO;
-import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
-import com.hzcf.platform.core.user.service.UserImageService;
-import com.hzcf.platform.core.user.service.UserInfoService;
-import com.hzcf.platform.core.user.service.UserRelationService;
-import com.hzcf.platform.core.user.service.UserService;
 import com.hzcf.platform.core.user.webService.model.BorrowRelationVo;
 import com.hzcf.platform.core.user.webService.model.HuiZhongApplicationVo;
 import com.hzcf.platform.core.user.webService.model.ImageVo;
@@ -61,6 +54,8 @@ public class LoadService {
 	@Autowired
 	public UserImageService userImageService;//用户图片service
 	//public SimpleDateFormat sdf = new SimpleDateFormat();//日期操作类,"yyyy-MM-dd HH:mm:ss"
+	@Autowired
+	public UserApplyLogService userApplyLogService;
 	/**
 	 * @Title: insertLoad 进件接口
 	 * @Description:线下和调度对接，进件，就是保存借款信息
@@ -232,7 +227,7 @@ public class LoadService {
 	 * @throws Exception
 	 */
 	@Transactional
-	public boolean operateLoad(String applyId) {
+	public boolean operateLoad(String applyId,UserVO user) {
 			String result=insertLoad(applyId);
 			/**根据线下返回的结果，修改借款人的“借款状态”
 			 * 线下返回结果示例：{"retInfo":"进件成功!","retCode":"0000"}
@@ -242,6 +237,9 @@ public class LoadService {
 				if(StringUtils.isNotBlank(result)){
 					JSONObject resultJSON=JSONObject.fromObject(result);
 					String retCode=resultJSON.getString("retCode");
+					String retInfo = resultJSON.getString("retInfo");
+
+
 					if("0000".equals(retCode)){
 						/**修改User中的“借款状态”*/
 						//组装参数
@@ -265,6 +263,16 @@ public class LoadService {
 							return false;
 						}
 					}else{
+						logger.info("调用进件接口出错，保存错误日志信息 applyId "+applyId);
+						UserApplyLogVO userApplyLog = new UserApplyLogVO();
+						userApplyLog.setId(UUIDGenerator.getUUID());
+						userApplyLog.setApplyId(applyId);
+						userApplyLog.setApplyType("1");
+						userApplyLog.setIdCard(user.getIdCard());
+						userApplyLog.setReturnContent(retInfo);
+						userApplyLog.setReturnTime(new Date());
+						userApplyLogService.insertUserApplyLog(userApplyLog);
+
 						return false;
 					}
 				}else{

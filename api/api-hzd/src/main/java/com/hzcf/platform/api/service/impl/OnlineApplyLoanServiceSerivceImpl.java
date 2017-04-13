@@ -672,7 +672,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
             // 如果用于已经实名认证,直接进件    TODO 提交进件
             try {
 
-                if (loadService.operateLoad(applyId)) {
+                if (loadService.operateLoad(applyId,user)) {
                     logger.i("用户进件申请第七步--------线上进件申请成功申请单号:" + applyId);
                     UserVO updateUserVO = new UserVO();
                     updateUserVO.setId(items.getId());//用户id

@@ -22,12 +22,12 @@ import java.util.List;
  *
  *
  */
-public class DataGrid implements java.io.Serializable {
+public class DataGrid<T> implements java.io.Serializable {
 	private static final long serialVersionUID = -2277986338183947012L;
 	
 	private Long total = 0L;
 	private List<Object> rows = new ArrayList<Object>();
-	private List<Object> footer = new ArrayList<Object>();
+	private List<T> footer = new ArrayList<T>();
 	
 	public DataGrid(Long total,List<Object> rows){
 		this.total=total;
@@ -52,11 +52,11 @@ public class DataGrid implements java.io.Serializable {
 		this.rows = rows;
 	}
 
-	public List<Object> getFooter() {
+	public List<T> getFooter() {
 		return footer;
 	}
 
-	public void setFooter(List<Object> footer) {
+	public void setFooter(List<T> footer) {
 		this.footer = footer;
 	}	
 

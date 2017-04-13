@@ -60,9 +60,9 @@ public class LoadServiceImpl implements ILoadService {
 		
 		return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),result);
 	}
-	/**进件接口，进件成功之后会修改数据库
+/*	*//**进件接口，进件成功之后会修改数据库
 	 * 
-	 */
+	 *//*
 	@Override
 	@LogAnnotation
 	public BackResult operateLoad(String params) throws Exception {
@@ -70,7 +70,7 @@ public class LoadServiceImpl implements ILoadService {
 		String applyId=json.getString("applyId");
 		boolean result=LoadService.operateLoad(applyId);
 		return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),result);
-	}
+	}*/
 	/**根据userId删除借款人的进件信息
 	 * 
 	 */

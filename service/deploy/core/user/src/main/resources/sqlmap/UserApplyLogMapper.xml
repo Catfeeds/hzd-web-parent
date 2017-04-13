@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.hzcf.platform.core.user.data.UserApplyLog" >
+  <resultMap id="BaseResultMap" type="UserApplyLog" >
+    <id column="log_id" property="logId" jdbcType="VARCHAR" />
+    <result column="apply_id" property="applyId" jdbcType="VARCHAR" />
+    <result column="id_card" property="idCard" jdbcType="VARCHAR" />
+    <result column="apply_type" property="applyType" jdbcType="VARCHAR" />
+    <result column="return_time" property="returnTime" jdbcType="TIMESTAMP" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="UserApplyLog" extends="BaseResultMap" >
+    <result column="return_content" property="returnContent" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    log_id, apply_id, id_card, apply_type, return_time
+  </sql>
+  <sql id="Blob_Column_List" >
+    return_content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.String" >
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_apply_log
+    where log_id = #{logId,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String" >
+    delete from user_apply_log
+    where log_id = #{logId,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="UserApplyLog" >
+    insert into user_apply_log (log_id, apply_id, id_card,
+      apply_type, return_time, return_content
+      )
+    values (#{logId,jdbcType=VARCHAR}, #{applyId,jdbcType=VARCHAR}, #{idCard,jdbcType=VARCHAR},
+      #{applyType,jdbcType=VARCHAR}, #{returnTime,jdbcType=TIMESTAMP}, #{returnContent,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertUserApplyLog"  parameterType="UserApplyLog" >
+    insert into user_apply_log
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        log_id,
+      </if>
+      <if test="applyId != null" >
+        apply_id,
+      </if>
+      <if test="idCard != null" >
+        id_card,
+      </if>
+      <if test="applyType != null" >
+        apply_type,
+      </if>
+      <if test="returnTime != null" >
+        return_time,
+      </if>
+      <if test="returnContent != null" >
+        return_content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="logId != null" >
+        #{logId,jdbcType=VARCHAR},
+      </if>
+      <if test="applyId != null" >
+        #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="applyType != null" >
+        #{applyType,jdbcType=VARCHAR},
+      </if>
+      <if test="returnTime != null" >
+        #{returnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnContent != null" >
+        #{returnContent,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="UserApplyLog" >
+    update user_apply_log
+    <set >
+      <if test="applyId != null" >
+        apply_id = #{applyId,jdbcType=VARCHAR},
+      </if>
+      <if test="idCard != null" >
+        id_card = #{idCard,jdbcType=VARCHAR},
+      </if>
+      <if test="applyType != null" >
+        apply_type = #{applyType,jdbcType=VARCHAR},
+      </if>
+      <if test="returnTime != null" >
+        return_time = #{returnTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="returnContent != null" >
+        return_content = #{returnContent,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where log_id = #{logId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="UserApplyLog" >
+    update user_apply_log
+    set apply_id = #{applyId,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      apply_type = #{applyType,jdbcType=VARCHAR},
+      return_time = #{returnTime,jdbcType=TIMESTAMP},
+      return_content = #{returnContent,jdbcType=LONGVARCHAR}
+    where log_id = #{logId,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="UserApplyLog" >
+    update user_apply_log
+    set apply_id = #{applyId,jdbcType=VARCHAR},
+      id_card = #{idCard,jdbcType=VARCHAR},
+      apply_type = #{applyType,jdbcType=VARCHAR},
+      return_time = #{returnTime,jdbcType=TIMESTAMP}
+    where log_id = #{logId,jdbcType=VARCHAR}
+  </update>
+
+
+  <sql id="Base_Where_Clause">
+    <if test="userApplyLog.applyId != null and userApplyLog.applyId != ''"> and apply_id=#{userApplyLog.applyId} </if>
+    <if test="userApplyLog.idCard != null and userApplyLog.idCard !=''"> and id_card=#{userApplyLog.idCard}    </if>
+
+  </sql>
+
+
+  <!-- 分页查询 -->
+  <select id="queryUserApplyLog" resultMap="ResultMapWithBLOBs" parameterType="java.util.Map">
+    select
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_apply_log
+    <where>
+      <include refid="Base_Where_Clause"/>
+    </where>
+    ORDER BY return_time DESC
+    <if test="page.page > 0">
+      LIMIT #{page.start},#{page.end}
+    </if>
+  </select>
+
+  <select id="getUserApplyLogTotal" resultType="long" parameterType="java.util.Map">
+    SELECT COUNT(1) FROM  user_apply_log
+    <where>
+      <include refid="Base_Where_Clause"/>
+    </where>
+  </select>
+</mapper>

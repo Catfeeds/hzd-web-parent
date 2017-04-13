@@ -122,13 +122,5 @@ public class OnlineApplyLoanController {
         return onlineApplyLoanService.deleteApplyIdImage(user, applyId);
     }
 
-    private static String getSuffix(String url) {
-        if (url != null) {
-            int index = url.lastIndexOf(".");
-            if (index > 0) {
-                return url.substring(index + 1);
-            }
-        }
-        return url;
-    }
+
 }

@@ -3,6 +3,7 @@ package com.hzcf.platform.core.user.data;
 
 import com.hzcf.platform.common.model.AbstractEntity;
 
+import javax.xml.crypto.Data;
 import java.math.BigDecimal;
 import java.util.Date;
 
@@ -52,7 +53,9 @@ public class UserInfo extends AbstractEntity {
     private String orgPostCode;//单位邮政编码  (新增字段)
     private String orgTelAreaCode;//单位电话区号  (新增字段)
     private String orgTelCode;//单位电话号码
-
+	private String positions; //担任职务
+	private Data entryDate; //入职时间
+	private String remark;//备注
     
     /**借款信息*/
     private String isExpress;//是否加急,默认为0，就是默认为否  (新增字段)
@@ -355,21 +358,77 @@ public class UserInfo extends AbstractEntity {
 	public void setBorrowType(String borrowType) {
 		this.borrowType = borrowType;
 	}
+
+	public String getPositions() {
+		return positions;
+	}
+
+	public void setPositions(String positions) {
+		this.positions = positions;
+	}
+
+	public Data getEntryDate() {
+		return entryDate;
+	}
+
+	public void setEntryDate(Data entryDate) {
+		this.entryDate = entryDate;
+	}
+
+	public String getRemark() {
+		return remark;
+	}
+
+	public void setRemark(String remark) {
+		this.remark = remark;
+	}
+
 	@Override
 	public String toString() {
-		return "UserInfo [userInfoId=" + userInfoId + ", userId=" + userId + ", applyId=" + applyId + ", idType="
-				+ idType + ", idcardValidity=" + idcardValidity + ", birthday=" + birthday + ", gender=" + gender
-				+ ", education=" + education + ", domicileProvince=" + domicileProvince + ", domicileCity="
-				+ domicileCity + ", domicileAddress=" + domicileAddress + ", domicilePostCode=" + domicilePostCode
-				+ ", marriageStatus=" + marriageStatus + ", childrenStatus=" + childrenStatus + ", houseStatus="
-				+ houseStatus + ", residentProvince=" + residentProvince + ", residentCity=" + residentCity
-				+ ", residentAddress=" + residentAddress + ", residentTelCode=" + residentTelCode
-				+ ", residentTelAreaCode=" + residentTelAreaCode + ", residentPostCode=" + residentPostCode + ", email="
-				+ email + ", annualIncome=" + annualIncome + ", creditCardLimit=" + creditCardLimit + ", liveTogether="
-				+ liveTogether + ", staffNo=" + staffNo + ", orgName=" + orgName + ", orgType=" + orgType
-				+ ", orgProvince=" + orgProvince + ", orgCity=" + orgCity + ", orgAddress=" + orgAddress
-				+ ", orgPostCode=" + orgPostCode + ", orgTelAreaCode=" + orgTelAreaCode + ", orgTelCode=" + orgTelCode
-				+ ", isExpress=" + isExpress + ", productId=" + productId + ", receiverLoginName=" + receiverLoginName
-				+ ", isInside=" + isInside + ", orgTeamId=" + orgTeamId + ", borrowType=" + borrowType + "]";
+		return "UserInfo{" +
+				"userInfoId='" + userInfoId + '\'' +
+				", userId='" + userId + '\'' +
+				", applyId='" + applyId + '\'' +
+				", idType='" + idType + '\'' +
+				", idcardValidity='" + idcardValidity + '\'' +
+				", birthday=" + birthday +
+				", gender='" + gender + '\'' +
+				", education='" + education + '\'' +
+				", domicileProvince='" + domicileProvince + '\'' +
+				", domicileCity='" + domicileCity + '\'' +
+				", domicileAddress='" + domicileAddress + '\'' +
+				", domicilePostCode='" + domicilePostCode + '\'' +
+				", marriageStatus='" + marriageStatus + '\'' +
+				", childrenStatus='" + childrenStatus + '\'' +
+				", houseStatus='" + houseStatus + '\'' +
+				", residentProvince='" + residentProvince + '\'' +
+				", residentCity='" + residentCity + '\'' +
+				", residentAddress='" + residentAddress + '\'' +
+				", residentTelCode='" + residentTelCode + '\'' +
+				", residentTelAreaCode='" + residentTelAreaCode + '\'' +
+				", residentPostCode='" + residentPostCode + '\'' +
+				", email='" + email + '\'' +
+				", annualIncome=" + annualIncome +
+				", creditCardLimit=" + creditCardLimit +
+				", liveTogether='" + liveTogether + '\'' +
+				", staffNo='" + staffNo + '\'' +
+				", orgName='" + orgName + '\'' +
+				", orgType='" + orgType + '\'' +
+				", orgProvince='" + orgProvince + '\'' +
+				", orgCity='" + orgCity + '\'' +
+				", orgAddress='" + orgAddress + '\'' +
+				", orgPostCode='" + orgPostCode + '\'' +
+				", orgTelAreaCode='" + orgTelAreaCode + '\'' +
+				", orgTelCode='" + orgTelCode + '\'' +
+				", positions='" + positions + '\'' +
+				", entryDate=" + entryDate +
+				", remark='" + remark + '\'' +
+				", isExpress='" + isExpress + '\'' +
+				", productId='" + productId + '\'' +
+				", receiverLoginName='" + receiverLoginName + '\'' +
+				", isInside='" + isInside + '\'' +
+				", orgTeamId='" + orgTeamId + '\'' +
+				", borrowType='" + borrowType + '\'' +
+				'}';
 	}
 }
