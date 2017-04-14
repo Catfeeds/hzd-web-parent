@@ -63,4 +63,24 @@ public class ApplyDetailController {
 		return "apply/detail";
 	}
 
+	/**
+	 * 后台补充资料详情页面
+	 * @return
+	 */
+	@RequestMapping(value="/apply/check/addDetail",method=RequestMethod.GET)
+	public String addDetail(String applyId,String mobile,Model model) {
+
+		UserApplyInfoVO userApplyInfo = applyDetailService.getUserApplyInfoDetail(applyId);
+		if (userApplyInfo != null) {
+			model.addAttribute("userApplyInfo", userApplyInfo);
+		}
+		List<UserImageVO> userImageVOList = applyDetailService.getUserImageDetailForAdd(userApplyInfo);
+		if (userImageVOList != null) {
+			model.addAttribute("userImageVOList",userImageVOList);
+		}
+
+		return "apply/addDetail";
+	}
+
+
 }

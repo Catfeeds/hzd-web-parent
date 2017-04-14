@@ -273,16 +273,13 @@
             <![CDATA[ and additional_submit_time  >= #{apply.addStartDate} ]]>
         </if>
         <if test="apply.addEndDate != null and apply.addEndDate != ''">
-            <![CDATA[ and additional_submit_time  <= #{apply.addEndDate} ]]>
+            <![CDATA[ and additional_submit_time  <= CONCAT(#{apply.addEndDate},'23:59:59')]]>
         </if>
-<!--        <if test="apply.startDate != null and apply.startDate !='' and apply.endDate != null and apply.endDate != ''">
-            and date_format(create_time, '%Y-%m-%d') BETWEEN #{apply.startDate} AND #{apply.endDate}
-        </if>-->
         <if test="apply.startDate != null and apply.startDate != ''">
             <![CDATA[ and create_time  >= #{apply.startDate} ]]>
         </if>
         <if test="apply.endDate != null and apply.endDate != ''">
-            <![CDATA[ and create_time  <= #{apply.endDate} ]]>
+            <![CDATA[ and create_time  <= CONCAT(#{apply.endDate},'23:59:59')]]>
         </if>
         <if test="apply.status != null and apply.status != ''">and a.status=#{apply.status}</if>
         <!-- 过滤未提交进件 -->

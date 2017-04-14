@@ -21,17 +21,17 @@ $(function(){
 			      return op.pageSize * (op.pageNumber - 1) + (index + 1);  
 			    }  
 				},
-		   {field:'applyId',title:'applyId',width:230,hidden:'true'},
-		   {field:'mobile',title:'手机号',width:130},
-			{field:'name',title:'姓名',width:70},
+		   {field:'applyId',title:'applyId',width:30,hidden:'true'},
+		   {field:'mobile',title:'手机号',width:120},
+			{field:'name',title:'姓名',width:60},
 			{field:'idCard',title:'身份证号',width:190},
 		    {field:'loanPurposeOne',title:'借款用途',width:80},
 			{field:'loanPurposeTwo',title:'借款用途详情',width:100},
 			{field:'minApplyAmount',title:'申请最低额度',width:100},
 			{field:'maxApplyAmount',title:'申请最高额度',width:100},
 			{field:'maxMonthlyPayment',title:'月还款最高额度',width:100},
-			{field:'applySubmitTime',title:'提交时间',width:95,formatter:formatDateBoxFull},
-			{field:'status',title:'进件状态',width:90,formatter:function(value){
+			{field:'applySubmitTime',title:'提交时间',width:100,formatter:formatDatebox},
+			{field:'status',title:'进件状态',width:80,formatter:function(value){
 				if(value =="2"){
 					return "未进件";
 				}
@@ -40,7 +40,7 @@ $(function(){
 				}
 			}},
 
-            {field:'additionalSubmitTime',title:'补充提交时间',width:95,formatter:formatDateBoxFull},
+            {field:'additionalSubmitTime',title:'补充提交时间',width:100,formatter:formatDatebox},
             {field:'additionalStatus',title:'补充状态',width:80,formatter:function(value){
                 if(value =="0"){
                     return "待补充";
@@ -55,8 +55,12 @@ $(function(){
 				}
             }},
 
-		   {field:'-',title:'操作',width:100,formatter:function(value,row,index){
-			   return "<a href='#' onclick='detail(\""+row.applyId+"\,"+row.mobile+"\");' > 查看详情   </a>";   
+		   {field:'-',title:'操作',width:160,formatter:function(value,row,index){
+		    	if(row.additionalStatus == "1"){
+                    return "<a href='#' onclick='detail(\""+row.applyId+"\,"+row.mobile+"\");' > 查看详情  </a> | <a href='#' onclick='adddetail(\""+row.applyId+"\,"+row.mobile+"\");' > 补充详情</a>";
+                }else{
+                    return "<a href='#' onclick='detail(\""+row.applyId+"\,"+row.mobile+"\");' > 查看详情   </a>";
+                }
 		   }}
 		  
 		]],
@@ -97,12 +101,20 @@ function doExport(){
 	 $("#searchForm").submit();
 }
 
+//查看详情
 function detail(det){
 	var arr=det.split(",");
 	var applyId = arr[0];
 	var mobile = arr[1];
 	window.location = '${path}/apply/check/detail?applyId='+applyId+"&mobile="+mobile;
-	
+}
+
+//补充详情
+function adddetail(det){
+    var arr=det.split(",");
+    var applyId = arr[0];
+    var mobile = arr[1];
+    window.location = '${path}/apply/check/addDetail?applyId='+applyId+"&mobile="+mobile;
 }
 </script>
 
