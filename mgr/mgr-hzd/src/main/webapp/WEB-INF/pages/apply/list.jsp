@@ -22,16 +22,16 @@ $(function(){
 			    }  
 				},
 		   {field:'applyId',title:'applyId',width:230,hidden:'true'},
-		   {field:'mobile',title:'手机号',width:150},
-			{field:'name',title:'姓名',width:100},
-			{field:'idCard',title:'身份证号',width:180},
-		    {field:'loanPurposeOne',title:'借款用途',width:100},
-			{field:'loanPurposeTwo',title:'借款用途详情',width:120},
+		   {field:'mobile',title:'手机号',width:130},
+			{field:'name',title:'姓名',width:70},
+			{field:'idCard',title:'身份证号',width:190},
+		    {field:'loanPurposeOne',title:'借款用途',width:80},
+			{field:'loanPurposeTwo',title:'借款用途详情',width:100},
 			{field:'minApplyAmount',title:'申请最低额度',width:100},
 			{field:'maxApplyAmount',title:'申请最高额度',width:100},
 			{field:'maxMonthlyPayment',title:'月还款最高额度',width:100},
-			{field:'applySubmitTime',title:'提交时间',width:200,formatter:formatDateBoxFull},
-			{field:'status',title:'进件状态',width:100,formatter:function(value){
+			{field:'applySubmitTime',title:'提交时间',width:95,formatter:formatDateBoxFull},
+			{field:'status',title:'进件状态',width:90,formatter:function(value){
 				if(value =="2"){
 					return "未进件";
 				}
@@ -39,6 +39,22 @@ $(function(){
 					return "已进件";
 				}
 			}},
+
+            {field:'additionalSubmitTime',title:'补充提交时间',width:95,formatter:formatDateBoxFull},
+            {field:'additionalStatus',title:'补充状态',width:80,formatter:function(value){
+                if(value =="0"){
+                    return "待补充";
+                }
+                if(value=="1"){
+                    return "已补充";
+                }
+            }},
+            { field: "additionalContent", title: '待补充内容', width:100,halign:'center', formatter: function (value) {
+		    	if(value != null){
+                    return "<span title='" + value + "'>" + value + "</span>";
+				}
+            }},
+
 		   {field:'-',title:'操作',width:100,formatter:function(value,row,index){
 			   return "<a href='#' onclick='detail(\""+row.applyId+"\,"+row.mobile+"\");' > 查看详情   </a>";   
 		   }}
@@ -66,7 +82,11 @@ function doSearch(){
 		//buyRedpackCount: $('#buyRedpackCount').combobox('getValue'),
 		startDate: $('#startDate').datebox('getValue'),
 		endDate: $('#endDate').datebox('getValue'),
-		status:$("#status").combobox('getValue')
+		status:$("#status").combobox('getValue'),
+
+        addStartDate: $('#addStartDate').datebox('getValue'),
+        addEndDate: $('#addEndDate').datebox('getValue'),
+        additionalStatus:$("#additionalStatus").combobox('getValue')
 	});
 }
 
@@ -109,6 +129,16 @@ function detail(det){
     	<option value="2">未进件</option>
     	<option value="1">已进件</option>
     </select>
+	<span><br></span>
+	<span>补充提交时间:</span>
+	<input id="addStartDate" name="addStartDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc"/>至
+	<input id="addEndDate" name="addEndDate" class="easyui-datebox" style="width:120px; line-height:26px;border:1px solid #ccc"/>
+	<span>补充状态:</span>
+	<select id="additionalStatus" name="status" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'">
+		<option value="">请选择</option>
+		<option value="0">待补充</option>
+		<option value="1">已补充</option>
+	</select>
 <!-- 	<span>借款状态:</span>
 	<select  class="easyui-combobox" style="width:120px;">
 		<option value="">请选择</option>

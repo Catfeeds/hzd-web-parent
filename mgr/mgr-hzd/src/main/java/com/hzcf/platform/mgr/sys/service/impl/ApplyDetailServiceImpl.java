@@ -196,6 +196,12 @@ public class ApplyDetailServiceImpl implements IApplyDetailService {
 			//单位电话区号orgTelAreaCode
 			String orgTelAreaValue = dictUtilService.convertCityBean(orgProvince, orgCity).getAreacode();
 			userInfoVO.getItems().setOrgTelAreaCode(orgTelAreaValue);
+
+			//担任职称
+			String positions = userInfoVO.getItems().getPositions();
+			String positionsValue = dictUtilService.convertDict(DictBase.ORG_TITLE, positions);
+			userInfoVO.getItems().setPositions(positionsValue);
+
 		}
 
 		return userInfoVO.getItems();

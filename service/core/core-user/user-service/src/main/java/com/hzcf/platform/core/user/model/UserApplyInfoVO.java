@@ -32,6 +32,25 @@ public class UserApplyInfoVO extends BaseVO {
 	private String additionalStatus;//补充状态
 	private String additionalContent;//待补充内容
 
+	private String addStartDate;//补充提交时间-开始时间
+	private String addEndDate;//补充提交时间-结束时间
+
+	public String getAddStartDate() {
+		return addStartDate;
+	}
+
+	public void setAddStartDate(String addStartDate) {
+		this.addStartDate = addStartDate;
+	}
+
+	public String getAddEndDate() {
+		return addEndDate;
+	}
+
+	public void setAddEndDate(String addEndDate) {
+		this.addEndDate = addEndDate;
+	}
+
 	public String getBorrowerApplyId() {
 		return borrowerApplyId;
 	}

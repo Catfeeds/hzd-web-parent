@@ -92,6 +92,12 @@ pageEncoding="UTF-8"%>
 					<td>单位电话区号：<span>${userInfo.orgTelAreaCode}</span></td>
 					<td>单位电话号码：<span>${userInfo.orgTelCode}</span></td>
 				</tr>
+				<tr>
+					<td>所在部门：<span>${userInfo.department}</span></td>
+					<td>担任职务：<span>${userInfo.positions}</span></td>
+					<td>入职时间：<span><fmt:formatDate value="${userInfo.entryDate }" pattern="yyyy-MM-dd"/></span></td>
+					<td></td>
+				</tr>
 			</table>
 		</div>
         <div class="userInfo">
@@ -113,10 +119,21 @@ pageEncoding="UTF-8"%>
 						<td>姓名：<span>${userRelation.name}</span></td>
 						<td>和本人关系：<span>${userRelation.relationType}</span></td>
 						<td>手机号：<span>${userRelation.mobile}</span></td>
+						<td>单位名称：<span>${userRelation.organName}</span></td>
+						<td>单位地址：<span>${userRelation.organAddr}</span></td>
 					</tr>          
 				</c:forEach>
 			</table>
 		</div>
+		<div class="userInfo">
+			<h1>备注</h1>
+			<table cellpadding="0" cellspacing="0">
+				<tr>
+					<td><span>${userInfo.remark }</span></td>
+				</tr>
+			</table>
+		</div>
+
 		<div class="userInfo">
             <h1>其他</h1>
             <table cellpadding="0" cellspacing="0">
