@@ -95,7 +95,7 @@ pageEncoding="UTF-8"%>
 				<tr>
 					<td>所在部门：<span>${userInfo.department}</span></td>
 					<td>担任职务：<span>${userInfo.positions}</span></td>
-					<td>入职时间：<span><fmt:formatDate value="${userInfo.entryDate }" pattern="yyyy-MM-dd"/></span></td>
+					<td>入职时间：<span>${userInfo.entryDate }</span></td>
 					<td></td>
 				</tr>
 			</table>
