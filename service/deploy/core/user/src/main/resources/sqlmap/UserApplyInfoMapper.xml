@@ -40,6 +40,11 @@
         <result column="status" property="status" jdbcType="VARCHAR"/>
         <result column="apply_submit_time" property="applySubmitTime" jdbcType="TIMESTAMP"/>
         <result column="period" property="period" jdbcType="VARCHAR"/>
+
+        <result column="borrower_apply_id" property="borrowerApplyId" jdbcType="VARCHAR"/>
+        <result column="additional_submit_time" property="additionalSubmitTime" jdbcType="TIMESTAMP"/>
+        <result column="additional_status" property="additionalStatus" jdbcType="VARCHAR"/>
+        <result column="additional_content" property="additionalContent" jdbcType="VARCHAR"/>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -267,8 +272,17 @@
         <if test="apply.name != null and apply.name !=''">and name like CONCAT('%',#{apply.name},'%')</if>
         <if test="apply.mobile != null and apply.mobile != ''">and mobile=#{apply.mobile}</if>
         <if test="apply.additionalStatus != null and apply.additionalStatus != ''">and additional_status=#{apply.additionalStatus}</if>
-        <if test="apply.startDate != null and apply.startDate !='' and apply.endDate != null and apply.endDate != ''">
-            and date_format(create_time, '%Y-%m-%d') BETWEEN #{apply.startDate} AND #{apply.endDate}
+        <if test="apply.addStartDate != null and apply.addStartDate != ''">
+            <![CDATA[ and additional_submit_time  >= #{apply.addStartDate} ]]>
+        </if>
+        <if test="apply.addEndDate != null and apply.addEndDate != ''">
+            <![CDATA[ and additional_submit_time  <= CONCAT(#{apply.addEndDate},'23:59:59')]]>
+        </if>
+        <if test="apply.startDate != null and apply.startDate != ''">
+            <![CDATA[ and create_time  >= #{apply.startDate} ]]>
+        </if>
+        <if test="apply.endDate != null and apply.endDate != ''">
+            <![CDATA[ and create_time  <= CONCAT(#{apply.endDate},'23:59:59')]]>
         </if>
         <if test="apply.status != null and apply.status != ''">and a.status=#{apply.status}</if>
         <!-- 过滤未提交进件 -->
