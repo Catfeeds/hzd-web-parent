@@ -6,6 +6,7 @@ import com.hzcf.platform.api.annotation.biz.CheckString;
 import com.hzcf.platform.api.aop.RequestValidation;
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.config.BaseConfig;
+import com.hzcf.platform.api.form.UserImageForm;
 import com.hzcf.platform.api.service.IApplyImgUrInfoUrlService;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.core.user.model.UserImageVO;
@@ -42,11 +43,11 @@ public class ApplyImgUrInfoController {
         return applyImgUrInfoUrlService.queryImgByApplyId(applyId);
     }
 
-    @RequestMapping(value={"rest/api/100/saveImgByApplyId/{applyId}","api/100/saveImgByApplyId"},method= RequestMethod.POST)
+    @RequestMapping(value={"rest/api/100/saveImgByApplyId/{applyId}","api/100/saveImgByApplyId/{applyId}"},method= RequestMethod.POST)
     public BackResult saveImgByApplyId(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,
                                        @PathVariable @CheckString(min = 20 , max = 20, message = "申请单号输入不合法") String applyId,
-                                       @RequestBody List<UserImageVO> UserImage){
-        return applyImgUrInfoUrlService.saveImgByApplyId(user,applyId, UserImage);
+                                       @RequestBody UserImageForm userImageVO){
+        return applyImgUrInfoUrlService.saveImgByApplyId(user,applyId, userImageVO.getUserImageVO());
 
     }
 

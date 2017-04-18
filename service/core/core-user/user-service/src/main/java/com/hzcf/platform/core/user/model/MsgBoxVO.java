@@ -22,7 +22,10 @@ public class MsgBoxVO extends BaseVO {
     
     //ext
     private String createTimeDesc;
-    
+
+    public void setCreateTimeDesc(String createTimeDesc) {
+        this.createTimeDesc = createTimeDesc;
+    }
 
     public String getMsgId() {
         return msgId;

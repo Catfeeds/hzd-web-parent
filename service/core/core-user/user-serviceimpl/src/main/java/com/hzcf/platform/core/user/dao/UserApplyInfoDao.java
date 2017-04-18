@@ -14,7 +14,7 @@ public interface UserApplyInfoDao  extends IBaseDao<UserApplyInfo> {
 
 
 
-    UserApplyInfo selectByUserId(String userId);
+    UserApplyInfo selectByUserId(Map<String, Object> parmMap);
 
 	public List<UserApplyInfoVO> getUserApplyInfoList(Map<String, Object> parmMap);
 	public Long getUserApplyInfoTotal(Map<String, Object> parmMap);

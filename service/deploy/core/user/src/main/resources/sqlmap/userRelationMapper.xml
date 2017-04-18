@@ -42,8 +42,8 @@
       )
     values (#{relationId,jdbcType=VARCHAR}, #{userId,jdbcType=VARCHAR}, #{applyId,jdbcType=VARCHAR}, 
       #{name,jdbcType=VARCHAR}, #{relationType,jdbcType=VARCHAR},
-      #{mobile,jdbcType=VARCHAR},#{organName,jdbcType=VARCHAR}, #{organAddr,jdbcType=VARCHAR},
-       #{type,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP}
+      #{mobile,jdbcType=VARCHAR},#{type,jdbcType=VARCHAR},#{organName,jdbcType=VARCHAR}, #{organAddr,jdbcType=VARCHAR},
+        #{createTime,jdbcType=TIMESTAMP}
       )
   </insert>
   <insert id="insertSelective" parameterType="UserRelation" >

@@ -101,4 +101,20 @@ public class UserRelationVO  extends BaseVO {
     public void setOrganAddr(String organAddr) {
         this.organAddr = organAddr;
     }
+
+
+    @Override
+    public String toString() {
+        return "UserRelationVO{" +
+                "relationId='" + relationId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", applyId='" + applyId + '\'' +
+                ", name='" + name + '\'' +
+                ", relationType='" + relationType + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", type='" + type + '\'' +
+                ", organName='" + organName + '\'' +
+                ", organAddr='" + organAddr + '\'' +
+                '}';
+    }
 }

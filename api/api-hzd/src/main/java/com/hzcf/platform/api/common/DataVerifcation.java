@@ -135,7 +135,7 @@ public class DataVerifcation {
 				throw new CheckException("家庭详细地址不能为空");
 			}else if (StringUtils.isBlank(userInfoVO.getResidentTelCode())){
 				throw new CheckException("家庭电话号码不能为空");
-			}else if (userInfoVO.getResidentTelCode().length()!=8 && userInfoVO.getResidentTelCode().length()!=7){
+			}else if (userInfoVO.getResidentTelCode().length()<7 && userInfoVO.getResidentTelCode().length()>13){
 				throw new CheckException("家庭电话号码长度不符");
 			}else if (StringUtils.isBlank(userInfoVO.getEmail())){
 				throw new CheckException("电子邮件地址不能为空");
@@ -170,7 +170,7 @@ public class DataVerifcation {
 			throw new CheckException("单位详细地址不能为空");
 		}else if (StringUtils.isBlank(userInfoVO.getOrgTelCode())){
 			throw new CheckException("单位电话号码不能为空");
-		}else if (userInfoVO.getOrgTelCode().length()!=8 && userInfoVO.getOrgTelCode().length()!=7){
+		}else if ( userInfoVO.getOrgTelCode().length()<7 && userInfoVO.getOrgTelCode().length()>13){
 			throw new CheckException("单位电话号码长度不符");
 		}else if (StringUtils.isBlank(userInfoVO.getPositions())){
 			throw new CheckException("担任职务不能为空");

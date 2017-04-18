@@ -6,14 +6,17 @@ import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.service.IApplyImgUrInfoUrlService;
+import com.hzcf.platform.api.util.ImageUrlUtil;
 import com.hzcf.platform.api.util.StringUtil;
 import com.hzcf.platform.api.util.UploadImgUtil;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.common.util.uuid.UUIDGenerator;
+import com.hzcf.platform.core.user.model.UserApplyInfoVO;
 import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
 import com.hzcf.platform.core.user.service.UserImageService;
 import com.imageserver.ImageServer;
 import org.apache.commons.collections.map.HashedMap;
@@ -45,8 +48,11 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
     @Autowired
     UserImageService userImageService;
     @Autowired
-    private ImageServer imageServer;
-
+    ImageServer imageServer;
+    @Autowired
+    UserApplyInfoSerivce userApplyInfoSerivce;
+    @Autowired
+    UploadImgUtil uploadImgUtil;
     @Override
     @LogAnnotation
     public BackResult deleteImgUrl(UserVO userVO, UserImageVO userImageVO) {
@@ -57,18 +63,25 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
             return new BackResult(HzdStatusCodeEnum.HZD_CODE_9000.getCode(),
                     "artWork为空", null);
         }
+        String sufFirst = StringUtil.getSufFirst(userImageVO.getArtWork());
 
 
         try {
+            if(StringUtils.isBlank(userImageVO.getApplyId())){
+                imageServer.deleteFile(sufFirst);
+                logger.i("删除图片成功");
+                return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
+                        HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), null);
+            }
+
             userImageVO.setUserId(userVO.getId());
-            String sufFirst = StringUtil.getSufFirst(userImageVO.getArtWork());
             userImageVO.setArtWork(sufFirst);
             Result<Boolean> booleanResult = userImageService.deleteByPrimaryKey(userImageVO);
             if (StatusCodes.OK == (booleanResult.getStatus())) {
 
                 boolean b = imageServer.deleteFile(sufFirst);
                 if (!b) {
-                    logger.i("删除图片失败  图片服务器异常");
+                    logger.i("删除图片失败  图片服务器异常 url："+sufFirst);
                     return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(),
                             HzdStatusCodeEnum.HZD_CODE_9999.getMsg(), null);
                 }
@@ -128,7 +141,7 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
                     listF7.add(userImage);
                 }
                 else if(C3.equals(userImage.getImageType())){
-                    listF7.add(userImage);
+                    listC3.add(userImage);
                 }
                 else {
                         listL5.add(userImage);
@@ -142,28 +155,41 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
             map.put("F7",listF7);
             map.put("L5",listL5);
             map.put("C3",listC3);
-
+            map.put("imgUrlIp", ConstantsDictionary.imgUpload);
         }
         logger.i("查询图片信息成功：applyId:"+applyId);
         return  new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
-                HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),map);
+                HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),map.size()>0?map:null);
 
 
     }
 
     @Override
+    @LogAnnotation
     public BackResult saveImgByApplyId(UserVO userVO, String applyId, List<UserImageVO> userImage) {
+
         for (UserImageVO u:userImage){
             u.setImageId(UUIDGenerator.getUUID());
             u.setUserId(userVO.getId());
             u.setApplyId(applyId);
+            u.setType("1");
             u.setCreateTime(new Date());
             Result<Boolean> booleanResult = userImageService.insertSelective(u);
             if (StatusCodes.OK != (booleanResult.getStatus())) {
                 logger.i("保存图片失败----------------------：" + u.getArtWork() + "---" + "手机号:" + userVO.getMobile());
 
             }
+            UserApplyInfoVO userApplyInfoVO = new UserApplyInfoVO();
+            userApplyInfoVO.setAdditionalSubmitTime(new Date());
+            userApplyInfoVO.setAdditionalStatus("1");//待补充状态0 已补充状态1
 
+
+            Result<Boolean> userApplyInfoSerivceResult = userApplyInfoSerivce.updateApplyId(userApplyInfoVO);
+            if (StatusCodes.OK != userApplyInfoSerivceResult.getStatus()) {
+                logger.i("补充资料失败 userApplyInfoSerivce信息失败 ---ApplyId：" + applyId);
+                return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
+                        HzdStatusCodeEnum.HZD_CODE_0001.getMsg(), null);
+            }
         }
         return  new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
                 HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),null);
@@ -171,9 +197,10 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
     }
 
     @Override
+    @LogAnnotation
     public BackResult uploadImg(HttpServletRequest request) {
 
-        String url = UploadImgUtil.upLoadImg(request);
+        String url = uploadImgUtil.upLoadImg(request);
         if(StringUtils.isNotBlank(url)){
             return  new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
                     HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),url);

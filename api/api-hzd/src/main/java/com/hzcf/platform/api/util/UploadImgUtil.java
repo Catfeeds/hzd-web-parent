@@ -1,13 +1,12 @@
 package com.hzcf.platform.api.util;
 
-import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
-import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.config.ConstantsDictionary;
 
+import com.hzcf.platform.common.util.log.Log;
 import com.imageserver.ImageServer;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
@@ -18,13 +17,14 @@ import java.util.Iterator;
 /**
  * Created by lll on 2017-04-13.
  */
-
+@Component
 public class UploadImgUtil {
+    private static final Log logger = Log.getLogger(UploadImgUtil.class);
 
     @Autowired
-    private static ImageServer imageServer;
+    private  ImageServer imageServer;
 
-    public static String upLoadImg(HttpServletRequest request){
+    public  String upLoadImg(HttpServletRequest request){
         // 将当前上下文初始化给 CommonsMutipartResolver （多部分解析器）
         CommonsMultipartResolver multipartResolver = new CommonsMultipartResolver(
                 request.getSession().getServletContext());
@@ -43,6 +43,7 @@ public class UploadImgUtil {
                     try {
                         if (StringUtils.isNotBlank(myFileName)) {
                             //synchronized (this) {
+                            byte[] bytes = file.getBytes();
                             file_url = imageServer.uploadFile(file.getBytes(), getSuffix(myFileName));
                             //}
                             //	userImageService
@@ -52,9 +53,11 @@ public class UploadImgUtil {
 
 
                     } catch (Exception e) {
+                        e.printStackTrace();
                         return "";
                     }
                 }
+                logger.i("上传失败，没有读取到文件信息------");
 
             }
 

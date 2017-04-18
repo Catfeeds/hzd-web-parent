@@ -52,6 +52,9 @@
         <include refid="Base_Column_List"/>
         from user_apply_info
         where user_id = #{userId,jdbcType=VARCHAR}
+        <if test="additionalStatus != null and additionalStatus!=''">
+            and additional_status = #{additionalStatus,jdbcType=VARCHAR}
+        </if>
     </select>
 
     <select id="selectByBorrowerApplyId" resultMap="BaseResultMap" parameterType="java.lang.String">
@@ -314,5 +317,7 @@
             and status = #{status,jdbcType=VARCHAR}
         </if>
     </delete>
+
+
 
 </mapper>

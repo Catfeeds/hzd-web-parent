@@ -35,7 +35,7 @@ public class MsgBoxBackServiceImpl implements ImsgBoxBackService {
 
 
     @Override
-    public BackResult msgBoxBack(MsgBoxBack msgBoxBack, String borrowerApplyId) {
+    public BackResult msgBoxBack(String msgBoxBack, String borrowerApplyId) {
 
         Result<UserApplyInfoVO> userApplyInfoVOResult =
                 userApplyInfoSerivce.selectByBorrowerApplyId(borrowerApplyId);
@@ -54,8 +54,8 @@ public class MsgBoxBackServiceImpl implements ImsgBoxBackService {
         }
         UserApplyInfoVO userApplyInfoVO = userApplyInfoVOResult.getItems();
         userApplyInfoVO.setAdditionalSubmitTime(new Date());
-        userApplyInfoVO.setAdditionalStatus("1");//待补充状态1
-        userApplyInfoVO.setAdditionalContent(msgBoxBack.getMsgContent());
+        userApplyInfoVO.setAdditionalStatus("0");//待补充状态0
+        userApplyInfoVO.setAdditionalContent(msgBoxBack);
 
         Result<Boolean> booleanResult = userApplyInfoSerivce.updateApplyId(userApplyInfoVO);
         if (StatusCodes.OK != booleanResult.getStatus()) {
@@ -73,7 +73,7 @@ public class MsgBoxBackServiceImpl implements ImsgBoxBackService {
         msgBoxVO.setCreateTime(new Date());
         msgBoxVO.setMsgTitle("补充资料");
         msgBoxVO.setStatus("0");
-        msgBoxVO.setMsgContent(msgBoxBack.getMsgContent());
+        msgBoxVO.setMsgContent(msgBoxBack);
 
         Result<Boolean> booleanResult1 = msgBoxservice.insertSelective(msgBoxVO);
 

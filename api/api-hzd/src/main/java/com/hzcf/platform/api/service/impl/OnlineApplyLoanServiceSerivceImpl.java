@@ -401,6 +401,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
     public BackResult onlineLoanapplyInfoPerfect(UserVO user, UserRelationForm userRelationForm, String applyId) {
 
         try {
+            System.out.println(userRelationForm.toString());
             List<UserRelationVO> userRelationVO = userRelationForm.getUserRelationVO();
 
             DataVerifcation.checkUserRelationVO(user, userRelationVO);
@@ -587,6 +588,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
         userApplyInfoVO.setLoanPurposeOne(dictUtilService.convertLoanPurposeOne(userApplyInfoVO.getLoanPurposeOne()));
         //期数
         userApplyInfoVO.setPeriod(dictUtilService.convertDict(DictBase.PERIOD_NUM, userApplyInfoVO.getPeriod()));
+        userInfoVO.setPositions(dictUtilService.convertDict(DictBase.ORG_TITLE,userInfoVO.getPositions()));
         //学历
         userInfoVO.setEducation(dictUtilService.convertDict(DictBase.EDUCATION, userInfoVO.getEducation()));
         //户籍省市

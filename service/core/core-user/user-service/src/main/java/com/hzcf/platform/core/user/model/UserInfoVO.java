@@ -63,7 +63,7 @@ public class UserInfoVO extends BaseVO {
     private String orgTelCode;//单位电话号码
 	private String department; //所在部门
 	private String positions; //担任职务
-	private Date   entryDate; //入职时间
+	private String   entryDate; //入职时间
 	private String remark;//备注
 
 
@@ -326,11 +326,11 @@ public class UserInfoVO extends BaseVO {
 		this.positions = positions;
 	}
 
-	public Date getEntryDate() {
+	public String getEntryDate() {
 		return entryDate;
 	}
 
-	public void setEntryDate(Date entryDate) {
+	public void setEntryDate(String entryDate) {
 		this.entryDate = entryDate;
 	}
 

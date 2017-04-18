@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletRequest;
 import com.hzcf.platform.api.annotation.LogAnnotation;
 import com.hzcf.platform.api.config.BaseConfig;
 import com.imageserver.ImageServer;
-//import com.hzcf.platform.framework.fastdfs.pool.ImageServer;
+
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

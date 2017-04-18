@@ -11,9 +11,11 @@ import com.hzcf.platform.webService.model.MsgBoxBack;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by lll on 2017-04-13.
@@ -24,9 +26,9 @@ public class MsgBoxBackController {
     @Autowired
     ImsgBoxBackService imsgBoxBackService;
 
-    @RequestMapping(value = "api/100/onlineLoanapply/info/perfect/{borrowerApplyId}")
-    public BackResult msgBoxBack(@RequestBodyForm @Check MsgBoxBack msgBoxBack,
-                                 @PathVariable @CheckString(min = 30,max = 30,message = "借款编号长度不合法") String borrowerApplyId){
+    @RequestMapping(value = "api/100/furtherInformation/{borrowerApplyId}/{msgBoxBack}",method = RequestMethod.POST)
+    public BackResult msgBoxBack(@PathVariable   String msgBoxBack,
+                                 @PathVariable @CheckString(min = 12,max = 12,message = "借款编号长度不合法") String borrowerApplyId){
         return imsgBoxBackService.msgBoxBack(msgBoxBack,borrowerApplyId);
     }
 }

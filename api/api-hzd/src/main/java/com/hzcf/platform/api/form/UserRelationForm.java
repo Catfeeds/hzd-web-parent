@@ -27,4 +27,12 @@ public class UserRelationForm implements Serializable{
     public void setRemark(String remark) {
         this.remark = remark;
     }
+
+    @Override
+    public String toString() {
+        return "UserRelationForm{" +
+                "userRelationVO=" + userRelationVO.toString()+
+                ", remark='" + remark + '\'' +
+                '}';
+    }
 }

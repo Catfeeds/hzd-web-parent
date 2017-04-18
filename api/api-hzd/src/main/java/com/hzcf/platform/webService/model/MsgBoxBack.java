@@ -1,12 +1,5 @@
 package com.hzcf.platform.webService.model;
 
-import com.hzcf.platform.api.annotation.biz.CheckString;
-import com.hzcf.platform.common.model.BaseVO;
-import com.hzcf.platform.core.user.util.DateUtil;
-
-
-import javax.validation.constraints.Max;
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -18,8 +11,7 @@ public class MsgBoxBack implements Serializable {
     private String msgTitle;
     @NotNull(message = "消息内容不能为空")
     private String msgContent;
-    //ext
-    private String createTimeDesc;
+
     
 
 

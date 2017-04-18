@@ -18,6 +18,7 @@ public class DictBase {
     public final static String   PERIOD_NUM ="PERIOD_NUM";//		期数
     public final static String   RELATION_TO_APPLYER ="RELATION_TO_APPLYER";//		与申请人关系
     public final static String   RUN ="RUN";//	B	经营
+    public final static String   ORG_TITLE ="ORG_TITLE";//	职务
 
     public final static String   RELATION_TO_HOME ="RELATION_TO_HOME";//		家庭联系人
     public final static String   RELATION_TO_URGE ="RELATION_TO_URGE";//		紧急联系人

@@ -1,7 +1,10 @@
 package com.hzcf.platform.api.service.impl;
 
 import com.hzcf.platform.api.annotation.LogAnnotation;
+import com.hzcf.platform.core.user.model.UserApplyInfoVO;
 import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
+import com.hzcf.platform.core.user.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +31,9 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 	
 	@Autowired
 	private MsgBoxservice msgBoxservice;
+
+	@Autowired
+	private UserApplyInfoSerivce userApplyInfoSerivce;
 
 	/**
 	 * 查询未读数量
@@ -61,18 +67,34 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 	@Override
 	@LogAnnotation
 	public BackResult selectAllByUser(UserVO user, MsgBoxVO msgBoxVO) {
+		String applyId= "";
+		String additionalStatus ="";
 		if(msgBoxVO != null){
 			msgBoxVO.setUserId(user.getId());
 			PaginatedResult<MsgBoxVO> result = this.msgBoxservice.selectAllByUser(msgBoxVO);
+			Map<String,Object> map = new HashMap<String,Object>();
+			Map<String,Object> resultMap = new HashMap<String,Object>();
+
+			map.put("userId",user.getId());
+			map.put("additionalStatus","0");
+			Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByUserId(map);
+			if(userApplyInfoVOResult.getItems()!=null){
+				applyId = userApplyInfoVOResult.getItems().getApplyId();
+				additionalStatus =userApplyInfoVOResult.getItems().getAdditionalStatus();
+			}
+
+			resultMap.put("msgBoxVO",result.getItems());
+			resultMap.put("applyId",applyId);
+			resultMap.put("additionalStatus",additionalStatus);
 			if(StatusCodes.OK==result.getStatus() ){
 				if(result.getItems().size()==0){
 					logger.i("用户 查询站内信列表 。。。。。。 。。。。。查询成功， 但无数据。。。。。。。。 ");
-					return new BackResult(HzdStatusCodeEnum.HZD_CODE_5100.getCode(), HzdStatusCodeEnum.HZD_CODE_5100.getMsg(), result.getItems());
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_5100.getCode(), HzdStatusCodeEnum.HZD_CODE_5100.getMsg(),resultMap);
 				}
 				Result<Boolean> update_result = this.msgBoxservice.updateReadByUser(msgBoxVO);
 				if(StatusCodes.OK==update_result.getStatus()){
 					logger.i("用户 查询站内信列表 。。。。。。 。。。。。修改已读状态 成功。。。。。。。。 ");
-					return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), result.getItems());
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), resultMap);
 				}else{
 					logger.i("用户 查询站内信列表 。。。。。。 。。。。。修改已读状态 失败。。。。。。。。 ");
 					return new BackResult(HzdStatusCodeEnum.HZD_CODE_2200.getCode(), HzdStatusCodeEnum.HZD_CODE_2200.getMsg(), null);

@@ -8,5 +8,5 @@ import com.hzcf.platform.webService.model.MsgBoxBack;
  */
 public interface ImsgBoxBackService {
 
-    BackResult msgBoxBack(MsgBoxBack msgBoxBack,String borrowerApplyId);
+    BackResult msgBoxBack(String msgBoxBack,String borrowerApplyId);
 }

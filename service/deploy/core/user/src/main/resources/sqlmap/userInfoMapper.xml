@@ -43,7 +43,7 @@
     <!--新增 -->
     <result column="department" property="department" jdbcType="VARCHAR" />
     <result column="positions" property="positions" jdbcType="VARCHAR" />
-    <result column="entry_date" property="entryDate" jdbcType="TIMESTAMP" />
+    <result column="entry_date" property="entryDate" jdbcType="VARCHAR" />
     <result column="remark" property="remark" jdbcType="VARCHAR" />
     <!-- 借款信息 -->
     <result column="is_express" property="isExpress" jdbcType="VARCHAR" />
@@ -99,7 +99,7 @@
       #{email,jdbcType=VARCHAR}, #{annualIncome,jdbcType=DECIMAL}, #{creditCardLimit,jdbcType=DECIMAL}, 
       #{liveTogether,jdbcType=VARCHAR}, #{staffNo,jdbcType=VARCHAR}, #{createTime,jdbcType=TIMESTAMP},
       #{orgName,jdbcType=VARCHAR},#{orgType,jdbcType=VARCHAR},#{orgProvince,jdbcType=VARCHAR},#{orgCity,jdbcType=VARCHAR},#{orgAddress,jdbcType=VARCHAR},
-      #{orgPostCode,jdbcType=VARCHAR},#{orgTelAreaCode,jdbcType=VARCHAR},#{orgTelCode,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR},#{positions,jdbcType=VARCHAR},#{entryDate,jdbcType=TIMESTAMP},#{remark,jdbcType=VARCHAR},
+      #{orgPostCode,jdbcType=VARCHAR},#{orgTelAreaCode,jdbcType=VARCHAR},#{orgTelCode,jdbcType=VARCHAR}, #{department,jdbcType=VARCHAR},#{positions,jdbcType=VARCHAR},#{entryDate,jdbcType=VARCHAR},#{remark,jdbcType=VARCHAR},
       #{isExpress,jdbcType=VARCHAR},#{productId,jdbcType=VARCHAR},
       #{receiverLoginName,jdbcType=VARCHAR},#{isInside,jdbcType=VARCHAR},#{orgTeamId,jdbcType=VARCHAR},#{borrowType,jdbcType=VARCHAR}
       )
@@ -356,7 +356,7 @@
         #{positions,jdbcType=VARCHAR},
       </if>
       <if test="entryDate != null" >
-        #{entry_date,jdbcType=TIMESTAMP},
+        #{entry_date,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         #{remark,jdbcType=VARCHAR},
@@ -488,7 +488,7 @@
         positions = #{positions,jdbcType=VARCHAR},
       </if>
       <if test="entryDate != null" >
-        entry_date = #{entryDate,jdbcType=TIMESTAMP},
+        entry_date = #{entryDate,jdbcType=VARCHAR},
       </if>
       <if test="remark != null" >
         remark = #{remark,jdbcType=VARCHAR},
@@ -554,7 +554,7 @@
       org_tel_code = #{orgTelCode,jdbcType=VARCHAR},
       department = #{department,jdbcType=VARCHAR},
       positions = #{positions,jdbcType=VARCHAR},
-      entry_date = #{entryDate,jdbcType=TIMESTAMP},
+      entry_date = #{entryDate,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR},
       is_express = #{isExpress,jdbcType=VARCHAR},
       product_id = #{productId,jdbcType=VARCHAR},
