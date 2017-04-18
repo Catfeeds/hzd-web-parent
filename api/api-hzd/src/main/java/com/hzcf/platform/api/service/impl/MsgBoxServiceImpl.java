@@ -68,7 +68,7 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 	@LogAnnotation
 	public BackResult selectAllByUser(UserVO user, MsgBoxVO msgBoxVO) {
 		String applyId= "";
-		String additionalStatus ="";
+		String additionalStatus ="1";//默认已补充
 		if(msgBoxVO != null){
 			msgBoxVO.setUserId(user.getId());
 			PaginatedResult<MsgBoxVO> result = this.msgBoxservice.selectAllByUser(msgBoxVO);
@@ -76,7 +76,7 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 			Map<String,Object> resultMap = new HashMap<String,Object>();
 
 			map.put("userId",user.getId());
-			map.put("additionalStatus","0");
+			map.put("additionalStatus","0");//状态 0  为需要补充资料
 			Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByUserId(map);
 			if(userApplyInfoVOResult.getItems()!=null){
 				applyId = userApplyInfoVOResult.getItems().getApplyId();

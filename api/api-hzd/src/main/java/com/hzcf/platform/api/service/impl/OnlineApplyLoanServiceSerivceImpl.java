@@ -276,7 +276,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
                 userInfoVO.setIsInside(userDictJson.getIsInside()); //内网外网 // TODO 内网外挂
                 Date BirthdayDate = CustomerUtils.calculateBirthDate(user.getIdCard());
                 userInfoVO.setBirthday(BirthdayDate);  //生日: TODO
-
+                userInfoVO.setApplyId(applyId);
                 Result<Boolean> booleanResult = userInfoService.updateUserInfo(userInfoVO);
                 if (StatusCodes.OK == (booleanResult.getStatus())) {
                     logger.i("用户进件申请第二步 更新借款信息成功---手机号:" + user.getMobile() + "----申请单号:" + applyId);

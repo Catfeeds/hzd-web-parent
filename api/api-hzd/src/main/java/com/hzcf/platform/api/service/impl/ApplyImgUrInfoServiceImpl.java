@@ -180,6 +180,7 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
 
             }
             UserApplyInfoVO userApplyInfoVO = new UserApplyInfoVO();
+            userApplyInfoVO.setApplyId(applyId);
             userApplyInfoVO.setAdditionalSubmitTime(new Date());
             userApplyInfoVO.setAdditionalStatus("1");//待补充状态0 已补充状态1
 
@@ -199,13 +200,14 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
     @Override
     @LogAnnotation
     public BackResult uploadImg(HttpServletRequest request) {
-
+        Map map  = new HashMap();
         String url = uploadImgUtil.upLoadImg(request);
         if(StringUtils.isNotBlank(url)){
+            map.put("url",url);
             return  new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
-                    HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),url);
+                    HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),map);
         }
         return  new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
-                HzdStatusCodeEnum.HZD_CODE_0001.getMsg(),null);
+                HzdStatusCodeEnum.HZD_CODE_0001.getMsg(),map);
     }
 }

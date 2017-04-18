@@ -42,22 +42,20 @@ public class UploadImgUtil {
                     String myFileName = file.getOriginalFilename();
                     try {
                         if (StringUtils.isNotBlank(myFileName)) {
-                            //synchronized (this) {
-                            byte[] bytes = file.getBytes();
+
                             file_url = imageServer.uploadFile(file.getBytes(), getSuffix(myFileName));
-                            //}
-                            //	userImageService
+
                         }
 
                          file_url = ConstantsDictionary.imgUpload + "/" + file_url;
-
+                        logger.i("上传成功，file_url------"+file_url);
 
                     } catch (Exception e) {
                         e.printStackTrace();
                         return "";
                     }
                 }
-                logger.i("上传失败，没有读取到文件信息------");
+
 
             }
 
