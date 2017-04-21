@@ -10,6 +10,7 @@ import java.util.Map;
 import com.hzcf.platform.common.util.uuid.UUIDGenerator;
 import com.hzcf.platform.core.user.model.*;
 import com.hzcf.platform.core.user.service.*;
+import com.hzcf.platform.webService.model.PatchBoltImage;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -342,7 +343,7 @@ public class LoadService {
 	 * @time: 2017年1月7日 下午6:58:46  
 	 * @return:String
 	 */
-	public static String selectLoadProgress(String mobile){
+	public static String selectLoadProgress(String idCard){
 		/**初始化参数*/
 		String result="";//设置返回结果
 		//发送到调度的参数信息
@@ -352,11 +353,11 @@ public class LoadService {
 		String key = ConstantsDictionary.KEY;//调度的“查询借款进度”接口的密钥
 		//发送数据的Map
 		Map<String,Object> weiXinQueryProgressParms = new HashMap<String,Object>();
-		weiXinQueryProgressParms.put("phoneNum",mobile);//身份证号
+		weiXinQueryProgressParms.put("phoneNum",idCard);//身份证号
 		weiXinQueryProgressParms.put("systemSourceId", systemSourceId);//系统标识
 		try {
 			//MD5加密
-			signature=Md5Util.getMD5String(StringUtils.join(new String[]{systemSourceId,mobile}, ","),key);
+			signature=Md5Util.getMD5String(StringUtils.join(new String[]{systemSourceId,idCard}, ","),key);
 			weiXinQueryProgressParms.put("signature", signature);
 			logger.info("接口：借款人查询借款进度。signature："+signature);
 			//将Map对象转换成JSON类型字符串
@@ -371,6 +372,40 @@ public class LoadService {
 			logger.info("接口：借款人查询借款进度。返回结果："+result);
 		} catch (Exception e) {
 			logger.error("接口：借款人查询借款进度。发生异常，异常信息："+e.getMessage());
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+	public static String applyPatchBolt(List<PatchBoltImage>  patchBoltImage, UserVO userVO, String borrowerId){
+		/**初始化参数*/
+		String result="";//设置返回结果
+		//发送到调度的参数信息
+		String systemSourceId=ConstantsDictionary.APP;//系统标识,就是“APP”
+		String signature="";//签名信息
+		String key = ConstantsDictionary.KEY;//调度的“查询借款进度”接口的密钥
+		//发送数据的Map
+		Map<String,Object> supplyHuiZhongData = new HashMap<String,Object>();
+		supplyHuiZhongData.put("systemSourceId", systemSourceId);//系统标识
+		supplyHuiZhongData.put("borrowerId", borrowerId);//借款编号
+		supplyHuiZhongData.put("imageList", patchBoltImage);//图片信息
+		try {
+			//MD5加密
+			signature=Md5Util.getMD5String(StringUtils.join(new String[]{systemSourceId,userVO.getIdCard()}, ","),key);
+			supplyHuiZhongData.put("signature", signature);
+
+			//将Map对象转换成JSON类型字符串
+			String str=JsonUtil.json2String(supplyHuiZhongData);
+			logger.info("接口：补件--》请求参数："+str);
+			//AES加密
+			str = AESUtil.enCrypt(str,key);
+
+			str = "supplyHuiZhongDataParms="+str;
+			//发送Http请求，POST方式
+			result = HttpRequestUtil.sendPost(ConstantsDictionary.dispatchLoadSelectLoadProgressUrl, str);
+			logger.info("接口：补件---》返回结果："+result);
+		} catch (Exception e) {
+			logger.error("接口：补件---》发生异常，异常信息："+e.getMessage());
 			e.printStackTrace();
 		}
 		return result;

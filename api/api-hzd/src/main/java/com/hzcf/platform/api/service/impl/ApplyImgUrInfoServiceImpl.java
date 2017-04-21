@@ -18,7 +18,10 @@ import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
 import com.hzcf.platform.core.user.service.UserImageService;
+import com.hzcf.platform.webService.LoadService;
+import com.hzcf.platform.webService.model.PatchBoltImage;
 import com.imageserver.ImageServer;
+import net.sf.json.JSONObject;
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,6 +56,7 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
     UserApplyInfoSerivce userApplyInfoSerivce;
     @Autowired
     UploadImgUtil uploadImgUtil;
+
     @Override
     @LogAnnotation
     public BackResult deleteImgUrl(UserVO userVO, UserImageVO userImageVO) {
@@ -168,7 +172,21 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
     @LogAnnotation
     public BackResult saveImgByApplyId(UserVO userVO, String applyId, List<UserImageVO> userImage) {
 
+        List<PatchBoltImage>  patchBoltImageList = new ArrayList<>();
+
+        Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
+        String borrowerApplyId = userApplyInfoVOResult.getItems().getBorrowerApplyId();
+
+
         for (UserImageVO u:userImage){
+            //组装线下数据
+            PatchBoltImage  patchBoltImage  = new PatchBoltImage();
+            patchBoltImage.setArtWork(u.getArtWork());
+            patchBoltImage.setDisplayName(u.getImageType()+"-"+u.getArtWork().substring(u.getArtWork().lastIndexOf(".")-5));//图片名称，示例：B1-G8020.JPG
+            patchBoltImage.setImageType(u.getImageType());
+            patchBoltImageList.add(patchBoltImage);
+
+            //保存本地数据
             u.setImageId(UUIDGenerator.getUUID());
             u.setUserId(userVO.getId());
             u.setApplyId(applyId);
@@ -176,9 +194,34 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
             u.setCreateTime(new Date());
             Result<Boolean> booleanResult = userImageService.insertSelective(u);
             if (StatusCodes.OK != (booleanResult.getStatus())) {
-                logger.i("保存图片失败----------------------：" + u.getArtWork() + "---" + "手机号:" + userVO.getMobile());
+                logger.d("保存本地图片失败----------------------：" + u.getArtWork() + "---" + "手机号:" + userVO.getMobile());
+                return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
+                        HzdStatusCodeEnum.HZD_CODE_0001.getMsg(), null);
+            }
+
+            String result = LoadService.applyPatchBolt(patchBoltImageList, userVO, borrowerApplyId);
+
+
+            if (StringUtils.isBlank(result)) {
+                logger.w("补充资料线下接口返回异常,result 为 null--手机号:" + userVO.getMobile());
+                return new BackResult(HzdStatusCodeEnum.HZD_CODE_2100.getCode(),
+                        HzdStatusCodeEnum.HZD_CODE_2100.getMsg(), null);
+            }
+            JSONObject json = JSONObject.fromObject(result);
+            //WxjinjianQueryRsp wxrsp =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
+            String retCode = json.getString("retCode");
+            String retInfo = json.getString("retInfo");
+            if (!retCode.equals("0000")) {
+                logger.d("补充资料线下接口失败 手机号:" + userVO.getMobile());
+                return new BackResult(HzdStatusCodeEnum.HZD_CODE_6101.getCode(),
+                        HzdStatusCodeEnum.HZD_CODE_6101.getMsg(), null);
 
             }
+
+            logger.i("补充资料线下接口成功 手机号:" + userVO.getMobile());
+
+
+            //更新本地进件状态信息
             UserApplyInfoVO userApplyInfoVO = new UserApplyInfoVO();
             userApplyInfoVO.setApplyId(applyId);
             userApplyInfoVO.setAdditionalSubmitTime(new Date());
@@ -187,7 +230,7 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
 
             Result<Boolean> userApplyInfoSerivceResult = userApplyInfoSerivce.updateApplyId(userApplyInfoVO);
             if (StatusCodes.OK != userApplyInfoSerivceResult.getStatus()) {
-                logger.i("补充资料失败 userApplyInfoSerivce信息失败 ---ApplyId：" + applyId);
+                logger.d("补充资料失败 userApplyInfoSerivce信息失败 ---ApplyId：" + applyId);
                 return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
                         HzdStatusCodeEnum.HZD_CODE_0001.getMsg(), null);
             }
@@ -204,6 +247,7 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
         String url = uploadImgUtil.upLoadImg(request);
         if(StringUtils.isNotBlank(url)){
             map.put("url",url);
+            map.put("imgUrlIp", ConstantsDictionary.imgUpload);
             return  new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
                     HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),map);
         }

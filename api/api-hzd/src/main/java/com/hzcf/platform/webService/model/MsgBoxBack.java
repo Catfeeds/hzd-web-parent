@@ -1,5 +1,7 @@
 package com.hzcf.platform.webService.model;
 
+import javax.mail.Store;
+import javax.mail.search.SubjectTerm;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 
@@ -43,6 +45,6 @@ public class MsgBoxBack implements Serializable {
 
 
     
-	
+
     
 }

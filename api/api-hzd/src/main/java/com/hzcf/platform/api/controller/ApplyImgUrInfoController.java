@@ -2,6 +2,7 @@ package com.hzcf.platform.api.controller;
 
 import com.hzcf.platform.api.annotation.RequestAttribute;
 import com.hzcf.platform.api.annotation.RequestBodyForm;
+import com.hzcf.platform.api.annotation.biz.Check;
 import com.hzcf.platform.api.annotation.biz.CheckString;
 import com.hzcf.platform.api.aop.RequestValidation;
 import com.hzcf.platform.api.common.BackResult;
@@ -38,15 +39,14 @@ public class ApplyImgUrInfoController {
 
     @RequestMapping(value={"api/100/queryImgByApplyId/{applyId}","api/100/queryImgByApplyId"},method= RequestMethod.GET)
     @ResponseBody
-    public BackResult queryImgByApplyId(@PathVariable @CheckString(min = 20 , max = 20, message = "申请单号输入不合法") String applyId){
+    public BackResult queryImgByApplyId(@PathVariable  String applyId){
         logger.i("进入图片查询接口--applyId："+applyId);
         return applyImgUrInfoUrlService.queryImgByApplyId(applyId);
     }
-
     @RequestMapping(value={"rest/api/100/saveImgByApplyId/{applyId}","api/100/saveImgByApplyId/{applyId}"},method= RequestMethod.POST)
     public BackResult saveImgByApplyId(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,
-                                       @PathVariable @CheckString(min = 20 , max = 20, message = "申请单号输入不合法") String applyId,
-                                       @RequestBody UserImageForm userImageVO){
+                                       @PathVariable String applyId,
+                                       @RequestBody @Check UserImageForm userImageVO){
         return applyImgUrInfoUrlService.saveImgByApplyId(user,applyId, userImageVO.getUserImageVO());
 
     }

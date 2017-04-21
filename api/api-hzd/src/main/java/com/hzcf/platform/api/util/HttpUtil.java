@@ -59,10 +59,8 @@ public class HttpUtil {
 		String respText="";
 		
 		 long startTime=System.currentTimeMillis();
-		 System.out.println("请求时间：------------------"+startTime);
 		 try  {
 			 CloseableHttpResponse response = httpclient.execute(request);
-			 System.out.println("响应耗时-------------------------"+(float)(System.currentTimeMillis()-startTime)/1000);
 			System.out.println("响应耗时-------------------------"+(float)(System.currentTimeMillis()-startTime)/1000);
 			HttpEntity respEntity = response.getEntity();
 			System.out.println("response.getEntity()--------------------------------"+response.getEntity());

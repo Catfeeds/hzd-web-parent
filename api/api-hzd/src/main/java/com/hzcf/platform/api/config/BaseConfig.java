@@ -58,4 +58,6 @@ public class BaseConfig {
 
 
 	public static final String IMAGETYPE_B1="B1"; //图片类型
+
+
 }

@@ -80,7 +80,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
                         HzdStatusCodeEnum.HZD_CODE_0001.getMsg());
             }
 
-            String result = LoadService.selectLoadProgress(items.getMobile());
+            String result = LoadService.selectLoadProgress(items.getIdCard());
             if (StringUtils.isBlank(result)) {
                 logger.i("查询进件状态失败,线下接口返回异常,result 为 null--手机号:" + items.getMobile());
                 return new BackResult(HzdStatusCodeEnum.HZD_CODE_2100.getCode(),
@@ -642,7 +642,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
             return new BackResult(HzdStatusCodeEnum.HZD_CODE_1045.getCode(), HzdStatusCodeEnum.HZD_CODE_1045.getMsg(), null);
         }
 
-        String result = LoadService.selectLoadProgress(items.getMobile());
+        String result = LoadService.selectLoadProgress(items.getIdCard());
         if (StringUtils.isBlank(result)) {
             logger.i("查询进件状态失败,线下接口返回异常,result 为 null---手机号:" + user.getMobile() + "----申请单号:" + applyId);
             return new BackResult(HzdStatusCodeEnum.HZD_CODE_2100.getCode(),

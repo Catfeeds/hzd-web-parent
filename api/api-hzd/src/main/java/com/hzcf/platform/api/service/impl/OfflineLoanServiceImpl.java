@@ -60,7 +60,7 @@ public class OfflineLoanServiceImpl implements IOfflineLoanService {
 		    	return new BackResult(
 		    			HzdStatusCodeEnum.HZD_CODE_2333.getCode(), retInfo,null);
 		    }else{
-				logger.i("进入微信进件提交方法:提交失败:"+retInfo+"手机号:"+onlineLoanInfo.getMobile());
+				logger.i("进入外访协助进件提交方法:提交失败:"+retInfo+"手机号:"+onlineLoanInfo.getMobile());
 				return	new BackResult(
 						HzdStatusCodeEnum.HZD_CODE_2200.getCode(), retInfo);
 

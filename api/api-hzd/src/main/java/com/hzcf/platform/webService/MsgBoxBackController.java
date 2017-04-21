@@ -28,7 +28,7 @@ public class MsgBoxBackController {
 
     @RequestMapping(value = "api/100/furtherInformation/{borrowerApplyId}/{msgBoxBack}",method = RequestMethod.POST)
     public BackResult msgBoxBack(@PathVariable   String msgBoxBack,
-                                 @PathVariable @CheckString(min = 12,max = 12,message = "借款编号长度不合法") String borrowerApplyId){
+                                 @PathVariable   String borrowerApplyId){
         return imsgBoxBackService.msgBoxBack(msgBoxBack,borrowerApplyId);
     }
 }

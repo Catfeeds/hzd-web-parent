@@ -47,7 +47,7 @@ public class UploadImgUtil {
 
                         }
 
-                         file_url = ConstantsDictionary.imgUpload + "/" + file_url;
+                         //file_url = ConstantsDictionary.imgUpload + "/" + file_url;
                         logger.i("上传成功，file_url------"+file_url);
 
                     } catch (Exception e) {
