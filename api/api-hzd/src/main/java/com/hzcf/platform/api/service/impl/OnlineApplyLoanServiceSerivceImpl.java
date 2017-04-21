@@ -438,12 +438,12 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
                             HzdStatusCodeEnum.HZD_CODE_0001.getMsg());
                 }
             }
-            if(StringUtils.isNotBlank(userRelationForm.getRemark())){
-                UserInfoVO u = new UserInfoVO();
-                u.setRemark(userRelationForm.getRemark());
-                u.setApplyId(applyId);
-                userInfoService.updateUserInfo(u);
-            }
+            //if(StringUtils.isNotBlank(userRelationForm.getRemark())){
+            UserInfoVO u = new UserInfoVO();
+            u.setRemark(userRelationForm.getRemark());
+            u.setApplyId(applyId);
+            userInfoService.updateUserInfo(u);
+            //}
             Map map = new HashMap();
             map.put("applyId", applyId);
             logger.i("进入  -----用户进件申请第四步,  成功 。。。。。。。。。。。。。 ---手机号:" + user.getMobile() + "----申请单号:" + applyId);
