@@ -387,7 +387,7 @@ public class LoadService {
 		//发送数据的Map
 		Map<String,Object> supplyHuiZhongData = new HashMap<String,Object>();
 		supplyHuiZhongData.put("systemSourceId", systemSourceId);//系统标识
-		supplyHuiZhongData.put("borrowerId", borrowerId);//借款编号
+		supplyHuiZhongData.put("borrowerApplyId", borrowerId);//借款编号
 		supplyHuiZhongData.put("imageList", patchBoltImage);//图片信息
 		try {
 			//MD5加密
