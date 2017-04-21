@@ -266,7 +266,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
                 logger.i("用户进件申请第二步 更新借款信息---手机号:" + user.getMobile() + "----申请单号:" + applyId);
                 userInfoVO.setCreateTime(new Date());
                 userInfoVO.setGender(CustomerUtils.calculateGender(user.getIdCard()));
-                userInfoVO.setIdcardValidity(userInfoVO.getIdcardValidity().equals("长期")?"9999-01-01":userInfoVO.getIdcardValidity());
+                userInfoVO.setIdcardValidity(userInfoVO.getIdcardValidity());
                 //jiating
                 UserDictJson userDictJson = dictUtilService.convertCityBean(userInfoVO.getResidentProvince(), userInfoVO.getResidentCity());
                 //huji
@@ -302,7 +302,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
             userInfoVO.setUserId(user.getId());
             userInfoVO.setApplyId(applyId);
             userInfoVO.setCreateTime(new Date());
-            userInfoVO.setIdcardValidity(userInfoVO.getIdcardValidity().equals("长期")?"9999-01-01":userInfoVO.getIdcardValidity());
+            userInfoVO.setIdcardValidity(userInfoVO.getIdcardValidity());
             userInfoVO.setGender(CustomerUtils.calculateGender(user.getIdCard()));
             userInfoVO.setIdType(DictBase.IDCARDTYPE_01); //身份证类型,默认01
             userInfoVO.setDomicilePostCode(userDictJson1.getPostcode());//户籍邮政编码 TODO 户籍邮政编码

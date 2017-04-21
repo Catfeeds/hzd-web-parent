@@ -44,6 +44,7 @@ import net.sf.json.JSONObject;
 @Component
 public class LoadService {
 	private static Logger logger = Logger.getLogger(LoadService.class);
+	private static String idcardValidity = "9999-01-01";
 	@Autowired
 	public UserService userSerivce;//用户service
 	@Autowired
@@ -112,7 +113,7 @@ public class LoadService {
 			huiZhongApplicationVo.setIdType("01");//线上只有身份证号
 			huiZhongApplicationVo.setIdNum(userVO.getIdCard());//设置身份证号
 			//设置证件的有效期
-			Date date1=DateExtendUtils.parseDate(userInfoVO.getIdcardValidity());
+			Date date1=DateExtendUtils.parseDate(userInfoVO.getIdcardValidity().equals("长期")?idcardValidity:userInfoVO.getIdcardValidity());
 			huiZhongApplicationVo.setIdValidityDate(date1.getTime());//证件有效期
 			//设置“出生日期”
 			huiZhongApplicationVo.setBirthday((userInfoVO.getBirthday()).getTime());
