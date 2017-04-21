@@ -80,6 +80,15 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
                         HzdStatusCodeEnum.HZD_CODE_0001.getMsg());
             }
 
+            if (BaseConfig.card_status_1.equals(items.getCheckStatus())) {
+                logger.i("------------用户未通过实名认证--手机号:" + user.getMobile());
+                checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_1);
+              /*  checkApplyLoanStatus.setOnlineApplyLoanStatus("0");
+                checkApplyLoanStatus.setOfflineApplyLoanStatus("");*/
+                return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
+                        HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), checkApplyLoanStatus);
+            }
+
             String result = LoadService.selectLoadProgress(items.getIdCard());
             if (StringUtils.isBlank(result)) {
                 logger.i("查询进件状态失败,线下接口返回异常,result 为 null--手机号:" + items.getMobile());
@@ -104,14 +113,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
             WxjinjianQueryRsp wr = JsonUtil.jsonNote2Object(result, WxjinjianQueryRsp.class);
 
 
-            if (BaseConfig.card_status_1.equals(items.getCheckStatus())) {
-                logger.i("------------用户未通过实名认证--手机号:" + user.getMobile());
-                checkApplyLoanStatus.setIdentityStatus(BaseConfig.card_status_1);
-                checkApplyLoanStatus.setOnlineApplyLoanStatus(wr.getStatusCodeApplyOnLine());
-                checkApplyLoanStatus.setOfflineApplyLoanStatus(wr.getStatusCodeWFXZ());
-                return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
-                        HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), checkApplyLoanStatus);
-            }
+
 
             Map mapstatus = new HashedMap();
             mapstatus.put("userId", items.getId());

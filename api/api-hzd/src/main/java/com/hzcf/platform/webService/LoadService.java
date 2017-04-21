@@ -353,7 +353,7 @@ public class LoadService {
 		String key = ConstantsDictionary.KEY;//调度的“查询借款进度”接口的密钥
 		//发送数据的Map
 		Map<String,Object> weiXinQueryProgressParms = new HashMap<String,Object>();
-		weiXinQueryProgressParms.put("phoneNum",idCard);//身份证号
+		weiXinQueryProgressParms.put("idNum",idCard);//身份证号
 		weiXinQueryProgressParms.put("systemSourceId", systemSourceId);//系统标识
 		try {
 			//MD5加密

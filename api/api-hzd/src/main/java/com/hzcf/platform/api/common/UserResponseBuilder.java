@@ -1,7 +1,6 @@
 package com.hzcf.platform.api.common;
 
 import com.fasterxml.jackson.databind.JsonNode;
-import com.sun.javafx.scene.control.skin.FXVKSkin;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
