@@ -1,5 +1,6 @@
 package com.hzcf.platform.api.service.impl;
 
+import com.hzcf.platform.api.annotation.LogAnnotation;
 import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.service.ImsgBoxBackService;
@@ -35,8 +36,9 @@ public class MsgBoxBackServiceImpl implements ImsgBoxBackService {
 
 
     @Override
+    @LogAnnotation
     public BackResult msgBoxBack(String msgBoxBack, String borrowerApplyId) {
-
+        logger.i("补充资料回调接口---borrowerApplyId：" + borrowerApplyId);
         Result<UserApplyInfoVO> userApplyInfoVOResult =
                 userApplyInfoSerivce.selectByBorrowerApplyId(borrowerApplyId);
         if (StatusCodes.OK != userApplyInfoVOResult.getStatus()) {
@@ -63,6 +65,8 @@ public class MsgBoxBackServiceImpl implements ImsgBoxBackService {
             return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
                     HzdStatusCodeEnum.HZD_CODE_0001.getMsg(), null);
         }
+        logger.i("补充资料回调接口-更新补件状态成功--borrowerApplyId：" + borrowerApplyId);
+
         //写入站内信
         MsgBoxVO msgBoxVO = new MsgBoxVO();
         msgBoxVO.setMsgId(UUIDGenerator.getUUID());
@@ -82,6 +86,8 @@ public class MsgBoxBackServiceImpl implements ImsgBoxBackService {
             return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
                     HzdStatusCodeEnum.HZD_CODE_0001.getMsg(), null);
         }
+        logger.i("补充资料回调接口-写入站内信成功--borrowerApplyId：" + borrowerApplyId);
+
         return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
                 HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), null);
     }

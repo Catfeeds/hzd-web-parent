@@ -199,7 +199,7 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
                         HzdStatusCodeEnum.HZD_CODE_0001.getMsg(), null);
             }
 
-            String result = LoadService.applyPatchBolt(patchBoltImageList, userVO, borrowerApplyId);
+            String result = LoadService.applyPatchBolt(patchBoltImageList,borrowerApplyId);
 
 
             if (StringUtils.isBlank(result)) {

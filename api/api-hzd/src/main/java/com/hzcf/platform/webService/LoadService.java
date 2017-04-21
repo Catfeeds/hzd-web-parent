@@ -377,7 +377,7 @@ public class LoadService {
 		return result;
 	}
 
-	public static String applyPatchBolt(List<PatchBoltImage>  patchBoltImage, UserVO userVO, String borrowerId){
+	public static String applyPatchBolt(List<PatchBoltImage>  patchBoltImage,String borrowerId){
 		/**初始化参数*/
 		String result="";//设置返回结果
 		//发送到调度的参数信息
@@ -391,7 +391,7 @@ public class LoadService {
 		supplyHuiZhongData.put("imageList", patchBoltImage);//图片信息
 		try {
 			//MD5加密
-			signature=Md5Util.getMD5String(StringUtils.join(new String[]{systemSourceId,userVO.getIdCard()}, ","),key);
+			signature=Md5Util.getMD5String(StringUtils.join(new String[]{systemSourceId,borrowerId}, ","),key);
 			supplyHuiZhongData.put("signature", signature);
 
 			//将Map对象转换成JSON类型字符串
@@ -410,4 +410,36 @@ public class LoadService {
 		}
 		return result;
 	}
+
+
+	public static void main(String[] aaa){
+		List<PatchBoltImage>  patchBoltImageList = new ArrayList<>();
+		String img = "group1/M00/00/09/CgoKQFj0jMmAbg1pAAJIGTKnX4o868.jpg";
+		String img1 = "roup1/M00/00/09/CgoKQFj0gaCAClV7AAOaRJWaHHs412.jpg";
+		String img2 = "group1/M00/00/09/CgoKQFj1tfmAMXBbAAJprCPinB8283.jpg";
+			PatchBoltImage  patchBoltImage  = new PatchBoltImage();
+			PatchBoltImage  patchBoltImage1  = new PatchBoltImage();
+			PatchBoltImage  patchBoltImage2  = new PatchBoltImage();
+
+		patchBoltImage.setArtWork(img);
+		patchBoltImage.setDisplayName(img+"-"+img.substring(img.lastIndexOf(".")-5));//图片名称，示例：B1-G8020.JPG
+		patchBoltImage.setImageType("C3");
+
+
+		patchBoltImage1.setArtWork(img1);
+		patchBoltImage1.setDisplayName(img1+"-"+img1.substring(img1.lastIndexOf(".")-5));//图片名称，示例：B1-G8020.JPG
+		patchBoltImage1.setImageType("C8");
+
+
+		patchBoltImage2.setArtWork(img2);
+		patchBoltImage2.setDisplayName(img2+"-"+img2.substring(img2.lastIndexOf(".")-5));//图片名称，示例：B1-G8020.JPG
+		patchBoltImage2.setImageType("E1");
+
+		patchBoltImageList.add(patchBoltImage);
+		patchBoltImageList.add(patchBoltImage1);
+		patchBoltImageList.add(patchBoltImage2);
+		String app20170418175508942 = applyPatchBolt(patchBoltImageList, "APP20170418175508942");
+		System.out.println(app20170418175508942);
+	}
+
 }
