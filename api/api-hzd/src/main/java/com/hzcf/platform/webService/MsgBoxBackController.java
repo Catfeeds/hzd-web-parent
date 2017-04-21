@@ -9,10 +9,7 @@ import com.hzcf.platform.api.service.ImsgBoxBackService;
 import com.hzcf.platform.core.user.model.MsgBoxVO;
 import com.hzcf.platform.webService.model.MsgBoxBack;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
@@ -26,9 +23,9 @@ public class MsgBoxBackController {
     @Autowired
     ImsgBoxBackService imsgBoxBackService;
 
-    @RequestMapping(value = "api/100/furtherInformation/{borrowerApplyId}/{msgBoxBack}",method = RequestMethod.POST)
-    public BackResult msgBoxBack(@PathVariable   String msgBoxBack,
-                                 @PathVariable   String borrowerApplyId){
+    @RequestMapping(value = "api/100/furtherInformation",method = RequestMethod.GET)
+    public BackResult msgBoxBack(@RequestParam @NotNull(message = "补充资料信息不能为空") String msgBoxBack,
+                                 @RequestParam @NotNull(message = "申请编号信息不能为空")String borrowerApplyId){
         return imsgBoxBackService.msgBoxBack(msgBoxBack,borrowerApplyId);
     }
 }
