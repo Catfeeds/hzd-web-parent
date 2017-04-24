@@ -1,5 +1,6 @@
 package com.hzcf.platform.webService;
 
+import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,23 +8,25 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.hzcf.platform.api.util.*;
 import com.hzcf.platform.common.util.uuid.UUIDGenerator;
 import com.hzcf.platform.core.user.model.*;
 import com.hzcf.platform.core.user.service.*;
 import com.hzcf.platform.webService.model.PatchBoltImage;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.api.config.ConstantsDictionary;
-import com.hzcf.platform.api.util.AESUtil;
-import com.hzcf.platform.api.util.DateExtendUtils;
-import com.hzcf.platform.api.util.HttpRequestUtil;
-import com.hzcf.platform.api.util.Md5Util;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
@@ -41,8 +44,8 @@ import net.sf.json.JSONObject;
   * @version 1.0
   * @since  JDK1.7
   */
-@Component
-public class LoadService {
+@Service
+public class LoadService    {
 	private static Logger logger = Logger.getLogger(LoadService.class);
 	private static String idcardValidity = "9999-01-01";
 	@Autowired
@@ -205,7 +208,6 @@ public class LoadService {
 //			String str=JsonUtil.json2String(applyDataMap);//此处这个方法不能正确的将对象转成字符串，故不用
 			String str=applyDataMap.toString();
 			logger.info("接口：进件。请求参数："+str);
-			
 			try {
 				//AES加密
 				str = AESUtil.enCrypt(str,key);
@@ -413,34 +415,6 @@ public class LoadService {
 	}
 
 
-	public static void main(String[] aaa){
-		List<PatchBoltImage>  patchBoltImageList = new ArrayList<>();
-		String img = "group1/M00/00/09/CgoKQFj0jMmAbg1pAAJIGTKnX4o868.jpg";
-		String img1 = "roup1/M00/00/09/CgoKQFj0gaCAClV7AAOaRJWaHHs412.jpg";
-		String img2 = "group1/M00/00/09/CgoKQFj1tfmAMXBbAAJprCPinB8283.jpg";
-			PatchBoltImage  patchBoltImage  = new PatchBoltImage();
-			PatchBoltImage  patchBoltImage1  = new PatchBoltImage();
-			PatchBoltImage  patchBoltImage2  = new PatchBoltImage();
 
-		patchBoltImage.setArtWork(img);
-		patchBoltImage.setDisplayName(img+"-"+img.substring(img.lastIndexOf(".")-5));//图片名称，示例：B1-G8020.JPG
-		patchBoltImage.setImageType("C3");
-
-
-		patchBoltImage1.setArtWork(img1);
-		patchBoltImage1.setDisplayName(img1+"-"+img1.substring(img1.lastIndexOf(".")-5));//图片名称，示例：B1-G8020.JPG
-		patchBoltImage1.setImageType("C8");
-
-
-		patchBoltImage2.setArtWork(img2);
-		patchBoltImage2.setDisplayName(img2+"-"+img2.substring(img2.lastIndexOf(".")-5));//图片名称，示例：B1-G8020.JPG
-		patchBoltImage2.setImageType("E1");
-
-		patchBoltImageList.add(patchBoltImage);
-		patchBoltImageList.add(patchBoltImage1);
-		patchBoltImageList.add(patchBoltImage2);
-		String app20170418175508942 = applyPatchBolt(patchBoltImageList, "APP20170418175508942");
-		System.out.println(app20170418175508942);
-	}
 
 }

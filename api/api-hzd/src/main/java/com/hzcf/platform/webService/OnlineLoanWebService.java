@@ -66,8 +66,9 @@ public class OnlineLoanWebService {
 
 			billParms = AESUtil.enCrypt(ReqJson, ConstantsDictionary.KEY);
 			List<NameValuePair> params = new ArrayList<NameValuePair>();
-			params.add(new BasicNameValuePair("weiXinSubmitApplicationParms", billParms));
-			String paramsData = URLEncodedUtils.format(params, "UTF-8");
+			params.add(new BasicNameValuePair("weiXinSubmitApplicationParms", billParms));//POST
+			String paramsData = URLEncodedUtils.format(params, "UTF-8"); //GET
+			URLEncodedUtils.format(params, "UTF-8");
 			//String sendRsp = HttpRequest.sendGet(ConstantsDictionary.offlineInsertLoad, paramsData);
 			String result=HttpRequestUtil.sendPost(ConstantsDictionary.offlineInsertLoad,paramsData);
 
