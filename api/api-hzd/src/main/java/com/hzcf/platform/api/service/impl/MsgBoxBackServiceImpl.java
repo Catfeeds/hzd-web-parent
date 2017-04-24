@@ -38,7 +38,7 @@ public class MsgBoxBackServiceImpl implements ImsgBoxBackService {
     @Override
     @LogAnnotation
     public BackResult msgBoxBack(String msgBoxBack, String borrowerApplyId) {
-        logger.i("补充资料回调接口---borrowerApplyId：" + borrowerApplyId);
+        logger.i("补充资料回调接口---borrowerApplyId：" + borrowerApplyId +"    msgBoxBack："+msgBoxBack);
         Result<UserApplyInfoVO> userApplyInfoVOResult =
                 userApplyInfoSerivce.selectByBorrowerApplyId(borrowerApplyId);
         if (StatusCodes.OK != userApplyInfoVOResult.getStatus()) {
