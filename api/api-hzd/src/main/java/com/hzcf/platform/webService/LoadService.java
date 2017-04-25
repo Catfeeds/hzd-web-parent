@@ -273,7 +273,7 @@ public class LoadService    {
 					}else{
 						logger.info("调用进件接口出错，保存错误日志信息 applyId "+applyId);
 						UserApplyLogVO userApplyLog = new UserApplyLogVO();
-						userApplyLog.setId(UUIDGenerator.getUUID());
+						userApplyLog.setLogId(UUIDGenerator.getUUID());
 						userApplyLog.setApplyId(applyId);
 						userApplyLog.setApplyType("1");
 						userApplyLog.setIdCard(user.getIdCard());
