@@ -2,6 +2,8 @@ package com.hzcf.platform.core.user.data;
 
 import com.hzcf.platform.common.model.AbstractEntity;
 
+import java.util.Date;
+
 /**
  * Created by lll on 2017-04-10.
  */
@@ -16,7 +18,7 @@ public class UserApplyLog extends AbstractEntity {
     //信息
     private String returnContent;
     //创建时间
-    private String returnTime;
+    private Date returnTime;
 
     public String getLogId() {
         return logId;
@@ -58,11 +60,11 @@ public class UserApplyLog extends AbstractEntity {
         this.returnContent = returnContent;
     }
 
-    public String getReturnTime() {
+    public Date getReturnTime() {
         return returnTime;
     }
 
-    public void setReturnTime(String returnTime) {
+    public void setReturnTime(Date returnTime) {
         this.returnTime = returnTime;
     }
 }
