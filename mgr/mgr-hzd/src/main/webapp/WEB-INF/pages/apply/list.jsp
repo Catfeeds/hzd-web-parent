@@ -56,11 +56,16 @@ $(function(){
             }},
 
 		   {field:'-',title:'操作',width:160,formatter:function(value,row,index){
+		   	var html ="";
 		    	if(row.additionalStatus == "1"){
-                    return "<a href='#' onclick='detail(\""+row.applyId+"\,"+row.mobile+"\");' > 查看详情  </a> | <a href='#' onclick='adddetail(\""+row.applyId+"\,"+row.mobile+"\");' > 补充详情</a>";
+					html  +="<a href='#' onclick='detail(\""+row.applyId+"\,"+row.mobile+"\");' > 查看详情  </a> | <a href='#' onclick='adddetail(\""+row.applyId+"\,"+row.mobile+"\");' > 补充详情</a>";
                 }else{
-                    return "<a href='#' onclick='detail(\""+row.applyId+"\,"+row.mobile+"\");' > 查看详情   </a>";
+					html  +="<a href='#' onclick='detail(\""+row.applyId+"\,"+row.mobile+"\");' > 查看详情   </a>";
                 }
+				if(row.status == "2" && row.checkStatus == "0"){
+					html  +="<a href='#' onclick='anewSubmitApply(\""+row.applyId+"\,"+row.mobile+"\");' > 重新提交   </a>";
+				}
+				return html;
 		   }}
 		  
 		]],
@@ -116,6 +121,41 @@ function adddetail(det){
     var mobile = arr[1];
     window.location = '${path}/apply/check/addDetail?applyId='+applyId+"&mobile="+mobile;
 }
+//重新提交
+function anewSubmitApply(det) {
+	var arr=det.split(",");
+	var applyId = arr[0];
+	var mobile = arr[1];
+	var win = $.messager.progress({
+		title:'请稍后',
+		msg:'数据正在提交'
+	});
+	$.ajax({
+		type:"POST",
+		url: '${path}/apply/anewSubmitApply',
+		dataType:'json',
+		data:{
+			"applyId" : applyId,
+			"mobile" : mobile,
+		},
+		success:function(result){
+			$.messager.progress('close');
+			if(result.success){
+				$.messager.alert("提示","提交成功!","info",function(){
+					window.location = '${path}/apply/list';
+					return null;
+
+				});
+			}else{
+				$.messager.alert("提示",result.msg,"error",function(){
+					window.location = '${path}/apply/list';
+					return null;
+				});
+			}
+		}
+	});
+}
+
 </script>
 
 </head>

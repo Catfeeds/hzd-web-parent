@@ -213,7 +213,7 @@ public class LoadService {
 			logger.info("接口：进件。返回的结果："+result);
 		} catch (Exception e) {
 			logger.error("接口：进件。发生异常，异常信息："+e.getMessage());
-			e.printStackTrace();
+			return result;
 		}
 		return result;
 	}
@@ -265,6 +265,7 @@ public class LoadService {
 					return false;
 				}
 			}else{
+
 				return false;
 			}
 		return true;
@@ -330,7 +331,8 @@ public class LoadService {
 				}
 			}else{
 				map.put("result", false);
-				//return false;
+				map.put("resultMsg", "数据异常");
+
 			}
 			return map;
 			

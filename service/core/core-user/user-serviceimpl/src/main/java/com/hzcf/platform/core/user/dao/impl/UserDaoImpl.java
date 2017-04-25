@@ -29,7 +29,7 @@ public class UserDaoImpl  extends AbstractMysqlBaseDaoImpl<User> implements User
 	 */
 	@Override
 	public User selectByPrimaryKey(String id) {
-		return sqlSessionTemplate.selectOne(getSqlName("selectByPrimaryKey"), id);
+		return sqlSessionTemplate.selectOne(getSqlName("selectByUserId"), id);
 	}
 
 

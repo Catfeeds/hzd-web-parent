@@ -35,6 +35,16 @@ public class UserApplyInfoVO extends BaseVO {
 	private String addStartDate;//补充提交时间-开始时间
 	private String addEndDate;//补充提交时间-结束时间
 
+	private String checkStatus;//审核状态  0:通过(已认证)  1:不通过(未认证)  2:待审核(审核中)
+
+	public String getCheckStatus() {
+		return checkStatus;
+	}
+
+	public void setCheckStatus(String checkStatus) {
+		this.checkStatus = checkStatus;
+	}
+
 	public String getAddStartDate() {
 		return addStartDate;
 	}
