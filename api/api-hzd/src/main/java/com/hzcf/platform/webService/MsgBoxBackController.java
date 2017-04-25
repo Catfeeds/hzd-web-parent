@@ -23,9 +23,10 @@ public class MsgBoxBackController {
     @Autowired
     ImsgBoxBackService imsgBoxBackService;
 
-    @RequestMapping(value = "api/100/furtherInformation",method = RequestMethod.GET)
-    public BackResult msgBoxBack(@RequestParam @NotNull(message = "补充资料信息不能为空") String msgBoxBack,
-                                 @RequestParam @NotNull(message = "申请编号信息不能为空")String borrowerApplyId){
-        return imsgBoxBackService.msgBoxBack(msgBoxBack,borrowerApplyId);
+    @RequestMapping(value = "api/100/furtherInformation/{borrowerApplyId}",method = RequestMethod.POST)
+    public BackResult msgBoxBack(@RequestBodyForm  MsgBoxVO msgBoxVO,
+                                 @PathVariable   String borrowerApplyId){
+        return imsgBoxBackService.msgBoxBack(msgBoxVO.getMsgContent(),borrowerApplyId);
     }
+
 }
