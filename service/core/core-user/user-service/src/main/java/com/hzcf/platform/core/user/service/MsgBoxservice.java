@@ -5,6 +5,8 @@ import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.user.model.MsgBoxVO;
 import com.hzcf.platform.framework.core.service.IBaseService;
 
+import java.util.List;
+
 
 /**
  * Created by leijiaming on 2016/12/30 0030.
@@ -19,7 +21,7 @@ public interface MsgBoxservice extends IBaseService<MsgBoxVO> {
      * by zhangmx
      * 查询所有消息
      */
-	public PaginatedResult<MsgBoxVO> selectAllByUser(MsgBoxVO msgBoxVO);
+	public Result<List<MsgBoxVO>> selectAllByUser(MsgBoxVO msgBoxVO);
 	/**
      * by zhangmx
      * 修改成已读

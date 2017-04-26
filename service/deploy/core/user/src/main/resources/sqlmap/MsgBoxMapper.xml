@@ -138,7 +138,7 @@
     from msg_box
     where user_id = #{userId,jdbcType=VARCHAR}
     order by create_time desc
-	limit 1
+
   </select>
 
   <update id="updateReadByUser" parameterType="MsgBox" >

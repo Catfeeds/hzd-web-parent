@@ -19,6 +19,7 @@ import com.hzcf.platform.core.user.model.MsgBoxVO;
 import com.hzcf.platform.core.user.service.MsgBoxservice;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -71,7 +72,7 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 		String additionalStatus ="1";//默认已补充
 		if(msgBoxVO != null){
 			msgBoxVO.setUserId(user.getId());
-			PaginatedResult<MsgBoxVO> result = this.msgBoxservice.selectAllByUser(msgBoxVO);
+			Result<List<MsgBoxVO>> listResult = msgBoxservice.selectAllByUser(msgBoxVO);
 			Map<String,Object> map = new HashMap<String,Object>();
 			Map<String,Object> resultMap = new HashMap<String,Object>();
 
@@ -83,11 +84,11 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 				additionalStatus =userApplyInfoVOResult.getItems().getAdditionalStatus();
 			}
 
-			resultMap.put("msgBoxVO",result.getItems());
+			resultMap.put("msgBoxVO",listResult.getItems());
 			resultMap.put("applyId",applyId);
 			resultMap.put("additionalStatus",additionalStatus);
-			if(StatusCodes.OK==result.getStatus() ){
-				if(result.getItems().size()==0){
+			if(StatusCodes.OK==listResult.getStatus() ){
+				if(listResult.getItems().size()==0){
 					logger.i("用户 查询站内信列表 。。。。。。 。。。。。查询成功， 但无数据。。。。。。。。 ");
 					return new BackResult(HzdStatusCodeEnum.HZD_CODE_5100.getCode(), HzdStatusCodeEnum.HZD_CODE_5100.getMsg(),resultMap);
 				}

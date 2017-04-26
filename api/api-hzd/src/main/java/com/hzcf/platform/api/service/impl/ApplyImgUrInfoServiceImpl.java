@@ -191,6 +191,7 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
             u.setUserId(userVO.getId());
             u.setApplyId(applyId);
             u.setType("1");
+            u.setArtWork(StringUtil.replaceAll(u.getArtWork()));
             u.setCreateTime(new Date());
             userImageVOList.add(u);
         }
