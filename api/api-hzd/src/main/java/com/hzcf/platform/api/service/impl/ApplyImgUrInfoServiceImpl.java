@@ -200,20 +200,19 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
 
             String result = LoadService.applyPatchBolt(patchBoltImageList,borrowerApplyId);
 
-
             if (StringUtils.isBlank(result)) {
                 logger.w("补充资料线下接口返回异常,result 为 null--手机号:" + userVO.getMobile());
-                return new BackResult(HzdStatusCodeEnum.HZD_CODE_2100.getCode(),
-                        HzdStatusCodeEnum.HZD_CODE_2100.getMsg(), null);
+                return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(),
+                        HzdStatusCodeEnum.HZD_CODE_9999.getMsg(), null);
             }
             JSONObject json = JSONObject.fromObject(result);
             //WxjinjianQueryRsp wxrsp =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
             String retCode = json.getString("retCode");
             String retInfo = json.getString("retInfo");
             if (!retCode.equals("0000")) {
-                logger.d("补充资料线下接口失败 手机号:" + userVO.getMobile());
-                return new BackResult(HzdStatusCodeEnum.HZD_CODE_6101.getCode(),
-                        HzdStatusCodeEnum.HZD_CODE_6101.getMsg(), null);
+                logger.d("补充资料线下接口失败 手机号:" + userVO.getMobile() + "    线下返回错误信息 ::: " + retInfo);
+                return new BackResult(HzdStatusCodeEnum.HZD_CODE_2111.getCode(),
+                        HzdStatusCodeEnum.HZD_CODE_2111.getMsg(), null);
 
             }
 
