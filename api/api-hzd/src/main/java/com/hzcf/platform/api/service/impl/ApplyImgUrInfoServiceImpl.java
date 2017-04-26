@@ -172,6 +172,7 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
     public BackResult saveImgByApplyId(UserVO userVO, String applyId, List<UserImageVO> userImage) {
 
         List<PatchBoltImage>  patchBoltImageList = new ArrayList<>();
+        List<UserImageVO>  userImageVOList = new ArrayList<>();
 
         Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByApplyId(applyId);
         String borrowerApplyId = userApplyInfoVOResult.getItems().getBorrowerApplyId();
@@ -191,17 +192,12 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
             u.setApplyId(applyId);
             u.setType("1");
             u.setCreateTime(new Date());
-            Result<Boolean> booleanResult = userImageService.insertSelective(u);
-            if (StatusCodes.OK != (booleanResult.getStatus())) {
-                logger.d("保存本地图片失败----------------------：" + u.getArtWork() + "---" + "手机号:" + userVO.getMobile());
-                return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
-                        HzdStatusCodeEnum.HZD_CODE_0001.getMsg(), null);
-            }
-
+            userImageVOList.add(u);
+        }
             String result = LoadService.applyPatchBolt(patchBoltImageList,borrowerApplyId);
 
             if (StringUtils.isBlank(result)) {
-                logger.w("补充资料线下接口返回异常,result 为 null--手机号:" + userVO.getMobile());
+                logger.e("补充资料线下接口返回异常,result 为 null--手机号:" + userVO.getMobile());
                 return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(),
                         HzdStatusCodeEnum.HZD_CODE_9999.getMsg(), null);
             }
@@ -210,15 +206,19 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
             String retCode = json.getString("retCode");
             String retInfo = json.getString("retInfo");
             if (!retCode.equals("0000")) {
-                logger.d("补充资料线下接口失败 手机号:" + userVO.getMobile() + "    线下返回错误信息 ::: " + retInfo);
+                logger.e("补充资料线下接口失败 手机号:" + userVO.getMobile() + "    线下返回错误信息 ::: " + retInfo);
                 return new BackResult(HzdStatusCodeEnum.HZD_CODE_2111.getCode(),
                         HzdStatusCodeEnum.HZD_CODE_2111.getMsg(), null);
 
             }
 
-            logger.i("补充资料线下接口成功 手机号:" + userVO.getMobile());
+            logger.i("补充资料线下接口成功 手机号:" + userVO.getMobile() + "开始保存到本地");
+            for(UserImageVO uv : userImageVOList){
 
+                Result<Boolean> booleanResult = userImageService.insertSelective(uv);
 
+            }
+            logger.i("开始更新本地进件状态");
             //更新本地进件状态信息
             UserApplyInfoVO userApplyInfoVO = new UserApplyInfoVO();
             userApplyInfoVO.setApplyId(applyId);
@@ -228,11 +228,11 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
 
             Result<Boolean> userApplyInfoSerivceResult = userApplyInfoSerivce.updateApplyId(userApplyInfoVO);
             if (StatusCodes.OK != userApplyInfoSerivceResult.getStatus()) {
-                logger.d("补充资料失败 userApplyInfoSerivce信息失败 ---ApplyId：" + applyId);
+                logger.e("补充资料失败 userApplyInfoSerivce信息失败 ---ApplyId：" + applyId);
                 return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
                         HzdStatusCodeEnum.HZD_CODE_0001.getMsg(), null);
             }
-        }
+        logger.i("更新本地进件状态成功");
         return  new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
                 HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),null);
 
