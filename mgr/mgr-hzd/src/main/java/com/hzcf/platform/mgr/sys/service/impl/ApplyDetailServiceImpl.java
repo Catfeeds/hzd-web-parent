@@ -2,7 +2,9 @@ package com.hzcf.platform.mgr.sys.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
+import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -196,6 +198,12 @@ public class ApplyDetailServiceImpl implements IApplyDetailService {
 			//单位电话区号orgTelAreaCode
 			String orgTelAreaValue = dictUtilService.convertCityBean(orgProvince, orgCity).getAreacode();
 			userInfoVO.getItems().setOrgTelAreaCode(orgTelAreaValue);
+
+			//担任职称
+			String positions = userInfoVO.getItems().getPositions();
+			String positionsValue = dictUtilService.convertDict(DictBase.ORG_TITLE, positions);
+			userInfoVO.getItems().setPositions(positionsValue);
+
 		}
 
 		return userInfoVO.getItems();
@@ -247,6 +255,29 @@ public class ApplyDetailServiceImpl implements IApplyDetailService {
 			}
 		}
 		
+		return userImageVOList;
+	}
+
+	/**
+	 * 补充资料图片展示
+	 * type字段 = 是否是补充图片  0=不是  1=是
+	 */
+	@Override
+	public List<UserImageVO> getUserImageDetailForAdd(UserApplyInfoVO userApplyInfo) {
+
+		Map<String, Object> parmMap = new HashedMap();
+		parmMap.put("applyId", userApplyInfo.getApplyId());
+		parmMap.put("type", 1);
+		Result<List<UserImageVO>> userImageList = userImageService.selectUserImageByApplyIdAndType(parmMap);
+		List<UserImageVO> userImageVOList = userImageList.getItems();
+
+		if (userImageVOList == null){
+			return userImageVOList;
+		} else {
+			for(UserImageVO vo : userImageVOList){
+				vo.setArtWork(this.geturl(vo.getArtWork()));
+			}
+		}
 		return userImageVOList;
 	}
 	

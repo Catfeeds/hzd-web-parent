@@ -1,5 +1,6 @@
 package com.hzcf.platform.webService;
 
+import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -7,32 +8,28 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.hzcf.platform.api.util.*;
+import com.hzcf.platform.common.util.uuid.UUIDGenerator;
+import com.hzcf.platform.core.user.model.*;
+import com.hzcf.platform.core.user.service.*;
+import com.hzcf.platform.webService.model.PatchBoltImage;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.hzcf.platform.api.config.BaseConfig;
 import com.hzcf.platform.api.config.ConstantsDictionary;
-import com.hzcf.platform.api.util.AESUtil;
-import com.hzcf.platform.api.util.DateExtendUtils;
-import com.hzcf.platform.api.util.HttpRequestUtil;
-import com.hzcf.platform.api.util.Md5Util;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
-import com.hzcf.platform.core.user.model.UserApplyInfoVO;
-import com.hzcf.platform.core.user.model.UserImageVO;
-import com.hzcf.platform.core.user.model.UserInfoVO;
-import com.hzcf.platform.core.user.model.UserRelationVO;
-import com.hzcf.platform.core.user.model.UserVO;
-import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
-import com.hzcf.platform.core.user.service.UserImageService;
-import com.hzcf.platform.core.user.service.UserInfoService;
-import com.hzcf.platform.core.user.service.UserRelationService;
-import com.hzcf.platform.core.user.service.UserService;
 import com.hzcf.platform.core.user.webService.model.BorrowRelationVo;
 import com.hzcf.platform.core.user.webService.model.HuiZhongApplicationVo;
 import com.hzcf.platform.core.user.webService.model.ImageVo;
@@ -47,9 +44,10 @@ import net.sf.json.JSONObject;
   * @version 1.0
   * @since  JDK1.7
   */
-@Component
-public class LoadService {
+@Service
+public class LoadService    {
 	private static Logger logger = Logger.getLogger(LoadService.class);
+	private static String idcardValidity = "9999-01-01";
 	@Autowired
 	public UserService userSerivce;//用户service
 	@Autowired
@@ -61,6 +59,8 @@ public class LoadService {
 	@Autowired
 	public UserImageService userImageService;//用户图片service
 	//public SimpleDateFormat sdf = new SimpleDateFormat();//日期操作类,"yyyy-MM-dd HH:mm:ss"
+	@Autowired
+	public UserApplyLogService userApplyLogService;
 	/**
 	 * @Title: insertLoad 进件接口
 	 * @Description:线下和调度对接，进件，就是保存借款信息
@@ -116,7 +116,7 @@ public class LoadService {
 			huiZhongApplicationVo.setIdType("01");//线上只有身份证号
 			huiZhongApplicationVo.setIdNum(userVO.getIdCard());//设置身份证号
 			//设置证件的有效期
-			Date date1=DateExtendUtils.parseDate(userInfoVO.getIdcardValidity());
+			Date date1=DateExtendUtils.parseDate(userInfoVO.getIdcardValidity().equals("长期")?idcardValidity:userInfoVO.getIdcardValidity());
 			huiZhongApplicationVo.setIdValidityDate(date1.getTime());//证件有效期
 			//设置“出生日期”
 			huiZhongApplicationVo.setBirthday((userInfoVO.getBirthday()).getTime());
@@ -208,7 +208,6 @@ public class LoadService {
 //			String str=JsonUtil.json2String(applyDataMap);//此处这个方法不能正确的将对象转成字符串，故不用
 			String str=applyDataMap.toString();
 			logger.info("接口：进件。请求参数："+str);
-			
 			try {
 				//AES加密
 				str = AESUtil.enCrypt(str,key);
@@ -232,7 +231,7 @@ public class LoadService {
 	 * @throws Exception
 	 */
 	@Transactional
-	public boolean operateLoad(String applyId) {
+	public boolean operateLoad(String applyId,UserVO user) {
 			String result=insertLoad(applyId);
 			/**根据线下返回的结果，修改借款人的“借款状态”
 			 * 线下返回结果示例：{"retInfo":"进件成功!","retCode":"0000"}
@@ -242,7 +241,13 @@ public class LoadService {
 				if(StringUtils.isNotBlank(result)){
 					JSONObject resultJSON=JSONObject.fromObject(result);
 					String retCode=resultJSON.getString("retCode");
+					String retInfo = resultJSON.getString("retInfo");
+
+
 					if("0000".equals(retCode)){
+						String borrowerApplyId = resultJSON.getString("borrowerApplyId");
+
+
 						/**修改User中的“借款状态”*/
 						//组装参数
 						UserVO updateUserVO=new UserVO();
@@ -258,6 +263,7 @@ public class LoadService {
 						UserApplyInfoVO updateUserApplyInfoVO=new UserApplyInfoVO();
 						updateUserApplyInfoVO.setApplyId(applyId);
 						updateUserApplyInfoVO.setStatus("1");
+						updateUserApplyInfoVO.setBorrowerApplyId(borrowerApplyId);
 						//修改数据库中user_apply_info中的进件状态
 						Result<Boolean> updateUserApplyInfoVOResult=userApplyInfoSerivce.updateApplyId(updateUserApplyInfoVO);
 						logger.info("修改UserApplyInfo中的'进件状态'，结果："+updateUserApplyInfoVOResult.getItems());
@@ -265,6 +271,16 @@ public class LoadService {
 							return false;
 						}
 					}else{
+						logger.info("调用进件接口出错，保存错误日志信息 applyId "+applyId);
+						UserApplyLogVO userApplyLog = new UserApplyLogVO();
+						userApplyLog.setLogId(UUIDGenerator.getUUID());
+						userApplyLog.setApplyId(applyId);
+						userApplyLog.setApplyType("1");
+						userApplyLog.setIdCard(user.getIdCard());
+						userApplyLog.setReturnContent(retInfo);
+						userApplyLog.setReturnTime(new Date());
+						userApplyLogService.insertUserApplyLog(userApplyLog);
+
 						return false;
 					}
 				}else{
@@ -330,7 +346,7 @@ public class LoadService {
 	 * @time: 2017年1月7日 下午6:58:46  
 	 * @return:String
 	 */
-	public static String selectLoadProgress(String mobile){
+	public static String selectLoadProgress(String idCard){
 		/**初始化参数*/
 		String result="";//设置返回结果
 		//发送到调度的参数信息
@@ -340,11 +356,11 @@ public class LoadService {
 		String key = ConstantsDictionary.KEY;//调度的“查询借款进度”接口的密钥
 		//发送数据的Map
 		Map<String,Object> weiXinQueryProgressParms = new HashMap<String,Object>();
-		weiXinQueryProgressParms.put("phoneNum",mobile);//身份证号
+		weiXinQueryProgressParms.put("idNum",idCard);//身份证号
 		weiXinQueryProgressParms.put("systemSourceId", systemSourceId);//系统标识
 		try {
 			//MD5加密
-			signature=Md5Util.getMD5String(StringUtils.join(new String[]{systemSourceId,mobile}, ","),key);
+			signature=Md5Util.getMD5String(StringUtils.join(new String[]{systemSourceId,idCard}, ","),key);
 			weiXinQueryProgressParms.put("signature", signature);
 			logger.info("接口：借款人查询借款进度。signature："+signature);
 			//将Map对象转换成JSON类型字符串
@@ -363,4 +379,42 @@ public class LoadService {
 		}
 		return result;
 	}
+
+	public static String applyPatchBolt(List<PatchBoltImage>  patchBoltImage,String borrowerId){
+		/**初始化参数*/
+		String result="";//设置返回结果
+		//发送到调度的参数信息
+		String systemSourceId=ConstantsDictionary.APP;//系统标识,就是“APP”
+		String signature="";//签名信息
+		String key = ConstantsDictionary.KEY;//调度的“查询借款进度”接口的密钥
+		//发送数据的Map
+		Map<String,Object> supplyHuiZhongData = new HashMap<String,Object>();
+		supplyHuiZhongData.put("systemSourceId", systemSourceId);//系统标识
+		supplyHuiZhongData.put("borrowerApplyId", borrowerId);//借款编号
+		supplyHuiZhongData.put("imageList", patchBoltImage);//图片信息
+		try {
+			//MD5加密
+			signature=Md5Util.getMD5String(StringUtils.join(new String[]{systemSourceId,borrowerId}, ","),key);
+			supplyHuiZhongData.put("signature", signature);
+
+			//将Map对象转换成JSON类型字符串
+			String str=JsonUtil.json2String(supplyHuiZhongData);
+			logger.info("接口：补件--》请求参数："+str);
+			//AES加密
+			str = AESUtil.enCrypt(str,key);
+
+			str = "supplyHuiZhongDataParms="+str;
+			//发送Http请求，POST方式
+			result = HttpRequestUtil.sendPost(ConstantsDictionary.applyPatchBolt, str);
+			logger.info("接口：补件---》返回结果："+result);
+		} catch (Exception e) {
+			logger.error("接口：补件---》发生异常，异常信息："+e.getMessage());
+			e.printStackTrace();
+		}
+		return result;
+	}
+
+
+
+
 }

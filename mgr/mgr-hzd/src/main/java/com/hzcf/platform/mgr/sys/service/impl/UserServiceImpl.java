@@ -193,7 +193,7 @@ public class UserServiceImpl implements IUserService {
 					// TODO 调裴高翔接口把applyId传过去
 					try {
 						jinjian=true;
-						tempMap = loadService.operateLoadMap(applyId);
+						tempMap = loadService.operateLoadMap(applyId,result.getItems());
 						flag = (boolean)tempMap.get("result");
 					} catch (Exception e) {
 						logger.e("进件接口调用失败!");

@@ -49,6 +49,7 @@ public class ConstantsDictionary {
 			dispatchLoadSelectLoadProgressUrl=props.getProperty("dispatch.load.selectLoadProgress.url");
 			//外放协助
 			offlineInsertLoad=props.getProperty("dispatch.load.offlineInsertLoad.url");
+			applyPatchBolt = props.getProperty("dispatch.load.applyPatchBolt.url");
 
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -79,6 +80,8 @@ public class ConstantsDictionary {
 	//外访协助
 	public static String offlineInsertLoad;
 
+	//补件
+	public static String applyPatchBolt;
 	
 	/**借款的配置信息
 	 * 线上和调度的所有接口的配置信息

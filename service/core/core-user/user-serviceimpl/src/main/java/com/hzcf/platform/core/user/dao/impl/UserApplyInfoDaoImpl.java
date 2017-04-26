@@ -20,8 +20,8 @@ public class UserApplyInfoDaoImpl  extends AbstractMysqlBaseDaoImpl<UserApplyInf
 
 
     @Override
-    public UserApplyInfo selectByUserId(String userId) {
-        return (UserApplyInfo)this.sqlSessionTemplate.selectOne(this.getSqlName("selectByUserId"), userId);
+    public UserApplyInfo selectByUserId(Map<String, Object> parmMapd) {
+        return (UserApplyInfo)this.sqlSessionTemplate.selectOne(this.getSqlName("selectByUserId"), parmMapd);
 
     }
 
@@ -38,7 +38,12 @@ public class UserApplyInfoDaoImpl  extends AbstractMysqlBaseDaoImpl<UserApplyInf
     public UserApplyInfo selectByApplyId(String applyId) {
         return (UserApplyInfo)this.sqlSessionTemplate.selectOne(this.getSqlName("selectByApplyId"), applyId);
     }
-    
+
+    @Override
+    public UserApplyInfo selectByBorrowerApplyId(String borrowerApplyId) {
+        return (UserApplyInfo)this.sqlSessionTemplate.selectOne(this.getSqlName("selectByBorrowerApplyId"), borrowerApplyId);
+    }
+
     @Override
     public List<UserApplyInfoVO> getUserApplyForSearch(Map<String, Object> parmMap){
     	return sqlSessionTemplate.selectList(getSqlName("FINDLIST_SEARCH"), parmMap);

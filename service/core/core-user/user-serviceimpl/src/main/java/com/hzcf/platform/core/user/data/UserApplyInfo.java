@@ -18,6 +18,45 @@ public class UserApplyInfo extends AbstractEntity {
     private String status;//1=有效   0=无效
     private Date applySubmitTime;//进件时间
     private String period;//期数(月)   (新增字段)
+
+
+	private String borrowerApplyId;	//线下系统申请ID
+	private Date additionalSubmitTime;//补充提交时间
+	private String additionalStatus;//补充状态
+	private String additionalContent;//待补充内容
+
+	public String getBorrowerApplyId() {
+		return borrowerApplyId;
+	}
+
+	public void setBorrowerApplyId(String borrowerApplyId) {
+		this.borrowerApplyId = borrowerApplyId;
+	}
+
+	public Date getAdditionalSubmitTime() {
+		return additionalSubmitTime;
+	}
+
+	public void setAdditionalSubmitTime(Date additionalSubmitTime) {
+		this.additionalSubmitTime = additionalSubmitTime;
+	}
+
+	public String getAdditionalStatus() {
+		return additionalStatus;
+	}
+
+	public void setAdditionalStatus(String additionalStatus) {
+		this.additionalStatus = additionalStatus;
+	}
+
+	public String getAdditionalContent() {
+		return additionalContent;
+	}
+
+	public void setAdditionalContent(String additionalContent) {
+		this.additionalContent = additionalContent;
+	}
+
 	public UserApplyInfo() {
 		super();
 	}

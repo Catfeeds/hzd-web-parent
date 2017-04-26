@@ -21,7 +21,7 @@
         id, mobile, name, user_name, password, id_card, status, check_status, nopass_cause,
         create_time,submit_time,apply_status
     </sql>
-    <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String" >
         select
         <include refid="Base_Column_List" />
         from users
@@ -204,13 +204,19 @@
 	    <if test="user.idCard != null and user.idCard != ''"> and id_card=#{user.idCard} </if>
 	    <if test="user.name != null and user.name !=''"> and name like CONCAT('%',#{user.name},'%')     </if>
 	    <if test="user.mobile != null and user.mobile != ''"> and mobile=#{user.mobile} </if>
-	    <if test="user.startDate != null and user.startDate !='' and user.endDate != null and user.endDate != ''">
-	        and date_format(create_time, '%Y-%m-%d') BETWEEN #{user.startDate} AND #{user.endDate} 
-	    </if>
+        <if test="user.startDate != null and user.startDate != ''">
+            <![CDATA[ and create_time  >= #{user.startDate} ]]>
+        </if>
+        <if test="user.endDate != null and user.endDate != ''">
+            <![CDATA[ and create_time  <= CONCAT(#{user.endDate},'23:59:59')]]>
+        </if>
 	    <if test="user.checkStatus != null and user.checkStatus != ''"> and check_status=#{user.checkStatus} </if>
-	    <if test="user.subStartDate != null and user.subStartDate !='' and user.subEndDate != null and user.subEndDate != ''">
-	        and date_format(submit_time, '%Y-%m-%d') BETWEEN #{user.subStartDate} AND #{user.subEndDate} 
-	    </if>
+        <if test="user.subStartDate != null and user.subStartDate != ''">
+            <![CDATA[ and submit_time  >= #{user.subStartDate} ]]>
+        </if>
+        <if test="user.subEndDate != null and user.subEndDate != ''">
+            <![CDATA[ and submit_time  <= CONCAT(#{user.subEndDate},'23:59:59')]]>
+        </if>
 	    <if test="user.applyStatus != null and user.applyStatus != ''"> and apply_status=#{user.applyStatus} </if>
 	    <!-- 过滤掉未认证用户 -->
 	    <if test="ischeckuser != null and ischeckuser != ''"> and id_card is not null </if>

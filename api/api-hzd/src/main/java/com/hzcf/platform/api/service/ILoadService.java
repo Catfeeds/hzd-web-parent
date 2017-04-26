@@ -13,8 +13,8 @@ import com.hzcf.platform.core.user.model.UserVO;
 public interface ILoadService {
 	//进件,仅仅保存借款信息
 	public BackResult insertLoad(String params);
-	//进件,保存借款信息，同时修改数据库中的“借款状态”
-	public BackResult operateLoad(String params) throws Exception;
+/*	//进件,保存借款信息，同时修改数据库中的“借款状态”
+	public BackResult operateLoad(String params) throws Exception;*/
 	//删除进件,
 	public BackResult deleteLoad(String params);
 	//查询借款进度

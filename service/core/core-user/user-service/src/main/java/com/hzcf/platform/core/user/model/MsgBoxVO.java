@@ -2,6 +2,10 @@ package com.hzcf.platform.core.user.model;
 
 import com.hzcf.platform.common.model.BaseVO;
 import com.hzcf.platform.core.user.util.DateUtil;
+import org.hibernate.validator.constraints.NotBlank;
+
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
 
 public class MsgBoxVO extends BaseVO {
     private String msgId;
@@ -9,12 +13,8 @@ public class MsgBoxVO extends BaseVO {
     private String userId;
 
     private String msgType;
-
     private String msgTitle;
-
     private String msgContent;
-
-
 
     private String status;
     
@@ -22,7 +22,10 @@ public class MsgBoxVO extends BaseVO {
     
     //ext
     private String createTimeDesc;
-    
+
+    public void setCreateTimeDesc(String createTimeDesc) {
+        this.createTimeDesc = createTimeDesc;
+    }
 
     public String getMsgId() {
         return msgId;

@@ -31,8 +31,8 @@ public class SmsServiceImpl implements ISmsService {
 	@Autowired
 	public UserService userSerivce;
 	@Autowired
-    private ICache cache;
-	
+	private ICache cache;
+
 	/**
 	 * 用户注册 短信验证码
 	 */
@@ -45,44 +45,44 @@ public class SmsServiceImpl implements ISmsService {
 				String sms = cache.load(ConstantsToken.SMS_CACHE_REG_KEY + mobile);
 				if(StringUtils.isNotBlank(sms)){
 					logger.i("3分钟内不能重复获取验证码。。。。。。。。。。。 手机号:"+mobile);
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_3101.getCode(),
-							HzdStatusCodeEnum.MEF_CODE_3101.getMsg());
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_3101.getCode(),
+							HzdStatusCodeEnum.HZD_CODE_3101.getMsg());
 				}
 				Result<UserVO> byMobile = userSerivce.getByMobile(mobile);
 				if (StatusCodes.OK != (byMobile.getStatus())) {
 					logger.i("数据查询失败 。byMobile   >>>>500。。。。。。。。。。。 ");
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
+							HzdStatusCodeEnum.HZD_CODE_0001.getMsg());
 				}
 				UserVO items = byMobile.getItems();
 				if (items != null ) {
 					logger.i("获取短信码失败，用户已注册"+mobile);
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_1010.getCode(), HzdStatusCodeEnum.MEF_CODE_1010.getMsg());
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_1010.getCode(), HzdStatusCodeEnum.HZD_CODE_1010.getMsg());
 				} else {
 					String six = Serialnumber.getSix();
 					String dataInfo = SmsObtainService.smsObtain(six, mobile);
 					if (StringUtils.isNotBlank(dataInfo) &&"0000".equals(JSONObject.fromObject(dataInfo.toString()).getString("retCode"))) {
 						//缓存验证码
 						cache.save(ConstantsToken.SMS_CACHE_REG_KEY+mobile, six ,ConstantsToken.SMS_EXPIRES_MIN);
-						
+
 						logger.i("-------------获取短信验证码成功" + six + "phoneNum:"+ mobile);
 						Map map = new HashMap<>();
-					 
-						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
+						map.put("sms",six);
+						return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), map);
 					}else{
 						logger.i("调用接口失败"+ mobile);
-						return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+						return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg());
 					}
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.i("数据处理异常"+ e.toString());
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg());
 
 			}
 		}else{
 			logger.i("-------------手机号码为空");
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_3010.getCode(), HzdStatusCodeEnum.MEF_CODE_3010.getMsg());
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_3010.getCode(), HzdStatusCodeEnum.HZD_CODE_3010.getMsg());
 		}
 	}
 
@@ -99,14 +99,14 @@ public class SmsServiceImpl implements ISmsService {
 				String sms = cache.load(ConstantsToken.SMS_CACHE_FINDPWD_KEY + mobile);
 				if(StringUtils.isNotBlank(sms)){
 					logger.i("3分钟内不能重复获取验证码。。。。。。。。。。。 手机号:"+mobile);
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_3101.getCode(),
-							HzdStatusCodeEnum.MEF_CODE_3101.getMsg());
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_3101.getCode(),
+							HzdStatusCodeEnum.HZD_CODE_3101.getMsg());
 				}
 				Result<UserVO> byMobile = userSerivce.getByMobile(mobile);
 				if (StatusCodes.OK != (byMobile.getStatus())) {
 					logger.i("数据查询失败 。byMobile   >>>>500。。。。。。。。。。。 ");
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
+							HzdStatusCodeEnum.HZD_CODE_0001.getMsg());
 				}
 				UserVO items = byMobile.getItems();
 				if (items != null) {
@@ -116,25 +116,25 @@ public class SmsServiceImpl implements ISmsService {
 						//缓存验证码
 						cache.save(ConstantsToken.SMS_CACHE_FINDPWD_KEY+mobile, six ,ConstantsToken.SMS_EXPIRES_MIN);
 						Map map = new HashMap<>();
-					 
+						map.put("sms",six);
 						logger.i("-------------获取短信验证码成功" + six + "phoneNum:"+ mobile);
-						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
+						return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), map);
 					}else{
 						logger.i("获取验证码失败"+ mobile);
-						return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+						return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg());
 					}
 				} else {
 					logger.i("获取短信码失败，用户未注册"+mobile);
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_1011.getCode(), HzdStatusCodeEnum.MEF_CODE_1011.getMsg());
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_1011.getCode(), HzdStatusCodeEnum.HZD_CODE_1011.getMsg());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.e("数据处理异常"+ e.toString());
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg());
 			}
 		}else{
 			logger.i("-------------手机号码为空");
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_3010.getCode(), HzdStatusCodeEnum.MEF_CODE_3010.getMsg());
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_3010.getCode(), HzdStatusCodeEnum.HZD_CODE_3010.getMsg());
 		}
 	}
 
@@ -149,31 +149,31 @@ public class SmsServiceImpl implements ISmsService {
 				String sms = cache.load(ConstantsToken.SMS_CACHE_UPDATEPWD_KEY + user.getMobile());
 				if(StringUtils.isNotBlank(sms)){
 					logger.i("3分钟内不能重复获取验证码。。。。。。。。。。。 手机号:"+user.getMobile());
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_3101.getCode(),
-							HzdStatusCodeEnum.MEF_CODE_3101.getMsg());
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_3101.getCode(),
+							HzdStatusCodeEnum.HZD_CODE_3101.getMsg());
 				}
 				String six = Serialnumber.getSix();
 				String dataInfo = SmsObtainService.smsObtain(six, user.getMobile());
 				if (StringUtils.isNotBlank(dataInfo) &&"0000".equals(JSONObject.fromObject(dataInfo.toString()).getString("retCode"))) {
 					//缓存验证码
 					cache.save(ConstantsToken.SMS_CACHE_UPDATEPWD_KEY+user.getMobile(), six ,ConstantsToken.SMS_EXPIRES_MIN);
-					
+
 					logger.i("-------------获取短信验证码成功" + six + "phoneNum:"+ user.getMobile());
-					 Map map = new HashMap<>();
-				 
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(), map);
+					Map map = new HashMap<>();
+					map.put("sms",six);
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg(), map);
 				}else{
 					logger.i("获取验证码失败"+ user.getMobile());
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg());
 				}
 			} catch (Exception e) {
 				e.printStackTrace();
 				logger.e("数据处理异常"+ e.toString());
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg());
 			}
 		}else{
 			logger.i("-------------手机号码为空");
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_3010.getCode(), HzdStatusCodeEnum.MEF_CODE_3010.getMsg());
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_3010.getCode(), HzdStatusCodeEnum.HZD_CODE_3010.getMsg());
 		}
 	}
 	@LogAnnotation
@@ -182,35 +182,35 @@ public class SmsServiceImpl implements ISmsService {
 
 			if(sms.equals(ConstantsDictionary.SMSNUM) && "TRUE".equals(ConstantsDictionary.SMSNUMSWITCH)){
 
-	    		logger.i("---------用户使用超级验证码:mobile:"+mobile);
-	    		System.out.println(cache.getClass());
-					cache.save("SMS_CACHE_REG_"+mobile, "666666" ,ConstantsToken.SMS_EXPIRES_MIN);
-					cache.save("SMS_CACHE_FINDPWD_"+mobile, "666666" ,ConstantsToken.SMS_EXPIRES_MIN);
-					cache.save("SMS_CACHE_UPDATEPWD_"+mobile, "666666" ,ConstantsToken.SMS_EXPIRES_MIN);
+				logger.i("---------用户使用超级验证码:mobile:"+mobile);
+				System.out.println(cache.getClass());
+				cache.save("SMS_CACHE_REG_"+mobile, "666666" ,ConstantsToken.SMS_EXPIRES_MIN);
+				cache.save("SMS_CACHE_FINDPWD_"+mobile, "666666" ,ConstantsToken.SMS_EXPIRES_MIN);
+				cache.save("SMS_CACHE_UPDATEPWD_"+mobile, "666666" ,ConstantsToken.SMS_EXPIRES_MIN);
 
 				//缓存验证码
 
 
 				logger.i("-------------获取超级短信验证码成功" + ConstantsDictionary.SMSNUM + "mobile:"+ mobile);
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg());
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg());
 			}
-			
+
 			Result<UserVO> byMobile = userSerivce.getByMobile(mobile);
 			UserVO items = byMobile.getItems();
 			String cacheSmsnum = cache.load(key+mobile);
 			if(sms.equals(cacheSmsnum)){
 				logger.i("验证短信成功-手机号:"+mobile+"验证码:"+sms);
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(), HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),items);
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(), HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),items);
 			}else{
 				logger.i("用户注册输入验证码有误--手机号:"+mobile+"验证码:"+sms);
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_3000.getCode(), HzdStatusCodeEnum.MEF_CODE_3000.getMsg());
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_3000.getCode(), HzdStatusCodeEnum.HZD_CODE_3000.getMsg());
 			}
-			
+
 		} catch (Exception e) {
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg());
 
 		}
 	}
 
-	
+
 }

@@ -5,6 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.hzcf.platform.core.user.service.UserService;
+import com.hzcf.platform.mgr.sys.common.pageModel.JsonResult;
+import com.hzcf.platform.mgr.sys.webService.LoadService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,6 +19,7 @@ import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
 import com.hzcf.platform.mgr.sys.common.pageModel.DataGrid;
 import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
 import com.hzcf.platform.mgr.sys.service.IApplyService;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 public class ApplyServiceImpl implements IApplyService {
@@ -23,9 +27,12 @@ public class ApplyServiceImpl implements IApplyService {
 	
 	@Autowired
 	public UserApplyInfoSerivce userApplyInfoSerivce;
-	
+	@Autowired
+	public UserService userService;
 	@Autowired
     DictUtilService dictUtilService;
+	@Autowired
+	LoadService loadService;
 	
 	@Override
 	public DataGrid getApplyPage(PageHelper pageHelper, UserApplyInfoVO apply){
@@ -42,6 +49,7 @@ public class ApplyServiceImpl implements IApplyService {
 		//借款用途-转码
 		List<UserApplyInfoVO> applyList = result.getItems();
 		for(UserApplyInfoVO userApplyInfoVO : applyList){
+			userApplyInfoVO.setCheckStatus(userService.selectByPrimaryKey(userApplyInfoVO.getUserId()).getItems().getCheckStatus());
 			String loanPurposeOne = userApplyInfoVO.getLoanPurposeOne();
 			String loanPurposeOneValue = dictUtilService.convertLoanPurposeOne(loanPurposeOne);
 			userApplyInfoVO.setLoanPurposeOne(loanPurposeOneValue);
@@ -62,6 +70,16 @@ public class ApplyServiceImpl implements IApplyService {
 		parmMap.put("apply", apply);
 		PaginatedResult result =  userApplyInfoSerivce.getUserApplyForSearch(parmMap);
 		return result.getItems();
+	}
+
+	@Override
+	public JsonResult anewSubmitApply( String applyId ,String mobile) {
+
+		Map map = loadService.operateLoadMap(applyId, userService.getByMobile(mobile).getItems());
+
+		boolean success =(boolean)map.get("result");
+		String resultMsg= (String)map.get("resultMsg");
+		return new JsonResult(success,resultMsg,null);
 	}
 
 }

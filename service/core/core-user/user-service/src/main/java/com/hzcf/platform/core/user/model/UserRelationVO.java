@@ -24,6 +24,10 @@ public class UserRelationVO  extends BaseVO {
 
     private String type;//0=工作证明 1=家庭证明人2=紧急联络人
 
+    private String organName;//单位名称
+    private String organAddr;//单位地址
+
+
 
     public String getRelationId() {
         return relationId;
@@ -82,5 +86,35 @@ public class UserRelationVO  extends BaseVO {
         this.type = type == null ? null : type.trim();
     }
 
+    public String getOrganName() {
+        return organName;
+    }
 
+    public void setOrganName(String organName) {
+        this.organName = organName;
+    }
+
+    public String getOrganAddr() {
+        return organAddr;
+    }
+
+    public void setOrganAddr(String organAddr) {
+        this.organAddr = organAddr;
+    }
+
+
+    @Override
+    public String toString() {
+        return "UserRelationVO{" +
+                "relationId='" + relationId + '\'' +
+                ", userId='" + userId + '\'' +
+                ", applyId='" + applyId + '\'' +
+                ", name='" + name + '\'' +
+                ", relationType='" + relationType + '\'' +
+                ", mobile='" + mobile + '\'' +
+                ", type='" + type + '\'' +
+                ", organName='" + organName + '\'' +
+                ", organAddr='" + organAddr + '\'' +
+                '}';
+    }
 }

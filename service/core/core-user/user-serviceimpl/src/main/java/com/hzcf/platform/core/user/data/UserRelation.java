@@ -20,7 +20,8 @@ public class UserRelation extends AbstractEntity {
 
     private String type;
 
-
+    private String organName;//单位名称
+    private String organAddr;//单位地址
 
     public String getRelationId() {
         return relationId;
@@ -79,5 +80,19 @@ public class UserRelation extends AbstractEntity {
         this.type = type == null ? null : type.trim();
     }
 
+    public String getOrganName() {
+        return organName;
+    }
 
+    public void setOrganName(String organName) {
+        this.organName = organName;
+    }
+
+    public String getOrganAddr() {
+        return organAddr;
+    }
+
+    public void setOrganAddr(String organAddr) {
+        this.organAddr = organAddr;
+    }
 }

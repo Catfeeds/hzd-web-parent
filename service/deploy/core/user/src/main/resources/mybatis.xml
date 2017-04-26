@@ -10,8 +10,9 @@
 		<typeAlias type="com.hzcf.platform.core.user.data.UserDict" alias="UserDict"/>
 		<typeAlias type="com.hzcf.platform.core.user.data.MsgBox" alias="MsgBox"/>
 		<typeAlias type="com.hzcf.platform.core.user.data.District" alias="District"/>
-	</typeAliases>
+		<typeAlias type="com.hzcf.platform.core.user.data.UserApplyLog" alias="UserApplyLog"/>
 
+	</typeAliases>
 
 
 	<!-- 指定映射文件 -->
@@ -24,6 +25,8 @@
 		<mapper resource="sqlmap/userDictMapper.xml" />
 		<mapper resource="sqlmap/MsgBoxMapper.xml" />
 		<mapper resource="sqlmap/DistrictMapper.xml" />
+		<mapper resource="sqlmap/UserApplyLogMapper.xml" />
+
 	</mappers>
 
 </configuration>

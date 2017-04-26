@@ -17,6 +17,7 @@ public class UserResponseBuilder {
     private HttpHeaders headers = new HttpHeaders();
 
     private UserResponseBuilder() {
+
     }
 
     public static UserResponseBuilder instance() {

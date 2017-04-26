@@ -55,7 +55,7 @@ public class OnlineApplyLoanController {
      * 用户进件申请  详情信息  第二步
      */
     @RequestMapping(value = {"rest/api/100/onlineLoanapply/info/two/{applyId}", "api/100/onlineLoanapply/info/two/{applyId}"}, method = RequestMethod.POST)
-    public BackResult onlineLoanapplyInfoTwo(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user, @RequestBodyForm UserInfoVO userInfoVO, @PathVariable String applyId) {
+    public BackResult onlineLoanapplyInfoTwo(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user, @RequestBodyForm UserInfoVO userInfoVO,  @PathVariable  String applyId) {
         logger.i("进入  -----用户进件申请第二步,录入借款人详细信息 ");
         return onlineApplyLoanService.onlineLoanapplyInfoTwo(user, userInfoVO, applyId);
     }
@@ -78,7 +78,7 @@ public class OnlineApplyLoanController {
     public BackResult onlineLoanapplyInfoPerfect(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user, @RequestBodyForm UserRelationForm userRelationForm,
                                                  @PathVariable String applyId) {
         logger.i("进入  -----用户进件申请第四步,录入借款人详细信息 ");
-        return onlineApplyLoanService.onlineLoanapplyInfoPerfect(user, userRelationForm.getUserRelationVO(), applyId);
+        return onlineApplyLoanService.onlineLoanapplyInfoPerfect(user,userRelationForm, applyId);
     }
 
 
@@ -122,13 +122,5 @@ public class OnlineApplyLoanController {
         return onlineApplyLoanService.deleteApplyIdImage(user, applyId);
     }
 
-    private static String getSuffix(String url) {
-        if (url != null) {
-            int index = url.lastIndexOf(".");
-            if (index > 0) {
-                return url.substring(index + 1);
-            }
-        }
-        return url;
-    }
+
 }

@@ -5,10 +5,12 @@ import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
 
+import com.hzcf.platform.mgr.sys.common.pageModel.JsonResult;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.hzcf.platform.common.util.log.Log;
@@ -46,7 +48,8 @@ public class ApplyController {
 	@RequestMapping(value="/apply/page",method=RequestMethod.POST)
     @ResponseBody
     public DataGrid userPage(PageHelper page, UserApplyInfoVO apply){
-		return applyService.getApplyPage(page, apply);
+
+	    return applyService.getApplyPage(page, apply);
     }
 	
 	
@@ -100,5 +103,18 @@ public class ApplyController {
         }
         ExportExcel ex = new ExportExcel(title, rowsName, dataList);
         ex.export(response);
+   }
+
+    /**
+     * 重新提交
+     * @param applyId
+     * @param mobile
+     * @return
+     */
+    @RequestMapping(value = "/apply/anewSubmitApply",method = RequestMethod.POST)
+    @ResponseBody
+    public JsonResult anewSubmitApply(String applyId, String mobile){
+
+       return applyService.anewSubmitApply(applyId,mobile);
    }
 }

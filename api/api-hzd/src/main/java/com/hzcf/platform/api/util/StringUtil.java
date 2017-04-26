@@ -1,5 +1,6 @@
 package com.hzcf.platform.api.util;
 
+import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.common.util.utils.ServiceUtil;
 import org.apache.commons.collections.bag.SynchronizedSortedBag;
 
@@ -31,6 +32,10 @@ public class StringUtil {
         return url;
     }
 
+    public static String replaceAll(String url){
+
+        return url.replaceAll(ConstantsDictionary.imgUpload,"");
+    }
 
 
     //主方法测试

@@ -33,9 +33,9 @@ public class UserApplyInfoSerivceImpl  extends AbstractBaseServiceImpl<UserApply
     private UserApplyInfoDao purchaseOrderDao;
 
     @Override
-    public Result<UserApplyInfoVO> selectByUserId(String userId) {
+    public Result<UserApplyInfoVO> selectByUserId(Map<String, Object> parmMap) {
         try {
-            UserApplyInfo t = purchaseOrderDao.selectByUserId(userId);
+            UserApplyInfo t = purchaseOrderDao.selectByUserId(parmMap);
             if (null == t) {
                 logger.debug("data null.");
                 return new Result<UserApplyInfoVO>(StatusCodes.OK, null);
@@ -62,8 +62,23 @@ public class UserApplyInfoSerivceImpl  extends AbstractBaseServiceImpl<UserApply
         }
     }
 
+	@Override
+	public Result<UserApplyInfoVO> selectByBorrowerApplyId(String borrowerApplyId) {
+		try {
+			UserApplyInfo t = purchaseOrderDao.selectByBorrowerApplyId(borrowerApplyId);
+			if (null == t) {
+				logger.debug("data null.");
+				return new Result<UserApplyInfoVO>(StatusCodes.OK, null);
+			}
+			return new Result<UserApplyInfoVO>(StatusCodes.OK, toVO(t));
+		} catch (Exception e) {
+			logger.error("an error occur in getByPK service : {}", e);
+			return new Result<UserApplyInfoVO>(StatusCodes.INTERNAL_SERVER_ERROR, getModel());
+		}
+	}
 
-    @Override
+
+	@Override
     protected UserApplyInfoVO getModel() {
         return new UserApplyInfoVO();
     }

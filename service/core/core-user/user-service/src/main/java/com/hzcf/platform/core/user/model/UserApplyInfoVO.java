@@ -25,6 +25,74 @@ public class UserApplyInfoVO extends BaseVO {
 	private String idCard;//身份证号
     private String startDate;//注册日期-开始时间
     private String endDate;//注册日期-结束时间
+
+
+	private String borrowerApplyId;	//线下系统申请ID
+	private Date additionalSubmitTime;//补充提交时间
+	private String additionalStatus;//补充状态
+	private String additionalContent;//待补充内容
+
+	private String addStartDate;//补充提交时间-开始时间
+	private String addEndDate;//补充提交时间-结束时间
+
+	private String checkStatus;//审核状态  0:通过(已认证)  1:不通过(未认证)  2:待审核(审核中)
+
+	public String getCheckStatus() {
+		return checkStatus;
+	}
+
+	public void setCheckStatus(String checkStatus) {
+		this.checkStatus = checkStatus;
+	}
+
+	public String getAddStartDate() {
+		return addStartDate;
+	}
+
+	public void setAddStartDate(String addStartDate) {
+		this.addStartDate = addStartDate;
+	}
+
+	public String getAddEndDate() {
+		return addEndDate;
+	}
+
+	public void setAddEndDate(String addEndDate) {
+		this.addEndDate = addEndDate;
+	}
+
+	public String getBorrowerApplyId() {
+		return borrowerApplyId;
+	}
+
+	public void setBorrowerApplyId(String borrowerApplyId) {
+		this.borrowerApplyId = borrowerApplyId;
+	}
+
+	public Date getAdditionalSubmitTime() {
+		return additionalSubmitTime;
+	}
+
+	public void setAdditionalSubmitTime(Date additionalSubmitTime) {
+		this.additionalSubmitTime = additionalSubmitTime;
+	}
+
+	public String getAdditionalStatus() {
+		return additionalStatus;
+	}
+
+	public void setAdditionalStatus(String additionalStatus) {
+		this.additionalStatus = additionalStatus;
+	}
+
+	public String getAdditionalContent() {
+		return additionalContent;
+	}
+
+	public void setAdditionalContent(String additionalContent) {
+		this.additionalContent = additionalContent;
+	}
+
 	public UserApplyInfoVO() {
 		super();
 	}

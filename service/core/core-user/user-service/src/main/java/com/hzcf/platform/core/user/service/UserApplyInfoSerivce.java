@@ -14,9 +14,11 @@ import com.hzcf.platform.framework.core.service.IBaseService;
  */
 public interface UserApplyInfoSerivce extends IBaseService<UserApplyInfoVO> {
 
-    Result<UserApplyInfoVO> selectByUserId(String userId);
+    Result<UserApplyInfoVO> selectByUserId(Map<String, Object> parmMap);
     Result<UserApplyInfoVO> selectByApplyId(String applyId);
-    /**
+	Result<UserApplyInfoVO> selectByBorrowerApplyId(String borrowerApplyId);
+
+	/**
      * @Title: selectByUserIdAndStatusAll 
      * @Description:根据userId，status查询借款人的申请信息 
      * @time: 2017年1月18日 下午6:47:57  

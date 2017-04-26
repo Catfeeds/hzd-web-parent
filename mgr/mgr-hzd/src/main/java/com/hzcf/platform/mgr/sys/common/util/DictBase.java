@@ -22,6 +22,8 @@ public class DictBase {
     public final static String   RELATION_TO_HOME ="RELATION_TO_HOME";//		家庭联系人
     public final static String   RELATION_TO_URGE ="RELATION_TO_URGE";//		紧急联系人
     public final static String   RELATION_TO_WORK ="RELATION_TO_WORK";//		工作联系人
+
+    public final static String   ORG_TITLE ="ORG_TITLE";//		担任职称
     /**
      * 身份证类型
      */

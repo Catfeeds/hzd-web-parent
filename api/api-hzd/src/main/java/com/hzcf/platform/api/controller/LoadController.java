@@ -38,14 +38,14 @@ public class LoadController {
         logger.i("进件接口");
         loadService.insertLoad(params);
     }
-	/**进件接口
+/*	*//**进件接口
 	 * 
-	 */
+	 *//*
 	@RequestMapping(value="operateload",method = RequestMethod.POST)
     public void operateload(@RequestBody String params) throws Exception {
         logger.i("进件接口");
         loadService.operateLoad(params);
-    }
+    }*/
 	/**删除进件接口
 	 * 
 	 */

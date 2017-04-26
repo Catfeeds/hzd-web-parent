@@ -5,7 +5,7 @@
 
 <generatorConfiguration>
     <!--mysql 连接数据库jar 这里选择自己本地位置-->
-    <classPathEntry location="F:/devbin/m2_repo/mysql/mysql-connector-java/5.1.30/mysql-connector-java-5.1.30.jar"/>
+    <classPathEntry location="D:\devbin\m2_repo\mysql\mysql-connector-java\5.1.20\mysql-connector-java-5.1.20.jar"/>
     <context id="testTables" targetRuntime="MyBatis3">
         <commentGenerator>
             <!-- 是否去除自动生成的注释 true：是 ： false:否 -->
@@ -48,16 +48,12 @@
             <property name="enableSubPackages" value="false" />
         </javaClientGenerator>
         <!-- 指定数据库表 -->
-        <table tableName="msg_box" domainObjectName="MsgBox" enableCountByExample="false" enableUpdateByExample="false"
+        <table tableName="user_apply_log" domainObjectName="UserApplyLog" enableCountByExample="false" enableUpdateByExample="false"
                enableDeleteByExample="false" enableSelectByExample="false"
                selectByExampleQueryId="false">
 
         </table>
-        <table tableName="user_dict" domainObjectName="userDict" enableCountByExample="false" enableUpdateByExample="false"
-               enableDeleteByExample="false" enableSelectByExample="false"
-               selectByExampleQueryId="false">
 
-        </table>
 
     </context>
 </generatorConfiguration>

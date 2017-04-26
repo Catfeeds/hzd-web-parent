@@ -8,6 +8,6 @@ import com.hzcf.platform.api.config.ConstantsDictionary;
 public class ImageUrlUtil {
 
     public static String geturl(String url){
-        return ConstantsDictionary.imgUpload+"/"+url;
+        return ConstantsDictionary.imgUpload+url;
     }
 }

@@ -32,6 +32,9 @@ pageEncoding="UTF-8"%>
 		
 	}
 	function butt(){
+		//禁用提交按钮，防止多次点击
+		$("#button").attr("disabled","disabled");//禁用提交按钮
+		$("#button").removeAttr("onclick")//移除提交事件
 		var status = $("#hid").val();
 		if(status==1||status==0){
 			window.location = '${path}/users/check/list';
@@ -48,18 +51,31 @@ pageEncoding="UTF-8"%>
 					"checkStatus" : checkStatus,
 					"nopassCause" : nopassCause,
 				},
+				async : false,
 				success:function(rst){
 					var rst2=eval('(' + rst+ ')');
 					if(rst2.result==true){
-						alert("提交成功!");
-						window.location = '${path}/users/check/list';
-						return null;
-					}else if(rst2.result==false){//
+						//easyUI弹框显示提示信息
+						$.messager.alert("","提交成功!","info",function(){
+							//启用提交按钮
+							$("#button").removeAttr("disabled")//启用提交按钮,移除提交事件
+							$("#button").attr("onclick","butt()");//移除提交事件
+							//跳转页面
+							window.location = '${path}/users/check/list';
+							return null;
+						});
+					}else if(rst2.result==false){
+						//获取线下返回的错误信息
 						var resultMsg=rst2.resultMsg;
 						var resultMsg2=eval('(' + resultMsg+ ')');
-						alert(resultMsg2.retInfo);//弹出错误信息
-						return false;
-					} 
+						//弹出错误信息
+						$.messager.alert("",resultMsg2.retInfo,"error",function(){
+							//启用提交按钮
+							$("#button").removeAttr("disabled")//启用提交按钮,移除提交事件
+							$("#button").attr("onclick","butt()");//移除提交事件
+							return false;
+						});
+					}
 				}
 			});
 		}
@@ -104,7 +120,7 @@ pageEncoding="UTF-8"%>
                 </div>
                 <div class="clear"></div>
                 <div class="center" id="center" style="display: none ">
-                    <textarea name="" placeholder="请填写不通过原因" id="" cols="30" rows="10"></textarea>
+                    <textarea name="" placeholder="请填写不通过原因" id="mytext" cols="30" rows="10"></textarea>
                 </div>
             </div>
             <br />

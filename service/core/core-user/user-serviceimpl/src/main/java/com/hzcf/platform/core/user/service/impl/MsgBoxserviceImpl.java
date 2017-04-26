@@ -2,6 +2,7 @@ package com.hzcf.platform.core.user.service.impl;
 
 import java.util.List;
 
+import com.hzcf.platform.core.user.model.UserApplyInfoVO;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -62,25 +63,19 @@ public class MsgBoxserviceImpl  extends AbstractBaseServiceImpl<MsgBoxVO,MsgBox>
 	/**
      * 查询所有消息
      */
-	public PaginatedResult<MsgBoxVO> selectAllByUser(MsgBoxVO msgBoxVO){
+	public Result<List<MsgBoxVO>> selectAllByUser(MsgBoxVO msgBoxVO){
 		try {
 			MsgBox t = this.toDO(msgBoxVO);
 			List<MsgBox> result = msgBoxDao.selectAllByUser(t);
 			if (null == result) {
-				logger.debug("data null.");
-				PaginatedResult<MsgBoxVO> resultVO = new PaginatedResult<MsgBoxVO>();
-				resultVO.setStatus(StatusCodes.OK);
-				return resultVO;
+				logger.debug("selectByUserIdAndStatusAll data null.");
+				return new Result<List<MsgBoxVO>>(StatusCodes.OK, null);
 			}
-			PaginatedResult<MsgBoxVO> resultVO = new PaginatedResult<MsgBoxVO>();
-			resultVO.setItems(toVO(result));
-			resultVO.setStatus(StatusCodes.OK);
-			return resultVO;
+			return new Result<List<MsgBoxVO>>(StatusCodes.OK, toVO(result));
+
 		} catch (Exception e) {
-			logger.error("an error occur in selectAllByUser service : {}", e);
-			PaginatedResult<MsgBoxVO> resultVO = new PaginatedResult<MsgBoxVO>();
-			resultVO.setStatus(StatusCodes.INTERNAL_SERVER_ERROR);
-			return resultVO;
+			logger.error("an error occur in selectByUserIdAndStatusAll service : {}", e);
+			return new Result<List<MsgBoxVO>>(StatusCodes.INTERNAL_SERVER_ERROR,null);
 		}
 	}
 	/**
@@ -90,6 +85,20 @@ public class MsgBoxserviceImpl  extends AbstractBaseServiceImpl<MsgBoxVO,MsgBox>
 		try {
 			MsgBox t = toDO(msgBoxVO);
 			msgBoxDao.updateReadByUser(t);
+			return new Result<Boolean>(StatusCodes.OK, true);
+		} catch (Exception e) {
+			logger.error("an error occur in update updateReadByUser : {}", e);
+			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
+		}
+	}
+
+	/**
+	 * 修改站内信补件状态为已补充
+	 */
+	public Result<Boolean> updateReadByUserIdStatus(String userId){
+		try {
+
+			msgBoxDao.updateReadByUserIdStatus(userId);
 			return new Result<Boolean>(StatusCodes.OK, true);
 		} catch (Exception e) {
 			logger.error("an error occur in update updateReadByUser : {}", e);

@@ -58,19 +58,19 @@ public class LoadServiceImpl implements ILoadService {
 		String result="";
 			result=LoadService.insertLoad(applyId);
 		
-		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),result);
+		return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),result);
 	}
-	/**进件接口，进件成功之后会修改数据库
+/*	*//**进件接口，进件成功之后会修改数据库
 	 * 
-	 */
+	 *//*
 	@Override
 	@LogAnnotation
 	public BackResult operateLoad(String params) throws Exception {
 		JSONObject json=JSONObject.fromObject(params);
 		String applyId=json.getString("applyId");
 		boolean result=LoadService.operateLoad(applyId);
-		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),result);
-	}
+		return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),result);
+	}*/
 	/**根据userId删除借款人的进件信息
 	 * 
 	 */
@@ -80,7 +80,7 @@ public class LoadServiceImpl implements ILoadService {
 		JSONObject json=JSONObject.fromObject(params);
 		String userId=json.getString("userId");
 		boolean result=LoadService.deleteLoad(userId);
-		return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),result);
+		return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),result);
 	}
 	/**借款人查询借款进度
 	 * 
@@ -91,23 +91,23 @@ public class LoadServiceImpl implements ILoadService {
 		String mobile=user.getMobile();
 		if(StringUtils.isBlank(mobile)){
 			logger.i("接口：借款人查询借款进度失败，手机号不存在，mobile参数值："+mobile);
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_6102.getCode(), HzdStatusCodeEnum.MEF_CODE_6102.getMsg());
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_6102.getCode(), HzdStatusCodeEnum.HZD_CODE_6102.getMsg());
 		}
 		try {
 			Result<UserVO> byMobile=userSerivce.getByMobile(mobile);
 			UserVO items=byMobile.getItems();
 				if (StatusCodes.OK != (byMobile.getStatus())) {
 					logger.i("数据查询失败 - 500,  失败 。。。。。。。。。。。。。 ");
-					return new BackResult(HzdStatusCodeEnum.MEF_CODE_0001.getCode(),
-							HzdStatusCodeEnum.MEF_CODE_0001.getMsg());
+					return new BackResult(HzdStatusCodeEnum.HZD_CODE_0001.getCode(),
+							HzdStatusCodeEnum.HZD_CODE_0001.getMsg());
 				}
 			if(items ==null){
 				logger.i("接口：借款人查询借款进度失败，未查询到用户信息");
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_6103.getCode(),HzdStatusCodeEnum.MEF_CODE_6103.getMsg());
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_6103.getCode(),HzdStatusCodeEnum.HZD_CODE_6103.getMsg());
 			}
 
 			//String idCard=items.getIdCard();//用户身份证信息
-			String result=LoadService.selectLoadProgress(items.getMobile());
+			String result=LoadService.selectLoadProgress(items.getIdCard());
 			JSONObject  json = JSONObject.fromObject(result);
 			//WxjinjianQueryRsp wxrsp =JsonUtil.string2Object(json.toString(),WxjinjianQueryRsp.class);
 			String retCode = json.getString("retCode");
@@ -130,20 +130,20 @@ public class LoadServiceImpl implements ILoadService {
 						wl.setIsWFXZFlag("1");
 						wl.setWeiXinApplicationStatus("正在等待审核资料");
 						wlList.add(wl);
-						return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),
-								HzdStatusCodeEnum.MEF_CODE_0000.getMsg(),wlList);
+						return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
+								HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),wlList);
 					}
 				}*/
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_0000.getCode(),retInfo,wr.getWeiXinApplyList()!=null?wr.getWeiXinApplyList():null);
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),retInfo,wr.getWeiXinApplyList()!=null?wr.getWeiXinApplyList():null);
 			}else{
 				logger.e("接口：借款人查询借款进度失败，结果："+result);
-				return new BackResult(HzdStatusCodeEnum.MEF_CODE_6101.getCode(), HzdStatusCodeEnum.MEF_CODE_6101.getMsg());
+				return new BackResult(HzdStatusCodeEnum.HZD_CODE_6101.getCode(), HzdStatusCodeEnum.HZD_CODE_6101.getMsg());
 			}
 
 		}catch (Exception e){
 			e.printStackTrace();
 			logger.e("接口：借款人查询借款进度异常");
-			return new BackResult(HzdStatusCodeEnum.MEF_CODE_9999.getCode(), HzdStatusCodeEnum.MEF_CODE_9999.getMsg());
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_9999.getCode(), HzdStatusCodeEnum.HZD_CODE_9999.getMsg());
 		}
 	}
 }

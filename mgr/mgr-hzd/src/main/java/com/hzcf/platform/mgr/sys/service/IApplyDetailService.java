@@ -46,6 +46,10 @@ public interface IApplyDetailService {
 	 */
 	public List<UserImageVO> getUserImageDetail(UserApplyInfoVO userApplyInfo);
 
-	
-	
+	/**
+	 *
+	 * @param applyId
+	 * @return 补充资料上传图片展示
+	 */
+	public List<UserImageVO> getUserImageDetailForAdd(UserApplyInfoVO userApplyInfo) ;
 }

@@ -1,6 +1,7 @@
 package com.hzcf.platform.core.user.model;
 import com.hzcf.platform.common.model.BaseVO;
 
+import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 public class UserImageVO extends BaseVO {
@@ -11,11 +12,11 @@ public class UserImageVO extends BaseVO {
     private String applyId;
 
     private String userInfoId;
-
+    @NotNull(message = "图片url不能为空")
     private String artWork;
 
     private String small;
-
+    @NotNull(message = "图片类型不能为空")
     private String imageType;
 
     private String type;
