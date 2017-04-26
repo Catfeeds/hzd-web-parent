@@ -294,6 +294,8 @@ public class LoadService {
 				String retCode=resultJSON.getString("retCode");
 				String retInfo = resultJSON.getString("retInfo");
 				if("0000".equals(retCode)){
+					String borrowerApplyId = resultJSON.getString("borrowerApplyId");
+
 					/**修改User中的“借款状态”*/
 					//组装参数
 					UserVO updateUserVO=new UserVO();
@@ -309,6 +311,7 @@ public class LoadService {
 					UserApplyInfoVO updateUserApplyInfoVO=new UserApplyInfoVO();
 					updateUserApplyInfoVO.setApplyId(applyId);
 					updateUserApplyInfoVO.setStatus("1");
+					updateUserApplyInfoVO.setBorrowerApplyId(borrowerApplyId);
 					//修改数据库中user_apply_info中的进件状态
 					Result<Boolean> updateUserApplyInfoVOResult=userApplyInfoSerivce.updateApplyId(updateUserApplyInfoVO);
 					logger.info("修改UserApplyInfo中的'进件状态'，结果："+updateUserApplyInfoVOResult.getItems());
