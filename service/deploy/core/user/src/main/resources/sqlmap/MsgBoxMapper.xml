@@ -146,4 +146,10 @@
     set is_read = 1
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
+
+  <update id="updateReadByUserIdStatus" parameterType="java.lang.String" >
+    update msg_box
+    set status = 1
+    where user_id = #{userId,jdbcType=VARCHAR} and  msg_type ='8'
+  </update>
 </mapper>

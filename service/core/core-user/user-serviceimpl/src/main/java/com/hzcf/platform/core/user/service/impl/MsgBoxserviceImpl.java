@@ -92,6 +92,20 @@ public class MsgBoxserviceImpl  extends AbstractBaseServiceImpl<MsgBoxVO,MsgBox>
 		}
 	}
 
+	/**
+	 * 修改站内信补件状态为已补充
+	 */
+	public Result<Boolean> updateReadByUserIdStatus(String userId){
+		try {
+
+			msgBoxDao.updateReadByUserIdStatus(userId);
+			return new Result<Boolean>(StatusCodes.OK, true);
+		} catch (Exception e) {
+			logger.error("an error occur in update updateReadByUser : {}", e);
+			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
+		}
+	}
+
 	@Override
 	public Result<Boolean> insertSelective(MsgBoxVO msgBoxVO) {
 		try {

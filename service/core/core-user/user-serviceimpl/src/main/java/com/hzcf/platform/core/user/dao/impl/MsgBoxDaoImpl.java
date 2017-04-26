@@ -43,7 +43,20 @@ public class MsgBoxDaoImpl  extends AbstractMysqlBaseDaoImpl<MsgBox> implements 
 		}
 		return true;
     }
-	
+
+	/**
+	 * 修改补件资料状态为已补充
+	 * @param userId
+	 * @return
+	 */
+	@Override
+	public boolean updateReadByUserIdStatus(String userId){
+		if (userId != null) {
+			sqlSessionTemplate.update(getSqlName("updateReadByUserIdStatus"), userId);
+		}
+		return true;
+	}
+
 	@Override
 	public boolean insertSelective(MsgBox msgBox) {
 		sqlSessionTemplate.insert(this.getSqlName("insertSelective"), msgBox);

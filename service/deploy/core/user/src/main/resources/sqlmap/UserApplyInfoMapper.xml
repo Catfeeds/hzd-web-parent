@@ -52,7 +52,7 @@
     max_monthly_payment, status, apply_submit_time,period,borrower_apply_id,additional_submit_time,additional_status,additional_content
 
   </sql>
-    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.lang.String">
+    <select id="selectByUserId" resultMap="BaseResultMap" parameterType="java.util.Map">
         select
         <include refid="Base_Column_List"/>
         from user_apply_info

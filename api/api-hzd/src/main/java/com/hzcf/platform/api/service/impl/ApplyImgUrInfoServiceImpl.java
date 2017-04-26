@@ -16,6 +16,7 @@ import com.hzcf.platform.common.util.uuid.UUIDGenerator;
 import com.hzcf.platform.core.user.model.UserApplyInfoVO;
 import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.core.user.service.MsgBoxservice;
 import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
 import com.hzcf.platform.core.user.service.UserImageService;
 import com.hzcf.platform.webService.LoadService;
@@ -40,13 +41,13 @@ import java.util.*;
 public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
     private static final Log logger = Log.getLogger(ApplyImgUrInfoServiceImpl.class);
     //身份证明:B1  征信报告:E1  工作证明:D8  收入证明:C8  个人住址证明:F7  社保公积金证明:C3  其他资料:L5
-    private final String B1 = "B1";
-    private final String E1 = "E1";
-    private final String D8 = "D8";
-    private final String C8 = "C8";
-    private final String F7 = "F7";
-    private final String L5 = "L5";
-    private final String C3 = "C3";
+    private final static String B1 = "B1";
+    private final static String E1 = "E1";
+    private final static String D8 = "D8";
+    private final static String C8 = "C8";
+    private final static String F7 = "F7";
+    private final static String L5 = "L5";
+    private final static String C3 = "C3";
 
     @Autowired
     UserImageService userImageService;
@@ -56,7 +57,8 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
     UserApplyInfoSerivce userApplyInfoSerivce;
     @Autowired
     UploadImgUtil uploadImgUtil;
-
+    @Autowired
+    private MsgBoxservice msgBoxservice;
     @Override
     @LogAnnotation
     public BackResult deleteImgUrl(UserVO userVO, UserImageVO userImageVO) {
@@ -234,6 +236,10 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
                         HzdStatusCodeEnum.HZD_CODE_0001.getMsg(), null);
             }
         logger.i("更新本地进件状态成功");
+
+        logger.i("开始更新本地站内信补件状态");
+        msgBoxservice.updateReadByUserIdStatus(userVO.getId());
+
         return  new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
                 HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),null);
 

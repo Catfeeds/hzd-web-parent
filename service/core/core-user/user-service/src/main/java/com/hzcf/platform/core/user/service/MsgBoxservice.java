@@ -27,6 +27,13 @@ public interface MsgBoxservice extends IBaseService<MsgBoxVO> {
      * 修改成已读
      */
 	public Result<Boolean> updateReadByUser(MsgBoxVO msgBoxVO);
+
+	/**
+	 * 修改站内信补件状态为已补充
+	 * @param UserId
+	 * @return
+	 */
+	public Result<Boolean> updateReadByUserIdStatus(String UserId);
 	/**
 	 * 插入信息
 	 * @param msgBoxVO
