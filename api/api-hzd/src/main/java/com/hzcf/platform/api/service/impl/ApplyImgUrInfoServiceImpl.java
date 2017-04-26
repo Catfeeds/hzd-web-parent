@@ -67,7 +67,7 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
             return new BackResult(HzdStatusCodeEnum.HZD_CODE_9000.getCode(),
                     "artWork为空", null);
         }
-        String sufFirst = StringUtil.getSufFirst(userImageVO.getArtWork());
+        String sufFirst = StringUtil.replaceAll(userImageVO.getArtWork());
 
 
         try {
@@ -128,7 +128,7 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
 
         if(listResult.getItems().size()>0){
             for(UserImageVO userImage:listResult.getItems()){
-
+                userImage.setArtWork(ImageUrlUtil.geturl(userImage.getArtWork()));
                 if(B1.equals(userImage.getImageType())){
                     listB1.add(userImage);
                 }
@@ -159,7 +159,6 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
             map.put("F7",listF7);
             map.put("L5",listL5);
             map.put("C3",listC3);
-            map.put("imgUrlIp", ConstantsDictionary.imgUpload);
         }
         logger.i("查询图片信息成功：applyId:"+applyId);
         return  new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
@@ -246,8 +245,7 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
         Map map  = new HashMap();
         String url = uploadImgUtil.upLoadImg(request);
         if(StringUtils.isNotBlank(url)){
-            map.put("url",url);
-            map.put("imgUrlIp", ConstantsDictionary.imgUpload);
+            map.put("url", ConstantsDictionary.imgUpload+url);
             return  new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
                     HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),map);
         }

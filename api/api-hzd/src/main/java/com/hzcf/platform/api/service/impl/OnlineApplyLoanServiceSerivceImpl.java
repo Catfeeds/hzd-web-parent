@@ -532,7 +532,7 @@ public class OnlineApplyLoanServiceSerivceImpl implements IOnlineApplyLoanServic
                                     HzdStatusCodeEnum.HZD_CODE_0001.getMsg());
                         }
                         long endTime = System.currentTimeMillis();
-                        String url = ConstantsDictionary.imgUpload + "/" + file_url;
+                        String url = ConstantsDictionary.imgUpload  + file_url;
                         Map map = new HashedMap();
                         map.put("url", url);
                         map.put("imageType", userImageVO.getImageType());

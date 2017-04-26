@@ -405,7 +405,7 @@ public class LoadService    {
 
 			str = "supplyHuiZhongDataParms="+str;
 			//发送Http请求，POST方式
-			result = HttpRequestUtil.sendPost(ConstantsDictionary.dispatchLoadSelectLoadProgressUrl, str);
+			result = HttpRequestUtil.sendPost(ConstantsDictionary.applyPatchBolt, str);
 			logger.info("接口：补件---》返回结果："+result);
 		} catch (Exception e) {
 			logger.error("接口：补件---》发生异常，异常信息："+e.getMessage());
