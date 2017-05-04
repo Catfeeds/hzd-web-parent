@@ -183,7 +183,7 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
         for (UserImageVO u:userImage){
             //组装线下数据
             PatchBoltImage  patchBoltImage  = new PatchBoltImage();
-            patchBoltImage.setArtWork(u.getArtWork());
+            patchBoltImage.setArtWork(StringUtil.replaceAll(u.getArtWork()));
             patchBoltImage.setDisplayName(u.getImageType()+"-"+u.getArtWork().substring(u.getArtWork().lastIndexOf(".")-5));//图片名称，示例：B1-G8020.JPG
             patchBoltImage.setImageType(u.getImageType());
             patchBoltImageList.add(patchBoltImage);
