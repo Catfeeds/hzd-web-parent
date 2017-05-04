@@ -188,7 +188,8 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
             patchBoltImage.setImageType(u.getImageType());
             patchBoltImageList.add(patchBoltImage);
 
-            //保存本地数据
+
+                    //保存本地数据
             u.setImageId(UUIDGenerator.getUUID());
             u.setUserId(userVO.getId());
             u.setApplyId(applyId);
