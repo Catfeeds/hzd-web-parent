@@ -78,10 +78,11 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 
 			map.put("userId",user.getId());
 			map.put("additionalStatus","0");//状态 0  为需要补充资料
-			Result<UserApplyInfoVO> userApplyInfoVOResult = userApplyInfoSerivce.selectByUserId(map);
-			if(userApplyInfoVOResult.getItems()!=null){
-				applyId = userApplyInfoVOResult.getItems().getApplyId();
-				additionalStatus =userApplyInfoVOResult.getItems().getAdditionalStatus();
+
+			Result<List<UserApplyInfoVO>> listResult1 = userApplyInfoSerivce.selectByUserId(map);
+			if(listResult1.getItems().size()>0){
+				applyId = listResult1.getItems().get(0).getApplyId();
+				additionalStatus =listResult1.getItems().get(0).getAdditionalStatus();
 			}
 
 			resultMap.put("msgBoxVO",listResult.getItems());

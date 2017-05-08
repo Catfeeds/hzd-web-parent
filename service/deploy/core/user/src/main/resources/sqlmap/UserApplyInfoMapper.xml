@@ -60,6 +60,7 @@
         <if test="additionalStatus != null and additionalStatus!=''">
             and additional_status = #{additionalStatus,jdbcType=VARCHAR}
         </if>
+        order by apply_submit_time desc
     </select>
 
     <select id="selectByBorrowerApplyId" resultMap="BaseResultMap" parameterType="java.lang.String">
