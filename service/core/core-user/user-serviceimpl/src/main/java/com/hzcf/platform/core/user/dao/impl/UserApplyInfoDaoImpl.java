@@ -20,8 +20,8 @@ public class UserApplyInfoDaoImpl  extends AbstractMysqlBaseDaoImpl<UserApplyInf
 
 
     @Override
-    public UserApplyInfo selectByUserId(Map<String, Object> parmMapd) {
-        return (UserApplyInfo)this.sqlSessionTemplate.selectOne(this.getSqlName("selectByUserId"), parmMapd);
+    public List<UserApplyInfo> selectByUserId(Map<String, Object> parmMapd) {
+        return this.sqlSessionTemplate.selectList(this.getSqlName("selectByUserId"), parmMapd);
 
     }
 

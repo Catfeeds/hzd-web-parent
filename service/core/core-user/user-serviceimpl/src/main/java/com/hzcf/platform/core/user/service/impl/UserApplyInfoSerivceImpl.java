@@ -33,17 +33,13 @@ public class UserApplyInfoSerivceImpl  extends AbstractBaseServiceImpl<UserApply
     private UserApplyInfoDao purchaseOrderDao;
 
     @Override
-    public Result<UserApplyInfoVO> selectByUserId(Map<String, Object> parmMap) {
+    public Result<List<UserApplyInfoVO>> selectByUserId(Map<String, Object> parmMap) {
         try {
-            UserApplyInfo t = purchaseOrderDao.selectByUserId(parmMap);
-            if (null == t) {
-                logger.debug("data null.");
-                return new Result<UserApplyInfoVO>(StatusCodes.OK, null);
-            }
-            return new Result<UserApplyInfoVO>(StatusCodes.OK, toVO(t));
+			List<UserApplyInfo> t = purchaseOrderDao.selectByUserId(parmMap);
+            return new Result<List<UserApplyInfoVO>>(StatusCodes.OK, toVO(t));
         } catch (Exception e) {
             logger.error("an error occur in getByPK service : {}", e);
-            return new Result<UserApplyInfoVO>(StatusCodes.INTERNAL_SERVER_ERROR, getModel());
+            return new Result<List<UserApplyInfoVO>>(StatusCodes.INTERNAL_SERVER_ERROR, null);
         }
     }
 
