@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hzcf.platform.mgr.sys.common.pageModel.JsonResult;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -154,11 +155,21 @@ public class UserController {
 	 * @return
 	 * @throws IOException
 	 */
+	@ResponseBody
 	@RequestMapping(value="/users/check/update",method=RequestMethod.POST)
-    public void update(String mobile,String name,String idCard ,HttpServletResponse response) throws IOException{
+    public JsonResult update(String mobile, String name, String idCard , HttpServletResponse response) throws IOException{
+		PageHelper page = new PageHelper();
+		UserVO user = new UserVO();
+		user.setIdCard(idCard);
+		page.setPage(0);
+		DataGrid checkUserPage = sysUserService.getCheckUserPage(page, user);
+		
+		if(checkUserPage.getTotal()>0 || checkUserPage.getRows().size()>0){
+			return new JsonResult(false,"身份证号重复修改失败",null);
+		}
 		Result<Boolean> bool = sysUserService.update(mobile, name, idCard);
 		Boolean status = bool.getItems().booleanValue();
-		response.getWriter().print(status);
+		return new JsonResult(status,"修改成功",null);
     }	
 	/**
 	 * 修改实名认证用户的审核状态

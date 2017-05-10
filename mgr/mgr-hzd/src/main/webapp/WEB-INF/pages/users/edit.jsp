@@ -44,13 +44,13 @@ pageEncoding="UTF-8"%>
 					"idCard":idCard
 				},
 				success:function(result){
-					if(result){
+					if(result.success){
 						$.messager.alert("","恭喜您,保存成功!","info",function(){
 							window.location = '${path}/users/check/list';						
 							return true;
 						});
 					}else{
-						$.messager.alert("","修改失败","error",function(){
+						$.messager.alert("",result.msg,"error",function(){
 							return false;
 						});
 					}
