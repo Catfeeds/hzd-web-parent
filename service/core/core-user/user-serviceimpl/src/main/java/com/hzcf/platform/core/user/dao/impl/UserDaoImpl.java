@@ -73,8 +73,8 @@ public class UserDaoImpl  extends AbstractMysqlBaseDaoImpl<User> implements User
 			参数：realnamerepeat（真实姓名重复的数量），idcardrepeat（身份证号码重复的数量）,allrepeat（真实姓名和身份证号码总共的重复数量）
 	 */
 	@Override
-	public Map selectNameAndIdCardRepeat(Map<String, Object> paramMap) {
-		return sqlSessionTemplate.selectOne(getSqlName("selectNameAndIdCardRepeat"), paramMap);
+	public Long selectNameAndIdCardRepeat(String idCard) {
+		return sqlSessionTemplate.selectOne(getSqlName("selectNameAndIdCardRepeat"), idCard);
 	}
 
 
