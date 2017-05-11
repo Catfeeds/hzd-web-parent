@@ -44,7 +44,7 @@
 	 -->
 	<select id="selectNameAndIdCardRepeat" resultType="long" parameterType="java.lang.String">
 
-        SELECT COUNT(1) FROM users WHERE ID_CARD=#{idCard,jdbcType=VARCHAR}
+        SELECT COUNT(1) FROM users WHERE ID_CARD=#{idCard,jdbcType=VARCHAR} and check_status='0'
 	</select>
     <update id="updateMobile" parameterType="User">
         update users set password=#{password}  where  id=#{id} and mobile=#{mobile}
