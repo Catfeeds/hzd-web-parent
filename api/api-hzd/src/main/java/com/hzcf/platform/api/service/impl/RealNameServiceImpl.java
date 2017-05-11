@@ -176,7 +176,13 @@ public class RealNameServiceImpl implements IRealNameService {
         	//返回“保存失败”，“身份证号码”重复，null
         	return new BackResult(HzdStatusCodeEnum.HZD_CODE_1034.getCode(),HzdStatusCodeEnum.HZD_CODE_1034.getMsg(),null);
         }*/
-        /**更新借款人的实名状态*/
+		Long aLong = userSerivce.selectNameAndIdCardRepeat(idCard);
+		if(aLong>0){
+			return new BackResult(HzdStatusCodeEnum.HZD_CODE_1034.getCode(),HzdStatusCodeEnum.HZD_CODE_1034.getMsg(),null);//返回“保存成功”，用户的实名认证信息
+
+		}
+
+		/**更新借款人的实名状态*/
         UserVO updateUserVO=new UserVO();
         updateUserVO.setId(items.getId());//用户id
         updateUserVO.setName(realName);//姓名
