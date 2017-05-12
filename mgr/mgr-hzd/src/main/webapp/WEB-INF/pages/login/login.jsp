@@ -54,6 +54,7 @@
 									window.location.href = root + "sys/main";
 								} else {
 									$("#message").html(dataObj.resultContents.toString());
+									 changeImge();
 								}
 							},
  							error : function(XMLHttpRequest, textStatus, errorThrown) {

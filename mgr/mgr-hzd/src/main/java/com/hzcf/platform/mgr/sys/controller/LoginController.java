@@ -65,6 +65,7 @@ public class LoginController {
 			loginJsonResult.setMsg("error");
 			loginJsonResult.setSuccess(true);
 			loginJsonResult.setResultContents(result);
+			return loginJsonResult;
 		} else  if (login == true) {
 			result = "登录成功!";
 			loginJsonResult.setMsg("ok");
