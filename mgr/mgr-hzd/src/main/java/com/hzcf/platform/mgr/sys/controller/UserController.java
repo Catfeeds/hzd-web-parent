@@ -10,6 +10,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hzcf.platform.core.user.service.UserService;
 import com.hzcf.platform.mgr.sys.common.pageModel.JsonResult;
 import com.hzcf.platform.mgr.sys.util.ServiceUtil;
 import org.apache.commons.lang3.StringUtils;
@@ -44,7 +45,8 @@ public class UserController {
     
 	@Autowired
 	IUserService sysUserService;//借款人service
-	
+	@Autowired
+    UserService userSerivce;
 	@Autowired
 	//private ImageServer imageServer;
 	
@@ -165,10 +167,16 @@ public class UserController {
 
 		}
 
-    	PageHelper page = new PageHelper();
+		Result<UserVO> byMobile = userSerivce.getByMobile(mobile);
+		UserVO uu = byMobile.getItems();
+		if(uu.getCheckStatus().equals("2")){
+			return new JsonResult(false,"待审核状态，无法修改实名认证信息",null);
+		}
+		PageHelper page = new PageHelper();
 		UserVO user = new UserVO();
 		user.setIdCard(idCard);
 		page.setPage(0);
+		user.setCheckStatus("0");
 		DataGrid checkUserPage = sysUserService.getCheckUserPage(page, user);
 
 		if(checkUserPage.getTotal()>0 || checkUserPage.getRows().size()>0){
