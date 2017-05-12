@@ -22,9 +22,15 @@ $(function(){
 		    }  
 			},
 		   {field:'id',title:'id',width:30,hidden:true},
-		   {field:'mobile',title:'手机号',width:150},
-			{field:'name',title:'姓名',width:100},
-			{field:'idCard',title:'身份证号',width:180},
+		   {field:'mobile',title:'手机号',width:150,formatter:function(value){
+               return removeHTMLTag(value);
+           }},
+			{field:'name',title:'姓名',width:100,formatter:function(value){
+                return removeHTMLTag(value);
+            }},
+			{field:'idCard',title:'身份证号',width:180,formatter:function(value){
+                return removeHTMLTag(value);
+            }},
 			{field:'submitTime',title:'提交时间',width:120,formatter:formatDateBoxFull},
 			{field:'checkStatus',title:'审核状态',width:100,formatter:function(value){
 		    	if(value=="0"){
@@ -37,7 +43,9 @@ $(function(){
 		    		return "待审核";
 		    	}
 			}},
-			{field:'nopassCause',title:'不通过原因',width:100},
+			{field:'nopassCause',title:'不通过原因',width:100,formatter:function(value){
+                return removeHTMLTag(value);
+            }},
 		   {field:'-',title:'操作',width:100,formatter:function(value,row,index){
 			   //return "<a href='#' onClick='edit(" + row.id + ")'>修改 </a> <a href='#' onClick='dele(" + row.id + ")'>下线</a> ";
 			   if(row.checkStatus==0){

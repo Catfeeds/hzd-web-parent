@@ -23,9 +23,15 @@ $(function(){
 			    }  
 				},
 		   {field:'id',title:'id',width:30,hidden:true},
-		   {field:'mobile',title:'手机号',width:150},
-			{field:'name',title:'姓名',width:100},
-			{field:'idCard',title:'身份证号',width:180},
+		   {field:'mobile',title:'手机号',width:150,formatter:function(value){
+			   return removeHTMLTag(value);
+		   }},
+			{field:'name',title:'姓名',width:100,formatter:function(value){
+				return removeHTMLTag(value);
+			}},
+			{field:'idCard',title:'身份证号',width:180,formatter:function(value){
+				return removeHTMLTag(value);
+			}},
 		    {field:'status',title:'用户状态',width:100,formatter:function(value){
 		    	if(value=="0"){
 		    		return "正常";

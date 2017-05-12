@@ -10,7 +10,8 @@ pageEncoding="UTF-8"%>
 <title>补充信息详情</title>
 <link href="${path}/script/easyui/themes/detailstyle.css" rel="stylesheet" type="text/css" />
 <%@include file="../common/include.jsp"%>
-<script type="text/javascript">
+
+	<script type="text/javascript">
 
 </script>
 </head>

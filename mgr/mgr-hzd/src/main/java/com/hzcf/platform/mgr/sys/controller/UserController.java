@@ -115,7 +115,8 @@ public class UserController {
 	 */
 	@RequestMapping(value="/users/check/page",method=RequestMethod.POST)
     @ResponseBody
-    public DataGrid checkUserPage(PageHelper page, UserVO user){
+    public DataGrid checkUserPage(PageHelper page, UserVO user)
+	{
 		return sysUserService.getCheckUserPage(page, user);
     }	
 	/**
