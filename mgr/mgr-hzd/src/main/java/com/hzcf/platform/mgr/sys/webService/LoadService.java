@@ -1,32 +1,22 @@
 package com.hzcf.platform.mgr.sys.webService;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.hzcf.platform.common.util.json.parser.JsonUtil;
+import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.uuid.UUIDGenerator;
 import com.hzcf.platform.core.user.model.*;
 import com.hzcf.platform.core.user.service.*;
+import com.hzcf.platform.core.user.webService.model.BorrowRelationVo;
+import com.hzcf.platform.core.user.webService.model.HuiZhongApplicationVo;
+import com.hzcf.platform.core.user.webService.model.ImageVo;
+import com.hzcf.platform.mgr.sys.util.*;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hzcf.platform.common.util.json.parser.JsonUtil;
-import com.hzcf.platform.common.util.rpc.result.Result;
-import com.hzcf.platform.core.user.webService.model.BorrowRelationVo;
-import com.hzcf.platform.core.user.webService.model.HuiZhongApplicationVo;
-import com.hzcf.platform.core.user.webService.model.ImageVo;
-import com.hzcf.platform.mgr.sys.util.AESUtil;
-import com.hzcf.platform.mgr.sys.util.ConstantsDictionary;
-import com.hzcf.platform.mgr.sys.util.DateExtendUtils;
-import com.hzcf.platform.mgr.sys.util.HttpRequestUtil;
-import com.hzcf.platform.mgr.sys.util.Md5Util;
-
-import net.sf.json.JSONObject;
+import java.util.*;
 
 /**
   * @Description:对借款信息的操作，如：进件，借款人查询借款进度
@@ -112,7 +102,7 @@ public class LoadService {
 			huiZhongApplicationVo.setIdType("01");//线上只有身份证号
 			huiZhongApplicationVo.setIdNum(userVO.getIdCard());//设置身份证号
 			//设置证件的有效期
-			Date date1=DateExtendUtils.parseDate(userInfoVO.getIdcardValidity().equals("长期")?idcardValidity:userInfoVO.getIdcardValidity());
+			Date date1=DateExtendUtils.parseDate(userInfoVO.getIdcardValidity().equals("长期")?idcardValidity: DateExtendUtils.getNewStringData(userInfoVO.getIdcardValidity()));
 			huiZhongApplicationVo.setIdValidityDate(date1.getTime());//证件有效期
 			//设置“出生日期”
 			huiZhongApplicationVo.setBirthday((userInfoVO.getBirthday()).getTime());
