@@ -1,7 +1,6 @@
 package com.hzcf.platform.core.user.webService.model;
 
 import java.math.BigDecimal;
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -26,7 +25,12 @@ public class HuiZhongApplicationVo {
 	private	String	domicileCity	;	//	户籍所在市
 	private	String	domicilePostCode	;	//	户籍邮政编码
 	private String domicileAddress;
-	
+
+	//所在部门、入职日期、担任职务
+	private String department; //所在部门
+	private String positions; //担任职务
+	private String entryDate; //入职时间
+
 	//证件信息
 	private	String	idType	;	//	证件类型
 	private	String	idNum	;	//	证件号码
@@ -503,8 +507,31 @@ public class HuiZhongApplicationVo {
 	public void setImageList(List<ImageVo> imageList) {
 		this.imageList = imageList;
 	}
-	
-	
+
+	public String getDepartment() {
+		return department;
+	}
+
+	public void setDepartment(String department) {
+		this.department = department;
+	}
+
+	public String getPositions() {
+		return positions;
+	}
+
+	public void setPositions(String positions) {
+		this.positions = positions;
+	}
+
+	public String getEntryDate() {
+		return entryDate;
+	}
+
+	public void setEntryDate(String entryDate) {
+		this.entryDate = entryDate;
+	}
+
 	public String getDomicileAddress() {
 		return domicileAddress;
 	}
@@ -533,7 +560,7 @@ public class HuiZhongApplicationVo {
 				+ ", isExpress=" + isExpress + ", productId=" + productId + ", period=" + period
 				+ ", receiverLoginName=" + receiverLoginName + ", isInside=" + isInside + ", orgTeamId=" + orgTeamId
 				+ ", borrowType=" + borrowType + ", borrowRelationList=" + borrowRelationList + ", imageList="
-				+ imageList + "]";
+				+ imageList + ",  department="+department + ",  positions="+ positions + ",  entryDate="+entryDate +"]";
 	}
 
 }
