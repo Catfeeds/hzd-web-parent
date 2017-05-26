@@ -121,6 +121,10 @@ public class LoadService {
 			huiZhongApplicationVo.setAnnualIncome(userInfoVO.getAnnualIncome());
 			huiZhongApplicationVo.setCreditCardLimit(userInfoVO.getCreditCardLimit());
 			huiZhongApplicationVo.setLiveTogether(userInfoVO.getLiveTogether());
+			//所在部门、入职日期、担任职务
+			huiZhongApplicationVo.setDepartment(userInfoVO.getDepartment());
+			huiZhongApplicationVo.setPositions(userInfoVO.getPositions());
+			huiZhongApplicationVo.setEntryDate(userInfoVO.getEntryDate());
 			//
 			String temp = "";
 			if("A".equals(userApplyInfo.getLoanPurposeOne())){
