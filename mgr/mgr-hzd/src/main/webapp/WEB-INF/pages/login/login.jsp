@@ -179,7 +179,7 @@
 							</table>
 						</td>
 					</tr>
-					<tr id=root height=104>
+					<tr id=root height=105>
 						<td>
 							&nbsp;
 						</td>
