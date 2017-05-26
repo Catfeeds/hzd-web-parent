@@ -1,32 +1,22 @@
 package com.hzcf.platform.mgr.sys.webService;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
+import com.hzcf.platform.common.util.json.parser.JsonUtil;
+import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.uuid.UUIDGenerator;
 import com.hzcf.platform.core.user.model.*;
 import com.hzcf.platform.core.user.service.*;
+import com.hzcf.platform.core.user.webService.model.BorrowRelationVo;
+import com.hzcf.platform.core.user.webService.model.HuiZhongApplicationVo;
+import com.hzcf.platform.core.user.webService.model.ImageVo;
+import com.hzcf.platform.mgr.sys.util.*;
+import net.sf.json.JSONObject;
 import org.apache.commons.lang3.StringUtils;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.hzcf.platform.common.util.json.parser.JsonUtil;
-import com.hzcf.platform.common.util.rpc.result.Result;
-import com.hzcf.platform.core.user.webService.model.BorrowRelationVo;
-import com.hzcf.platform.core.user.webService.model.HuiZhongApplicationVo;
-import com.hzcf.platform.core.user.webService.model.ImageVo;
-import com.hzcf.platform.mgr.sys.util.AESUtil;
-import com.hzcf.platform.mgr.sys.util.ConstantsDictionary;
-import com.hzcf.platform.mgr.sys.util.DateExtendUtils;
-import com.hzcf.platform.mgr.sys.util.HttpRequestUtil;
-import com.hzcf.platform.mgr.sys.util.Md5Util;
-
-import net.sf.json.JSONObject;
+import java.util.*;
 
 /**
   * @Description:对借款信息的操作，如：进件，借款人查询借款进度
@@ -112,7 +102,7 @@ public class LoadService {
 			huiZhongApplicationVo.setIdType("01");//线上只有身份证号
 			huiZhongApplicationVo.setIdNum(userVO.getIdCard());//设置身份证号
 			//设置证件的有效期
-			Date date1=DateExtendUtils.parseDate(userInfoVO.getIdcardValidity().equals("长期")?idcardValidity:userInfoVO.getIdcardValidity());
+			Date date1=DateExtendUtils.parseDate(userInfoVO.getIdcardValidity().equals("长期")?idcardValidity: DateExtendUtils.getNewStringData(userInfoVO.getIdcardValidity()));
 			huiZhongApplicationVo.setIdValidityDate(date1.getTime());//证件有效期
 			//设置“出生日期”
 			huiZhongApplicationVo.setBirthday((userInfoVO.getBirthday()).getTime());
@@ -217,59 +207,7 @@ public class LoadService {
 		}
 		return result;
 	}
-	/**
-	 * @Title: operateLoad 进件接口
-	 * @Description:线下和调度对接，进件，就是保存借款信息
-	 * 	注意：这个接口不仅会发送进件信息，还会修改数据库中的“进件状态字段”
-	 * @time: 2017年1月7日 下午6:58:46
-	 * @return:String
-	 * @throws Exception
-	 */
-	@Transactional
-	public boolean operateLoad(String applyId) throws Exception{
-			String result=insertLoad(applyId);
-			/**根据线下返回的结果，修改借款人的“借款状态”
-			 * 线下返回结果示例：{"retInfo":"进件成功!","retCode":"0000"}
-			 * */
-			logger.info("接口：进件。开始修改数据库中‘进件状态’");
-			if(StringUtils.isNotBlank(result)){
-				JSONObject resultJSON=JSONObject.fromObject(result);
-				String retCode=resultJSON.getString("retCode");
-				if("0000".equals(retCode)){
-					String borrowerApplyId = resultJSON.getString("borrowerApplyId");
 
-
-					/**修改User中的“借款状态”*/
-					//组装参数
-					UserVO updateUserVO=new UserVO();
-					Result<UserInfoVO> userInfoVOResult=userInfoService.selectByApplyId(applyId);
-					UserInfoVO userInfoVO=userInfoVOResult.getItems();
-					updateUserVO.setId(userInfoVO.getUserId());
-					updateUserVO.setApplyStatus("1");
-					//修改数据库user中的进件状态
-					Result<Boolean> updateUserVOResult=userSerivce.updateByPrimaryKeySelective(updateUserVO);
-					logger.info("修改User中的'进件状态'，结果："+updateUserVOResult.getItems());
-					/**修改UserApplyInfo中的“借款状态”*/
-					//组装参数
-					UserApplyInfoVO updateUserApplyInfoVO=new UserApplyInfoVO();
-					updateUserApplyInfoVO.setApplyId(applyId);
-					updateUserApplyInfoVO.setStatus("1");
-					updateUserApplyInfoVO.setBorrowerApplyId(borrowerApplyId);
-					//修改数据库中user_apply_info中的进件状态
-					Result<Boolean> updateUserApplyInfoVOResult=userApplyInfoSerivce.updateApplyId(updateUserApplyInfoVO);
-					logger.info("修改UserApplyInfo中的'进件状态'，结果："+updateUserApplyInfoVOResult.getItems());
-					if(updateUserVOResult.getItems()==false || updateUserApplyInfoVOResult.getItems()==false){
-						return false;
-					}
-				}else{
-					return false;
-				}
-			}else{
-
-				return false;
-			}
-		return true;
-	}
 	
 	/**
 	 * @Title: operateLoad 进件接口

@@ -1,11 +1,12 @@
 package com.hzcf.platform.mgr.sys.util;
 
-import java.text.ParseException;
-import java.util.Calendar;
-import java.util.Date;
-
 import org.apache.commons.lang.time.DateFormatUtils;
 import org.apache.commons.lang.time.DateUtils;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 
 
@@ -199,6 +200,16 @@ public class DateExtendUtils extends DateUtil {
             return 0;
         c.setTime(d);// 设置日历时间
         return c.get(Calendar.YEAR);
+    }
+
+    public static String getNewStringData(String oldData) {
+        try {
+            Date date = new SimpleDateFormat("yyyy-MM-dd").parse(oldData);
+            return new SimpleDateFormat("yyyy-MM-dd").format(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return null;
     }
 
 }

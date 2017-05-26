@@ -10,7 +10,8 @@ pageEncoding="UTF-8"%>
 <title>补充信息详情</title>
 <link href="${path}/script/easyui/themes/detailstyle.css" rel="stylesheet" type="text/css" />
 <%@include file="../common/include.jsp"%>
-<script type="text/javascript">
+
+	<script type="text/javascript">
 
 </script>
 </head>
@@ -67,18 +68,31 @@ pageEncoding="UTF-8"%>
 				</c:if>
 			</c:forEach>
 			</div>
-			<div class="userInfoBox">
-			<h3>收入证明/社保/公积金</h3>
-			<c:forEach items="${userImageVOList}" var="userImage" varStatus="s">
-				<c:if test = "${userImage.imageType == 'C8'}">
-					<div class="gallery">
-						<div class="showImage2">
-	                    	<div><a href="${userImage.artWork}"><img src="${userImage.artWork}" /></a></div>
-		                </div>
+		<div class="userInfoBox">
+		<h3>收入证明</h3>
+		<c:forEach items="${userImageVOList}" var="userImage" varStatus="s">
+			<c:if test = "${userImage.imageType == 'C8'}">
+				<div class="gallery">
+					<div class="showImage2">
+						<div><a href="${userImage.artWork}"><img src="${userImage.artWork}" /></a></div>
 					</div>
-				</c:if>
-			</c:forEach>
-			</div>
+				</div>
+			</c:if>
+		</c:forEach>
+	</div>
+
+	<div class="userInfoBox">
+		<h3>社保/公积金</h3>
+		<c:forEach items="${userImageVOList}" var="userImage" varStatus="s">
+			<c:if test = "${userImage.imageType == 'C3'}">
+				<div class="gallery">
+					<div class="showImage2">
+						<div><a href="${userImage.artWork}"><img src="${userImage.artWork}" /></a></div>
+					</div>
+				</div>
+			</c:if>
+		</c:forEach>
+	</div>
 			<div class="userInfoBox">
 			<h3>工作证明</h3>
 			<c:forEach items="${userImageVOList}" var="userImage" varStatus="s">

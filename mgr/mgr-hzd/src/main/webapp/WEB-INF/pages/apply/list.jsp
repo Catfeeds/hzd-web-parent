@@ -22,11 +22,21 @@ $(function(){
 			    }  
 				},
 		   {field:'applyId',title:'applyId',width:30,hidden:'true'},
-		   {field:'mobile',title:'手机号',width:120},
-			{field:'name',title:'姓名',width:60},
-			{field:'idCard',title:'身份证号',width:190},
-		    {field:'loanPurposeOne',title:'借款用途',width:80},
-			{field:'loanPurposeTwo',title:'借款用途详情',width:100},
+		   {field:'mobile',title:'手机号',width:120,formatter:function(value){
+			   return removeHTMLTag(value);
+		   }},
+			{field:'name',title:'姓名',width:60,formatter:function(value){
+				return removeHTMLTag(value);
+			}},
+			{field:'idCard',title:'身份证号',width:190,formatter:function(value){
+				return removeHTMLTag(value);
+			}},
+		    {field:'loanPurposeOne',title:'借款用途',width:80,formatter:function(value){
+				return removeHTMLTag(value);
+			}},
+			{field:'loanPurposeTwo',title:'借款用途详情',width:100,formatter:function(value){
+				return removeHTMLTag(value);
+			}},
 			{field:'minApplyAmount',title:'申请最低额度',width:100},
 			{field:'maxApplyAmount',title:'申请最高额度',width:100},
 			{field:'maxMonthlyPayment',title:'月还款最高额度',width:100},

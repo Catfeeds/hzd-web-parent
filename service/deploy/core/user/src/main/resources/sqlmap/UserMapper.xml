@@ -42,11 +42,9 @@
 			格式：Map<String,Object>
 			参数：realnamerepeat（真实姓名重复的数量），idcardrepeat（身份证号码重复的数量）,allrepeat（真实姓名和身份证号码总共的重复数量）
 	 -->
-	<select id="selectNameAndIdCardRepeat" resultType="hashMap" parameterType="java.util.Map">
-		select realnamerepeat,idcardrepeat,(realnamerepeat+idcardrepeat) as allrepeat from (
-				select count(1) as realnamerepeat,(select count(1) from users b where b.id_card=#{idCard,jdbcType=VARCHAR}) as idcardrepeat 
-					from users a where a.name=#{name,jdbcType=VARCHAR}
-		) a
+	<select id="selectNameAndIdCardRepeat" resultType="long" parameterType="java.lang.String">
+
+        SELECT COUNT(1) FROM users WHERE ID_CARD=#{idCard,jdbcType=VARCHAR} and check_status='0'
 	</select>
     <update id="updateMobile" parameterType="User">
         update users set password=#{password}  where  id=#{id} and mobile=#{mobile}

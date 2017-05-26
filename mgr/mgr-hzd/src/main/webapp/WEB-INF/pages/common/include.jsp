@@ -2,7 +2,17 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <c:set value="${pageContext.request.contextPath}" var="path" scope="page"/>
 <script type="text/javascript">
-    
+
+    function removeHTMLTag(str) {
+        if(str == null){
+           return '';
+        }
+        str = str.replace(/<\/?[^>]*>/g,''); //去除HTML tag
+       // str = str.replace(/[ | ]*\n/g,'\n'); //去除行尾空白
+        //str = str.replace(/\n[\s| | ]*\r/g,'\n'); //去除多余空行
+        str=str.replace(/ /ig,'');//去掉
+        return str;
+    }
 </script>
 
 <script src="${path}/script/easyui/js/jquery.min.js" type="text/javascript"></script>

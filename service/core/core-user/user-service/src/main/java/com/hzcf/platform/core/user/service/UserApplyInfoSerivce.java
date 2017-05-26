@@ -14,7 +14,7 @@ import com.hzcf.platform.framework.core.service.IBaseService;
  */
 public interface UserApplyInfoSerivce extends IBaseService<UserApplyInfoVO> {
 
-    Result<UserApplyInfoVO> selectByUserId(Map<String, Object> parmMap);
+	public Result<List<UserApplyInfoVO>> selectByUserId(Map<String, Object> parmMap);
     Result<UserApplyInfoVO> selectByApplyId(String applyId);
 	Result<UserApplyInfoVO> selectByBorrowerApplyId(String borrowerApplyId);
 

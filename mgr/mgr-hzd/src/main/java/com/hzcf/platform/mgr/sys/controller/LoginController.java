@@ -65,6 +65,8 @@ public class LoginController {
 			loginJsonResult.setMsg("error");
 			loginJsonResult.setSuccess(true);
 			loginJsonResult.setResultContents(result);
+			request.getSession().removeAttribute("rand");
+			return loginJsonResult;
 		} else  if (login == true) {
 			result = "登录成功!";
 			loginJsonResult.setMsg("ok");
@@ -77,6 +79,8 @@ public class LoginController {
 			loginJsonResult.setMsg("error");
 			loginJsonResult.setSuccess(true);
 			loginJsonResult.setResultContents(result);
+			request.getSession().removeAttribute("rand");
+			return loginJsonResult;
 		}
 		
 		//保存登陆信息到session中

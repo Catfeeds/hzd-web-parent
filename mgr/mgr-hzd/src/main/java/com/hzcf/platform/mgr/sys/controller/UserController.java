@@ -10,6 +10,9 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.hzcf.platform.core.user.service.UserService;
+import com.hzcf.platform.mgr.sys.common.pageModel.JsonResult;
+import com.hzcf.platform.mgr.sys.util.ServiceUtil;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -18,13 +21,9 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.user.model.UserVO;
-import com.hzcf.platform.framework.fastdfs.FastDFSClient;
-import com.hzcf.platform.framework.fastdfs.common.FileCommon;
 import com.hzcf.platform.mgr.sys.common.pageModel.DataGrid;
 import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
 import com.hzcf.platform.mgr.sys.common.pageModel.SmsUserInfo;
@@ -32,7 +31,6 @@ import com.hzcf.platform.mgr.sys.common.util.DateUtils;
 import com.hzcf.platform.mgr.sys.common.util.ExportExcel;
 import com.hzcf.platform.mgr.sys.service.IUserService;
 import com.hzcf.platform.mgr.sys.util.ConstantsParam;
-import com.imageserver.ImageServer;
 
 import net.sf.json.JSONObject;
 /**
@@ -47,7 +45,8 @@ public class UserController {
     
 	@Autowired
 	IUserService sysUserService;//借款人service
-	
+	@Autowired
+    UserService userSerivce;
 	@Autowired
 	//private ImageServer imageServer;
 	
@@ -116,7 +115,8 @@ public class UserController {
 	 */
 	@RequestMapping(value="/users/check/page",method=RequestMethod.POST)
     @ResponseBody
-    public DataGrid checkUserPage(PageHelper page, UserVO user){
+    public DataGrid checkUserPage(PageHelper page, UserVO user)
+	{
 		return sysUserService.getCheckUserPage(page, user);
     }	
 	/**
@@ -154,11 +154,38 @@ public class UserController {
 	 * @return
 	 * @throws IOException
 	 */
+	@ResponseBody
 	@RequestMapping(value="/users/check/update",method=RequestMethod.POST)
-    public void update(String mobile,String name,String idCard ,HttpServletResponse response) throws IOException{
+    public JsonResult update(String mobile, String name, String idCard , HttpServletResponse response) throws IOException{
+
+		if(!ServiceUtil.validateIdNo(idCard.toLowerCase())){
+			return new JsonResult(false,"用户身份证号输入不合法",null);
+
+		}
+
+		if(!ServiceUtil.isNameString(name)){
+			return new JsonResult(false,"用户姓名输入不合法",null);
+
+		}
+
+		Result<UserVO> byMobile = userSerivce.getByMobile(mobile);
+		UserVO uu = byMobile.getItems();
+		if(uu.getCheckStatus().equals("2")){
+			return new JsonResult(false,"待审核状态，无法修改实名认证信息",null);
+		}
+		PageHelper page = new PageHelper();
+		UserVO user = new UserVO();
+		user.setIdCard(idCard);
+		page.setPage(0);
+		user.setCheckStatus("0");
+		DataGrid checkUserPage = sysUserService.getCheckUserPage(page, user);
+
+		if(checkUserPage.getTotal()>0 || checkUserPage.getRows().size()>0){
+			return new JsonResult(false,"身份证号重复修改失败",null);
+		}
 		Result<Boolean> bool = sysUserService.update(mobile, name, idCard);
 		Boolean status = bool.getItems().booleanValue();
-		response.getWriter().print(status);
+		return new JsonResult(status,"修改成功",null);
     }	
 	/**
 	 * 修改实名认证用户的审核状态

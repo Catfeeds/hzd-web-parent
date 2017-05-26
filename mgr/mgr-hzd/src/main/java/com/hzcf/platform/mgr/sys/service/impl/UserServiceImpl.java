@@ -171,6 +171,8 @@ public class UserServiceImpl implements IUserService {
 		UserVO user = new UserVO();
 		user.setCheckStatus(checkStatus);
 		user.setMobile(mobile);
+
+
 		if(nopassCause!=null&&nopassCause!=""){
 			user.setNopassCause(nopassCause);
 		}

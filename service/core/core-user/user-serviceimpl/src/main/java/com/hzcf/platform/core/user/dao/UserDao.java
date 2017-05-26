@@ -56,7 +56,7 @@ public interface UserDao extends IBaseDao<User> {
 			格式：Map<String,Object>
 			参数：realnamerepeat（真实姓名重复的数量），idcardrepeat（身份证号码重复的数量）,allrepeat（真实姓名和身份证号码总共的重复数量）
 	 */
-	public Map selectNameAndIdCardRepeat(Map<String, Object> parmMap);
+	public Long selectNameAndIdCardRepeat(String idCard);
 	
 	public List<User> getCheckUserForSearch(Map<String, Object> parmMap);
 }
