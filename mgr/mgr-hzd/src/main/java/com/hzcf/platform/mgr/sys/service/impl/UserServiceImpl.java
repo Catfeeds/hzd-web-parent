@@ -1,21 +1,7 @@
 package com.hzcf.platform.mgr.sys.service.impl;
 
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
-import org.apache.commons.lang3.StringUtils;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
-
+import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
@@ -34,11 +20,18 @@ import com.hzcf.platform.mgr.sys.common.pageModel.PageHelper;
 import com.hzcf.platform.mgr.sys.common.pageModel.SmsUserInfo;
 import com.hzcf.platform.mgr.sys.common.util.DateUtils;
 import com.hzcf.platform.mgr.sys.service.IUserService;
-import com.hzcf.platform.mgr.sys.util.ConstantsDictionary;
-import com.hzcf.platform.mgr.sys.util.ConstantsParam;
-import com.hzcf.platform.mgr.sys.util.MD5Tools;
+import com.hzcf.platform.mgr.sys.util.*;
 import com.hzcf.platform.mgr.sys.webService.LoadService;
 import com.imageserver.ImageServer;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.commons.CommonsMultipartResolver;
+
+import javax.servlet.http.HttpServletRequest;
+import java.util.*;
 
 @Service
 public class UserServiceImpl implements IUserService {
@@ -219,16 +212,32 @@ public class UserServiceImpl implements IUserService {
 		if(result.getItems().getSubmitTime()!=""&&result.getItems().getSubmitTime()!=null){
 			date = DateUtils.getDateString(result.getItems().getSubmitTime());
 		}
-		
+
+		Map<String, Object> jsonmap = new HashMap<>();
+		jsonmap.put("tagCode", ConstantsDictionary.JPUSH_MSGBOX_TAGCODE);   //201
+		jsonmap.put("applyId", applyId);
+
 		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_N)){		//||flag==false
 			msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_BTG);
 			msgBoxVO.setMsgContent("尊敬的用户，您在"+date+"提交的实名认证申请未通过，请重新申请。");
-			msgBoxservice.insertSelective(msgBoxVO);
+			Result<Boolean> resultmsg = msgBoxservice.insertSelective(msgBoxVO);
+			if(StatusCodes.OK ==resultmsg.getStatus()){
+				JpushClientUtil.sendToAliasId(msgBoxVO.getUserId().replaceAll("-", ""),
+						"尊敬的用户，您在"+DateUtil.formatDate3(new Date())
+								+"提交的实名认证申请未通过，请重新申请。","汇中贷消息标题", "汇中贷消息内容",
+						JsonUtil.json2String(jsonmap));
+			}
 		}
 		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)){		//&&flag==true
 			msgBoxVO.setStatus(ConstantsParam.MSG_STATUS_TG);
 			msgBoxVO.setMsgContent("尊敬的用户，您在"+date+"提交的实名认证申请已通过。");
-			msgBoxservice.insertSelective(msgBoxVO);
+			Result<Boolean> resultmsg2 = msgBoxservice.insertSelective(msgBoxVO);
+			if(StatusCodes.OK ==resultmsg2.getStatus()){
+				JpushClientUtil.sendToAliasId(msgBoxVO.getUserId().replaceAll("-", ""),
+						"尊敬的用户，您在"+DateUtil.formatDate3(new Date())
+								+"提交的实名认证申请已通过。","汇中贷消息标题", "汇中贷消息内容",
+						JsonUtil.json2String(jsonmap));
+			}
 		}
 		user.setId(result.getItems().getId());
 		user.setIdCard(result.getItems().getIdCard());

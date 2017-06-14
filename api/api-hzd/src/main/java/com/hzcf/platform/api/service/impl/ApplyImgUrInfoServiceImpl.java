@@ -23,13 +23,9 @@ import com.hzcf.platform.webService.LoadService;
 import com.hzcf.platform.webService.model.PatchBoltImage;
 import com.imageserver.ImageServer;
 import net.sf.json.JSONObject;
-import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
-import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.*;
@@ -171,7 +167,7 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
 
     @Override
     @LogAnnotation
-    public BackResult saveImgByApplyId(UserVO userVO, String applyId, List<UserImageVO> userImage) {
+    public BackResult saveImgByApplyId(UserVO userVO, String applyId, String checkSource, List<UserImageVO> userImage) {
 
         List<PatchBoltImage>  patchBoltImageList = new ArrayList<>();
         List<UserImageVO>  userImageVOList = new ArrayList<>();
@@ -198,7 +194,7 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
             u.setCreateTime(new Date());
             userImageVOList.add(u);
         }
-            String result = LoadService.applyPatchBolt(patchBoltImageList,borrowerApplyId);
+            String result = LoadService.applyPatchBolt(patchBoltImageList,borrowerApplyId, checkSource);
 
             if (StringUtils.isBlank(result)) {
                 logger.e("补充资料线下接口返回异常,result 为 null--手机号:" + userVO.getMobile());
@@ -239,7 +235,7 @@ public class ApplyImgUrInfoServiceImpl implements IApplyImgUrInfoUrlService {
         logger.i("更新本地进件状态成功");
 
         logger.i("开始更新本地站内信补件状态");
-        msgBoxservice.updateReadByUserIdStatus(userVO.getId());
+        msgBoxservice.updateReadByUserIdStatus(userVO.getId(), checkSource);
 
         return  new BackResult(HzdStatusCodeEnum.HZD_CODE_0000.getCode(),
                 HzdStatusCodeEnum.HZD_CODE_0000.getMsg(),null);

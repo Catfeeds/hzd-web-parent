@@ -22,7 +22,7 @@ public interface IApplyImgUrInfoUrlService {
 
     public BackResult queryImgByApplyId(String applyId);
 
-    public BackResult saveImgByApplyId(UserVO userVO,String applyId,List<UserImageVO> UserImage);
+    public BackResult saveImgByApplyId(UserVO userVO,String applyId, String checkSource,List<UserImageVO> UserImage);
 
     public BackResult uploadImg(HttpServletRequest request);
 }

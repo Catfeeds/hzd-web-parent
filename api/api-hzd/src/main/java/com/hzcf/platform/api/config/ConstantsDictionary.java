@@ -51,6 +51,12 @@ public class ConstantsDictionary {
 			offlineInsertLoad=props.getProperty("dispatch.load.offlineInsertLoad.url");
 			applyPatchBolt = props.getProperty("dispatch.load.applyPatchBolt.url");
 
+			//推送
+			JPUSH_APPKEY = props.getProperty("jpush.appkey");
+			JPUSH_SECRET = props.getProperty("jpush.secret");
+			JPUSH_MSGBOX_TAGCODE = props.getProperty("jpush.msgboxTagCode");
+
+
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
@@ -89,4 +95,9 @@ public class ConstantsDictionary {
 	//进件，就是保存借款申请。调度的“进件”接口地址
 	public static String dispatchLoadInsertLoadUrl;
 	public static String dispatchLoadSelectLoadProgressUrl;
+
+	//推送
+	public static String JPUSH_APPKEY;
+	public static String JPUSH_SECRET;
+	public static String JPUSH_MSGBOX_TAGCODE;
 }

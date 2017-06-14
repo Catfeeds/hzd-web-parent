@@ -60,6 +60,9 @@ public enum HzdStatusCodeEnum {
 	HZD_CODE_6102(6102,"用户手机号不存在"),
 	HZD_CODE_6103(6103,"未查询到用户信息"),
 
+	//APP推送
+	HZD_CODE_7100(7100,"APP推送失败"),
+
 	HZD_CODE_9000(9000, "传入参数有误"),
 	HZD_CODE_9999(9999, "系统异常"),
 	HZD_CODE_0001(0001, "失败");

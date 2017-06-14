@@ -1,22 +1,19 @@
 package com.hzcf.platform.api.service.impl;
 
 import com.hzcf.platform.api.annotation.LogAnnotation;
-import com.hzcf.platform.core.user.model.UserApplyInfoVO;
-import com.hzcf.platform.core.user.model.UserVO;
-import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
-import com.hzcf.platform.core.user.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-
+import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.service.IMsgBoxService;
 import com.hzcf.platform.common.util.log.Log;
-import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
-import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
 import com.hzcf.platform.core.user.model.MsgBoxVO;
+import com.hzcf.platform.core.user.model.UserApplyInfoVO;
+import com.hzcf.platform.core.user.model.UserVO;
 import com.hzcf.platform.core.user.service.MsgBoxservice;
+import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
 import java.util.List;
@@ -77,7 +74,7 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 			Map<String,Object> resultMap = new HashMap<String,Object>();
 
 			map.put("userId",user.getId());
-			map.put("additionalStatus","0");//状态 0  为需要补充资料
+			map.put("additionalStatus","0");//状态 0  为需要补充资料 (后台用,APP暂没有用)
 
 			Result<List<UserApplyInfoVO>> listResult1 = userApplyInfoSerivce.selectByUserId(map);
 			if(listResult1.getItems().size()>0){
@@ -87,7 +84,7 @@ public class MsgBoxServiceImpl implements IMsgBoxService {
 
 			resultMap.put("msgBoxVO",listResult.getItems());
 			resultMap.put("applyId",applyId);
-			resultMap.put("additionalStatus",additionalStatus);
+			resultMap.put("additionalStatus",additionalStatus);//(后台用,APP暂没有用)
 			if(StatusCodes.OK==listResult.getStatus() ){
 				if(listResult.getItems().size()==0){
 					logger.i("用户 查询站内信列表 。。。。。。 。。。。。查询成功， 但无数据。。。。。。。。 ");

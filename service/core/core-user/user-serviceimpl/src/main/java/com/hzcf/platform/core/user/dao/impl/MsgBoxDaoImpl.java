@@ -2,12 +2,11 @@ package com.hzcf.platform.core.user.dao.impl;
 
 import com.hzcf.platform.core.user.dao.MsgBoxDao;
 import com.hzcf.platform.core.user.data.MsgBox;
-import com.hzcf.platform.core.user.data.User;
 import com.hzcf.platform.framework.core.storage.mysql.AbstractMysqlBaseDaoImpl;
+import org.springframework.stereotype.Repository;
 
 import java.util.List;
-
-import org.springframework.stereotype.Repository;
+import java.util.Map;
 
 /**
  * Created by leijiaming on 2016/12/29 0029.
@@ -46,13 +45,13 @@ public class MsgBoxDaoImpl  extends AbstractMysqlBaseDaoImpl<MsgBox> implements 
 
 	/**
 	 * 修改补件资料状态为已补充
-	 * @param userId
+	 * @param parmMap
 	 * @return
 	 */
 	@Override
-	public boolean updateReadByUserIdStatus(String userId){
-		if (userId != null) {
-			sqlSessionTemplate.update(getSqlName("updateReadByUserIdStatus"), userId);
+	public boolean updateReadByUserIdStatus(Map<String, Object> parmMap){
+		if (parmMap != null) {
+			sqlSessionTemplate.update(getSqlName("updateReadByUserIdStatus"), parmMap);
 		}
 		return true;
 	}

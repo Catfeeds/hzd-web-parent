@@ -127,9 +127,9 @@ public class LoadService    {
 			huiZhongApplicationVo.setLiveTogether(userInfoVO.getLiveTogether());
 			huiZhongApplicationVo.setDomicileAddress(userInfoVO.getDomicileAddress());
 			//所在部门、入职日期、担任职务
-			huiZhongApplicationVo.setDepartment(userInfoVO.getDepartment());
-			huiZhongApplicationVo.setPositions(userInfoVO.getPositions());
-			huiZhongApplicationVo.setEntryDate(userInfoVO.getEntryDate());
+			huiZhongApplicationVo.setOrgDepartment(userInfoVO.getDepartment());
+			huiZhongApplicationVo.setOrgTitle(userInfoVO.getPositions());
+			huiZhongApplicationVo.setOrgEntryDate(userInfoVO.getEntryDate());
 			//
 			String temp = "";
 			if("A".equals(userApplyInfo.getLoanPurposeOne())){
@@ -374,7 +374,14 @@ public class LoadService    {
 		return result;
 	}
 
-	public static String applyPatchBolt(List<PatchBoltImage>  patchBoltImage,String borrowerId){
+	/**
+	 * 线下和调度对接， 补充资料接口
+	 * @param patchBoltImage
+	 * @param borrowerId
+	 * @param checkSource
+	 * @return
+	 */
+	public static String applyPatchBolt(List<PatchBoltImage>  patchBoltImage,String borrowerId, String checkSource){
 		/**初始化参数*/
 		String result="";//设置返回结果
 		//发送到调度的参数信息
@@ -386,6 +393,7 @@ public class LoadService    {
 		supplyHuiZhongData.put("systemSourceId", systemSourceId);//系统标识
 		supplyHuiZhongData.put("borrowerApplyId", borrowerId);//借款编号
 		supplyHuiZhongData.put("imageList", patchBoltImage);//图片信息
+		supplyHuiZhongData.put("checkSource", checkSource);//审核源：8=信审  6=综合业务平台
 		try {
 			//MD5加密
 			signature=Md5Util.getMD5String(StringUtils.join(new String[]{systemSourceId,borrowerId}, ","),key);

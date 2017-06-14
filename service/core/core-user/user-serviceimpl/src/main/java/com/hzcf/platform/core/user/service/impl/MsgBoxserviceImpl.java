@@ -1,15 +1,5 @@
 package com.hzcf.platform.core.user.service.impl;
 
-import java.util.List;
-
-import com.hzcf.platform.core.user.model.UserApplyInfoVO;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
-import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
 import com.hzcf.platform.core.user.dao.MsgBoxDao;
@@ -18,6 +8,14 @@ import com.hzcf.platform.core.user.model.MsgBoxVO;
 import com.hzcf.platform.core.user.service.MsgBoxservice;
 import com.hzcf.platform.framework.core.service.impl.AbstractBaseServiceImpl;
 import com.hzcf.platform.framework.core.storage.IBaseDao;
+import org.apache.commons.collections.map.HashedMap;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Map;
 
 /**
  * Created by leijiaming on 2016/12/30 0030.
@@ -95,10 +93,13 @@ public class MsgBoxserviceImpl  extends AbstractBaseServiceImpl<MsgBoxVO,MsgBox>
 	/**
 	 * 修改站内信补件状态为已补充
 	 */
-	public Result<Boolean> updateReadByUserIdStatus(String userId){
+	public Result<Boolean> updateReadByUserIdStatus(String userId, String checkSource){
 		try {
+			Map<String, Object> parmMap = new HashedMap();
+			parmMap.put("userId", userId);
+			parmMap.put("checkSource", checkSource);
 
-			msgBoxDao.updateReadByUserIdStatus(userId);
+			msgBoxDao.updateReadByUserIdStatus(parmMap);
 			return new Result<Boolean>(StatusCodes.OK, true);
 		} catch (Exception e) {
 			logger.error("an error occur in update updateReadByUser : {}", e);

@@ -1,6 +1,5 @@
 package com.hzcf.platform.core.user.service;
 
-import com.hzcf.platform.common.util.rpc.result.PaginatedResult;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.core.user.model.MsgBoxVO;
 import com.hzcf.platform.framework.core.service.IBaseService;
@@ -33,7 +32,7 @@ public interface MsgBoxservice extends IBaseService<MsgBoxVO> {
 	 * @param UserId
 	 * @return
 	 */
-	public Result<Boolean> updateReadByUserIdStatus(String UserId);
+	public Result<Boolean> updateReadByUserIdStatus(String UserId, String checkSource);
 	/**
 	 * 插入信息
 	 * @param msgBoxVO

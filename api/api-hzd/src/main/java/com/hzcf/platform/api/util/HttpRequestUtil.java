@@ -1,15 +1,17 @@
 package com.hzcf.platform.api.util;
 
+import com.hzcf.platform.api.config.ConstantsDictionary;
+import com.hzcf.platform.common.util.json.parser.JsonUtil;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-
-import com.hzcf.platform.api.config.ConstantsDictionary;
 
 /**
  * 
@@ -168,14 +170,14 @@ public class HttpRequestUtil {
                 result += line;
             }
         } catch (Exception e) {
-        	System.out.println("==="+e);
+            e.printStackTrace();
             throw new Exception("发送 POST 请求出现异常！", e);
         }
         //使用finally块来关闭输出流、输入流
         finally{
             try{
                 if(out!=null){
-                    out.close(); 
+                    out.close();
                 }
                 if(in!=null){
                     in.close();
@@ -186,8 +188,8 @@ public class HttpRequestUtil {
             }
         }
         return result;
-    } 
-//    public static String ulrParam() throws Exception{
+    }
+    //    public static String ulrParam() throws Exception{
 //		String str = "{'systemSourceId':'aaa','signature':'15-37-84-961576-1118365-48-115-59-74103-930','mobile':'16782312312'}";
 ////		String str = "{'systemSourceId':'aaa','customerId':'123456','bankAccount':'6122112344555533','signature':'26-5469-116-765734116-1019163-6710040-11172','province':'110000','cityId':'110100','bankCode':'102','accountBankName':'102','contractDate':'123'}";
 ////		String str = "{'systemSourceId':'aaa','signInfo':'1','list':[{'bankAccount':'111111','customerId':'22222'},{'bankAccount':'333333','customerId':'333333'}],'signature':'-9311874-2953-2110182-27-85-109-6473-104-5541'}";
@@ -216,9 +218,11 @@ public class HttpRequestUtil {
 //		return encrytStr;
 //	}
 //    
-//    public static void main(String[] args) throws Exception {
-//    	 String parms = "notifyLenderReportsParams="+ulrParam(); 
-//    	 String string = sendPost(POST_URL,parms);
-//    	 System.out.println(string);
-//	}
+    public static void main(String[] args) throws Exception {
+    	 String POST_URL = "http://10.10.16.184:8080/api-hzd/api/100/furtherInformation/BOR20170613000001/6";
+         Map<String, Object> jsonmap = new HashMap<>();
+         jsonmap.put("msgContent", "msgContentmsgConten你哈");
+    	 String string = sendPostForSendMsg(POST_URL, JsonUtil.json2String(jsonmap));
+    	 System.out.println(string);
+	}
 }

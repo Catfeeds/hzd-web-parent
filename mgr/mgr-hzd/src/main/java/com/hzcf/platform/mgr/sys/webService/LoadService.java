@@ -122,9 +122,9 @@ public class LoadService {
 			huiZhongApplicationVo.setCreditCardLimit(userInfoVO.getCreditCardLimit());
 			huiZhongApplicationVo.setLiveTogether(userInfoVO.getLiveTogether());
 			//所在部门、入职日期、担任职务
-			huiZhongApplicationVo.setDepartment(userInfoVO.getDepartment());
-			huiZhongApplicationVo.setPositions(userInfoVO.getPositions());
-			huiZhongApplicationVo.setEntryDate(userInfoVO.getEntryDate());
+			huiZhongApplicationVo.setOrgDepartment(userInfoVO.getDepartment());
+			huiZhongApplicationVo.setOrgTitle(userInfoVO.getPositions());
+			huiZhongApplicationVo.setOrgEntryDate(userInfoVO.getEntryDate());
 			//
 			String temp = "";
 			if("A".equals(userApplyInfo.getLoanPurposeOne())){

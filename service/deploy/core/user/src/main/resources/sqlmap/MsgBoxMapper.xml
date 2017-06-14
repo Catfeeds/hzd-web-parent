@@ -147,9 +147,9 @@
     where user_id = #{userId,jdbcType=VARCHAR}
   </update>
 
-  <update id="updateReadByUserIdStatus" parameterType="java.lang.String" >
+  <update id="updateReadByUserIdStatus" parameterType="hashmap" >
     update msg_box
     set status = 1
-    where user_id = #{userId,jdbcType=VARCHAR} and  msg_type ='8'
+    where user_id = #{userId,jdbcType=VARCHAR} and  msg_type =#{checkSource,jdbcType=VARCHAR}
   </update>
 </mapper>
