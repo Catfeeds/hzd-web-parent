@@ -49,6 +49,11 @@ public class ConstantsDictionary {
 			dispatchLoadInsertLoadUrl=props.getProperty("dispatch.load.insertLoad.url");
 			//调度的“查询借款进度”接口地址
 			dispatchLoadSelectLoadProgressUrl=props.getProperty("dispatch.load.selectLoadProgress.url");
+
+			//推送
+			JPUSH_APPKEY = props.getProperty("jpush.appkey");
+			JPUSH_SECRET = props.getProperty("jpush.secret");
+			JPUSH_MSGBOX_TAGCODE = props.getProperty("jpush.msgboxTagCode");
 			
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
@@ -87,5 +92,10 @@ public class ConstantsDictionary {
 	public static String dispatchLoadInsertLoadUrl;
 	//查询借款进度。调度的“查询借款进度”接口地址
 	public static String dispatchLoadSelectLoadProgressUrl;
+
+	//推送
+	public static String JPUSH_APPKEY;
+	public static String JPUSH_SECRET;
+	public static String JPUSH_MSGBOX_TAGCODE;
 }
 

@@ -1,10 +1,11 @@
 package com.hzcf.platform.core.user.dao;
 
 
-import java.util.List;
-
 import com.hzcf.platform.core.user.data.MsgBox;
 import com.hzcf.platform.framework.core.storage.IBaseDao;
+
+import java.util.List;
+import java.util.Map;
 
 public interface MsgBoxDao extends IBaseDao<MsgBox> {
 	
@@ -17,10 +18,10 @@ public interface MsgBoxDao extends IBaseDao<MsgBox> {
 
     /**
      * 修改站内信补件状态为已补充
-     * @param userId
+     * @param parmMap
      * @return
      */
-    public boolean updateReadByUserIdStatus(String userId);
+    public boolean updateReadByUserIdStatus(Map<String, Object> parmMap);
     public boolean insertSelective(MsgBox msgBox);
 
 }

@@ -1,18 +1,7 @@
 package com.hzcf.platform.webService;
 
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import com.hzcf.platform.api.util.HttpRequestUtil;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.http.NameValuePair;
-import org.apache.http.client.utils.URLEncodedUtils;
-import org.apache.http.message.BasicNameValuePair;
-import org.apache.log4j.Logger;
-
+import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.model.OpenAccReq;
 import com.hzcf.platform.api.model.OpenAccReq.SendBillList;
 import com.hzcf.platform.common.util.http.HttpRequest;
@@ -20,10 +9,18 @@ import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.utils.AESUtil;
 import com.hzcf.platform.common.util.utils.Md5Util;
 import com.hzcf.platform.common.util.utils.Serialnumber;
-import com.hzcf.platform.api.config.ConstantsDictionary;
-
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
+import org.apache.commons.lang3.StringUtils;
+import org.apache.http.NameValuePair;
+import org.apache.http.client.utils.URLEncodedUtils;
+import org.apache.http.message.BasicNameValuePair;
+import org.apache.log4j.Logger;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -100,7 +97,7 @@ public class SmsObtainService {
    public static void main(String[] args) {  
 		 long startTime=System.currentTimeMillis();
 		 System.out.println("请求时间：------------------"+startTime);
-	   String smsObtain = smsObtain("123456","13810738215"); 
+	   String smsObtain = smsObtain("123456","13860731356");
 		 System.out.println("响应耗时-------------------------"+(float)(System.currentTimeMillis()-startTime)/1000);
 
 	   JSONObject  json = JSONObject.fromObject(smsObtain.toString());

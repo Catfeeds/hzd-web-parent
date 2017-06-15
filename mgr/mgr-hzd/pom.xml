@@ -215,6 +215,13 @@
 		    <version>2.4</version>
 		    <classifier>jdk15</classifier>
 		</dependency>
+
+		<!--  Jpush  -->
+		<dependency>
+			<groupId>cn.jpush.api</groupId>
+			<artifactId>jpush-client</artifactId>
+			<version>3.2.9</version>
+		</dependency>
 	</dependencies>
 	
 	<build>

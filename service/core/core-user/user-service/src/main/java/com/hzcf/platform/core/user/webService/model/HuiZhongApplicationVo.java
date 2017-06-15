@@ -27,9 +27,12 @@ public class HuiZhongApplicationVo {
 	private String domicileAddress;
 
 	//所在部门、入职日期、担任职务
-	private String department; //所在部门
-	private String positions; //担任职务
-	private String entryDate; //入职时间
+//	private String department; //所在部门
+//	private String positions; //担任职务
+//	private String entryDate; //入职时间
+	private String orgEntryDate;
+	private String orgDepartment;
+	private String orgTitle;
 
 	//证件信息
 	private	String	idType	;	//	证件类型
@@ -508,7 +511,7 @@ public class HuiZhongApplicationVo {
 		this.imageList = imageList;
 	}
 
-	public String getDepartment() {
+/*	public String getDepartment() {
 		return department;
 	}
 
@@ -530,6 +533,30 @@ public class HuiZhongApplicationVo {
 
 	public void setEntryDate(String entryDate) {
 		this.entryDate = entryDate;
+	}*/
+
+	public String getOrgEntryDate() {
+		return orgEntryDate;
+	}
+
+	public void setOrgEntryDate(String orgEntryDate) {
+		this.orgEntryDate = orgEntryDate;
+	}
+
+	public String getOrgDepartment() {
+		return orgDepartment;
+	}
+
+	public void setOrgDepartment(String orgDepartment) {
+		this.orgDepartment = orgDepartment;
+	}
+
+	public String getOrgTitle() {
+		return orgTitle;
+	}
+
+	public void setOrgTitle(String orgTitle) {
+		this.orgTitle = orgTitle;
 	}
 
 	public String getDomicileAddress() {
@@ -560,7 +587,7 @@ public class HuiZhongApplicationVo {
 				+ ", isExpress=" + isExpress + ", productId=" + productId + ", period=" + period
 				+ ", receiverLoginName=" + receiverLoginName + ", isInside=" + isInside + ", orgTeamId=" + orgTeamId
 				+ ", borrowType=" + borrowType + ", borrowRelationList=" + borrowRelationList + ", imageList="
-				+ imageList + ",  department="+department + ",  positions="+ positions + ",  entryDate="+entryDate +"]";
+				+ imageList + ",  orgDepartment="+orgDepartment + ",  orgTitle="+ orgTitle + ",  orgEntryDate="+orgEntryDate +"]";
 	}
 
 }

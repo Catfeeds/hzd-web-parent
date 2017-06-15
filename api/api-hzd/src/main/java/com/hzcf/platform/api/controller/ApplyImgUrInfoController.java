@@ -3,7 +3,6 @@ package com.hzcf.platform.api.controller;
 import com.hzcf.platform.api.annotation.RequestAttribute;
 import com.hzcf.platform.api.annotation.RequestBodyForm;
 import com.hzcf.platform.api.annotation.biz.Check;
-import com.hzcf.platform.api.annotation.biz.CheckString;
 import com.hzcf.platform.api.aop.RequestValidation;
 import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.config.BaseConfig;
@@ -13,11 +12,9 @@ import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.core.user.model.UserImageVO;
 import com.hzcf.platform.core.user.model.UserVO;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
-import java.util.List;
 
 /**
  * Created by leijiaming on 2017/1/9 0009.
@@ -43,11 +40,21 @@ public class ApplyImgUrInfoController {
         logger.i("进入图片查询接口--applyId："+applyId);
         return applyImgUrInfoUrlService.queryImgByApplyId(applyId);
     }
-    @RequestMapping(value={"rest/api/100/saveImgByApplyId/{applyId}","api/100/saveImgByApplyId/{applyId}"},method= RequestMethod.POST)
+
+    /**
+     * APP 补充资料接口
+     * @param user
+     * @param applyId
+     * @param checkSource  审核源：8=信审  6=综合业务平台
+     * @param userImageVO
+     * @return
+     */
+    @RequestMapping(value={"rest/api/100/saveImgByApplyId/{applyId}/{checkSource}","api/100/saveImgByApplyId/{applyId}/{checkSource}"},method= RequestMethod.POST)
     public BackResult saveImgByApplyId(@RequestAttribute(BaseConfig.USER_TYPE) UserVO user,
-                                       @PathVariable String applyId,
+                                       @PathVariable String applyId, @PathVariable String checkSource,
                                        @RequestBody @Check UserImageForm userImageVO){
-        return applyImgUrInfoUrlService.saveImgByApplyId(user,applyId, userImageVO.getUserImageVO());
+        logger.i("进入补充资料接口--applyId："+applyId);
+        return applyImgUrInfoUrlService.saveImgByApplyId(user,applyId,checkSource, userImageVO.getUserImageVO());
 
     }
 
