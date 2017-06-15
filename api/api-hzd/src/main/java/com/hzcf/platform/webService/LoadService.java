@@ -378,7 +378,7 @@ public class LoadService    {
 	 * 线下和调度对接， 补充资料接口
 	 * @param patchBoltImage
 	 * @param borrowerId
-	 * @param checkSource
+	 * @param checkSource 审核源：8=信审  6=综合业务平台
 	 * @return
 	 */
 	public static String applyPatchBolt(List<PatchBoltImage>  patchBoltImage,String borrowerId, String checkSource){
