@@ -1,30 +1,20 @@
 package com.hzcf.platform.mgr.sys.service.impl;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-
+import com.hzcf.platform.common.util.log.Log;
+import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.core.user.model.*;
+import com.hzcf.platform.core.user.service.*;
+import com.hzcf.platform.mgr.sys.common.util.DictBase;
+import com.hzcf.platform.mgr.sys.service.IApplyDetailService;
+import com.hzcf.platform.mgr.sys.util.ConstantsDictionary;
+import com.hzcf.platform.mgr.sys.util.CustomerUtils;
 import org.apache.commons.collections.map.HashedMap;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.hzcf.platform.common.util.log.Log;
-import com.hzcf.platform.common.util.rpc.result.Result;
-import com.hzcf.platform.core.user.model.UserApplyInfoVO;
-import com.hzcf.platform.core.user.model.UserImageVO;
-import com.hzcf.platform.core.user.model.UserInfoVO;
-import com.hzcf.platform.core.user.model.UserRelationVO;
-import com.hzcf.platform.core.user.model.UserVO;
-import com.hzcf.platform.core.user.service.DictUtilService;
-import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
-import com.hzcf.platform.core.user.service.UserImageService;
-import com.hzcf.platform.core.user.service.UserInfoService;
-import com.hzcf.platform.core.user.service.UserRelationService;
-import com.hzcf.platform.core.user.service.UserService;
-import com.hzcf.platform.mgr.sys.service.IApplyDetailService;
-import com.hzcf.platform.mgr.sys.util.ConstantsDictionary;
-import com.hzcf.platform.mgr.sys.util.CustomerUtils;
-import com.hzcf.platform.mgr.sys.common.util.DictBase;
+import java.util.Date;
+import java.util.List;
+import java.util.Map;
 
 @Service
 public class ApplyDetailServiceImpl implements IApplyDetailService {
@@ -268,6 +258,7 @@ public class ApplyDetailServiceImpl implements IApplyDetailService {
 		Map<String, Object> parmMap = new HashedMap();
 		parmMap.put("applyId", userApplyInfo.getApplyId());
 		parmMap.put("type", 1);
+		parmMap.put("userId", userApplyInfo.getUserId());
 		Result<List<UserImageVO>> userImageList = userImageService.selectUserImageByApplyIdAndType(parmMap);
 		List<UserImageVO> userImageVOList = userImageList.getItems();
 
