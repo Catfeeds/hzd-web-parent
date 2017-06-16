@@ -61,5 +61,11 @@ public class MsgBoxDaoImpl  extends AbstractMysqlBaseDaoImpl<MsgBox> implements 
 		sqlSessionTemplate.insert(this.getSqlName("insertSelective"), msgBox);
 		return true;
 	}
+
+	@Override
+	public boolean updateCheckPassByUserId(MsgBox msgBox){
+		sqlSessionTemplate.update(this.getSqlName("updateCheckPassByUserId"), msgBox);
+		return true;
+	}
     
 }

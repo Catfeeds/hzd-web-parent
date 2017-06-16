@@ -1,19 +1,23 @@
 package com.hzcf.platform.api.service.impl;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.servlet.http.HttpServletRequest;
-
 import com.hzcf.platform.api.annotation.LogAnnotation;
+import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
+import com.hzcf.platform.api.common.BackResult;
 import com.hzcf.platform.api.config.BaseConfig;
+import com.hzcf.platform.api.service.IRealNameService;
+import com.hzcf.platform.api.util.CustomerUtils;
+import com.hzcf.platform.api.util.ImageUrlUtil;
+import com.hzcf.platform.common.util.log.Log;
+import com.hzcf.platform.common.util.rpc.result.Result;
+import com.hzcf.platform.common.util.status.StatusCodes;
+import com.hzcf.platform.common.util.utils.ServiceUtil;
+import com.hzcf.platform.common.util.uuid.UUIDGenerator;
+import com.hzcf.platform.core.user.model.UserImageVO;
+import com.hzcf.platform.core.user.model.UserVO;
+import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
+import com.hzcf.platform.core.user.service.UserImageService;
+import com.hzcf.platform.core.user.service.UserService;
 import com.imageserver.ImageServer;
-
 import org.apache.commons.collections.map.HashedMap;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,21 +26,10 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.commons.CommonsMultipartResolver;
 
-import com.hzcf.platform.api.baseEnum.HzdStatusCodeEnum;
-import com.hzcf.platform.api.common.BackResult;
-import com.hzcf.platform.api.service.IRealNameService;
-import com.hzcf.platform.api.util.ImageUrlUtil;
-import com.hzcf.platform.common.util.log.Log;
-import com.hzcf.platform.common.util.rpc.result.Result;
-import com.hzcf.platform.common.util.status.StatusCodes;
-import com.hzcf.platform.common.util.utils.JudgeNumberLegal;
-import com.hzcf.platform.common.util.utils.ServiceUtil;
-import com.hzcf.platform.common.util.uuid.UUIDGenerator;
-import com.hzcf.platform.core.user.model.UserImageVO;
-import com.hzcf.platform.core.user.model.UserVO;
-import com.hzcf.platform.core.user.service.UserApplyInfoSerivce;
-import com.hzcf.platform.core.user.service.UserImageService;
-import com.hzcf.platform.core.user.service.UserService;
+import javax.servlet.http.HttpServletRequest;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
   * @Description:实名认证的操作
@@ -142,7 +135,7 @@ public class RealNameServiceImpl implements IRealNameService {
          *1、“姓名”“身份证号”是否符合正则表达式的要求
          *2、“姓名”“身份证号”是否真实存在，是否对应（第2点暂时不做）
          */
-        if(StringUtils.isBlank(realName) || !JudgeNumberLegal.isNameString(realName)){
+        if(StringUtils.isBlank(realName) || !CustomerUtils.isNameString(realName)){		//!JudgeNumberLegal.isNameString(realName)
         	//返回“保存失败”，用户的“真实姓名”不符合要求，null
 			logger.i("实名认证保存失败:用户传入姓名不合法,realName:"+realName);
         	return new BackResult(HzdStatusCodeEnum.HZD_CODE_1031.getCode(),HzdStatusCodeEnum.HZD_CODE_1031.getMsg(),null);

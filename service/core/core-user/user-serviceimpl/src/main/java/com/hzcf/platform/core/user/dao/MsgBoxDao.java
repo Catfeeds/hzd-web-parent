@@ -23,5 +23,6 @@ public interface MsgBoxDao extends IBaseDao<MsgBox> {
      */
     public boolean updateReadByUserIdStatus(Map<String, Object> parmMap);
     public boolean insertSelective(MsgBox msgBox);
+    public boolean updateCheckPassByUserId(MsgBox msgBox);
 
 }

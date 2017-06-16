@@ -30,6 +30,9 @@ public class JpushClientUtil {
 
     private static JPushClient jPushClient = new JPushClient(masterSecret,appKey);
 
+    //false表示开发，true表示生产
+    private final static boolean ApnsProduction = true;
+
     /**
      * 推送给设备标识参数的用户
      * @param registrationId 设备标识
@@ -129,7 +132,7 @@ public class JpushClientUtil {
 
                 .setOptions(Options.newBuilder()
                         //此字段的值是用来指定本推送要推送的apns环境，false表示开发，true表示生产；对android和自定义消息无意义
-                        .setApnsProduction(false)
+                        .setApnsProduction(ApnsProduction)
                         //此字段是给开发者自己给推送编号，方便推送者分辨推送记录
                         .setSendno(1)
                         //此字段的值是用来指定本推送的离线保存时长，如果不传此字段则默认保存一天，最多指定保留十天；
@@ -256,7 +259,7 @@ public class JpushClientUtil {
 
                 .setOptions(Options.newBuilder()
                         //此字段的值是用来指定本推送要推送的apns环境，false表示开发，true表示生产；对android和自定义消息无意义
-                        .setApnsProduction(false)
+                        .setApnsProduction(ApnsProduction)
                         //此字段是给开发者自己给推送编号，方便推送者分辨推送记录
                         .setSendno(1)
                         //此字段的值是用来指定本推送的离线保存时长，如果不传此字段则默认保存一天，最多指定保留十天，单位为秒
@@ -321,7 +324,7 @@ public class JpushClientUtil {
 
                 .setOptions(Options.newBuilder()
                         //此字段的值是用来指定本推送要推送的apns环境，false表示开发，true表示生产；对android和自定义消息无意义
-                        .setApnsProduction(false)
+                        .setApnsProduction(ApnsProduction)
                         //此字段是给开发者自己给推送编号，方便推送者分辨推送记录
                         .setSendno(1)
                         //此字段的值是用来指定本推送的离线保存时长，如果不传此字段则默认保存一天，最多指定保留十天；
@@ -361,7 +364,7 @@ public class JpushClientUtil {
 
                 .setOptions(Options.newBuilder()
                         //此字段的值是用来指定本推送要推送的apns环境，false表示开发，true表示生产；对android和自定义消息无意义
-                        .setApnsProduction(false)
+                        .setApnsProduction(ApnsProduction)
                         //此字段是给开发者自己给推送编号，方便推送者分辨推送记录
                         .setSendno(1)
                         //此字段的值是用来指定本推送的离线保存时长，如果不传此字段则默认保存一天，最多指定保留十天，单位为秒
@@ -407,7 +410,7 @@ public class JpushClientUtil {
 
                 .setOptions(Options.newBuilder()
                         //此字段的值是用来指定本推送要推送的apns环境，false表示开发，true表示生产；对android和自定义消息无意义
-                        .setApnsProduction(false)
+                        .setApnsProduction(ApnsProduction)
                         //此字段是给开发者自己给推送编号，方便推送者分辨推送记录
                         .setSendno(1)
                         //此字段的值是用来指定本推送的离线保存时长，如果不传此字段则默认保存一天，最多指定保留十天，单位为秒

@@ -5,6 +5,8 @@ import com.hzcf.platform.common.util.utils.ServiceUtil;
 import org.apache.commons.lang3.StringUtils;
 
 import java.util.Date;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 /**
  * Created by leijiaming on 2017/1/5 0005.
@@ -84,4 +86,54 @@ public class CustomerUtils {
             }
         }
     }
+
+/*    public static boolean isNameString(String num) {
+        Pattern p = Pattern.compile("^[\\u4e00-\\u9fa5]{2,6}+$");
+        Matcher m = p.matcher(num);
+        return m.matches();
+    }*/
+
+    /** 用于判断用户名是否合格*/
+    public static boolean isNameString(String num){
+        int count1 = verfy(num);//中文点的个数
+        int count2 = verfy1(num);//英文点的个数
+        int  countSum = count1+count2;
+        if(countSum>1){
+            return false;
+        }
+        String pattern = "^[\\u4e00-\\u9fa5·•]{2,10}";
+        Pattern p = Pattern.compile(pattern);
+        Matcher m = p.matcher(num);
+
+        return m.matches();
+
+    }
+    //判断英文点的方法
+    public static int verfy1(String content){
+        String ss = "·";//中文点
+        int contentLenght = content.length();
+        String s1 = content.replaceAll(ss,"");
+        int replaceLenght = s1.length();
+        return contentLenght-replaceLenght;
+
+    }
+    //判断中文点的方法
+    public static int verfy(String content){
+        String ss = "•";//中文点
+        int contentLenght = content.length();
+        String s1 = content.replaceAll(ss,"");
+        int replaceLenght = s1.length();
+        return contentLenght-replaceLenght;
+
+    }
+
+    public static void main(String a[]){
+        String realName = "世界你来看•世界你来";
+        if(!CustomerUtils.isNameString(realName)){
+            System.out.println("实名认证保存失败:用户传入姓名不合法,realName:"+realName);
+        }else{
+            System.out.println("名称正确");
+        }
+    }
+
 }

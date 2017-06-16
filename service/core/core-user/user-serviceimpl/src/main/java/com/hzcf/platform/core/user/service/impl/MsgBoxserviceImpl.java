@@ -119,4 +119,17 @@ public class MsgBoxserviceImpl  extends AbstractBaseServiceImpl<MsgBoxVO,MsgBox>
 			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
 		}
 	}
+
+	@Override
+	public Result<Boolean> updateCheckPassByUserId(MsgBoxVO msgBoxVO){
+		try {
+			MsgBox msgBox = this.toDO(msgBoxVO);
+			msgBoxDao.updateCheckPassByUserId(msgBox);
+
+			return new Result<Boolean>(StatusCodes.OK, true);
+		} catch (Exception e) {
+			logger.error("an error occur in updateCheckPassByUserId service : {}", e);
+			return new Result<Boolean>(StatusCodes.INTERNAL_SERVER_ERROR, false);
+		}
+	}
 }

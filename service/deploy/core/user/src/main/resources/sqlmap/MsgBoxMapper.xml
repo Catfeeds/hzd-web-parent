@@ -152,4 +152,11 @@
     set status = 1
     where user_id = #{userId,jdbcType=VARCHAR} and  msg_type =#{checkSource,jdbcType=VARCHAR}
   </update>
+
+  <update id="updateCheckPassByUserId" parameterType="MsgBox" >
+    update msg_box
+    set status = 2
+    where status = 3 and user_id = #{userId,jdbcType=VARCHAR}
+  </update>
+
 </mapper>

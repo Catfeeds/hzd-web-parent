@@ -51,7 +51,7 @@
     
   <!-- 根据运单号（apply_id），图片类型（type），查询图片集合 -->
   <!-- 2017.4.14  type字段 = 是否是补充图片  0=不是  1=是 -->
-  <!-- 2017.6.15  用户图片create_time 大于 站内信 补充资料 create_time -->
+  <!-- 2017.6.15  用户图片create_time 大于 最后一条站内信 补充资料 create_time -->
   <select id="selectUserImageByApplyIdAndType" resultMap="BaseResultMapVO" parameterType="java.util.Map">
        select
        <include refid="Base_Column_List" />

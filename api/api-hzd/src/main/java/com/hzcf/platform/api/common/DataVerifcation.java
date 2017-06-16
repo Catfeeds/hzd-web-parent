@@ -1,17 +1,16 @@
 package com.hzcf.platform.api.common;
 
+import com.hzcf.platform.api.util.CustomerUtils;
+import com.hzcf.platform.common.exception.CheckException;
 import com.hzcf.platform.common.util.json.parser.JsonUtil;
+import com.hzcf.platform.common.util.utils.JudgeNumberLegal;
+import com.hzcf.platform.common.util.utils.ServiceUtil;
 import com.hzcf.platform.core.user.model.UserApplyInfoVO;
 import com.hzcf.platform.core.user.model.UserInfoVO;
 import com.hzcf.platform.core.user.model.UserRelationVO;
 import com.hzcf.platform.core.user.model.UserVO;
 import org.apache.commons.lang3.StringUtils;
 
-import com.hzcf.platform.common.exception.CheckException;
-import com.hzcf.platform.common.util.utils.JudgeNumberLegal;
-import com.hzcf.platform.common.util.utils.ServiceUtil;
-
-import javax.xml.crypto.Data;
 import java.util.List;
 
 /**
@@ -77,8 +76,8 @@ public class DataVerifcation {
 	            throw new CheckException("手机号码输入不合法");
 	        } else if (StringUtils.isBlank(idCard) || !ServiceUtil.validateIdNo(idCard)) {
 	            throw new CheckException("身份证号码输入不合法");
-	        } else if (StringUtils.isBlank(name) || !JudgeNumberLegal.isNameString(name)) {
-	            throw new CheckException("用户名输入不合法");
+	        } else if (StringUtils.isBlank(name) || !CustomerUtils.isNameString(name)) {
+	            throw new CheckException("真实姓名请输入2-10位的汉字或·！");
 	        } 
 	    }
 

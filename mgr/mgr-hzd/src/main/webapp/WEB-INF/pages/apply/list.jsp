@@ -105,7 +105,8 @@ function doSearch(){
 
         addStartDate: $('#addStartDate').datebox('getValue'),
         addEndDate: $('#addEndDate').datebox('getValue'),
-        additionalStatus:$("#additionalStatus").combobox('getValue')
+        additionalStatus:$("#additionalStatus").combobox('getValue'),
+        additionalContent:$("#additionalContent").combobox('getValue')
 	});
 }
 
@@ -200,6 +201,12 @@ function anewSubmitApply(det) {
 		<option value="">请选择</option>
 		<option value="0">待补充</option>
 		<option value="1">已补充</option>
+	</select>
+	<span>退回来源:</span>
+	<select id="additionalContent" name="status" class="easyui-combobox" data-options="editable:false,panelHeight:'auto'">
+		<option value="">请选择</option>
+		<option value="信审消息">信审消息</option>
+		<option value="风险管理岗">风险管理岗</option>
 	</select>
 <!-- 	<span>借款状态:</span>
 	<select  class="easyui-combobox" style="width:120px;">
