@@ -286,6 +286,7 @@
             <![CDATA[ and create_time  <= CONCAT(#{apply.endDate},'23:59:59')]]>
         </if>
         <if test="apply.status != null and apply.status != ''">and a.status=#{apply.status}</if>
+        <if test="apply.additionalContent != null and apply.additionalContent != ''">and a.additional_content like CONCAT('%',#{apply.additionalContent},'%')</if>
         <!-- 过滤未提交进件 -->
         and a.status != '0'
     </sql>

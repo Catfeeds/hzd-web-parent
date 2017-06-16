@@ -39,6 +39,13 @@ public interface MsgBoxservice extends IBaseService<MsgBoxVO> {
 	 * @return
 	 */
 	public Result<Boolean> insertSelective(MsgBoxVO msgBoxVO);
+
+	/**
+	 * 修改之前未通过的站内信状态
+	 * @param msgBoxVO
+	 * @return
+	 */
+	public Result<Boolean> updateCheckPassByUserId(MsgBoxVO msgBoxVO);
 }
 
 

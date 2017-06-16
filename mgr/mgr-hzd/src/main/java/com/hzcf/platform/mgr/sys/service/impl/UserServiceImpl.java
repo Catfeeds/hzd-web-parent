@@ -237,6 +237,12 @@ public class UserServiceImpl implements IUserService {
 						"尊敬的用户，您在"+DateUtil.formatDate3(new Date())
 								+"提交的实名认证申请已通过。","汇中贷消息标题", "汇中贷消息内容",
 						JsonUtil.json2String(jsonmap));
+
+				//修改之前未通过的站内信状态
+				Result<Boolean> passresult = msgBoxservice.updateCheckPassByUserId(msgBoxVO);
+				if(StatusCodes.OK ==passresult.getStatus()){
+					logger.e("MsgBox 修改之前未通过的站内信状态成功。");
+				}
 			}
 		}
 		user.setId(result.getItems().getId());
