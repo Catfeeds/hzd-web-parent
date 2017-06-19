@@ -29,6 +29,6 @@ public class MainTest {
         System.out.println("结果：：：" + JpushClientUtil.sendToAliasId("bbb4d955fe544a2593576ab6d601390c",
                 "汇中贷消息","汇中贷消息", "尊敬的用户，您在"+ DateUtil.getDate()
                         +"提交的线上进件图片资料有部分不正确,需要重新上传补充.",
-                JsonUtil.json2String(jsonmap)));
+                jsonmap));
     }
 }
