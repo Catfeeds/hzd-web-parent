@@ -98,6 +98,15 @@ function doExport(){
 	 $("#searchForm").attr("method", "POST");
 	 $("#searchForm").submit();
 }
+function rest(){
+    $('#mobile').val('');
+    $('#name').val('');
+    $('#idCard').val('');
+
+    $('#subStartDate').datebox("setValue", '');
+    $('#subEndDate').datebox("setValue", '');
+    $("#checkStatus").combobox("setValue", '');
+}
 </script>
 
 </head>
@@ -127,6 +136,7 @@ function doExport(){
 	
 	<div class="btnDiv">
 		<span align="center"><a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-search"  onclick="doSearch()">查询</a></span>
+		<span align="center"><a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-reload" onclick="rest()">重置</a></span>
 		<span align="center"><a href="javascript:void(0);" class="easyui-linkbutton" iconCls="icon-save"  onclick="doExport()">导出Excel</a></span>
 	</div>
 	</form>
