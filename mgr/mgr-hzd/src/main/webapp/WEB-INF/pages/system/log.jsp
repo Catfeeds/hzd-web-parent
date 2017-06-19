@@ -22,17 +22,19 @@ $(function(){
 		    }  
 			},
 		   {field:'logId',title:'logId',width:10,hidden:true},
-		   {field:'applyId',title:'申请单号',width:100,formatter:function(value){
+		   {field:'applyId',title:'申请单号',width:90,formatter:function(value){
 			   return removeHTMLTag(value);
 		   }},
-			{field:'idCard',title:'身份证号',width:100,formatter:function(value){
+			{field:'idCard',title:'身份证号',width:80,formatter:function(value){
 				return removeHTMLTag(value);
 			}},
-			{field:'returnContent',title:'信息反馈',width:180,formatter:function(value){
-				return removeHTMLTag(value);
+			{field:'returnContent',title:'信息反馈',width:320,formatter:function(value){
+                if(value != null){
+                    return "<span title='" + removeHTMLTag(value) + "'>" + removeHTMLTag(value) + "</span>";
+                }
 			}},
 			{field:'returnTime',title:'提交时间',width:80,formatter:formatDateBoxFull},
-			{field:'applyType',title:'类型',width:80,formatter:function(value){
+			{field:'applyType',title:'类型',width:30,formatter:function(value){
 		    	if(value=="0"){
 		    		return "通过";
 		    	}
