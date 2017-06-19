@@ -2,7 +2,6 @@ package com.hzcf.platform.webService.model;
 
 import com.hzcf.platform.api.util.DateUtil;
 import com.hzcf.platform.api.util.JpushClientUtil;
-import com.hzcf.platform.common.util.json.parser.JsonUtil;
 
 import java.util.HashMap;
 import java.util.Map;
