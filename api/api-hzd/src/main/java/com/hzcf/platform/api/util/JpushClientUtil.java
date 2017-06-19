@@ -16,10 +16,6 @@ import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.common.util.log.Log;
 
 /**
- * Created by zhangmx on 2017/6/9.
- */
-
-/**
  * 推送工具类
  */
 public class JpushClientUtil {
@@ -94,7 +90,7 @@ public class JpushClientUtil {
                                 .setAlert(notification_title)
                                 .setTitle(notification_title)
                                 //此字段为透传字段，不会显示在通知栏。用户可以通过此字段来做一些定制需求，如特定的key传要指定跳转的页面（value）
-                                .addExtra("androidNotification extras key",extrasparam)
+                                .addExtra("androidNotification",extrasparam)
 
                                 .build())
                         //指定当前推送的iOS通知
@@ -108,7 +104,7 @@ public class JpushClientUtil {
                                 // 如果系统没有此音频则以系统默认声音提醒；此字段如果传空字符串，iOS9及以上的系统是无声音提醒，以下的系统是默认声音
                                 .setSound("sound.caf")
                                 //此字段为透传字段，不会显示在通知栏。用户可以通过此字段来做一些定制需求，如特定的key传要指定跳转的页面（value）
-                                .addExtra("iosNotification extras key",extrasparam)
+                                .addExtra("iosNotification",extrasparam)
                                 //此项说明此推送是一个background推送，想了解background看：http://docs.jpush.io/client/ios_tutorials/#ios-7-background-remote-notification
                                 //取消此注释，消息推送时ios将无法在锁屏情况接收
                                 // .setContentAvailable(true)
@@ -227,7 +223,7 @@ public class JpushClientUtil {
                                 .setAlert(notification_title)
                                 .setTitle(notification_title)
                                 //此字段为透传字段，不会显示在通知栏。用户可以通过此字段来做一些定制需求，如特定的key传要指定跳转的页面（value）
-                                .addExtra("androidNotification extras key",extrasparam)
+                                .addExtra("androidNotification",extrasparam)
                                 .build()
                         )
                         .addPlatformNotification(IosNotification.newBuilder()
@@ -240,7 +236,7 @@ public class JpushClientUtil {
                                 // 如果系统没有此音频则以系统默认声音提醒；此字段如果传空字符串，iOS9及以上的系统是无声音提醒，以下的系统是默认声音
                                 .setSound("sound.caf")
                                 //此字段为透传字段，不会显示在通知栏。用户可以通过此字段来做一些定制需求，如特定的key传要指定跳转的页面（value）
-                                .addExtra("iosNotification extras key",extrasparam)
+                                .addExtra("iosNotification",extrasparam)
                                 //此项说明此推送是一个background推送，想了解background看：http://docs.jpush.io/client/ios_tutorials/#ios-7-background-remote-notification
                                 // .setContentAvailable(true)
 
@@ -286,7 +282,7 @@ public class JpushClientUtil {
                                 .setAlert(notification_title)
                                 .setTitle(notification_title)
                                 //此字段为透传字段，不会显示在通知栏。用户可以通过此字段来做一些定制需求，如特定的key传要指定跳转的页面（value）
-                                .addExtra("androidNotification extras key",extrasparam)
+                                .addExtra("androidNotification",extrasparam)
 
                                 .build())
                         //指定当前推送的iOS通知
@@ -300,7 +296,7 @@ public class JpushClientUtil {
                                 // 如果系统没有此音频则以系统默认声音提醒；此字段如果传空字符串，iOS9及以上的系统是无声音提醒，以下的系统是默认声音
                                 .setSound("sound.caf")
                                 //此字段为透传字段，不会显示在通知栏。用户可以通过此字段来做一些定制需求，如特定的key传要指定跳转的页面（value）
-                                .addExtra("iosNotification extras key",extrasparam)
+                                .addExtra("iosNotification",extrasparam)
                                 //此项说明此推送是一个background推送，想了解background看：http://docs.jpush.io/client/ios_tutorials/#ios-7-background-remote-notification
                                 //取消此注释，消息推送时ios将无法在锁屏情况接收
                                 // .setContentAvailable(true)
@@ -349,7 +345,7 @@ public class JpushClientUtil {
                                 .setAlert(notification_title)
                                 .setTitle(notification_title)
                                 //此字段为透传字段，不会显示在通知栏。用户可以通过此字段来做一些定制需求，如特定的key传要指定跳转的页面（value）
-                                .addExtra("androidNotification extras key",extrasparam)
+                                .addExtra("androidNotification",extrasparam)
                                 .build())
                         .build()
                 )
@@ -392,7 +388,7 @@ public class JpushClientUtil {
                                 // 如果系统没有此音频则以系统默认声音提醒；此字段如果传空字符串，iOS9及以上的系统是无声音提醒，以下的系统是默认声音
                                 .setSound("sound.caf")
                                 //此字段为透传字段，不会显示在通知栏。用户可以通过此字段来做一些定制需求，如特定的key传要指定跳转的页面（value）
-                                .addExtra("iosNotification extras key",extrasparam)
+                                .addExtra("iosNotification",extrasparam)
                                 //此项说明此推送是一个background推送，想了解background看：http://docs.jpush.io/client/ios_tutorials/#ios-7-background-remote-notification
                                 // .setContentAvailable(true)
 
