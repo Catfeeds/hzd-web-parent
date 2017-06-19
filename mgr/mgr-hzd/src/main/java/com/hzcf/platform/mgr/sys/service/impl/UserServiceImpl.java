@@ -225,7 +225,7 @@ public class UserServiceImpl implements IUserService {
 				JpushClientUtil.sendToAliasId(msgBoxVO.getUserId().replaceAll("-", ""),
 						"尊敬的用户，您在"+DateUtil.formatDate3(new Date())
 								+"提交的实名认证申请未通过，请重新申请。","汇中贷消息标题", "汇中贷消息内容",
-						JsonUtil.json2String(jsonmap));
+						jsonmap);
 			}
 		}
 		if(checkStatus.equals(ConstantsParam.USER_CKECKSTATUS_Y)){		//&&flag==true
@@ -236,7 +236,7 @@ public class UserServiceImpl implements IUserService {
 				JpushClientUtil.sendToAliasId(msgBoxVO.getUserId().replaceAll("-", ""),
 						"尊敬的用户，您在"+DateUtil.formatDate3(new Date())
 								+"提交的实名认证申请已通过。","汇中贷消息标题", "汇中贷消息内容",
-						JsonUtil.json2String(jsonmap));
+						jsonmap);
 
 				//修改之前未通过的站内信状态
 				Result<Boolean> passresult = msgBoxservice.updateCheckPassByUserId(msgBoxVO);

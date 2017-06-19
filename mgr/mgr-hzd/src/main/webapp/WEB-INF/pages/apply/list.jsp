@@ -81,7 +81,7 @@ $(function(){
 		]],
 		title : '进件列表',
 		iconCls : 'icon-ok',
-		fitColumns:true,
+		//fitColumns:true,
 		fit:true,
 		singleSelect:true,
 		pagination:true,//开启分页

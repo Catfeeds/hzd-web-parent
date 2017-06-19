@@ -7,7 +7,6 @@ import com.hzcf.platform.api.config.ConstantsDictionary;
 import com.hzcf.platform.api.service.ImsgBoxBackService;
 import com.hzcf.platform.api.util.DateUtil;
 import com.hzcf.platform.api.util.JpushClientUtil;
-import com.hzcf.platform.common.util.json.parser.JsonUtil;
 import com.hzcf.platform.common.util.log.Log;
 import com.hzcf.platform.common.util.rpc.result.Result;
 import com.hzcf.platform.common.util.status.StatusCodes;
@@ -92,13 +91,13 @@ public class MsgBoxBackServiceImpl implements ImsgBoxBackService {
         logger.i("补充资料回调接口-写入站内信成功--borrowerApplyId：" + borrowerApplyId);
 
         //推送通知
-        Map<String, Object> jsonmap = new HashMap<>();
-        jsonmap.put("tagCode", ConstantsDictionary.JPUSH_MSGBOX_TAGCODE);   //201
-        jsonmap.put("applyId", userApplyInfoVO.getApplyId());
+        Map<String, Object> map = new HashMap<>();
+        map.put("tagCode", ConstantsDictionary.JPUSH_MSGBOX_TAGCODE);   //201
+        map.put("applyId", userApplyInfoVO.getApplyId());
         int res = JpushClientUtil.sendToAliasId(userApplyInfoVO.getUserId().replaceAll("-", ""),
                 "尊敬的用户，您在"+ DateUtil.formatDate3(new Date())
                         +"提交的线上进件图片资料有部分不正确,需要重新上传补充.","汇中贷消息标题", "汇中贷消息内容",
-                JsonUtil.json2String(jsonmap));
+                map);
         if(res != 1){
             logger.i("补充资料回调接口 推送消息 失败----"+userApplyInfoVO.getUserId());
             return new BackResult(HzdStatusCodeEnum.HZD_CODE_7100.getCode(),
