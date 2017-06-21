@@ -25,7 +25,7 @@ $(function(){
 		   {field:'mobile',title:'手机号',width:120,formatter:function(value){
 			   return removeHTMLTag(value);
 		   }},
-			{field:'name',title:'姓名',width:60,formatter:function(value){
+			{field:'name',title:'姓名',width:80,formatter:function(value){
 				return removeHTMLTag(value);
 			}},
 			{field:'idCard',title:'身份证号',width:190,formatter:function(value){

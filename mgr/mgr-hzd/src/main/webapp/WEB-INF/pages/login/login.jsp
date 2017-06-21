@@ -11,7 +11,7 @@
 	<head>
 		<meta charset="utf-8" />
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<title>汇中财富管理系统 </title>
+		<title>汇中贷管理系统 </title>
 		<link href="<%=basePath%>images/favicon.ico" rel="shortcut icon"	type="image/x-icon" />
 		<link href="${path}/css/login.css" type=text/css rel=stylesheet>
 		<script type="text/javascript"	src="<%=basePath%>/script/easyui/js/jquery.min.js"></script>
@@ -107,7 +107,7 @@
 									<tr height=50>
 										<td colspan=5>
 											<span
-												style="font-size: 25px; font-weight: bold; float: right; padding-right: 170px; font-family: Verdana, 微软雅黑, 黑体">汇中财富管理系统</span>
+												style="font-size: 25px; font-weight: bold; float: right; padding-right: 170px; font-family: Verdana, 微软雅黑, 黑体">汇中贷管理系统</span>
 										</td>
 									</tr>
 									<tr height=10>

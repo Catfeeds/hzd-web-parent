@@ -3,7 +3,7 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
-    <title>进件二期后台管理系统</title>
+    <title>汇中贷管理系统</title>
     <%@include file="../common/include.jsp" %>
     <script src="${path}/script/artDialog/jquery.artDialog.js?skin=blue" type="text/javascript"></script>
     <script src="${path}/script/artDialog/plugins/iframeTools.js" type="text/javascript"></script>
@@ -98,7 +98,7 @@
         </span>
     <span style="padding-left:10px; font-size: 16px; ">
         	<img src="${path}/images/blocks.gif" width="20" height="20" align="absmiddle">
-        	进件二期后台管理系统</span>
+        	汇中贷管理系统</span>
 </div>
 
 <!-- 左侧菜单 -->
@@ -131,7 +131,7 @@
         <li>
             <span>系统日志</span>
             <ul>
-                <li><span><a href="javascript:void(0)" onclick="addTab('实名认证列表', '${path}/systemLog')">系统日志</a></span>
+                <li><span><a href="javascript:void(0)" onclick="addTab('系统日志列表', '${path}/systemLog')">系统日志</a></span>
                 </li>
             </ul>
         </li>
