@@ -1,13 +1,13 @@
 {
     "data": {
-        "displayVersion": "2.0.0",
-        "dlurl": "http://10.10.10.139:8081/api-hzd/static/versions/android/app-release.apk",
+        "displayVersion": "2.0.4",
+        "dlurl": "http://10.10.10.139:8081/api-hzd/static/versions/android/hzd_release_v2.0.4_7000_06221812_204_jiagu_sign.apk",
         "notes": [
-            "app名称修改",
+            "添加推送功能,使用户更方便查看站内信",
             "优化用户体验，修复bug"
         ],
-        "size": "5.6M",
-        "version": 3004
+        "size": "6.71M",
+        "version": 7000
     },
     "showMessage": "成功",
     "state": 0
